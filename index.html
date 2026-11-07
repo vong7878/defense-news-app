@@ -268,6 +268,137 @@
                 <button onclick="updateNews()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-medium">ບັນທຶກການແກ້ໄຂ</button>
             </div>
         </div>
+        -300">ກະລຸນາເລືອກຫ້ອງພັກ, ຕື່ມລາຍລະອຽດການອະນາໄມ ແລະ ອັບໂຫຼດຮູບຖ່າຍຢືນຢັນຕົວຕົນຂອງທ່ານ (ຂັ້ນຕ່ຳ 3 ຮູບ) ເພື່ອສົ່ງໃຫ້ Admin ກວດສອບ.</p>
+                    
+                    <div class="space-y-3 pt-2">
+                        <div>
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">ຊື່-ນາມສະກຸນ / ລະຫັດສະມາຊິກ:</label>
+                            <input type="text" id="member-name" placeholder="ປ້ອນຊື່ ຫຼື ຕຳແໜ່ງຂອງທ່ານ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">🏠 ເລືອກຫ້ອງພັກທີ່ຮັບຜິດຊອບອະນາໄມ:</label>
+                            <select id="member-room-number" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-slate-200">
+                                <option value="">-- ກະລຸນາເລືອກຫ້ອງ --</option>
+                                <option value="ຫ້ອງ 104">ຫ້ອງ 104</option>
+                                <option value="ຫ້ອງ 105">ຫ້ອງ 105</option>
+                                <option value="ຫ້ອງ 108">ຫ້ອງ 108</option>
+                                <option value="ຫ້ອງ 109">ຫ້ອງ 109</option>
+                                <option value="ຫ້ອງ 110">ຫ້ອງ 110</option>
+                                <option value="ຫ້ອງ 111">ຫ້ອງ 111</option>
+                                <option value="ຫ້ອງ 112">ຫ້ອງ 112</option>
+                                <option value="ຫ້ອງ 113">ຫ້ອງ 113</option>
+                                <option value="ຫ້ອງ 114">ຫ້ອງ 114</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">ລາຍລະອຽດການອະນາໄມ:</label>
+                            <textarea id="member-task-desc" rows="3" placeholder="ອະທິບາຍຜົນການປະຕິບັດງານ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">📸 ອັບໂຫຼດຮູບຢືນຢັນຕົວຕົນ ແລະ ການອະນາໄມ (ຂັ້ນຕ່ຳ 3 ຮູບ):</label>
+                            <input type="file" id="member-media-files" multiple accept="image/*" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
+                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">ກະລຸນາເລືອກຮູບຖ່າຍຢືນຢັນຢ່າງໜ້ອຍ 3 ຮູບຂຶ້ນໄປ</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-3">
+                        <button onclick="submitMemberReport()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 px-4 rounded-xl transition text-sm shadow-lg">
+                            🚀 ສົ່ງບົດລາຍງານໃຫ້ Admin ກວດສອບ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ປະຫວັດ ແລະ ລາຍການບົດລາຍງານຂອງສະມາຊິກ -->
+                <div class="bg-slate-800/80 backdrop-blur p-5 rounded-2xl border border-slate-700 shadow-xl space-y-4">
+                    <h3 class="font-bold text-emerald-400 text-base">📋 ບົດລາຍງານທັງໝົດຂອງສະມາຊິກ (ສຳລັບ Admin ອະນຸມັດ)</h3>
+                    <div id="member-reports-container" class="space-y-4">
+                        <div class="text-center py-8 text-slate-400">ກຳລັງໂຫຼດລາຍການ...</div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 text-center py-4 text-xs text-slate-500">
+        ລະບົບຂ່າວສານ ແລະ ຕິດຕາມການອະນາໄມ ຈຸປ້ອງກັນ © 2026
+    </footer>
+
+    <!-- MODAL: Share Options -->
+    <div id="share-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl animate-fade-in text-center">
+            <h3 class="text-lg font-bold text-emerald-400">🔗 ແຊໄປຍັງແພລັດຟອມຕ່າງໆ</h3>
+            <p id="share-modal-title" class="text-xs text-slate-300 truncate font-medium"></p>
+            
+            <div class="grid grid-cols-2 gap-3 pt-2">
+                <button onclick="shareToPlatform('facebook')" class="bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition">
+                    <span>📘</span> <span>Facebook</span>
+                </button>
+                <button onclick="shareToPlatform('messenger')" class="bg-sky-600 hover:bg-sky-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition">
+                    <span>💬</span> <span>Messenger</span>
+                </button>
+                <button onclick="shareToPlatform('telegram')" class="bg-blue-500 hover:bg-blue-400 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition">
+                    <span>✈️</span> <span>Telegram</span>
+                </button>
+                <button onclick="shareToPlatform('whatsapp')" class="bg-green-600 hover:bg-green-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition">
+                    <span>🟢</span> <span>WhatsApp</span>
+                </button>
+            </div>
+
+            <div class="pt-2">
+                <button onclick="shareToPlatform('copy')" class="w-full bg-slate-700 hover:bg-slate-600 text-emerald-300 font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition border border-slate-600">
+                    <span>📋</span> <span>ກ໊ອບປີ້ລິ້ງໂພສນີ້ (Copy Link)</span>
+                </button>
+            </div>
+
+            <div class="pt-2">
+                <button onclick="closeShareModal()" class="w-full bg-slate-900 hover:bg-slate-950 text-slate-400 py-2 rounded-xl text-xs">ປິດໜ້າຈໍນີ້</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Add News -->
+    <div id="news-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl animate-fade-in">
+            <h3 class="text-xl font-bold text-emerald-400">ເພີ່ມຂ່າວສານໃໝ່</h3>
+            <div class="space-y-3">
+                <input type="text" id="news-title" placeholder="ຫົວຂໍ້ຂ່າວສານ / ແຈ້ງການ" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
+                <select id="news-category" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-slate-300">
+                    <option value="notice">📢 ແຈ້ງການດ່ວນ</option>
+                    <option value="activity">🎖️ ພາວະກິດ/ກິດຈະກຳ</option>
+                    <option value="security">🔒 ຄວາມປອດໄພ</option>
+                </select>
+                <textarea id="news-content" rows="5" placeholder="ເນື້ອໃນລາຍລະອຽດ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"></textarea>
+            </div>
+            <div class="flex justify-end space-x-3 pt-2">
+                <button onclick="closeNewsModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-xl text-sm">ຍົກເລີກ</button>
+                <button onclick="saveNews()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-medium">ບັນທຶກຂໍ້ມູນ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Edit News -->
+    <div id="edit-news-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl animate-fade-in">
+            <h3 class="text-xl font-bold text-emerald-400">ແກ້ໄຂຂ່າວສານ</h3>
+            <input type="hidden" id="edit-news-id">
+            <div class="space-y-3">
+                <input type="text" id="edit-news-title" placeholder="ຫົວຂໍ້ຂ່າວສານ" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
+                <select id="edit-news-category" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-slate-300">
+                    <option value="notice">📢 ແຈ້ງການດ່ວນ</option>
+                    <option value="activity">🎖️ ພາວະກິດ/ກິດຈະກຳ</option>
+                    <option value="security">🔒 ຄວາມປອດໄພ</option>
+                </select>
+                <textarea id="edit-news-content" rows="5" placeholder="ເນື້ອໃນລາຍລະອຽດ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"></textarea>
+            </div>
+            <div class="flex justify-end space-x-3 pt-2">
+                <button onclick="closeEditNewsModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-xl text-sm">ຍົກເລີກ</button>
+                <button onclick="updateNews()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-medium">ບັນທຶກການແກ້ໄຂ</button>
+            </div>
+        </div>
     </div>
 
     <!-- MODAL: Add Hygiene Task (Admin) -->
