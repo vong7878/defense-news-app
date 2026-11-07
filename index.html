@@ -56,6 +56,8 @@
                     <li><button onclick="switchTab('scoreboard')" id="tab-scoreboard-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 hover:bg-slate-700/60"><span>🏆</span> <span>ຕາຕະລາງຄະແນນແຕ່ລະຫ້ອງ</span></button></li>
                     <li><button onclick="switchTab('cyber')" id="tab-cyber-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>🧹</span> <span>ຕິດຕາມການອະນາໄມ</span></button></li>
                     <li><button onclick="switchTab('member')" id="tab-member-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400"><span>👤</span> <span>ລາຍງານອະນາໄມ (ສະມາຊິກ)</span></button></li>
+                    <!-- Admin Chat Tab (Visible only for Admins) -->
+                    <li id="tab-admin-chat-li" class="hidden"><button onclick="switchTab('admin-chat')" id="tab-admin-chat-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-400 font-bold bg-sky-500/10 border border-sky-500/30"><span>💬</span> <span>ແຊັດລົມວຽກ Admin (4 ຄົນ)</span></button></li>
                 </ul>
             </div>
 
@@ -245,6 +247,31 @@
                 </div>
             </div>
 
+            <!-- SECTION 6: Admin Private Chat (4 Admins Only) -->
+            <div id="section-admin-chat" class="space-y-4 hidden animate-fade-in">
+                <div class="bg-gradient-to-r from-sky-950/90 via-slate-800/90 to-emerald-950/90 p-5 rounded-2xl border border-sky-500/40 shadow-xl flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-bold text-sky-400 flex items-center space-x-2"><span>💬</span> <span>ຫ້ອງແຊັດລົມວຽກ Admin (ຜູ້ສ້າງ ແລະ Admin ຮອງ 1, 2, 3)</span></h2>
+                        <p class="text-xs text-slate-300 mt-0.5">ພື້ນທີ່ສຳລັບ Admin ທັງ 4 ຄົນ ປຶກສາ ແລະ ສື່ສານກันภายใน</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-700 rounded-2xl shadow-xl flex flex-col h-[550px] p-4">
+                    <!-- Message Feed Container -->
+                    <div id="admin-chat-messages" class="flex-grow overflow-y-auto space-y-3 pr-2 scrollbar-thin">
+                        <div class="text-center py-12 text-slate-400">ກຳລັງໂຫຼດຂໍ້ຄວາມ...</div>
+                    </div>
+
+                    <!-- Input Box -->
+                    <div class="pt-3 border-t border-slate-700 flex gap-2">
+                        <input type="text" id="admin-chat-input" onkeydown="if(event.key==='Enter') sendAdminMessage()" placeholder="ພิมพ์ຂໍ້ຄວາມສົນທະນາວຽກ..." class="flex-grow bg-slate-900 border border-slate-700 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-sky-500 text-slate-100">
+                        <button onclick="sendAdminMessage()" class="bg-sky-600 hover:bg-sky-500 text-white font-medium px-5 py-3 rounded-xl transition text-sm shadow-lg flex items-center space-x-1">
+                            <span>📤</span> <span>ສົ່ງ</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         </section>
     </main>
 
@@ -392,7 +419,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, setDoc, runTransaction, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, setDoc, runTransaction, increment, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCiD4zPW-iNzSM6iMP8A4EmaxHInxB0Z9k",
@@ -421,8 +448,8 @@
         let allCyberTasks = [];
         let allMemberReports = [];
         let currentShareData = { title: '', text: '', url: '' };
+        let chatUnsubscribe = null;
 
-        // PIN ລະຫັດຜ່ານສຳລັບ Admin ຮອງ 3 ຄົນ (ສາມາດປ່ຽນແປງໄດ້ຕາມຕ້ອງການ)
         const subAdminPins = {
             "SUB_ADMIN_1": "1234",
             "SUB_ADMIN_2": "5678",
@@ -435,7 +462,6 @@
             updateLiveClock();
             setInterval(updateLiveClock, 1000);
             
-            // Periodically check if another device logged into the same sub-admin account
             setInterval(verifySubAdminSession, 10000);
         });
 
@@ -456,6 +482,10 @@
                     console.error(e);
                 }
             }
+        }
+
+        function isSuperAdmin() {
+            return currentRoomUser && currentRoomUser.includes('ຜູ້ສ້າງ:');
         }
 
         // 🕒 Realtime Clock Function
@@ -496,6 +526,7 @@
             const adminBox = document.getElementById('admin-panel-box');
             const roomModal = document.getElementById('room-login-modal');
             const roomDisplay = document.getElementById('member-room-display');
+            const adminChatLi = document.getElementById('tab-admin-chat-li');
 
             if (currentRoomUser) {
                 roomModal.classList.add('hidden');
@@ -511,13 +542,19 @@
 
                 if (userRole === 'admin') {
                     adminBox.classList.remove('hidden');
+                    if (adminChatLi) adminChatLi.classList.remove('hidden');
+                    listenAdminChat();
                 } else {
                     adminBox.classList.add('hidden');
+                    if (adminChatLi) adminChatLi.classList.add('hidden');
+                    if (chatUnsubscribe) { chatUnsubscribe(); chatUnsubscribe = null; }
                 }
             } else {
                 roomModal.classList.remove('hidden');
                 authNav.innerHTML = `<span class="text-xs text-amber-400 font-semibold">⚠️ ກະລຸນາເລືອກຫ້ອງກ່ອນ</span>`;
                 adminBox.classList.add('hidden');
+                if (adminChatLi) adminChatLi.classList.add('hidden');
+                if (chatUnsubscribe) { chatUnsubscribe(); chatUnsubscribe = null; }
             }
 
             loadNews();
@@ -567,13 +604,11 @@
                 const adminName = val === 'SUB_ADMIN_1' ? 'Admin ຮອງ 1' : val === 'SUB_ADMIN_2' ? 'Admin ຮອງ 2' : 'Admin ຮອງ 3';
 
                 try {
-                    // Check and enforce 1 device per sub-admin session in Firestore
                     const docRef = doc(db, "admin_sessions", val);
                     const docSnap = await getDoc(docRef);
 
                     if (docSnap.exists()) {
                         const data = docSnap.data();
-                        // If active session exists on another device recently (e.g. within 2 hours)
                         const lastActive = data.timestamp ? data.timestamp.toMillis() : 0;
                         const nowTime = Date.now();
                         if (data.deviceId !== deviceSessionId && (nowTime - lastActive < 7200000)) {
@@ -582,7 +617,6 @@
                         }
                     }
 
-                    // Register this device session
                     await setDoc(docRef, {
                         deviceId: deviceSessionId,
                         timestamp: new Date()
@@ -621,7 +655,6 @@
             currentRoomUser = null;
             userRole = 'user';
             
-            // Reset form states
             document.getElementById('login-room-select').value = "";
             document.getElementById('admin-auth-fields').classList.add('hidden');
             document.getElementById('sub-admin-fields').classList.add('hidden');
@@ -636,12 +669,14 @@
             const scoreboardSec = document.getElementById('section-scoreboard');
             const cyberSec = document.getElementById('section-cyber');
             const memberSec = document.getElementById('section-member');
+            const adminChatSec = document.getElementById('section-admin-chat');
             
             const newsBtn = document.getElementById('tab-news-btn');
             const scoreSummaryBtn = document.getElementById('tab-score-summary-btn');
             const scoreboardBtn = document.getElementById('tab-scoreboard-btn');
             const cyberBtn = document.getElementById('tab-cyber-btn');
             const memberBtn = document.getElementById('tab-member-btn');
+            const adminChatBtn = document.getElementById('tab-admin-chat-btn');
             const catBox = document.getElementById('news-categories-box');
 
             newsSec.classList.add('hidden');
@@ -649,12 +684,14 @@
             scoreboardSec.classList.add('hidden');
             cyberSec.classList.add('hidden');
             memberSec.classList.add('hidden');
+            if(adminChatSec) adminChatSec.classList.add('hidden');
             
             newsBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
             scoreSummaryBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-amber-300";
             scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
             cyberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
             memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400";
+            if(adminChatBtn) adminChatBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-400 font-bold bg-sky-500/10 border border-sky-500/30";
 
             if (tab === 'news') {
                 newsSec.classList.remove('hidden');
@@ -680,6 +717,70 @@
                 memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2 text-emerald-400";
                 catBox.classList.add('hidden');
                 loadMemberReports();
+            } else if (tab === 'admin-chat') {
+                if (userRole !== 'admin') {
+                    alert('⚠️ ສຳລັບ Admin ເທົ່ານັ້ນ!');
+                    return;
+                }
+                adminChatSec.classList.remove('hidden');
+                adminChatBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-sky-600/35 text-sky-300 font-bold transition duration-200 flex items-center space-x-2 border border-sky-500/50";
+                catBox.classList.add('hidden');
+            }
+        };
+
+        // --- Admin Chat Realtime Logic ---
+        function listenAdminChat() {
+            if (chatUnsubscribe) chatUnsubscribe();
+            const q = query(collection(db, "admin_chats"), orderBy("timestamp", "asc"));
+            chatUnsubscribe = onSnapshot(q, (snapshot) => {
+                const container = document.getElementById('admin-chat-messages');
+                if (!container) return;
+
+                if (snapshot.empty) {
+                    container.innerHTML = `<div class="text-center py-12 text-slate-500">ຍັງບໍ່ມີຂໍ້ຄວາມສົນທະນາ. ເລີ່ມສົນທະນາກັນເລີຍ!</div>`;
+                    return;
+                }
+
+                let html = '';
+                snapshot.forEach((docSnap) => {
+                    const msg = docSnap.data();
+                    const isMe = msg.sender === currentRoomUser;
+                    html += `
+                        <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'} animate-fade-in">
+                            <span class="text-[10px] text-slate-400 mb-1 px-1">${msg.sender} (${msg.time || ''})</span>
+                            <div class="max-w-[75%] px-4 py-2.5 rounded-2xl text-sm ${isMe ? 'bg-sky-600 text-white rounded-br-none shadow-lg' : 'bg-slate-700 text-slate-100 rounded-bl-none border border-slate-600'}">
+                                ${msg.text}
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+                container.scrollTop = container.scrollHeight;
+            }, (error) => {
+                console.error("Chat error:", error);
+            });
+        }
+
+        window.sendAdminMessage = async () => {
+            const input = document.getElementById('admin-chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            if (userRole !== 'admin') {
+                alert('⚠️ ຂໍອະໄພ! ສະເພາະ Admin ເທົ່ານັ້ນທີ່ມີສິດສົ່ງຂໍ້ຄວາມ.');
+                return;
+            }
+
+            try {
+                input.value = '';
+                await addDoc(collection(db, "admin_chats"), {
+                    sender: currentRoomUser,
+                    text: text,
+                    time: new Date().toLocaleTimeString('lo-LA', { hour: '2-digit', minute: '2-digit' }),
+                    timestamp: new Date()
+                });
+            } catch (err) {
+                alert('ສົ່ງຂໍ້ຄວາມຜິດພາດ: ' + err.message);
             }
         };
 
@@ -914,7 +1015,7 @@
                                     <span>🔗</span> <span>ແຊ (Share)</span>
                                 </button>
                             </div>
-                            ${userRole === 'admin' ? `
+                            ${userRole === 'admin' && isSuperAdmin() ? `
                                 <div class="flex space-x-2">
                                     <button onclick="openEditNewsModal('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.category}', '${item.content.replace(/'/g, "\\'").replace(/\n/g, '\\n')}')" class="text-xs bg-amber-600 hover:bg-amber-500 px-3 py-1.5 rounded-lg text-white font-medium transition flex items-center space-x-1"><span>✏️</span> <span>ແກ້ໄຂຂ່າວ</span></button>
                                     <button onclick="deleteNewsItem('${item.id}')" class="text-xs bg-red-950 hover:bg-red-900 px-3 py-1.5 rounded-lg text-red-300 transition">ລົບ</button>
@@ -988,10 +1089,20 @@
             if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
         };
 
-        window.openNewsModal = () => document.getElementById('news-modal').classList.remove('hidden');
+        window.openNewsModal = () => {
+            if (!isSuperAdmin()) {
+                alert('⚠️ ຂໍອະໄພ! Admin ຮອງບໍ່ມີສິດເພີ່ມ/ແກ້ໄຂ/ລົບຂ່າວສານ ຕ້ອງຜ່ານຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ.');
+                return;
+            }
+            document.getElementById('news-modal').classList.remove('hidden');
+        };
         window.closeNewsModal = () => document.getElementById('news-modal').classList.add('hidden');
         
         window.openEditNewsModal = (id, title, category, content) => {
+            if (!isSuperAdmin()) {
+                alert('⚠️ ຂໍອະໄພ! Admin ຮອງບໍ່ມີສິດແກ້ໄຂຂ່າວສານ.');
+                return;
+            }
             document.getElementById('edit-news-id').value = id;
             document.getElementById('edit-news-title').value = title;
             document.getElementById('edit-news-category').value = category;
@@ -1001,6 +1112,10 @@
         window.closeEditNewsModal = () => document.getElementById('edit-news-modal').classList.add('hidden');
 
         window.saveNews = async () => {
+            if (!isSuperAdmin()) {
+                alert('⚠️ ຂໍອະໄພ! ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນທີ່ມີສິດບັນທຶກຂ່າວສານ.');
+                return;
+            }
             const title = document.getElementById('news-title').value;
             const category = document.getElementById('news-category').value;
             const content = document.getElementById('news-content').value;
@@ -1013,6 +1128,10 @@
         };
 
         window.updateNews = async () => {
+            if (!isSuperAdmin()) {
+                alert('⚠️ ຂໍອະໄພ! ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນທີ່ມີສິດແກ້ໄຂຂ່າວສານ.');
+                return;
+            }
             const id = document.getElementById('edit-news-id').value;
             const title = document.getElementById('edit-news-title').value;
             const category = document.getElementById('edit-news-category').value;
@@ -1030,6 +1149,10 @@
         };
 
         window.deleteNewsItem = async (id) => {
+            if (!isSuperAdmin()) {
+                alert('⚠️ ຂໍອະໄພ! Admin ຮອງບໍ່ມີສິດລົບຂ່າວສານ.');
+                return;
+            }
             if (confirm('ລົບຂ່າວນີ້ແທ້ບໍ?')) {
                 await deleteDoc(doc(db, "news", id));
                 loadNews();
@@ -1156,7 +1279,7 @@
                     approved: false
                 });
 
-                alert('ສົ່ງບົດລາຍງານສຳເລັດ! ກະລຸນາລໍຖ້າ Admin ອະນຸມັດເພື່ອຮັບ +1 ຄະແນນ.');
+                alert('ສົ່ງບົດລາຍງານສຳເລັດ! ກະລຸນາລໍຖ້າຜູ້ສ້າງເວັບໄຊອະນຸມັດເພື່ອຮັບ +1 ຄະແນນ.');
                 document.getElementById('member-name').value = '';
                 document.getElementById('member-task-desc').value = '';
                 fileInput.value = '';
@@ -1200,7 +1323,7 @@
                         <span class="font-bold text-emerald-400">🏠 ໄອດີຫ້ອງ: ${rep.room || 'ບໍ່ລະບຸ'} | 👤 ຜູ້ສົ່ງ: ${rep.name}</span>
                         <div class="flex items-center space-x-2">
                             <span class="px-2 py-0.5 rounded text-[10px] ${rep.approved ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-amber-950 text-amber-300 border border-amber-800'}">
-                                ${rep.approved ? '✅ ອະນຸມັດແລ້ວ (+1 ຄະແນນ)' : '⏳ ລໍຖ້າ Admin ອະນຸມັດ'}
+                                ${rep.approved ? '✅ ອະນຸມັດແລ້ວ (+1 ຄະແນນ)' : '⏳ ລໍຖ້າຜູ້ສ້າງເວັບໄຊອະນຸມັດ'}
                             </span>
                             <span class="text-slate-400">${rep.date || ''}</span>
                         </div>
@@ -1211,10 +1334,14 @@
                     </div>
                     <div class="flex justify-end space-x-2 pt-2">
                         ${userRole === 'admin' ? `
-                            ${!rep.approved ? `<button onclick="approveMemberReport('${rep.id}')" class="text-xs bg-emerald-600 hover:bg-emerald-500 px-3 py-1.5 rounded-lg text-white font-medium transition">✅ ອະນຸມັດ (+1 ຄະແນນ)</button>` : ''}
-                            <button onclick="deleteMemberReport('${rep.id}')" class="text-xs bg-red-950 hover:bg-red-900 px-3 py-1.5 rounded-lg text-red-300 transition">ລົບລາຍງານ (Admin)</button>
+                            ${isSuperAdmin() ? `
+                                ${!rep.approved ? `<button onclick="approveMemberReport('${rep.id}')" class="text-xs bg-emerald-600 hover:bg-emerald-500 px-3 py-1.5 rounded-lg text-white font-medium transition">✅ ອະນຸມັດ (+1 ຄະແນນ)</button>` : ''}
+                                <button onclick="deleteMemberReport('${rep.id}')" class="text-xs bg-red-950 hover:bg-red-900 px-3 py-1.5 rounded-lg text-red-300 transition">ລົບລາຍງານ</button>
+                            ` : `
+                                <span class="text-[11px] text-amber-400 italic">⚠️ Admin ຮອງບໍ່ມີສິດອະນຸມັດຫຼືລົບ (ຕ້ອງຜ່ານຜູ້ສ້າງເວັບໄຊ)</span>
+                            `}
                         ` : `
-                            <span class="text-[11px] text-slate-500 italic">🔒 ບົດລາຍງານນີ້ກຳລັງລໍຖ້າການຈັດການຈາກ Admin</span>
+                            <span class="text-[11px] text-slate-500 italic">🔒 ລໍຖ້າການຈັດການຈາກຜູ້ສ້າງເວັບໄຊ</span>
                         `}
                     </div>
                 </div>
@@ -1222,6 +1349,11 @@
         }
 
         window.approveMemberReport = async (reportId) => {
+            if (!isSuperAdmin()) {
+                alert('⚠️ ຂໍອະໄພ! Admin ຮອງບໍ່ມີສິດອະນຸມັດບົດລາຍງານ ຕ້ອງຜ່ານ "ຜູ້ສ້າງເວັບໄຊ" ເທົ່ານັ້ນ.');
+                return;
+            }
+
             const report = allMemberReports.find(r => r.id === reportId);
             if (!report) return;
 
@@ -1245,6 +1377,10 @@
         };
 
         window.deleteMemberReport = async (id) => {
+            if (!isSuperAdmin()) {
+                alert('⚠️ ຂໍອະໄພ! Admin ຮອງບໍ່ມີສິດລົບລາຍງານ.');
+                return;
+            }
             if (confirm('ລົບລາຍງານນີ້ແທ້ບໍ?')) {
                 await deleteDoc(doc(db, "member_reports", id));
                 loadMemberReports();
@@ -1300,7 +1436,7 @@
                             </div>
                             <div class="flex items-center space-x-2">
                                 <span class="text-xs px-3 py-1 rounded-full bg-emerald-900/80 text-emerald-200 border border-emerald-700">✅ ສຳເລັດແລ້ວ</span>
-                                ${userRole === 'admin' ? `<button onclick="deleteCyberTask('${task.id}')" class="text-xs bg-red-950 hover:bg-red-900 px-3 py-1 rounded-lg text-red-300 transition ml-2">ລົບ</button>` : ''}
+                                ${userRole === 'admin' && isSuperAdmin() ? `<button onclick="deleteCyberTask('${task.id}')" class="text-xs bg-red-950 hover:bg-red-900 px-3 py-1 rounded-lg text-red-300 transition ml-2">ລົບ</button>` : ''}
                             </div>
                         </div>
                         ${mediaHtml}
@@ -1309,10 +1445,20 @@
             }).join('');
         }
 
-        window.openCyberModal = () => document.getElementById('cyber-modal').classList.remove('hidden');
+        window.openCyberModal = () => {
+            if (!isSuperAdmin()) {
+                alert('⚠️ ຂໍອະໄພ! Admin ຮອງບໍ່ມີສິດເພີ່ມຫົວຂໍ້ອະນາໄມ (ຕ້ອງຜ່ານຜູ້ສ້າງເວັບໄຊ).');
+                return;
+            }
+            document.getElementById('cyber-modal').classList.remove('hidden');
+        };
         window.closeCyberModal = () => document.getElementById('cyber-modal').classList.add('hidden');
 
         window.saveCyberTaskBase64 = async () => {
+            if (!isSuperAdmin()) {
+                alert('⚠️ ຂໍອະໄພ! ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນທີ່ມີສິດບັນທຶກ.');
+                return;
+            }
             const title = document.getElementById('cyber-task-title').value;
             const description = document.getElementById('cyber-task-desc').value;
             const fileInput = document.getElementById('cyber-media-files');
@@ -1354,6 +1500,10 @@
         };
 
         window.deleteCyberTask = async (id) => {
+            if (!isSuperAdmin()) {
+                alert('⚠️ ຂໍອະໄພ! Admin ຮອງບໍ່ມີສິດລົບລາຍການນີ້.');
+                return;
+            }
             if (confirm('ລົບລາຍການນີ້ແທ້ບໍ?')) {
                 await deleteDoc(doc(db, "cyber_tasks", id));
                 loadCyberTasks();
