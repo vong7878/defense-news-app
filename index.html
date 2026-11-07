@@ -61,6 +61,32 @@
         .butterfly-4 { animation: butterflyFly1 18s ease-in-out infinite reverse; }
         .butterfly-5 { animation: butterflyFly2 13s ease-in-out infinite reverse; }
 
+        /* ✨ Keyframes ສຳລັບແສງສີທອງເປັ່ງປະກາຍເວລາຈິ້ມໜ້າຈໍ */
+        @keyframes goldGlowEffect {
+            0% {
+                transform: scale(0.2);
+                opacity: 1;
+                box-shadow: 0 0 10px #fbbf24, 0 0 20px #f59e0b, 0 0 30px #d97706;
+            }
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+                box-shadow: 0 0 30px #fef08a, 0 0 60px #facc15, 0 0 90px #ca8a04;
+            }
+        }
+
+        .touch-gold-glow {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(254,240,138,1) 0%, rgba(250,204,21,0.8) 50%, rgba(202,138,4,0) 100%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            animation: goldGlowEffect 0.6s ease-out forwards;
+            z-index: 9999;
+        }
+
         /* 🖼️ ຮູບພື້ນຫຼັງໜ້າຈໍເວັບໄຊ (ຫໍພັກ VKU) */
         body {
             background: linear-gradient(to bottom, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.94)), 
@@ -82,25 +108,20 @@
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white relative overflow-x-hidden">
 
-    <!-- 🦋 ຜີເສື້ອການຕູນສີທອງ 5 ໂຕ ບິນທັບໜ້າຈໍ (Foreground layer - pointer-events-none ເພື່ອໃຫ້ກົດປຸ່ມໃນເວັບໄດ້ປົກກະຕິ) -->
+    <!-- 🦋 ຜີເສື້ອການຕູນສີທອງ 5 ໂຕ ບິນທັບໜ້າຈໍ (Foreground layer) -->
     <div class="fixed inset-0 pointer-events-none z-40 overflow-hidden">
-        <!-- ໂຕທີ 1 -->
         <div class="absolute top-[20%] left-[5%] butterfly-1 opacity-95 drop-shadow-[0_0_15px_rgba(250,204,21,1)]">
             <span class="text-4xl filter drop-shadow">🦋</span>
         </div>
-        <!-- ໂຕທີ 2 -->
         <div class="absolute top-[45%] right-[8%] butterfly-2 opacity-95 drop-shadow-[0_0_15px_rgba(251,191,36,1)]">
             <span class="text-5xl filter drop-shadow">🦋</span>
         </div>
-        <!-- ໂຕທີ 3 -->
         <div class="absolute bottom-[25%] left-[12%] butterfly-3 opacity-90 drop-shadow-[0_0_12px_rgba(234,179,8,0.9)]">
             <span class="text-4xl filter drop-shadow">🦋</span>
         </div>
-        <!-- ໂຕທີ 4 -->
         <div class="absolute top-[70%] right-[25%] butterfly-4 opacity-90 drop-shadow-[0_0_12px_rgba(252,211,77,0.9)]">
             <span class="text-4xl filter drop-shadow">🦋</span>
         </div>
-        <!-- ໂຕທີ 5 -->
         <div class="absolute top-[12%] right-[40%] butterfly-5 opacity-95 drop-shadow-[0_0_16px_rgba(250,204,21,1)]">
             <span class="text-5xl filter drop-shadow">🦋</span>
         </div>
@@ -111,7 +132,6 @@
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center justify-between w-full sm:w-auto">
                 <div class="flex items-center space-x-3">
-                    <!-- 🖼️ ໂລໂກ້ -->
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYff3WPJ1yzOiXHvS7NZuw-gyAjw25bht1HKPCVR3mSBYEhqInb6tgDUS-&s=10" alt="Logo" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-emerald-900/50 border border-emerald-500/40">
                     <div>
                         <h1 class="font-bold text-lg tracking-wider text-emerald-400">ຈຸປ້ອງກັນຂ່າວສານ</h1>
@@ -120,22 +140,18 @@
                 </div>
             </div>
 
-            <!-- Middle Widget: Clock & Notification Bell -->
             <div class="flex items-center space-x-3 w-full sm:w-auto justify-center">
-                <!-- 🕒 Realtime Clock Widget -->
                 <div class="flex items-center space-x-2 bg-slate-900/80 px-3.5 py-1.5 rounded-xl border border-emerald-500/30 text-xs shadow-inner">
                     <span class="text-emerald-400 animate-pulse">🕒</span>
                     <span id="live-clock" class="text-emerald-300 font-bold tracking-wide">ກຳລັງໂຫຼດເວລາ...</span>
                 </div>
 
-                <!-- 🔔 Notification Bell Button -->
                 <div class="relative">
                     <button onclick="toggleNotificationDropdown()" class="relative bg-slate-900/80 hover:bg-slate-800 p-2 rounded-xl border border-amber-500/40 text-amber-400 transition shadow-inner flex items-center justify-center w-9 h-9">
                         <span id="bell-icon" class="text-lg">🔔</span>
                         <span id="notification-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-md hidden">0</span>
                     </button>
 
-                    <!-- Dropdown Notification Box -->
                     <div id="notification-dropdown" class="absolute right-0 mt-2 w-80 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl hidden z-50 overflow-hidden animate-fade-in">
                         <div class="bg-slate-800 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
                             <span class="font-bold text-amber-400 text-xs uppercase tracking-wider">🔔 ການແຈ້ງເຕືອນລ້າສຸດ</span>
@@ -148,7 +164,6 @@
                 </div>
             </div>
 
-            <!-- Auth Nav -->
             <div id="auth-nav" class="flex items-center space-x-3 w-full sm:w-auto justify-end"></div>
         </div>
     </header>
@@ -167,14 +182,12 @@
                     <li><button onclick="switchTab('cyber')" id="tab-cyber-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>🧹</span> <span>ຕິດຕາມການອະນາໄມ</span></button></li>
                     <li><button onclick="switchTab('member')" id="tab-member-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400"><span>👤</span> <span>ລາຍງານອະນາໄມ (ສະມາຊິກ)</span></button></li>
                     
-                    <!-- User Feedback / Comment Tab -->
                     <li>
                         <button onclick="switchTab('user-feedback')" id="tab-user-feedback-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-pink-400">
                             <span>💬</span> <span>ປະກອບຄຳຄິດຄຳເຫັນ</span>
                         </button>
                     </li>
 
-                    <!-- Admin Chat Tab -->
                     <li id="tab-admin-chat-li" class="hidden pt-2 border-t border-slate-700">
                         <button onclick="switchTab('admin-chat')" id="tab-admin-chat-btn" class="w-full text-left px-3.5 py-3 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-300 font-bold bg-sky-600/30 border border-sky-500/60 shadow-lg">
                             <span>💬</span> <span>ແຊັດລົມວຽກ Admin (4 ຄົນ)</span>
@@ -183,7 +196,6 @@
                 </ul>
             </div>
 
-            <!-- Categories -->
             <div id="news-categories-box" class="bg-slate-800/85 backdrop-blur p-4 rounded-2xl border border-slate-700/80 shadow-xl hidden">
                 <h2 class="font-bold text-emerald-400 mb-3 border-b border-slate-700 pb-2 text-sm uppercase tracking-wider">ໝວດໝູ່ຂ່າວສານ</h2>
                 <ul class="space-y-2 text-sm">
@@ -194,7 +206,6 @@
                 </ul>
             </div>
 
-            <!-- Visitor Counter Widget -->
             <div class="bg-slate-800/85 backdrop-blur p-4 rounded-2xl border border-slate-700/80 shadow-xl">
                 <h2 class="font-bold text-emerald-400 mb-3 border-b border-slate-700 pb-2 text-sm uppercase tracking-wider">👥 ສະຖິຕິຜູ້ເຂົ້າຊົມ</h2>
                 <div class="space-y-2 text-xs">
@@ -213,7 +224,6 @@
                 </div>
             </div>
 
-            <!-- Admin Control Box -->
             <div id="admin-panel-box" class="hidden bg-emerald-950/85 backdrop-blur p-4 rounded-2xl border border-emerald-600/50 shadow-xl animate-fade-in">
                 <h2 class="font-bold text-emerald-300 mb-3 border-b border-emerald-800 pb-2 text-sm uppercase tracking-wider">⚙️ ຈັດການລະບົບ (Admin)</h2>
                 <div class="space-y-2.5">
@@ -329,7 +339,7 @@
                 <div class="bg-slate-800/85 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
                     <h2 class="text-xl font-bold text-emerald-400">👤 ຟອມສະມາຊິກ: ລາຍງານຜົນການອະນາໄມ & ຢືນຢັນຕົວຕົນ</h2>
                     <div class="bg-amber-950/50 border border-amber-600/50 p-3 rounded-xl text-xs text-amber-300">
-                        ⚠️ <b>ກົດເກນການສົ່ງ:</b> ແຕ່ລະຫ້ອງພັກສົ່ງໄດ້ <b>1 ຄັ້ງ ຕໍ່ 1 ອາທິດ (ສະເພາະມື້ວັນອາທິດ, ເວລາ 16:00 - 19:00 ໂມງ) ເທົ່ານັ້ນ!</b> ແລະ <b>ຕ້ອງຖ່າຍຮູບສົດຜ່ານກ້ອງເທົ່ານັ້ນ (ຫ้ามເລືອກຮູບຈາກແກລເລີ)</b> ເພື່ອປ້ອງກັນການເອົາຮູບຄົນອື່ນມາສົ່ງ.
+                        ⚠️ <b>ກົດເກນການສົ່ງ:</b> ແຕ່ລະຫ້ອງພັກສົ່ງໄດ້ <b>1 ຄັ້ງ ຕໍ່ 1 ອາທິດ (ສະເພາະມື້ວັນອາທິດ, ເວລາ 16:00 - 19:00 ໂມງ) ເທົ່ານັ້ນ!</b> ແລະ <b>ຕ້ອງຖ່າຍຮູບສົດຜ່ານກ້ອງເທົ່ານັ້ນ (ຫ້ອງເລືອກຮູບຈາກແກລເລີ)</b> ເພື່ອປ້ອງກັນການເອົາຮູບຄົນອື່ນມາສົ່ງ.
                     </div>
                     
                     <div class="space-y-3 pt-2">
@@ -349,9 +359,8 @@
                         </div>
                         <div>
                             <label class="block text-xs text-emerald-300 mb-1 font-semibold">📸 ຖ່າຍຮູບສົດຢືນຢັນຕົວຕົນ ແລະ ການອະນາໄມ (ຂັ້ນຕ່ຳ 3 ຮູບ - ບັງຄັບເປີດກ້ອງ):</label>
-                            <!-- 📷 ປັບໃຫ້ເປີດກ້ອງຖ່າຍສົດໂດຍກົງ (capture="environment") ບໍ່ໃຫ້ເລືອກຮູບເກົ່າຈາກ Gallery -->
                             <input type="file" id="member-media-files" multiple accept="image/*" capture="environment" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
-                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ລະບົບຈະັງຄັບເປີດກ້ອງຖ່າຍສົດ ຢ່າງໜ້ອຍ 3 ຮູບຂຶ້ນໄປ</p>
+                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ລະບົບຈະບັງຄັບເປີດກ້ອງຖ່າຍສົດ ຢ່າງໜ້ອຍ 3 ຮູບຂຶ້ນໄປ</p>
                         </div>
                     </div>
 
@@ -624,7 +633,23 @@
             
             setInterval(verifySubAdminSession, 10000);
             initRealtimeListeners();
+            initTouchGoldGlowEffect();
         });
+
+        // ✨ ລະບົບສ້າງແສງສີທອງເປັ່ງປະກາຍເວລາຄລິກ ຫຼື ຈິ້ມໜ້າຈໍ
+        function initTouchGoldGlowEffect() {
+            window.addEventListener('pointerdown', (e) => {
+                const glow = document.createElement('div');
+                glow.className = 'touch-gold-glow';
+                glow.style.left = `${e.clientX}px`;
+                glow.style.top = `${e.clientY}px`;
+                document.body.appendChild(glow);
+
+                setTimeout(() => {
+                    glow.remove();
+                }, 600);
+            });
+        }
 
         // 🔊 Function to play loud alert sound using Web Audio API
         function playLoudAlertSound() {
@@ -1685,7 +1710,7 @@
                 document.getElementById('member-name').value = '';
                 document.getElementById('member-task-desc').value = '';
                 fileInput.value = '';
-                statusText.innerText = '⚠️ ລະບົບຈະັງຄັບເປີດກ້ອງຖ່າຍສົດ ຢ່າງໜ້ອຍ 3 ຮູບຂຶ້ນໄປ';
+                statusText.innerText = '⚠️ ລະບົບຈະບັງຄັບເປີດກ້ອງຖ່າຍສົດ ຢ່າງໜ້ອຍ 3 ຮູບຂຶ້ນໄປ';
 
                 loadMemberReports();
                 loadFullScoreSummary();
@@ -1875,7 +1900,7 @@
                 alert('⚠️ ຂໍອະໄພ! ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນທີ່ມີສິດບັນທຶກ.');
                 return;
             }
-            const title = document.getElementById('cyber-task-title').value;
+            const title = document.getElementById('cyber-task-title</i>").value;
             const description = document.getElementById('cyber-task-desc').value;
             const fileInput = document.getElementById('cyber-media-files');
             const statusText = document.getElementById('upload-status');
