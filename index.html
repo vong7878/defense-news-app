@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ລະບົບຂ່າວສານ ແລະ ຕິດຕາມການອະນາໄມ - ຈຸປ້ອງກັນ</title>
     
-    <!-- Favicon / ໂລໂກ້ເທິງແຖບເວັບໄຊ (ໂຮງຮຽນແພດສາດ ມ.ດານັງ) -->
-    <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPCtqrNybpIL52qMQ_KVN_VJ1fKZWTBwEmEwCqdG1aVUd3kl1dieX0z14p&s=10">
+    <!-- Favicon / ໂລໂກ້ເທິງແຖບເວັບໄຊ -->
+    <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYff3WPJ1yzOiXHvS7NZuw-gyAjw25bht1HKPCVR3mSBYEhqInb6tgDUS-&s=10">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,7 +20,7 @@
         }
         .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
         
-        /* 🖼️ ຮູບພື້ນຫຼັງຫໍພັກ VKU ຕາມລິ້ງຂອງທ່ານ (ພ້ອມ Overlay ປັບຄວາມເຂັ້ມໃຫ້ອ່ານງ່າຍ) */
+        /* 🖼️ ຮູບພື້ນຫຼັງຫໍພັກ VKU */
         body {
             background: linear-gradient(to bottom, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.94)), 
                         url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjLFTe7Tfe561YMDN9iVbQMb4H6gIZUfMFXu8W6TYp77tIrVUh3hmncCyy&s=10');
@@ -38,7 +38,8 @@
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center justify-between w-full sm:w-auto">
                 <div class="flex items-center space-x-3">
-                    <div class="bg-emerald-600 p-2 rounded-xl text-white font-bold text-xl shadow-lg shadow-emerald-900/50">🛡️</div>
+                    <!-- 🖼️ ໂລໂກ້ໃໝ່ຕາມທີ່ທ່ານຕ້ອງການ -->
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYff3WPJ1yzOiXHvS7NZuw-gyAjw25bht1HKPCVR3mSBYEhqInb6tgDUS-&s=10" alt="Logo" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-emerald-900/50 border border-emerald-500/40">
                     <div>
                         <h1 class="font-bold text-lg tracking-wider text-emerald-400">ຈຸປ້ອງກັນຂ່າວສານ</h1>
                         <p class="text-xs text-emerald-300">Defense Unit News & Hygiene Tracking</p>
@@ -71,7 +72,7 @@
                     <li><button onclick="switchTab('cyber')" id="tab-cyber-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>🧹</span> <span>ຕິດຕາມການອະນາໄມ</span></button></li>
                     <li><button onclick="switchTab('member')" id="tab-member-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400"><span>👤</span> <span>ລາຍງານອະນາໄມ (ສະມາຊິກ)</span></button></li>
                     
-                    <!-- Admin Chat Tab (Visible only for Admins) -->
+                    <!-- Admin Chat Tab -->
                     <li id="tab-admin-chat-li" class="hidden pt-2 border-t border-slate-700">
                         <button onclick="switchTab('admin-chat')" id="tab-admin-chat-btn" class="w-full text-left px-3.5 py-3 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-300 font-bold bg-sky-600/30 border border-sky-500/60 shadow-lg">
                             <span>💬</span> <span>ແຊັດລົມວຽກ Admin (4 ຄົນ)</span>
@@ -266,7 +267,7 @@
                 </div>
             </div>
 
-            <!-- SECTION 6: Admin Private Chat (4 Admins Only) -->
+            <!-- SECTION 6: Admin Private Chat -->
             <div id="section-admin-chat" class="space-y-4 hidden animate-fade-in">
                 <div class="bg-gradient-to-r from-sky-950/90 via-slate-800/90 to-emerald-950/90 p-5 rounded-2xl border border-sky-500/40 shadow-xl flex justify-between items-center">
                     <div>
@@ -276,12 +277,10 @@
                 </div>
 
                 <div class="bg-slate-800/80 backdrop-blur border border-slate-700 rounded-2xl shadow-xl flex flex-col h-[550px] p-4">
-                    <!-- Message Feed Container -->
                     <div id="admin-chat-messages" class="flex-grow overflow-y-auto space-y-3 pr-2 scrollbar-thin">
                         <div class="text-center py-12 text-slate-400">ກຳລັງໂຫຼດຂໍ້ຄວາມ...</div>
                     </div>
 
-                    <!-- Input Box -->
                     <div class="pt-3 border-t border-slate-700 flex gap-2">
                         <input type="text" id="admin-chat-input" onkeydown="if(event.key==='Enter') sendAdminMessage()" placeholder="ພิมพ์ຂໍ້ຄວາມສົນທະນາວຽກ..." class="flex-grow bg-slate-900 border border-slate-700 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-sky-500 text-slate-100">
                         <button onclick="sendAdminMessage()" class="bg-sky-600 hover:bg-sky-500 text-white font-medium px-5 py-3 rounded-xl transition text-sm shadow-lg flex items-center space-x-1">
@@ -324,7 +323,6 @@
                     <option value="SUB_ADMIN_3">⚙️ Admin ຮອງ 3 (ໄອດີພໍ)</option>
                 </select>
 
-                <!-- Super Admin Email/Password Fields -->
                 <div id="admin-auth-fields" class="hidden space-y-2.5 pt-2 text-left">
                     <div>
                         <label class="block text-[11px] text-emerald-300 mb-1">ອີເມວຜູ້ສ້າງ:</label>
@@ -336,7 +334,6 @@
                     </div>
                 </div>
 
-                <!-- Sub Admin PIN / ID Fields -->
                 <div id="sub-admin-fields" class="hidden space-y-2.5 pt-2 text-left bg-emerald-950/40 p-3 rounded-xl border border-emerald-500/30">
                     <label class="block text-[11px] text-emerald-300 mb-1">ປ້ອນລະຫັດຜ່ານ / ໄອດີພໍ (PIN Code) ຂອງ Admin:</label>
                     <input type="password" id="sub-admin-pin" placeholder="ປ້ອນລະຫັດ 4-6 ຕົວເລກ..." class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-center text-sm font-bold tracking-widest text-amber-400 focus:outline-none focus:border-emerald-500">
@@ -517,7 +514,6 @@
             return currentRoomUser && currentRoomUser.includes('ຜູ້ສ້າງ:');
         }
 
-        // 🕒 Realtime Clock Function
         function updateLiveClock() {
             const clockElement = document.getElementById('live-clock');
             if (!clockElement) return;
@@ -792,7 +788,6 @@
             }
         };
 
-        // --- Admin Chat Realtime Logic ---
         function listenAdminChat() {
             if (chatUnsubscribe) chatUnsubscribe();
             const q = query(collection(db, "admin_chats"), orderBy("timestamp", "asc"));
@@ -947,15 +942,10 @@
             }
         }
 
-        // --- Visitor Counter Logic (Device Breakdown) ---
         function getDeviceType() {
             const ua = navigator.userAgent;
-            if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-                return "mobile";
-            }
-            if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Opera Mini/i.test(ua)) {
-                return "mobile";
-            }
+            if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) return "mobile";
+            if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Opera Mini/i.test(ua)) return "mobile";
             return "desktop";
         }
 
@@ -965,7 +955,7 @@
             const sessionKey = `visited_${today}`;
             
             if (sessionStorage.getItem(sessionKey)) {
-                loadVisitorStats(today);
+                loadVisitorStats();
                 return;
             }
 
@@ -976,11 +966,7 @@
                 await runTransaction(db, async (transaction) => {
                     const todayDoc = await transaction.get(todayRef);
                     if (!todayDoc.exists()) {
-                        transaction.set(todayRef, { 
-                            desktop: device === 'desktop' ? 1 : 0, 
-                            mobile: device === 'mobile' ? 1 : 0,
-                            count: 1 
-                        });
+                        transaction.set(todayRef, { desktop: device === 'desktop' ? 1 : 0, mobile: device === 'mobile' ? 1 : 0, count: 1 });
                     } else {
                         transaction.update(todayRef, {
                             desktop: increment(device === 'desktop' ? 1 : 0),
@@ -991,11 +977,7 @@
 
                     const totalDoc = await transaction.get(totalRef);
                     if (!totalDoc.exists()) {
-                        transaction.set(totalRef, { 
-                            desktop: device === 'desktop' ? 1 : 0, 
-                            mobile: device === 'mobile' ? 1 : 0,
-                            count: 1 
-                        });
+                        transaction.set(totalRef, { desktop: device === 'desktop' ? 1 : 0, mobile: device === 'mobile' ? 1 : 0, count: 1 });
                     } else {
                         transaction.update(totalRef, {
                             desktop: increment(device === 'desktop' ? 1 : 0),
@@ -1009,22 +991,17 @@
             } catch (err) {
                 console.error("Error tracking visitor:", err);
             }
-            loadVisitorStats(today);
+            loadVisitorStats();
         }
 
-        async function loadVisitorStats(today) {
+        async function loadVisitorStats() {
             try {
                 const totalDoc = await getDoc(doc(db, "visitors", "total_stats"));
-
                 if (totalDoc.exists()) {
                     const data = totalDoc.data();
                     document.getElementById('visitor-desktop').innerText = (data.desktop || 0).toLocaleString();
                     document.getElementById('visitor-mobile').innerText = (data.mobile || 0).toLocaleString();
                     document.getElementById('visitor-total').innerText = (data.count || 0).toLocaleString();
-                } else {
-                    document.getElementById('visitor-desktop').innerText = '0';
-                    document.getElementById('visitor-mobile').innerText = '0';
-                    document.getElementById('visitor-total').innerText = '0';
                 }
             } catch (err) {
                 console.error("Error loading visitor stats:", err);
@@ -1279,11 +1256,11 @@
             const currentHour = now.getHours();
             const currentMinute = now.getMinutes();
             const totalMinutesNow = currentHour * 60 + currentMinute;
-            const startMinutes = 16 * 60; // 16:00
-            const endMinutes = 19 * 60;   // 19:00
+            const startMinutes = 16 * 60;
+            const endMinutes = 19 * 60;
 
             if (totalMinutesNow < startMinutes || totalMinutesNow > endMinutes) {
-                alert(`⚠️ ຂໍອະໄພ! ລະບົບເປີດໃຫ້ສົ່ງບົດລາຍງານສະເພາະຊ່ວງເວລາ 16:00 ຫາ 19:00 ໂມງເທົ່ານັ້ນ (ເວລາປະຈຸບັນ: ${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')} ໂມງ).`);
+                alert(`⚠️ ຂໍອະໄພ! ລະບົບເປີດໃຫ້ສົ່ງບົດລາຍງານສະເພາະຊ່ວງເວລາ 16:00 ຫາ 19:00 ໂມງເທົ່ານັ້ນ.`);
                 return;
             }
 
@@ -1300,7 +1277,7 @@
 
             const files = fileInput.files;
             if (files.length < 3) {
-                alert(`ກະລຸນາຖ່າຍຮູບຢືນຢັນຕົວຕົນ ແລະ ການອະນາໄມຢ່າງໜ້ອຍ 3 ຮູບ (ປັດຈຸບັນເລືອກ ${files.length} ຮູບ)`);
+                alert(`ກະລຸນາຖ່າຍຮູບຢືນຢັນຕົວຕົນ ແລະ ການອະນາໄມຢ່າງໜ້ອຍ 3 ຮູບ`);
                 return;
             }
 
@@ -1316,7 +1293,7 @@
             });
 
             if (roomAlreadySubmittedThisWeek) {
-                alert(`⚠️ ຂໍອະໄພ! "${roomNumber}" ໄດ້ມີການສົ່ງບົດລາຍງານສຳລັບອາທິດນີ້ໄປແລ້ວ! (ຈຳກັດ 1 ຫ້ອງພັກ ສົ່ງໄດ້ 1 ຄັ້ງຕໍ່ອາທິດ)`);
+                alert(`⚠️ ຂໍອະໄພ! "${roomNumber}" ໄດ້ມີການສົ່ງບົດລາຍງານສຳລັບອາທິດນີ້ໄປແລ້ວ!`);
                 return;
             }
 
@@ -1431,7 +1408,7 @@
                     date: report.date || new Date().toLocaleString('lo-LA')
                 });
 
-                alert('ອະນຸມັດສຳເລັດ! ບົດລາຍງານຖືກສົ່ງຂຶ້ນໜ້າ "ຕິດຕາມການອະນາໄມ" ແລະ ບວກ +1 ຄະແນນໃຫ້ຫ້ອງພັກຮຽບຮ້ອຍ.');
+                alert('ອະນຸມັດສຳເລັດ!');
                 loadMemberReports();
                 loadCyberTasks();
                 loadFullScoreSummary();
@@ -1511,7 +1488,7 @@
 
         window.openCyberModal = () => {
             if (!isSuperAdmin()) {
-                alert('⚠️ ຂໍອະໄພ! Admin ຮອງບໍ່ມີສິດເພີ່ມຫົວຂໍ້ອະນາໄມ (ຕ້ອງຜ່ານຜູ້ສ້າງເວັບໄຊ).');
+                alert('⚠️ ຂໍອະໄພ! Admin ຮອງບໍ່ມີສິດເພີ່ມຫົວຂໍ້ອະນາໄມ.');
                 return;
             }
             document.getElementById('cyber-modal').classList.remove('hidden');
@@ -1532,11 +1509,11 @@
 
             const files = fileInput.files;
             if (files.length < 6) {
-                alert(`ກະລຸນາເລືອກຮູບພາບຂັ້ນຕ່ຳ 6 ຮູບ (ປັດຈຸບັນເລືອກ ${files.length} ຮູບ)`);
+                alert(`ກະລຸນາເລືອກຮູບພາບຂັ້ນຕ່ຳ 6 ຮູບ`);
                 return;
             }
 
-            statusText.innerText = `ກຳລັງຍໍ່ຂະໜາດ ແລະ ປະມວນຜົນຮູບພາບ... ກະລຸນາຖ້າຈັກຄູ່`;
+            statusText.innerText = `ກຳລັງຍໍ່ຂະໜາດ ແລະ ປະມວນຜົນຮູບພາບ...`;
 
             try {
                 let mediaUrls = [];
@@ -1559,7 +1536,7 @@
             } catch (err) {
                 console.error(err);
                 alert('ເກີດຂໍ້ຜິດພາດ: ' + err.message);
-                statusText.innerText = 'ບັນທຶກບໍ່ສຳເລັດ, ກະລຸນາລອງໃໝ່ອີກຄັ້ງ';
+                statusText.innerText = 'ບັນທຶກບໍ່ສຳເລັດ';
             }
         };
 
