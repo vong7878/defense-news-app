@@ -29,6 +29,7 @@
                     <p class="text-xs text-emerald-300">Defense Unit News & Hygiene Tracking</p>
                 </div>
             </div>
+            <!-- Auth Nav ປ່ຽນເປັນສະແດງສະຖານະຫ້ອງທີ່ລັອກອິນ -->
             <div id="auth-nav" class="flex items-center space-x-3"></div>
         </div>
     </header>
@@ -74,7 +75,7 @@
                 </div>
             </div>
 
-            <!-- Admin Control Box -->
+            <!-- Admin Control Box (ສະແດງສະເພາະ Admin ທີ່ໃສ່ລະຫັດຜ່ານ ຫຼື ຕັ້ງຄ່າ) -->
             <div id="admin-panel-box" class="hidden bg-emerald-950/80 backdrop-blur p-4 rounded-2xl border border-emerald-600/50 shadow-xl animate-fade-in">
                 <h2 class="font-bold text-emerald-300 mb-3 border-b border-emerald-800 pb-2 text-sm uppercase tracking-wider">⚙️ ຈັດການລະບົບ (Admin)</h2>
                 <div class="space-y-2.5">
@@ -83,9 +84,6 @@
                     </button>
                     <button onclick="openCyberModal()" class="w-full bg-emerald-700 hover:bg-emerald-600 text-white font-medium py-2 px-3.5 rounded-xl transition text-sm flex items-center justify-center space-x-2">
                         <span>+</span> <span>ເພີ່ມຫົວຂໍ້ອະນາໄມ (Admin)</span>
-                    </button>
-                    <button onclick="openAdminManagerModal()" class="w-full bg-slate-700 hover:bg-slate-600 text-emerald-300 font-medium py-2 px-3.5 rounded-xl transition text-sm">
-                        👥 ຈັດການສິດ Admin
                     </button>
                 </div>
             </div>
@@ -155,24 +153,13 @@
                     
                     <div class="space-y-3 pt-2">
                         <div>
-                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">ຊື່-ນາມສະກຸນ / ລະຫັດສະມາຊິກ:</label>
-                            <input type="text" id="member-name" placeholder="ປ້ອນຊື່ ຫຼື ຕຳແໜ່ງຂອງທ່ານ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">ຊື່-ນາມສະກຸນ ຜູ້ສົ່ງ:</label>
+                            <input type="text" id="member-name" placeholder="ປ້ອນຊື່ຂອງທ່ານ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
                         </div>
                         
                         <div>
-                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">🏠 ເລືອກຫ້ອງພັກທີ່ຮັບຜິດຊອບອະນາໄມ:</label>
-                            <select id="member-room-number" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-slate-200">
-                                <option value="">-- ກະລຸນາເລືອກຫ້ອງ --</option>
-                                <option value="ຫ້ອງ 104">ຫ້ອງ 104</option>
-                                <option value="ຫ້ອງ 105">ຫ້ອງ 105</option>
-                                <option value="ຫ້ອງ 108">ຫ້ອງ 108</option>
-                                <option value="ຫ້ອງ 109">ຫ້ອງ 109</option>
-                                <option value="ຫ້ອງ 110">ຫ້ອງ 110</option>
-                                <option value="ຫ້ອງ 111">ຫ້ອງ 111</option>
-                                <option value="ຫ້ອງ 112">ຫ້ອງ 112</option>
-                                <option value="ຫ້ອງ 113">ຫ້ອງ 113</option>
-                                <option value="ຫ້ອງ 114">ຫ້ອງ 114</option>
-                            </select>
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">🏠 ຫ້ອງພັກຂອງທ່ານ (ລັອກອິນຢູ່):</label>
+                            <input type="text" id="member-room-display" readonly class="w-full bg-slate-900/80 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm text-emerald-400 font-bold" value="ຍັງບໍ່ໄດ້ເລືອກຫ້ອງ">
                         </div>
 
                         <div>
@@ -209,6 +196,40 @@
     <footer class="bg-slate-950 border-t border-slate-800 text-center py-4 text-xs text-slate-500">
         ລະບົບຂ່າວສານ ແລະ ຕິດຕາມການອະນາໄມ ຈຸປ້ອງກັນ © 2026
     </footer>
+
+    <!-- MODAL: Room Login Modal (ປ່ຽນມາໃຊ້ໂຕນີ້ແທນ Google Login) -->
+    <div id="room-login-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl animate-fade-in text-center">
+            <div class="bg-emerald-600 w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-white text-2xl font-bold shadow-lg">🛡️</div>
+            <h3 class="text-xl font-bold text-emerald-400">ເລືອກຫ້ອງພັກເພື່ອເຂົ້າສູ່ລະບົບ</h3>
+            <p class="text-xs text-slate-300">ກະລຸນາເລືອກຫ້ອງຂອງທ່ານເພື່ອເຂົ້າໃຊ້ງານ ແລະ ສົ່ງບົດລາຍງານ</p>
+            
+            <div class="space-y-3 pt-2">
+                <select id="login-room-select" class="w-full bg-slate-900 border border-slate-700 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-slate-100 font-bold text-center">
+                    <option value="">-- ກະລຸນາເລືອກຫ້ອງພັກ --</option>
+                    <option value="ຫ້ອງ 104">ຫ້ອງ 104</option>
+                    <option value="ຫ້ອງ 105">ຫ້ອງ 105</option>
+                    <option value="ຫ້ອງ 108">ຫ້ອງ 108</option>
+                    <option value="ຫ້ອງ 109">ຫ້ອງ 109</option>
+                    <option value="ຫ້ອງ 110">ຫ້ອງ 110</option>
+                    <option value="ຫ້ອງ 111">ຫ້ອງ 111</option>
+                    <option value="ຫ້ອງ 112">ຫ້ອງ 112</option>
+                    <option value="ຫ້ອງ 113">ຫ້ອງ 113</option>
+                    <option value="ຫ້ອງ 114">ຫ້ອງ 114</option>
+                    <option value="ADMIN">⚙️ ເຂົ້າສູ່ລະບົບຜູ້ດູແລ (Admin)</option>
+                </select>
+                <div id="admin-pass-box" class="hidden">
+                    <input type="password" id="admin-password-input" placeholder="ປ້ອນລະຫັດຜ່ານ Admin..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-center">
+                </div>
+            </div>
+
+            <div class="pt-2">
+                <button onclick="confirmRoomLogin()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 px-4 rounded-xl transition text-sm shadow-lg">
+                    ✅ ເຂົ້າສູ່ລະບົບ
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- MODAL: Share Options -->
     <div id="share-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
@@ -305,22 +326,9 @@
         </div>
     </div>
 
-    <!-- MODAL: Manage Admins -->
-    <div id="admin-manager-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
-        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl animate-fade-in">
-            <h3 class="text-xl font-bold text-emerald-400">ເພີ່ມສິດ Admin ໃຫ້ຜູ້ໃຊ້ອື່ນ</h3>
-            <input type="email" id="target-admin-email" placeholder="email@example.com" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
-            <div class="flex justify-end space-x-3 pt-2">
-                <button onclick="closeAdminManagerModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-xl text-sm">ປິດ</button>
-                <button onclick="grantAdminRole()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-medium">ມອບສິດ Admin</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Firebase SDK & App Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, setDoc, runTransaction, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -334,16 +342,10 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
         const db = getFirestore(app);
-        const googleProvider = new GoogleAuthProvider();
 
-        setPersistence(auth, browserLocalPersistence).catch((err) => {
-            console.error("Auth persistence error:", err);
-        });
-
-        let currentUser = null;
-        let userRole = 'user';
+        let currentRoomUser = localStorage.getItem('current_room_user') || null;
+        let userRole = localStorage.getItem('current_user_role') || 'user';
         let allNews = [];
         let allCyberTasks = [];
         let allMemberReports = [];
@@ -351,26 +353,90 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadFullScoreboard();
+            checkRoomAuthUI();
 
-            // ตรวจสอบผลลัพธ์หลังจากการ Login แบบ Redirect กลับມາທີ່ໜ້າເວັບ
-            getRedirectResult(auth).then(async (result) => {
-                if (result && result.user) {
-                    const user = result.user;
-                    const userDocRef = doc(db, "users", user.uid);
-                    const userDocSnap = await getDoc(userDocRef);
-
-                    if (!userDocSnap.exists()) {
-                        await setDoc(userDocRef, {
-                            uid: user.uid,
-                            email: user.email,
-                            role: 'user'
-                        });
-                    }
+            // ເປີດ/ປິດ ຟິວລະຫັດ Admin ຕາມທີ່ເລືອກໃນ Dropdown
+            const roomSelect = document.getElementById('login-room-select');
+            roomSelect.addEventListener('change', (e) => {
+                const passBox = document.getElementById('admin-pass-box');
+                if (e.target.value === 'ADMIN') {
+                    passBox.classList.remove('hidden');
+                } else {
+                    passBox.classList.add('hidden');
                 }
-            }).catch((error) => {
-                console.error("Redirect login error:", error);
             });
         });
+
+        function checkRoomAuthUI() {
+            const authNav = document.getElementById('auth-nav');
+            const adminBox = document.getElementById('admin-panel-box');
+            const roomModal = document.getElementById('room-login-modal');
+            const roomDisplay = document.getElementById('member-room-display');
+
+            if (currentRoomUser) {
+                roomModal.classList.add('hidden');
+                if (roomDisplay) roomDisplay.value = currentRoomUser;
+
+                authNav.innerHTML = `
+                    <div class="text-right">
+                        <span class="text-xs block text-emerald-400 font-bold">🏠 ${currentRoomUser}</span>
+                        <span class="text-[10px] bg-slate-700 px-2 py-0.5 rounded text-slate-300 uppercase">${userRole}</span>
+                    </div>
+                    <button onclick="logoutRoom()" class="bg-red-600/80 hover:bg-red-600 text-white text-xs px-3 py-1.5 rounded-lg transition shadow">ປ່ຽນຫ້ອງ/ອອກ</button>
+                `;
+
+                if (userRole === 'admin') {
+                    adminBox.classList.remove('hidden');
+                } else {
+                    adminBox.classList.add('hidden');
+                }
+            } else {
+                roomModal.classList.remove('hidden');
+                authNav.innerHTML = `<span class="text-xs text-amber-400 font-semibold">⚠️ ກະລຸນາເລືອກຫ້ອງກ่อน</span>`;
+                adminBox.classList.add('hidden');
+            }
+
+            loadNews();
+            loadCyberTasks();
+            loadMemberReports();
+            loadFullScoreboard();
+        }
+
+        window.confirmRoomLogin = () => {
+            const select = document.getElementById('login-room-select');
+            const val = select.value;
+
+            if (!val) {
+                alert('ກະລຸນາເລືອກຫ້ອງພັກກ່ອນ!');
+                return;
+            }
+
+            if (val === 'ADMIN') {
+                const pass = document.getElementById('admin-password-input').value;
+                if (pass === '123456' || pass === 'admin123') { // ລະຫັດຜ່ານ Admin ຕັ້ງໄວ້ກວດສອບງ່າຍໆ
+                    currentRoomUser = 'Admin ຜູ້ດູແລລະບົບ';
+                    userRole = 'admin';
+                } else {
+                    alert('ລະຫັດຜ່ານ Admin ບໍ່ຖືກຕ້ອງ!');
+                    return;
+                }
+            } else {
+                currentRoomUser = val;
+                userRole = 'user';
+            }
+
+            localStorage.setItem('current_room_user', currentRoomUser);
+            localStorage.setItem('current_user_role', userRole);
+            checkRoomAuthUI();
+        };
+
+        window.logoutRoom = () => {
+            localStorage.removeItem('current_room_user');
+            localStorage.removeItem('current_user_role');
+            currentRoomUser = null;
+            userRole = 'user';
+            checkRoomAuthUI();
+        };
 
         // --- ລະບົບນັບຈຳນວນຜູ້ເຂົ້າຊົມເວັບໄຊ ---
         async function trackVisitor() {
@@ -458,60 +524,6 @@
             }
         };
 
-        window.loginWithGoogle = async () => {
-            try {
-                await signInWithRedirect(auth, googleProvider);
-            } catch (err) {
-                alert('ເຂົ້າສູ່ລະບົບຜິດພາດ: ' + err.message);
-            }
-        };
-
-        window.logout = () => signOut(auth);
-
-        onAuthStateChanged(auth, async (user) => {
-            currentUser = user;
-            const authNav = document.getElementById('auth-nav');
-            const adminBox = document.getElementById('admin-panel-box');
-
-            if (user) {
-                const userDocRef = doc(db, "users", user.uid);
-                const userDocSnap = await getDoc(userDocRef);
-                
-                if (!userDocSnap.exists()) {
-                    await setDoc(userDocRef, {
-                        uid: user.uid,
-                        email: user.email,
-                        role: 'user'
-                    });
-                    userRole = 'user';
-                } else {
-                    userRole = userDocSnap.data().role || 'user';
-                }
-
-                authNav.innerHTML = `
-                    <div class="text-right">
-                        <span class="text-xs block text-emerald-400 font-bold">${user.email}</span>
-                        <span class="text-[10px] bg-slate-700 px-2 py-0.5 rounded text-slate-300 uppercase">${userRole}</span>
-                    </div>
-                    <button onclick="logout()" class="bg-red-600/80 hover:bg-red-600 text-white text-xs px-3 py-1.5 rounded-lg transition shadow">ອອກຈາກລະບົບ</button>
-                `;
-                if (userRole === 'admin') adminBox.classList.remove('hidden');
-                else adminBox.classList.add('hidden');
-            } else {
-                userRole = 'user';
-                authNav.innerHTML = `
-                    <button onclick="loginWithGoogle()" class="bg-white hover:bg-slate-100 text-slate-900 text-xs px-4 py-2.5 rounded-xl font-semibold transition shadow-lg flex items-center space-x-2">
-                        <span>🌐</span> <span>ເຂົ້າສູ່ລະບົບດ້ວຍ Google</span>
-                    </button>
-                `;
-                adminBox.classList.add('hidden');
-            }
-            loadNews();
-            loadCyberTasks();
-            loadMemberReports();
-            loadFullScoreboard();
-        });
-
         async function loadNews() {
             try {
                 const querySnapshot = await getDocs(collection(db, "news"));
@@ -534,7 +546,7 @@
             }
             container.innerHTML = newsList.map(item => {
                 const likes = item.likes || [];
-                const hasLiked = currentUser && likes.includes(currentUser.uid);
+                const hasLiked = currentRoomUser && likes.includes(currentRoomUser);
                 const likeCount = likes.length;
 
                 return `
@@ -571,9 +583,9 @@
         }
 
         window.toggleLike = async (newsId) => {
-            if (!currentUser) {
-                alert('ກະລຸນາເຂົ້າສູ່ລະບົບດ້ວຍ Google ກ່ອນກົດຖືກໃຈ!');
-                loginWithGoogle();
+            if (!currentRoomUser) {
+                alert('ກະລຸນາເລືອກຫ້ອງພັກກ່ອນກົດຖືກໃຈ!');
+                document.getElementById('room-login-modal').classList.remove('hidden');
                 return;
             }
 
@@ -585,12 +597,12 @@
 
                     const data = newsDoc.data();
                     let likes = data.likes || [];
-                    const uid = currentUser.uid;
+                    const roomUser = currentRoomUser;
 
-                    if (likes.includes(uid)) {
-                        likes = likes.filter(id => id !== uid);
+                    if (likes.includes(roomUser)) {
+                        likes = likes.filter(r => r !== roomUser);
                     } else {
-                        likes.push(uid);
+                        likes.push(roomUser);
                     }
 
                     transaction.update(newsRef, { likes: likes });
@@ -719,9 +731,9 @@
         }
 
         window.submitMemberReport = async () => {
-            if (!currentUser) {
-                alert('ກະລຸນາເຂົ້າສູ່ລະບົບດ້ວຍ Google ກ່ອນສົ່ງບົດລາຍງານ!');
-                loginWithGoogle();
+            if (!currentRoomUser || currentRoomUser.includes('Admin')) {
+                alert('ກະລຸນາລັອກອິນດ້ວຍໄອດີຫ້ອງພັກກ່ອນສົ່ງບົດລາຍງານ!');
+                document.getElementById('room-login-modal').classList.remove('hidden');
                 return;
             }
 
@@ -733,13 +745,13 @@
             }
 
             const name = document.getElementById('member-name').value;
-            const roomNumber = document.getElementById('member-room-number').value;
+            const roomNumber = currentRoomUser; // ໃຊ້ຫ້ອງທີ່ລັອກອິນຢູ່ອັດຕະໂນມັດ
             const description = document.getElementById('member-task-desc').value;
             const fileInput = document.getElementById('member-media-files');
             const statusText = document.getElementById('member-upload-status');
 
-            if (!name || !roomNumber || !description) {
-                alert('ກະລຸນາຕື່ມຊື່, ເລືອກຫ້ອງພັກ ແລະ ໃສ່ລາຍລະອຽດການອະນາໄມໃຫ້ຄົບຖ້ວນ');
+            if (!name || !description) {
+                alert('ກະລຸນາປ້ອນຊື່ ແລະ ລາຍລະອຽດການອະນາໄມໃຫ້ຄົບຖ້ວນ');
                 return;
             }
 
@@ -779,10 +791,8 @@
                 const dateStr = new Date().toLocaleString('lo-LA');
 
                 await addDoc(collection(db, "member_reports"), {
-                    uid: currentUser.uid,
-                    email: currentUser.email,
-                    name: name,
                     room: roomNumber,
+                    name: name,
                     description: description,
                     mediaUrls: mediaUrls,
                     date: dateStr,
@@ -792,7 +802,6 @@
 
                 alert('ສົ່ງບົດລາຍງານສຳເລັດ! ກະລຸນາລໍຖ້າ Admin ອະນຸມັດເພື່ອຮັບ +1 ຄະແນນ.');
                 document.getElementById('member-name').value = '';
-                document.getElementById('member-room-number').value = '';
                 document.getElementById('member-task-desc').value = '';
                 fileInput.value = '';
                 statusText.innerText = 'ກະລຸນາເລືອກຮູບຖ່າຍຢືນຢັນຢ່າງໜ້ອຍ 3 ຮູບຂຶ້ນໄປ';
@@ -832,7 +841,7 @@
             container.innerHTML = allMemberReports.map(rep => `
                 <div class="bg-slate-900/80 border ${rep.approved ? 'border-emerald-600' : 'border-slate-700'} rounded-xl p-4 space-y-3 shadow-md animate-fade-in">
                     <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2">
-                        <span class="font-bold text-emerald-400">👤 ຜູ້ລາຍງານ: ${rep.name} (${rep.room || 'ບໍ່ລະບຸຫ້ອງ'}) - ${rep.email}</span>
+                        <span class="font-bold text-emerald-400">🏠 ໄອດີຫ້ອງ: ${rep.room || 'ບໍ່ລະບຸ'} | 👤 ຜູ້ສົ່ງ: ${rep.name}</span>
                         <div class="flex items-center space-x-2">
                             <span class="px-2 py-0.5 rounded text-[10px] ${rep.approved ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-amber-950 text-amber-300 border border-amber-800'}">
                                 ${rep.approved ? '✅ ອະນຸມັດແລ້ວ (+1 ຄະແນນ)' : '⏳ ລໍຖ້າ Admin ອະນຸມັດ'}
@@ -1044,23 +1053,6 @@
         window.searchNews = () => {
             const kw = document.getElementById('search-input').value.toLowerCase();
             renderNews(allNews.filter(n => n.title.toLowerCase().includes(kw) || n.content.toLowerCase().includes(kw)));
-        };
-
-        window.openAdminManagerModal = () => document.getElementById('admin-manager-modal').classList.remove('hidden');
-        window.closeAdminManagerModal = () => document.getElementById('admin-manager-modal').classList.add('hidden');
-        window.grantAdminRole = async () => {
-            const email = document.getElementById('target-admin-email').value;
-            if (!email) return;
-            const qSnapshot = await getDocs(collection(db, "users"));
-            let targetId = null;
-            qSnapshot.forEach(d => { if (d.data().email === email) targetId = d.id; });
-            if (targetId) {
-                await updateDoc(doc(db, "users", targetId), { role: 'admin' });
-                alert('ມອບສິດ Admin ສຳເລັດ!');
-                closeAdminManagerModal();
-            } else {
-                alert('ບໍ່ພົບອີເມວນີ້ໃນລະບົບ');
-            }
         };
     </script>
 </body>
