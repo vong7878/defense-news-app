@@ -29,6 +29,13 @@
                     <p class="text-xs text-emerald-300">Defense Unit News & Hygiene Tracking</p>
                 </div>
             </div>
+
+            <!-- Realtime Clock Widget -->
+            <div class="hidden md:flex items-center space-x-2 bg-slate-900/60 px-3 py-1.5 rounded-xl border border-slate-700/60 text-xs">
+                <span class="text-emerald-400">🕒</span>
+                <span id="live-clock" class="text-slate-200 font-medium">ກຳລັງໂຫຼດເວລາ...</span>
+            </div>
+
             <!-- Auth Nav -->
             <div id="auth-nav" class="flex items-center space-x-3"></div>
         </div>
@@ -43,7 +50,6 @@
                 <h2 class="font-bold text-emerald-400 mb-3 border-b border-slate-700 pb-2 text-sm uppercase tracking-wider">ເມນູຫຼັກ</h2>
                 <ul class="space-y-2 text-sm">
                     <li><button onclick="switchTab('news')" id="tab-news-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>📰</span> <span>ຂ່າວສານ & ແຈ້ງການ</span></button></li>
-                    <!-- ເພີ່ມໜ້າໃໝ່: ໜ້າສະຫຼຸບຄະແນນ -->
                     <li><button onclick="switchTab('score-summary')" id="tab-score-summary-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 text-amber-300 font-bold bg-amber-500/20 border border-amber-500/40"><span>📊</span> <span>ໜ້າສະຫຼຸບຄະແນນ (Summary)</span></button></li>
                     <li><button onclick="switchTab('scoreboard')" id="tab-scoreboard-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 hover:bg-slate-700/60"><span>🏆</span> <span>ຕາຕະລາງຄະແນນແຕ່ລະຫ້ອງ</span></button></li>
                     <li><button onclick="switchTab('cyber')" id="tab-cyber-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>🧹</span> <span>ຕິດຕາມການອະນາໄມ</span></button></li>
@@ -62,7 +68,7 @@
                 </ul>
             </div>
 
-            <!-- Visitor Counter Widget (Updated with Device Breakdown) -->
+            <!-- Visitor Counter Widget -->
             <div class="bg-slate-800/80 backdrop-blur p-4 rounded-2xl border border-slate-700/80 shadow-xl">
                 <h2 class="font-bold text-emerald-400 mb-3 border-b border-slate-700 pb-2 text-sm uppercase tracking-wider">👥 ສະຖິຕິຜູ້ເຂົ້າຊົມ</h2>
                 <div class="space-y-2 text-xs">
@@ -121,7 +127,7 @@
                 </div>
             </div>
 
-            <!-- NEW SECTION: หน้ารວມ/ສະຫຼຸບຄະແນນ (Score Summary Page) -->
+            <!-- SECTION 2: Score Summary Dashboard -->
             <div id="section-score-summary" class="space-y-6 animate-fade-in">
                 <div class="bg-gradient-to-r from-amber-950/90 via-slate-800/90 to-emerald-950/90 p-6 rounded-2xl border border-amber-500/40 shadow-2xl space-y-2">
                     <h2 class="text-2xl font-extrabold text-amber-400 flex items-center space-x-2">
@@ -197,7 +203,7 @@
                 <div class="bg-slate-800/80 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
                     <h2 class="text-xl font-bold text-emerald-400">👤 ຟອມສະມາຊິກ: ລາຍງານຜົນການອະນາໄມ & ຢືນຢັນຕົວຕົນ</h2>
                     <div class="bg-amber-950/50 border border-amber-600/50 p-3 rounded-xl text-xs text-amber-300">
-                        ⚠️ <b>ກົດເກນການສົ່ງ:</b> ແຕ່ລະຫ້ອງພັກສາມາດສົ່ງບົດລາຍງານໄດ້ <b>1 ຄັ້ງ ຕໍ່ 1 ອາທິດ ໂດຍສົ່ງໄດ້ສະເພາະມື້ "ວັນອາທິດ" ເທົ່ານັ້ນ!</b>
+                        ⚠️ <b>ກົດເກນການສົ່ງ:</b> ແຕ່ລະຫ້ອງພັກສົ່ງໄດ້ <b>1 ຄັ້ງ ຕໍ່ 1 ອາທິດ (ສະເພາະມື້ວັນອາທິດ, ເວລາ 16:00 - 19:00 ໂມງ) ເທົ່ານັ້ນ!</b>
                     </div>
                     
                     <div class="space-y-3 pt-2">
@@ -224,7 +230,7 @@
 
                     <div class="pt-3">
                         <button onclick="submitMemberReport()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 px-4 rounded-xl transition text-sm shadow-lg">
-                            🚀 ສົ່ງບົດລາຍງານຮັບ +1 ຄະແນນ (ສະເພາະວັນອາທິດ)
+                            🚀 ສົ່ງບົດລາຍງານຮັບ +1 ຄະແນນ (ວັນອາທິດ 16:00 - 19:00)
                         </button>
                     </div>
                 </div>
@@ -403,7 +409,28 @@
         window.addEventListener('DOMContentLoaded', () => {
             checkRoomAuthUI();
             loadFullScoreSummary();
+            updateLiveClock();
+            setInterval(updateLiveClock, 1000);
         });
+
+        // 🕒 Realtime Clock Function
+        function updateLiveClock() {
+            const clockElement = document.getElementById('live-clock');
+            if (!clockElement) return;
+
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit',
+                hour12: false 
+            };
+            clockElement.innerText = now.toLocaleDateString('lo-LA', options);
+        }
 
         window.handleLoginTypeChange = (val) => {
             const adminFields = document.getElementById('admin-auth-fields');
@@ -503,7 +530,6 @@
             checkRoomAuthUI();
         };
 
-        // --- Switch Tabs including the new Score Summary ---
         window.switchTab = (tab) => {
             const newsSec = document.getElementById('section-news');
             const scoreSummarySec = document.getElementById('section-score-summary');
@@ -557,7 +583,6 @@
             }
         };
 
-        // --- ຟັງຊັນປະມວນຜົນໜ້າສະຫຼຸບຄະແນນ (Score Summary Dashboard) ---
         async function loadFullScoreSummary() {
             const container = document.getElementById('summary-bars-container');
             if (!container) return;
@@ -657,7 +682,7 @@
             }
         }
 
-        // --- Visitor Counter Logic (Device Detection Added) ---
+        // --- Visitor Counter Logic (Device Breakdown) ---
         function getDeviceType() {
             const ua = navigator.userAgent;
             if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
@@ -949,6 +974,7 @@
             return `${d.getUTCFullYear()}-W${weekNo}`;
         }
 
+        // --- Member Report Submission with Day & Time Restriction (Sunday, 16:00 - 19:00) ---
         window.submitMemberReport = async () => {
             if (!currentRoomUser || currentRoomUser.includes('Admin')) {
                 alert('ກະລຸນາລັອກອິນດ້ວຍໄອດີຫ້ອງພັກກ່ອນສົ່ງບົດລາຍງານ!');
@@ -958,8 +984,22 @@
 
             const now = new Date();
             const currentDay = now.getDay();
+            
+            // 1. ກວດສອບມື້: ຕ້ອງເປັນວັນອາທິດ (0 = ວັນອາທິດ)
             if (currentDay !== 0) {
                 alert('⚠️ ຂໍອະໄພ! ລະບົບອະນຸຍາດໃຫ້ສົ່ງບົດລາຍງານສະເພາະ "ມື້ວັນອາທິດ" ເທົ່ານັ້ນ.');
+                return;
+            }
+
+            // 2. ກວດສອບຊ່ວງເວລາ: 16:00 ຫາ 19:00 ໂມງ
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+            const totalMinutesNow = currentHour * 60 + currentMinute;
+            const startMinutes = 16 * 60; // 16:00
+            const endMinutes = 19 * 60;   // 19:00
+
+            if (totalMinutesNow < startMinutes || totalMinutesNow > endMinutes) {
+                alert(`⚠️ ຂໍອະໄພ! ລະບົບເປີດໃຫ້ສົ່ງບົດລາຍງານສະເພາະຊ່ວງເວລາ 16:00 ຫາ 19:00 ໂມງເທົ່ານັ້ນ (ເວລາປະຈຸບັນ: ${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')} ໂມງ).`);
                 return;
             }
 
