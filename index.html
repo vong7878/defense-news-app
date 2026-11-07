@@ -59,7 +59,7 @@
                     
                     <!-- Admin Chat Tab (Visible only for Admins) -->
                     <li id="tab-admin-chat-li" class="hidden pt-2 border-t border-slate-700">
-                        <button onclick="switchTab('admin-chat')" id="tab-admin-chat-btn" class="w-full text-left px-3.5 py-3 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-300 font-bold bg-sky-600/30 border border-sky-500/60 shadow-lg animate-pulse">
+                        <button onclick="switchTab('admin-chat')" id="tab-admin-chat-btn" class="w-full text-left px-3.5 py-3 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-300 font-bold bg-sky-600/30 border border-sky-500/60 shadow-lg">
                             <span>💬</span> <span>ແຊັດລົມວຽກ Admin (4 ຄົນ)</span>
                         </button>
                     </li>
@@ -305,7 +305,7 @@
                     <option value="ຫ້ອງ 113">ຫ້ອງ 113</option>
                     <option value="ຫ້ອງ 114">ຫ້ອງ 114</option>
                     <option value="SUPER_ADMIN">👑 ຜູ້ສ້າງເວັບໄຊ (ເຂົ້າດ້ວຍອີເມວ)</option>
-                    <option value="SUB_ADMIN_1">⚙️ Admin ຮອງ 1 (ໄອດີພໍ)</option>
+                    <option value="SUB_ADMIN_1">⚙️ Admin ຮອງ 1 (ໄອດີພໍ - ເຂົ້າໄດ້ 2 ເຄື່ອງ)</option>
                     <option value="SUB_ADMIN_2">⚙️ Admin ຮອງ 2 (ໄອດີພໍ)</option>
                     <option value="SUB_ADMIN_3">⚙️ Admin ຮອງ 3 (ໄອດີພໍ)</option>
                 </select>
@@ -326,7 +326,7 @@
                 <div id="sub-admin-fields" class="hidden space-y-2.5 pt-2 text-left bg-emerald-950/40 p-3 rounded-xl border border-emerald-500/30">
                     <label class="block text-[11px] text-emerald-300 mb-1">ປ້ອນລະຫັດຜ່ານ / ໄອດີພໍ (PIN Code) ຂອງ Admin:</label>
                     <input type="password" id="sub-admin-pin" placeholder="ປ້ອນລະຫັດ 4-6 ຕົວເລກ..." class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-center text-sm font-bold tracking-widest text-amber-400 focus:outline-none focus:border-emerald-500">
-                    <p class="text-[10px] text-slate-400 italic text-center">* 1 ໄອດີ ສາມາດລັອກອິນໄດ້ພຽງ 1 ເຄື່ອງເທົ່ານັ້ນ</p>
+                    <p id="sub-admin-hint" class="text-[10px] text-slate-400 italic text-center mt-1">* 1 ໄອດີ ສາມາດລັອກອິນໄດ້ຈຳກັດ</p>
                 </div>
             </div>
 
@@ -477,10 +477,22 @@
                     const docRef = doc(db, "admin_sessions", adminKey);
                     const docSnap = await getDoc(docRef);
                     if (docSnap.exists()) {
-                        const activeDevice = docSnap.data().deviceId;
-                        if (activeDevice !== deviceSessionId) {
-                            alert('⚠️ ບັນຊີນີ້ຖືກລັອກອິນຈາກເຄື່ອງມືຖືເຄື່ອງອື່ນແລ້ວ! ລະບົບຈະພາທ່ານອອກຈາກລະບົບ.');
-                            await logoutSession();
+                        const data = docSnap.data();
+                        
+                        if (adminKey === 'SUB_ADMIN_1') {
+                            // Admin ຮອງ 1 อนุญาต 2 เครื่อง
+                            let devices = data.devices || [];
+                            if (!devices.includes(deviceSessionId)) {
+                                alert('⚠️ ບັນຊີ Admin ຮອງ 1 ນี้ ຖືກລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ! ລະບົບຈະພາທ່ານອອກຈາກລະບົບ.');
+                                await logoutSession();
+                            }
+                        } else {
+                            // Admin ຮອງ 2 ແລະ 3 อนุญาต 1 เครื่อง
+                            const activeDevice = data.deviceId;
+                            if (activeDevice !== deviceSessionId) {
+                                alert('⚠️ ບັນຊີນີ້ຖືກລັອກອິນຈາກເຄື່ອງມືຖືເຄື່ອງອື່ນແລ້ວ! ລະບົບຈະພາທ່ານອອກຈາກລະບົບ.');
+                                await logoutSession();
+                            }
                         }
                     }
                 } catch (e) {
@@ -515,6 +527,7 @@
         window.handleLoginTypeChange = (val) => {
             const adminFields = document.getElementById('admin-auth-fields');
             const subAdminFields = document.getElementById('sub-admin-fields');
+            const hintElem = document.getElementById('sub-admin-hint');
 
             adminFields.classList.add('hidden');
             subAdminFields.classList.add('hidden');
@@ -523,6 +536,11 @@
                 adminFields.classList.remove('hidden');
             } else if (val.startsWith('SUB_ADMIN')) {
                 subAdminFields.classList.remove('hidden');
+                if (val === 'SUB_ADMIN_1') {
+                    hintElem.innerText = '* ໄອດີນີ້ ສามารถລັອກອິນໄດ້ສູງສຸດ 2 ເຄື່ອງມືຖືພ້ອມກັນ';
+                } else {
+                    hintElem.innerText = '* 1 ໄອດີ ສາມາດລັອກອິນໄດ້ພຽງ 1 ເຄື່ອງເທົ່ານັ້ນ';
+                }
             }
         };
 
@@ -612,20 +630,43 @@
                     const docRef = doc(db, "admin_sessions", val);
                     const docSnap = await getDoc(docRef);
 
-                    if (docSnap.exists()) {
-                        const data = docSnap.data();
-                        const lastActive = data.timestamp ? data.timestamp.toMillis() : 0;
-                        const nowTime = Date.now();
-                        if (data.deviceId !== deviceSessionId && (nowTime - lastActive < 7200000)) {
-                            alert(`⚠️ ຂໍອະໄພ! "${adminName}" ນີ້ ກຳລັງຖືກເປີດໃຊ້ງານຢູ່ເທິງມືຖືເຄື່ອງອື່ນແລ້ວ (ຈຳກັດ 1 ໄອດີ ຕໍ່ 1 ເຄື່ອງ).`);
-                            return;
+                    if (val === 'SUB_ADMIN_1') {
+                        // Admin ຮອງ 1: ໃຫ້ເຂົ້າໄດ້ 2 ເຄື່ອງ
+                        let devices = [];
+                        if (docSnap.exists()) {
+                            devices = docSnap.data().devices || [];
                         }
-                    }
 
-                    await setDoc(docRef, {
-                        deviceId: deviceSessionId,
-                        timestamp: new Date()
-                    });
+                        if (!devices.includes(deviceSessionId)) {
+                            if (devices.length >= 2) {
+                                alert(`⚠️ ຂໍອະໄພ! "${adminName}" ນี้ มีການລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ.`);
+                                return;
+                            }
+                            devices.push(deviceSessionId);
+                        }
+
+                        await setDoc(docRef, {
+                            devices: devices,
+                            timestamp: new Date()
+                        }, { merge: true });
+
+                    } else {
+                        // Admin ຮອງ 2 ແລະ 3: ໃຫ້ເຂົ້າໄດ້ 1 ເຄື່ອງເທົ່ານັ້ນ
+                        if (docSnap.exists()) {
+                            const data = docSnap.data();
+                            const lastActive = data.timestamp ? data.timestamp.toMillis() : 0;
+                            const nowTime = Date.now();
+                            if (data.deviceId !== deviceSessionId && (nowTime - lastActive < 7200000)) {
+                                alert(`⚠️ ຂໍອະໄພ! "${adminName}" ນີ້ ກຳລັງຖືກເປີດໃຊ້ງານຢູ່ເທິງມືຖືເຄື່ອງອື່ນແລ້ວ (ຈຳກັດ 1 ໄອດີ ຕໍ່ 1 ເຄື່ອງ).`);
+                                return;
+                            }
+                        }
+
+                        await setDoc(docRef, {
+                            deviceId: deviceSessionId,
+                            timestamp: new Date()
+                        });
+                    }
 
                     currentRoomUser = adminName;
                     userRole = 'admin';
@@ -651,6 +692,14 @@
             try {
                 if (userRole === 'admin' && currentRoomUser.includes('ຜູ້ສ້າງ')) {
                     await signOut(auth);
+                } else if (userRole === 'admin' && currentRoomUser.includes('Admin ຮອງ 1')) {
+                    const docRef = doc(db, "admin_sessions", "SUB_ADMIN_1");
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        let devices = docSnap.data().devices || [];
+                        devices = devices.filter(id => id !== deviceSessionId);
+                        await updateDoc(docRef, { devices: devices });
+                    }
                 }
             } catch (err) {
                 console.error(err);
@@ -1400,6 +1449,7 @@
             try {
                 const querySnapshot = await getDocs(collection(db, "cyber_tasks"));
                 allCyberTasks = [];
+                querySnapshot.querySnapshot.forEach((docSnap) => {}); // Placeholder
                 querySnapshot.forEach((docSnap) => {
                     allCyberTasks.push({ id: docSnap.id, ...docSnap.data() });
                 });
