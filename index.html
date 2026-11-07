@@ -30,7 +30,7 @@
         }
         .animate-bell { animation: ring 0.5s ease-in-out infinite; }
 
-        /* 🦋 Keyframes ສຳລັບຜີເສື້ອສີທອງບິນທັບໜ້າຈໍ (ຊ້າຍ-ຂວາ ແລະ ຂຶ້ນ-ລົງ) */
+        /* 🦋 Keyframes ສຳລັບຜີເສື້ອສີທອງບິນທັບໜ້າຈໍ */
         @keyframes butterflyFly1 {
             0% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
             25% { transform: translate(140px, -90px) rotate(20deg) scale(1.15); }
@@ -87,7 +87,7 @@
             z-index: 9999;
         }
 
-        /* 🖼️ ຮູບພື້ນຫຼັງໜ້າຈໍເວັບໄຊ (ຫໍພັກ VKU) */
+        /* 🖼️ ຮູບພື້ນຫຼັງໜ້າຈໍເວັບໄຊ */
         body {
             background: linear-gradient(to bottom, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.94)), 
                         url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjLFTe7Tfe561YMDN9iVbQMb4H6gIZUfMFXu8W6TYp77tIrVUh3hmncCyy&s=10');
@@ -97,7 +97,6 @@
             background-attachment: fixed;
         }
 
-        /* 🌉 ຮູບພື້ນຫຼັງແຖບ Navbar ດ້ານເທິງ (ຂົວມັງກອນ ດານັງ) ພ້ອມ Dark Overlay */
         .navbar-custom-bg {
             background: linear-gradient(to right, rgba(2, 44, 34, 0.92), rgba(15, 23, 42, 0.92)), 
                         url('https://tiawellnessresort.com/wp-content/uploads/2026/09/cau-rong-bieu-tuong-kien-truc-tai-da-nang.webp');
@@ -108,26 +107,16 @@
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white relative overflow-x-hidden">
 
-    <!-- 🦋 ຜີເສື້ອການຕູນສີທອງ 5 ໂຕ ບິນທັບໜ້າຈໍ (Foreground layer) -->
+    <!-- 🦋 ຜີເສື້ອການຕູນສີທອງ 5 ໂຕ -->
     <div class="fixed inset-0 pointer-events-none z-40 overflow-hidden">
-        <div class="absolute top-[20%] left-[5%] butterfly-1 opacity-95 drop-shadow-[0_0_15px_rgba(250,204,21,1)]">
-            <span class="text-4xl filter drop-shadow">🦋</span>
-        </div>
-        <div class="absolute top-[45%] right-[8%] butterfly-2 opacity-95 drop-shadow-[0_0_15px_rgba(251,191,36,1)]">
-            <span class="text-5xl filter drop-shadow">🦋</span>
-        </div>
-        <div class="absolute bottom-[25%] left-[12%] butterfly-3 opacity-90 drop-shadow-[0_0_12px_rgba(234,179,8,0.9)]">
-            <span class="text-4xl filter drop-shadow">🦋</span>
-        </div>
-        <div class="absolute top-[70%] right-[25%] butterfly-4 opacity-90 drop-shadow-[0_0_12px_rgba(252,211,77,0.9)]">
-            <span class="text-4xl filter drop-shadow">🦋</span>
-        </div>
-        <div class="absolute top-[12%] right-[40%] butterfly-5 opacity-95 drop-shadow-[0_0_16px_rgba(250,204,21,1)]">
-            <span class="text-5xl filter drop-shadow">🦋</span>
-        </div>
+        <div class="absolute top-[20%] left-[5%] butterfly-1 opacity-95 drop-shadow-[0_0_15px_rgba(250,204,21,1)]"><span class="text-4xl filter drop-shadow">🦋</span></div>
+        <div class="absolute top-[45%] right-[8%] butterfly-2 opacity-95 drop-shadow-[0_0_15px_rgba(251,191,36,1)]"><span class="text-5xl filter drop-shadow">🦋</span></div>
+        <div class="absolute bottom-[25%] left-[12%] butterfly-3 opacity-90 drop-shadow-[0_0_12px_rgba(234,179,8,0.9)]"><span class="text-4xl filter drop-shadow">🦋</span></div>
+        <div class="absolute top-[70%] right-[25%] butterfly-4 opacity-90 drop-shadow-[0_0_12px_rgba(252,211,77,0.9)]"><span class="text-4xl filter drop-shadow">🦋</span></div>
+        <div class="absolute top-[12%] right-[40%] butterfly-5 opacity-95 drop-shadow-[0_0_16px_rgba(250,204,21,1)]"><span class="text-5xl filter drop-shadow">🦋</span></div>
     </div>
 
-    <!-- Navbar ພ້ອມພື້ນຫຼັງຮູບຂົວມັງກອນ -->
+    <!-- Navbar -->
     <header class="navbar-custom-bg backdrop-blur border-b border-emerald-800/60 sticky top-0 z-50 shadow-md">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center justify-between w-full sm:w-auto">
@@ -339,7 +328,7 @@
                 <div class="bg-slate-800/85 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
                     <h2 class="text-xl font-bold text-emerald-400">👤 ຟອມສະມາຊິກ: ລາຍງານຜົນການອະນາໄມ & ຢືນຢັນຕົວຕົນ</h2>
                     <div class="bg-amber-950/50 border border-amber-600/50 p-3 rounded-xl text-xs text-amber-300">
-                        ⚠️ <b>ກົດເກນການສົ່ງ:</b> ແຕ່ລະຫ້ອງພັກສົ່ງໄດ້ <b>1 ຄັ້ງ ຕໍ່ 1 ອາທິດ (ສະເພາະມື້ວັນອາທິດ, ເວລາ 16:00 - 19:00 ໂມງ) ເທົ່ານັ້ນ!</b> ແລະ <b>ຕ້ອງຖ່າຍຮູບສົດຜ່ານກ້ອງເທົ່ານັ້ນ (ຫ້ອງເລືອກຮູບຈາກແກລເລີ)</b> ເພື່ອປ້ອງກັນການເອົາຮູບຄົນອື່ນມາສົ່ງ.
+                        ⚠️ <b>ກົດເກນການສົ່ງ:</b> ແຕ່ລະຫ້ອງພັກສົ່ງໄດ້ <b>1 ຄັ້ງ ຕໍ່ 1 ອາທິດ (ສະເພາະມື້ວັນອາທິດ, ເວລາ 16:00 - 19:00 ໂມງ) ເທົ່ານັ້ນ!</b> ແລະ <b>ຕ້ອງຖ່າຍຮູບສົດຜ່ານກ້ອງເທົ່ານັ້ນ (ຫ້າມເລືອກຮູບຈາກແກລເລີ)</b> ເພື່ອປ້ອງກັນການເອົາຮູບຄົນອື່ນມາສົ່ງ.
                     </div>
                     
                     <div class="space-y-3 pt-2">
@@ -636,7 +625,6 @@
             initTouchGoldGlowEffect();
         });
 
-        // ✨ ລະບົບສ້າງແສງສີທອງເປັ່ງປະກາຍເວລາຄລິກ ຫຼື ຈິ້ມໜ້າຈໍ
         function initTouchGoldGlowEffect() {
             window.addEventListener('pointerdown', (e) => {
                 const glow = document.createElement('div');
@@ -651,7 +639,6 @@
             });
         }
 
-        // 🔊 Function to play loud alert sound using Web Audio API
         function playLoudAlertSound() {
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1900,7 +1887,7 @@
                 alert('⚠️ ຂໍອະໄພ! ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນທີ່ມີສິດບັນທຶກ.');
                 return;
             }
-            const title = document.getElementById('cyber-task-title</i>").value;
+            const title = document.getElementById('cyber-task-title').value;
             const description = document.getElementById('cyber-task-desc').value;
             const fileInput = document.getElementById('cyber-media-files');
             const statusText = document.getElementById('upload-status');
