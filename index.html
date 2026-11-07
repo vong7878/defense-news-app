@@ -87,7 +87,7 @@
                             <button onclick="clearNotifications()" class="text-[10px] text-slate-400 hover:text-white underline">ລ້າງທັງໝົດ</button>
                         </div>
                         <div id="notification-list" class="max-h-64 overflow-y-auto divide-y divide-slate-800 text-xs">
-                            <div class="p-4 text-center text-slate-500">ຍังບໍ່ມີການແຈ້ງເຕືອນ</div>
+                            <div class="p-4 text-center text-slate-500">ຍັງບໍ່ມີການແຈ້ງເຕືອນ</div>
                         </div>
                     </div>
                 </div>
@@ -257,7 +257,7 @@
                 <div class="bg-gradient-to-r from-emerald-950/80 to-slate-800/80 p-5 rounded-2xl border border-emerald-800/50 shadow-xl flex justify-between items-center">
                     <div>
                         <h2 class="text-lg font-bold text-emerald-400">📊 ບົດສະຫຼຸບຄວາມຄືບໜ້າການອະນາໄມ</h2>
-                        <p class="text-xs text-slate-300 mt-0.5">ທຸກໂພສໃນລະບົບຖືກໝາຍວ່າສຳເລັດແລ້ວໂດຍອັດຕະໂນມັດ</p>
+                        <p class="text-xs text-slate-300 mt-0.5">ທຸກໂພສໃນລະບົບຖືກໝາຍວ່າສຳເລັດແລ້ວໂດຍອັດຕະໂນມັດ ພ້ອມປຸ່ມດາວໂຫຼດຮູບພາບ</p>
                     </div>
                     <div class="bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-700 text-center">
                         <span id="stat-cyber-done" class="block text-xl font-bold text-emerald-400">0 / 0</span>
@@ -319,7 +319,7 @@
                 <div class="bg-gradient-to-r from-pink-950/90 via-slate-800/90 to-emerald-950/90 p-5 rounded-2xl border border-pink-500/40 shadow-xl flex justify-between items-center">
                     <div>
                         <h2 class="text-lg font-bold text-pink-400 flex items-center space-x-2"><span>💬</span> <span>ປະກອບຄຳຄິດຄຳເຫັນຕໍ່ການປະຕິບັດງານຂອງຈຸປ້ອງກັນ</span></h2>
-                        <p class="text-xs text-slate-300 mt-0.5">ຄຳຄິດຄຳເຫັນຂອງທ່ານຈະຖືກສົ່ງตรงເຖິງຫ້ອງແຊັດ Admin ທັງ 4 ຄົນທັນທີ</p>
+                        <p class="text-xs text-slate-300 mt-0.5">ຄຳຄິດຄຳເຫັນຂອງທ່ານຈະຖືກສົ່ງຕົງເຖິງຫ້ອງແຊັດ Admin ທັງ 4 ຄົນທັນທີ</p>
                     </div>
                 </div>
 
@@ -355,7 +355,7 @@
                 <div class="bg-gradient-to-r from-sky-950/90 via-slate-800/90 to-emerald-950/90 p-5 rounded-2xl border border-sky-500/40 shadow-xl flex justify-between items-center">
                     <div>
                         <h2 class="text-lg font-bold text-sky-400 flex items-center space-x-2"><span>💬</span> <span>ຫ້ອງແຊັດລົມວຽກ Admin (ຜູ້ສ້າງ ແລະ Admin ຮອງ 1, 2, 3)</span></h2>
-                        <p class="text-xs text-slate-300 mt-0.5">ພື້ນທີ່ສຳລັບ Admin ທັງ 4 ຄົນ ປຶກສາ ແລະ ສື່ສານກັນภายใน (ລວມທັງຄຳຄິດຄຳເຫັນຈາກ User)</p>
+                        <p class="text-xs text-slate-300 mt-0.5">ພື້ນທີ່ສຳລັບ Admin ທັງ 4 ຄົນ ປຶກສາ ແລະ ສື່ສານກັນພາຍໃນ (ລວມທັງຄຳຄິດຄຳເຫັນຈາກ User)</p>
                     </div>
                 </div>
 
@@ -574,8 +574,6 @@
         function playLoudAlertSound() {
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                
-                // Play 3 loud beeps
                 for (let i = 0; i < 3; i++) {
                     setTimeout(() => {
                         if (audioCtx.state === 'suspended') {
@@ -585,9 +583,9 @@
                         const gain = audioCtx.createGain();
                         
                         osc.type = 'sine';
-                        osc.frequency.setValueAtTime(880, audioCtx.currentTime); // High pitch A5
+                        osc.frequency.setValueAtTime(880, audioCtx.currentTime);
                         
-                        gain.gain.setValueAtTime(1.0, audioCtx.currentTime); // Max volume loudness
+                        gain.gain.setValueAtTime(1.0, audioCtx.currentTime);
                         gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
                         
                         osc.connect(gain);
@@ -611,7 +609,7 @@
                 read: false
             };
             notifications.unshift(newNotif);
-            if (notifications.length > 20) notifications.pop(); // Keep last 20
+            if (notifications.length > 20) notifications.pop();
             localStorage.setItem('user_notifications', JSON.stringify(notifications));
             
             updateNotificationUI();
@@ -654,7 +652,6 @@
             const dropdown = document.getElementById('notification-dropdown');
             dropdown.classList.toggle('hidden');
 
-            // Mark all as read when opened
             if (!dropdown.classList.contains('hidden')) {
                 notifications.forEach(n => n.read = true);
                 localStorage.setItem('user_notifications', JSON.stringify(notifications));
@@ -668,9 +665,7 @@
             updateNotificationUI();
         };
 
-        // Realtime listeners for news and feedbacks to trigger alert bell & sound
         function initRealtimeListeners() {
-            // Listen to News updates
             const newsQuery = query(collection(db, "news"), orderBy("date", "desc"));
             globalNewsUnsubscribe = onSnapshot(newsQuery, (snapshot) => {
                 if (!isInitialLoad) {
@@ -683,7 +678,6 @@
                 }
             });
 
-            // Listen to User Feedbacks / Admin Group messages
             const chatQuery = query(collection(db, "admin_chats"), orderBy("timestamp", "desc"));
             globalFeedbackUnsubscribe = onSnapshot(chatQuery, (snapshot) => {
                 if (!isInitialLoad) {
@@ -1682,7 +1676,14 @@
                     </div>
                     <p class="text-sm text-slate-200 whitespace-pre-line">${rep.description}</p>
                     <div class="grid grid-cols-3 sm:grid-cols-4 gap-2 pt-2">
-                        ${rep.mediaUrls.map(url => `<a href="${url}" target="_blank"><img src="${url}" class="w-full h-20 object-cover rounded-lg hover:opacity-80 transition border border-slate-700"></a>`).join('')}
+                        ${rep.mediaUrls.map((url, idx) => `
+                            <div class="relative group">
+                                <a href="${url}" target="_blank"><img src="${url}" class="w-full h-20 object-cover rounded-lg hover:opacity-80 transition border border-slate-700"></a>
+                                <a href="${url}" download="hygiene_image_${idx+1}.jpg" class="absolute bottom-1 right-1 bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] px-1.5 py-0.5 rounded shadow flex items-center space-x-0.5 opacity-95 transition">
+                                    <span>📥</span> <span>ໂຫຼດ</span>
+                                </a>
+                            </div>
+                        `).join('')}
                     </div>
                     <div class="flex justify-end space-x-2 pt-2">
                         ${userRole === 'admin' ? `
@@ -1771,7 +1772,14 @@
             container.innerHTML = allCyberTasks.map(task => {
                 const mediaHtml = task.mediaUrls && task.mediaUrls.length > 0 ? `
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 pt-3 border-t border-slate-700">
-                        ${task.mediaUrls.map(url => `<a href="${url}" target="_blank"><img src="${url}" class="w-full h-24 object-cover rounded-xl hover:opacity-80 transition"></a>`).join('')}
+                        ${task.mediaUrls.map((url, idx) => `
+                            <div class="relative group">
+                                <a href="${url}" target="_blank"><img src="${url}" class="w-full h-24 object-cover rounded-xl hover:opacity-80 transition"></a>
+                                <a href="${url}" download="cyber_image_${idx+1}.jpg" class="absolute bottom-2 right-2 bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] px-2 py-1 rounded-lg shadow flex items-center space-x-1 opacity-95 transition">
+                                    <span>📥</span> <span>ດາວໂຫຼດຮູບ</span>
+                                </a>
+                            </div>
+                        `).join('')}
                     </div>
                 ` : '';
 
