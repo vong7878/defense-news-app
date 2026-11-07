@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ລະບົບຂ່າວສານ ແລະ ຕິດຕາມການອະນາໄມ - ຈຸປ້ອງກັນ</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font: Noto Sans Lao -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Noto Sans Lao', sans-serif; }
@@ -27,6 +29,7 @@
                     <p class="text-xs text-emerald-300">Defense Unit News & Hygiene Tracking</p>
                 </div>
             </div>
+            <!-- Auth Nav -->
             <div id="auth-nav" class="flex items-center space-x-3"></div>
         </div>
     </header>
@@ -40,7 +43,9 @@
                 <h2 class="font-bold text-emerald-400 mb-3 border-b border-slate-700 pb-2 text-sm uppercase tracking-wider">ເມນູຫຼັກ</h2>
                 <ul class="space-y-2 text-sm">
                     <li><button onclick="switchTab('news')" id="tab-news-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>📰</span> <span>ຂ່າວສານ & ແຈ້ງການ</span></button></li>
-                    <li><button onclick="switchTab('scoreboard')" id="tab-scoreboard-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 text-amber-400 font-bold bg-amber-500/20 border border-amber-500/40"><span>🏆</span> <span>ກວດເບິ່ງຄະແນນແຕ່ລະຫ້ອງ</span></button></li>
+                    <!-- ເພີ່ມໜ້າໃໝ່: ໜ້າສະຫຼຸບຄະແນນ -->
+                    <li><button onclick="switchTab('score-summary')" id="tab-score-summary-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 text-amber-300 font-bold bg-amber-500/20 border border-amber-500/40"><span>📊</span> <span>ໜ້າສະຫຼຸບຄະແນນ (Summary)</span></button></li>
+                    <li><button onclick="switchTab('scoreboard')" id="tab-scoreboard-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 hover:bg-slate-700/60"><span>🏆</span> <span>ຕາຕະລາງຄະແນນແຕ່ລະຫ້ອງ</span></button></li>
                     <li><button onclick="switchTab('cyber')" id="tab-cyber-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>🧹</span> <span>ຕິດຕາມການອະນາໄມ</span></button></li>
                     <li><button onclick="switchTab('member')" id="tab-member-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400"><span>👤</span> <span>ລາຍງານອະນາໄມ (ສະມາຊິກ)</span></button></li>
                 </ul>
@@ -112,8 +117,54 @@
                 </div>
             </div>
 
-            <!-- SECTION 2: Scoreboard Full View -->
-            <div id="section-scoreboard" class="space-y-4 animate-fade-in">
+            <!-- NEW SECTION: หน้ารວມ/ສະຫຼຸບຄະແນນ (Score Summary Page) -->
+            <div id="section-score-summary" class="space-y-6 animate-fade-in">
+                <!-- Header Banner -->
+                <div class="bg-gradient-to-r from-amber-950/90 via-slate-800/90 to-emerald-950/90 p-6 rounded-2xl border border-amber-500/40 shadow-2xl space-y-2">
+                    <h2 class="text-2xl font-extrabold text-amber-400 flex items-center space-x-2">
+                        <span>📊</span> <span>ໜ້າສະຫຼຸບຄະແນນການອະນາໄມທັງໝົດ (Dashboard)</span>
+                    </h2>
+                    <p class="text-xs text-slate-300">ສະຫຼຸບອັນດັບຄວາມສະອາດ, ຄະແນນສະສົມ ແລະ ຜົນການປະຕິບັດງານຂອງທຸກໆຫ້ອງພັກ</p>
+                </div>
+
+                <!-- Stat Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-slate-800/80 p-5 rounded-2xl border border-amber-500/30 shadow-lg flex items-center space-x-4">
+                        <div class="p-3 bg-amber-500/20 text-amber-400 rounded-xl text-2xl font-bold">🥇</div>
+                        <div>
+                            <span class="text-xs text-slate-400 block">ຫ້ອງອັນດັບ 1 (ຄະແນນສູງສຸດ)</span>
+                            <span id="summary-top-room" class="text-lg font-bold text-amber-400">ກຳລັງປະມວນ...</span>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800/80 p-5 rounded-2xl border border-emerald-500/30 shadow-lg flex items-center space-x-4">
+                        <div class="p-3 bg-emerald-500/20 text-emerald-400 rounded-xl text-2xl font-bold">⭐</div>
+                        <div>
+                            <span class="text-xs text-slate-400 block">ຄະແນນລວມທຸກຫ້ອງ</span>
+                            <span id="summary-total-points" class="text-lg font-bold text-emerald-400">0 ຄະແນນ</span>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800/80 p-5 rounded-2xl border border-sky-500/30 shadow-lg flex items-center space-x-4">
+                        <div class="p-3 bg-sky-500/20 text-sky-400 rounded-xl text-2xl font-bold">📋</div>
+                        <div>
+                            <span class="text-xs text-slate-400 block">ບົດລາຍງານທີ່ອະນຸມັດແລ້ວ</span>
+                            <span id="summary-approved-count" class="text-lg font-bold text-sky-400">0 ບົດລາຍງານ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar View -->
+                <div class="bg-slate-800/80 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
+                    <h3 class="font-bold text-emerald-400 text-lg border-b border-slate-700 pb-3 flex items-center space-x-2">
+                        <span>📈</span> <span>ກຣາຟສະຫຼຸບເປີເຊັນ ແລະ ຄະແນນສະສົມ</span>
+                    </h3>
+                    <div id="summary-bars-container" class="space-y-4">
+                        <div class="text-center py-8 text-slate-400">ກຳລັງປະມວນຜົນຄະແນນ...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: Scoreboard Full Grid View -->
+            <div id="section-scoreboard" class="space-y-4 hidden animate-fade-in">
                 <div class="bg-gradient-to-r from-amber-950/80 to-slate-800/80 p-6 rounded-2xl border border-amber-600/50 shadow-xl space-y-2">
                     <h2 class="text-xl font-bold text-amber-400 flex items-center space-x-2"><span>🏆</span> <span>ຕາຕະລາງຄະແນນການອະນາໄມປະຈຳຫ້ອງ</span></h2>
                     <p class="text-xs text-slate-300">ສະແດງຄະແນນສະສົມທັງໝົດຂອງແຕ່ລະຫ້ອງພັກ (ໄດ້ຮັບ +1 ຄະແນນ ເມື່ອ Admin ອະນຸມັດບົດລາຍງານໃນວັນອາທິດ)</p>
@@ -123,7 +174,7 @@
                 </div>
             </div>
 
-            <!-- SECTION 3: Hygiene Tracking -->
+            <!-- SECTION 4: Hygiene Tracking -->
             <div id="section-cyber" class="space-y-4 hidden animate-fade-in">
                 <div class="bg-gradient-to-r from-emerald-950/80 to-slate-800/80 p-5 rounded-2xl border border-emerald-800/50 shadow-xl flex justify-between items-center">
                     <div>
@@ -140,7 +191,7 @@
                 </div>
             </div>
 
-            <!-- SECTION 4: Member Report Form -->
+            <!-- SECTION 5: Member Report Form -->
             <div id="section-member" class="space-y-4 hidden animate-fade-in">
                 <div class="bg-slate-800/80 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
                     <h2 class="text-xl font-bold text-emerald-400">👤 ຟອມສະມາຊິກ: ລາຍງານຜົນການອະນາໄມ & ຢືນຢັນຕົວຕົນ</h2>
@@ -240,18 +291,15 @@
         <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl animate-fade-in text-center">
             <h3 class="text-lg font-bold text-emerald-400">🔗 ແຊໄປຍັງແພລັດຟອມຕ່າງໆ</h3>
             <p id="share-modal-title" class="text-xs text-slate-300 truncate font-medium"></p>
-            
             <div class="grid grid-cols-2 gap-3 pt-2">
                 <button onclick="shareToPlatform('facebook')" class="bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition"><span>📘</span> <span>Facebook</span></button>
                 <button onclick="shareToPlatform('messenger')" class="bg-sky-600 hover:bg-sky-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition"><span>💬</span> <span>Messenger</span></button>
                 <button onclick="shareToPlatform('telegram')" class="bg-blue-500 hover:bg-blue-400 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition"><span>✈️</span> <span>Telegram</span></button>
                 <button onclick="shareToPlatform('whatsapp')" class="bg-green-600 hover:bg-green-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition"><span>🟢</span> <span>WhatsApp</span></button>
             </div>
-
             <div class="pt-2">
                 <button onclick="shareToPlatform('copy')" class="w-full bg-slate-700 hover:bg-slate-600 text-emerald-300 font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition border border-slate-600"><span>📋</span> <span>ກ໊ອບປີ້ລິ້ງໂພສນີ້ (Copy Link)</span></button>
             </div>
-
             <div class="pt-2">
                 <button onclick="closeShareModal()" class="w-full bg-slate-900 hover:bg-slate-950 text-slate-400 py-2 rounded-xl text-xs">ປິດໜ້າຈໍນີ້</button>
             </div>
@@ -352,8 +400,8 @@
         let currentShareData = { title: '', text: '', url: '' };
 
         window.addEventListener('DOMContentLoaded', () => {
-            loadFullScoreboard();
             checkRoomAuthUI();
+            loadFullScoreSummary();
         });
 
         window.handleLoginTypeChange = (val) => {
@@ -397,7 +445,7 @@
             loadNews();
             loadCyberTasks();
             loadMemberReports();
-            loadFullScoreboard();
+            loadFullScoreSummary();
         }
 
         window.confirmRoomLogin = async () => {
@@ -454,6 +502,162 @@
             checkRoomAuthUI();
         };
 
+        // --- Switch Tabs including the new Score Summary ---
+        window.switchTab = (tab) => {
+            const newsSec = document.getElementById('section-news');
+            const scoreSummarySec = document.getElementById('section-score-summary');
+            const scoreboardSec = document.getElementById('section-scoreboard');
+            const cyberSec = document.getElementById('section-cyber');
+            const memberSec = document.getElementById('section-member');
+            
+            const newsBtn = document.getElementById('tab-news-btn');
+            const scoreSummaryBtn = document.getElementById('tab-score-summary-btn');
+            const scoreboardBtn = document.getElementById('tab-scoreboard-btn');
+            const cyberBtn = document.getElementById('tab-cyber-btn');
+            const memberBtn = document.getElementById('tab-member-btn');
+            const catBox = document.getElementById('news-categories-box');
+
+            newsSec.classList.add('hidden');
+            scoreSummarySec.classList.add('hidden');
+            scoreboardSec.classList.add('hidden');
+            cyberSec.classList.add('hidden');
+            memberSec.classList.add('hidden');
+            
+            newsBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
+            scoreSummaryBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-amber-300";
+            scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
+            cyberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
+            memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400";
+
+            if (tab === 'news') {
+                newsSec.classList.remove('hidden');
+                newsBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2";
+                catBox.classList.remove('hidden');
+            } else if (tab === 'score-summary') {
+                scoreSummarySec.classList.remove('hidden');
+                scoreSummaryBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-amber-600/35 text-amber-300 font-bold transition duration-200 flex items-center space-x-2 border border-amber-500/40";
+                catBox.classList.add('hidden');
+                loadFullScoreSummary();
+            } else if (tab === 'scoreboard') {
+                scoreboardSec.classList.remove('hidden');
+                scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-700 text-slate-100 font-medium transition duration-200 flex items-center space-x-2";
+                catBox.classList.add('hidden');
+                loadFullScoreboard();
+            } else if (tab === 'cyber') {
+                cyberSec.classList.remove('hidden');
+                cyberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2";
+                catBox.classList.add('hidden');
+                loadCyberTasks();
+            } else if (tab === 'member') {
+                memberSec.classList.remove('hidden');
+                memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2 text-emerald-400";
+                catBox.classList.add('hidden');
+                loadMemberReports();
+            }
+        };
+
+        // --- ຟັງຊັນປະມວນຜົນໜ້າສະຫຼຸບຄະແນນ (Score Summary Dashboard) ---
+        async function loadFullScoreSummary() {
+            const container = document.getElementById('summary-bars-container');
+            if (!container) return;
+            try {
+                const querySnapshot = await getDocs(collection(db, "member_reports"));
+                let scores = {};
+                let totalPts = 0;
+                let approvedReportsCount = 0;
+
+                const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
+                rooms.forEach(r => scores[r] = 0);
+
+                querySnapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    if (data.approved && data.room) {
+                        scores[data.room] = (scores[data.room] || 0) + 1;
+                        totalPts += 1;
+                        approvedReportsCount += 1;
+                    }
+                });
+
+                // ຫາຫ້ອງອັນດັບ 1
+                let maxPts = -1;
+                let topRoom = 'ຍັງບໍ່ມີຂໍ້ມູນ';
+                rooms.forEach(r => {
+                    if (scores[r] > maxPts && scores[r] > 0) {
+                        maxPts = scores[r];
+                        topRoom = r;
+                    }
+                });
+
+                document.getElementById('summary-top-room').innerText = maxPts > 0 ? `${topRoom} (${maxPts} ຄະແນນ)` : 'ຍັງບໍ່ມີຄະແນນ';
+                document.getElementById('summary-total-points').innerText = `${totalPts} ຄະແນນ`;
+                document.getElementById('summary-approved-count').innerText = `${approvedReportsCount} ບົດລາຍງານ`;
+
+                // ສະແດງ Progress Bars
+                const highestPoint = Math.max(...Object.values(scores), 1);
+                container.innerHTML = rooms.map(room => {
+                    const pts = scores[room] || 0;
+                    const percent = Math.round((pts / highestPoint) * 100);
+
+                    return `
+                        <div class="space-y-1 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60">
+                            <div class="flex justify-between items-center text-xs font-semibold">
+                                <span class="text-slate-200">🏠 ${room}</span>
+                                <span class="text-amber-400 font-bold">${pts} ຄະແນນ (${percent}%)</span>
+                            </div>
+                            <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden border border-slate-700">
+                                <div class="bg-gradient-to-r from-emerald-500 to-amber-400 h-3 rounded-full transition-all duration-500" style="width: ${percent}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+            } catch (err) {
+                container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${err.message}</div>`;
+            }
+        }
+
+        async function loadFullScoreboard() {
+            const container = document.getElementById('full-scoreboard-container');
+            if (!container) return;
+            container.innerHTML = `<div class="text-center py-12 text-slate-400 col-span-full">ກຳລັງໂຫຼດຄະແນນ...</div>`;
+            try {
+                const querySnapshot = await getDocs(collection(db, "member_reports"));
+                let scores = {};
+                
+                querySnapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    if (data.approved && data.room) {
+                        scores[data.room] = (scores[data.room] || 0) + 1;
+                    }
+                });
+
+                const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
+                
+                container.innerHTML = rooms.map((room, index) => {
+                    const pts = scores[room] || 0;
+                    return `
+                        <div class="bg-slate-800/80 backdrop-blur border ${pts > 0 ? 'border-amber-500/50 bg-amber-950/20' : 'border-slate-700'} p-5 rounded-2xl shadow-xl flex items-center justify-between animate-fade-in">
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-amber-500/20 text-amber-400 font-bold w-10 h-10 rounded-xl flex items-center justify-center text-base border border-amber-500/40">
+                                    #${index + 1}
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-100 text-base">${room}</h4>
+                                    <p class="text-xs text-slate-400">ສະຖານະ: ພ້ອມປະຕິບັດງານ</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-extrabold text-amber-400">${pts}</span>
+                                <span class="block text-[10px] text-slate-400 uppercase">ຄະແນນສະສົມ</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                container.innerHTML = `<div class="text-center py-12 text-red-400 col-span-full">ຜິດພາດ: ${err.message}</div>`;
+            }
+        }
+
         async function trackVisitor() {
             const today = new Date().toISOString().split('T')[0];
             try {
@@ -494,50 +698,6 @@
         }
 
         trackVisitor();
-
-        window.switchTab = (tab) => {
-            const newsSec = document.getElementById('section-news');
-            const cyberSec = document.getElementById('section-cyber');
-            const scoreboardSec = document.getElementById('section-scoreboard');
-            const memberSec = document.getElementById('section-member');
-            
-            const newsBtn = document.getElementById('tab-news-btn');
-            const cyberBtn = document.getElementById('tab-cyber-btn');
-            const scoreboardBtn = document.getElementById('tab-scoreboard-btn');
-            const memberBtn = document.getElementById('tab-member-btn');
-            const catBox = document.getElementById('news-categories-box');
-
-            newsSec.classList.add('hidden');
-            cyberSec.classList.add('hidden');
-            scoreboardSec.classList.add('hidden');
-            memberSec.classList.add('hidden');
-            
-            newsBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
-            cyberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
-            scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 text-amber-400";
-            memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400";
-
-            if (tab === 'news') {
-                newsSec.classList.remove('hidden');
-                newsBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2";
-                catBox.classList.remove('hidden');
-            } else if (tab === 'cyber') {
-                cyberSec.classList.remove('hidden');
-                cyberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2";
-                catBox.classList.add('hidden');
-                loadCyberTasks();
-            } else if (tab === 'scoreboard') {
-                scoreboardSec.classList.remove('hidden');
-                scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-amber-600/35 text-amber-300 font-medium transition duration-200 flex items-center space-x-2 text-amber-400 font-bold bg-amber-500/20 border border-amber-500/40";
-                catBox.classList.add('hidden');
-                loadFullScoreboard();
-            } else if (tab === 'member') {
-                memberSec.classList.remove('hidden');
-                memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2 text-emerald-400";
-                catBox.classList.add('hidden');
-                loadMemberReports();
-            }
-        };
 
         async function loadNews() {
             try {
@@ -822,7 +982,7 @@
                 statusText.innerText = 'ກະລຸນາເລືອກຮູບຖ່າຍຢືນຢັນຢ່າງໜ້ອຍ 3 ຮູບຂຶ້ນໄປ';
 
                 loadMemberReports();
-                loadFullScoreboard();
+                loadFullScoreSummary();
             } catch (err) {
                 console.error(err);
                 alert('ສົ່ງບົດລາຍງານຜິດພາດ: ' + err.message);
@@ -880,48 +1040,6 @@
             `).join('');
         }
 
-        async function loadFullScoreboard() {
-            const container = document.getElementById('full-scoreboard-container');
-            if (!container) return;
-            container.innerHTML = `<div class="text-center py-12 text-slate-400 col-span-full">ກຳລັງໂຫຼດຄະແນນ...</div>`;
-            try {
-                const querySnapshot = await getDocs(collection(db, "member_reports"));
-                let scores = {};
-                
-                querySnapshot.forEach(docSnap => {
-                    const data = docSnap.data();
-                    if (data.approved && data.room) {
-                        scores[data.room] = (scores[data.room] || 0) + 1;
-                    }
-                });
-
-                const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
-                
-                container.innerHTML = rooms.map((room, index) => {
-                    const pts = scores[room] || 0;
-                    return `
-                        <div class="bg-slate-800/80 backdrop-blur border ${pts > 0 ? 'border-amber-500/50 bg-amber-950/20' : 'border-slate-700'} p-5 rounded-2xl shadow-xl flex items-center justify-between animate-fade-in">
-                            <div class="flex items-center space-x-3">
-                                <div class="bg-amber-500/20 text-amber-400 font-bold w-10 h-10 rounded-xl flex items-center justify-center text-base border border-amber-500/40">
-                                    #${index + 1}
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-slate-100 text-base">${room}</h4>
-                                    <p class="text-xs text-slate-400">ສະຖານະ: ພ້ອມປະຕິບັດງານ</p>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <span class="text-2xl font-extrabold text-amber-400">${pts}</span>
-                                <span class="block text-[10px] text-slate-400 uppercase">ຄະແນນສະສົມ</span>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            } catch (err) {
-                container.innerHTML = `<div class="text-center py-12 text-red-400 col-span-full">ຜິດພາດ: ${err.message}</div>`;
-            }
-        }
-
         window.approveMemberReport = async (reportId) => {
             const report = allMemberReports.find(r => r.id === reportId);
             if (!report) return;
@@ -939,7 +1057,7 @@
                 alert('ອະນຸມັດສຳເລັດ! ບົດລາຍງານຖືກສົ່ງຂຶ້ນໜ້າ "ຕິດຕາມການອະນາໄມ" ແລະ ບວກ +1 ຄະແນນໃຫ້ຫ້ອງພັກຮຽບຮ້ອຍ.');
                 loadMemberReports();
                 loadCyberTasks();
-                loadFullScoreboard();
+                loadFullScoreSummary();
             } catch (err) {
                 alert('ອະນຸມັດຜິດພາດ: ' + err.message);
             }
@@ -949,7 +1067,7 @@
             if (confirm('ລົບລາຍງານນີ້ແທ້ບໍ?')) {
                 await deleteDoc(doc(db, "member_reports", id));
                 loadMemberReports();
-                loadFullScoreboard();
+                loadFullScoreSummary();
             }
         };
 
