@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ລະບົບຂ່າວສານ ແລະ ຕິດຕາມການອະນາໄມ - ຈຸປ້ອງກັນ</title>
     
-    <!-- Favicon / ໂລໂກ້ເທິງແຖບເວັບໄຊ -->
-    <link rel="icon" type="image/png" href="https://vong7878.github.io/defense/logo.png">
+    <!-- Favicon / ໂລໂກ້ເທິງແຖບເວັບໄຊ (ໂຮງຮຽນແພດສາດ ມ.ດານັງ) -->
+    <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPCtqrNybpIL52qMQ_KVN_VJ1fKZWTBwEmEwCqdG1aVUd3kl1dieX0z14p&s=10">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,12 +20,13 @@
         }
         .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
         
-        /* 🖼️ ຮູບພື້ນຫຼັງຫໍພັກ VKU ພ້ອມ Dark Overlay ໃຫ້ຕົວໜັງສືອ່ານງ່າຍ */
+        /* 🖼️ ຮູບພື້ນຫຼັງຫໍພັກ VKU ຕາມລິ້ງຂອງທ່ານ (ພ້ອມ Overlay ປັບຄວາມເຂັ້ມໃຫ້ອ່ານງ່າຍ) */
         body {
-            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.90), rgba(15, 23, 42, 0.95)), 
-                        url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1920&auto=format&fit=crop');
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.94)), 
+                        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjLFTe7Tfe561YMDN9iVbQMb4H6gIZUfMFXu8W6TYp77tIrVUh3hmncCyy&s=10');
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             background-attachment: fixed;
         }
     </style>
@@ -649,7 +650,7 @@
 
                         if (!devices.includes(deviceSessionId)) {
                             if (devices.length >= 2) {
-                                alert(`⚠️ ຂໍອະໄພ! "${adminName}" ນี้ ມີການລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ.`);
+                                alert(`⚠️ ຂໍອະໄພ! "${adminName}" ນີ້ ມີການລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ.`);
                                 return;
                             }
                             devices.push(deviceSessionId);
