@@ -62,17 +62,21 @@
                 </ul>
             </div>
 
-            <!-- Visitor Counter Widget -->
+            <!-- Visitor Counter Widget (Updated with Device Breakdown) -->
             <div class="bg-slate-800/80 backdrop-blur p-4 rounded-2xl border border-slate-700/80 shadow-xl">
                 <h2 class="font-bold text-emerald-400 mb-3 border-b border-slate-700 pb-2 text-sm uppercase tracking-wider">👥 ສະຖິຕິຜູ້ເຂົ້າຊົມ</h2>
                 <div class="space-y-2 text-xs">
                     <div class="flex justify-between items-center bg-slate-900/60 px-3 py-2 rounded-xl border border-slate-700/60">
-                        <span class="text-slate-300">ມື້ນີ້:</span>
-                        <span id="visitor-today" class="font-bold text-emerald-400 text-sm">0</span>
+                        <span class="text-slate-300">💻 ຄອມພິວເຕີ (Desktop):</span>
+                        <span id="visitor-desktop" class="font-bold text-sky-400 text-sm">0</span>
                     </div>
                     <div class="flex justify-between items-center bg-slate-900/60 px-3 py-2 rounded-xl border border-slate-700/60">
-                        <span class="text-slate-300">ລວມທັງໝົດ:</span>
-                        <span id="visitor-total" class="font-bold text-emerald-400 text-sm">0</span>
+                        <span class="text-slate-300">📱 ມືຖື / ແທັບເລັດ (Mobile):</span>
+                        <span id="visitor-mobile" class="font-bold text-emerald-400 text-sm">0</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-slate-900/60 px-3 py-2 rounded-xl border border-slate-700/60">
+                        <span class="text-slate-300">📊 ລວມທັງໝົດ:</span>
+                        <span id="visitor-total" class="font-bold text-amber-400 text-sm">0</span>
                     </div>
                 </div>
             </div>
@@ -119,7 +123,6 @@
 
             <!-- NEW SECTION: หน้ารວມ/ສະຫຼຸບຄະແນນ (Score Summary Page) -->
             <div id="section-score-summary" class="space-y-6 animate-fade-in">
-                <!-- Header Banner -->
                 <div class="bg-gradient-to-r from-amber-950/90 via-slate-800/90 to-emerald-950/90 p-6 rounded-2xl border border-amber-500/40 shadow-2xl space-y-2">
                     <h2 class="text-2xl font-extrabold text-amber-400 flex items-center space-x-2">
                         <span>📊</span> <span>ໜ້າສະຫຼຸບຄະແນນການອະນາໄມທັງໝົດ (Dashboard)</span>
@@ -127,7 +130,6 @@
                     <p class="text-xs text-slate-300">ສະຫຼຸບອັນດັບຄວາມສະອາດ, ຄະແນນສະສົມ ແລະ ຜົນການປະຕິບັດງານຂອງທຸກໆຫ້ອງພັກ</p>
                 </div>
 
-                <!-- Stat Cards -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div class="bg-slate-800/80 p-5 rounded-2xl border border-amber-500/30 shadow-lg flex items-center space-x-4">
                         <div class="p-3 bg-amber-500/20 text-amber-400 rounded-xl text-2xl font-bold">🥇</div>
@@ -152,7 +154,6 @@
                     </div>
                 </div>
 
-                <!-- Progress Bar View -->
                 <div class="bg-slate-800/80 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
                     <h3 class="font-bold text-emerald-400 text-lg border-b border-slate-700 pb-3 flex items-center space-x-2">
                         <span>📈</span> <span>ກຣາຟສະຫຼຸບເປີເຊັນ ແລະ ຄະແນນສະສົມ</span>
@@ -578,7 +579,6 @@
                     }
                 });
 
-                // ຫາຫ້ອງອັນດັບ 1
                 let maxPts = -1;
                 let topRoom = 'ຍັງບໍ່ມີຂໍ້ມູນ';
                 rooms.forEach(r => {
@@ -592,7 +592,6 @@
                 document.getElementById('summary-total-points').innerText = `${totalPts} ຄະແນນ`;
                 document.getElementById('summary-approved-count').innerText = `${approvedReportsCount} ບົດລາຍງານ`;
 
-                // ສະແດງ Progress Bars
                 const highestPoint = Math.max(...Object.values(scores), 1);
                 container.innerHTML = rooms.map(room => {
                     const pts = scores[room] || 0;
@@ -658,8 +657,28 @@
             }
         }
 
+        // --- Visitor Counter Logic (Device Detection Added) ---
+        function getDeviceType() {
+            const ua = navigator.userAgent;
+            if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+                return "mobile";
+            }
+            if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Opera Mini/i.test(ua)) {
+                return "mobile";
+            }
+            return "desktop";
+        }
+
         async function trackVisitor() {
             const today = new Date().toISOString().split('T')[0];
+            const device = getDeviceType(); 
+            const sessionKey = `visited_${today}`;
+            
+            if (sessionStorage.getItem(sessionKey)) {
+                loadVisitorStats(today);
+                return;
+            }
+
             try {
                 const todayRef = doc(db, "visitors", today);
                 const totalRef = doc(db, "visitors", "total_stats");
@@ -667,18 +686,36 @@
                 await runTransaction(db, async (transaction) => {
                     const todayDoc = await transaction.get(todayRef);
                     if (!todayDoc.exists()) {
-                        transaction.set(todayRef, { count: 1 });
+                        transaction.set(todayRef, { 
+                            desktop: device === 'desktop' ? 1 : 0, 
+                            mobile: device === 'mobile' ? 1 : 0,
+                            count: 1 
+                        });
                     } else {
-                        transaction.update(todayRef, { count: increment(1) });
+                        transaction.update(todayRef, {
+                            desktop: increment(device === 'desktop' ? 1 : 0),
+                            mobile: increment(device === 'mobile' ? 1 : 0),
+                            count: increment(1)
+                        });
                     }
 
                     const totalDoc = await transaction.get(totalRef);
                     if (!totalDoc.exists()) {
-                        transaction.set(totalRef, { count: 1 });
+                        transaction.set(totalRef, { 
+                            desktop: device === 'desktop' ? 1 : 0, 
+                            mobile: device === 'mobile' ? 1 : 0,
+                            count: 1 
+                        });
                     } else {
-                        transaction.update(totalRef, { count: increment(1) });
+                        transaction.update(totalRef, {
+                            desktop: increment(device === 'desktop' ? 1 : 0),
+                            mobile: increment(device === 'mobile' ? 1 : 0),
+                            count: increment(1)
+                        });
                     }
                 });
+
+                sessionStorage.setItem(sessionKey, 'true');
             } catch (err) {
                 console.error("Error tracking visitor:", err);
             }
@@ -687,11 +724,18 @@
 
         async function loadVisitorStats(today) {
             try {
-                const todayDoc = await getDoc(doc(db, "visitors", today));
                 const totalDoc = await getDoc(doc(db, "visitors", "total_stats"));
 
-                document.getElementById('visitor-today').innerText = todayDoc.exists() ? todayDoc.data().count.toLocaleString() : '0';
-                document.getElementById('visitor-total').innerText = totalDoc.exists() ? totalDoc.data().count.toLocaleString() : '0';
+                if (totalDoc.exists()) {
+                    const data = totalDoc.data();
+                    document.getElementById('visitor-desktop').innerText = (data.desktop || 0).toLocaleString();
+                    document.getElementById('visitor-mobile').innerText = (data.mobile || 0).toLocaleString();
+                    document.getElementById('visitor-total').innerText = (data.count || 0).toLocaleString();
+                } else {
+                    document.getElementById('visitor-desktop').innerText = '0';
+                    document.getElementById('visitor-mobile').innerText = '0';
+                    document.getElementById('visitor-total').innerText = '0';
+                }
             } catch (err) {
                 console.error("Error loading visitor stats:", err);
             }
