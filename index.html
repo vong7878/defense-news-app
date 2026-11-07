@@ -42,14 +42,14 @@
                 <h2 class="font-bold text-emerald-400 mb-3 border-b border-slate-700 pb-2 text-sm uppercase tracking-wider">ເມນູຫຼັກ</h2>
                 <ul class="space-y-2 text-sm">
                     <li><button onclick="switchTab('news')" id="tab-news-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2"><span>📰</span> <span>ຂ່າວສານ & ແຈ້ງການ</span></button></li>
+                    <li><button onclick="switchTab('scoreboard')" id="tab-scoreboard-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-amber-400 font-bold bg-amber-500/20 border border-amber-500/40"><span>🏆</span> <span>ກວດເບິ່ງຄະແນນແຕ່ລະຫ້ອງ</span></button></li>
                     <li><button onclick="switchTab('cyber')" id="tab-cyber-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>🧹</span> <span>ຕິດຕາມການອະນາໄມ</span></button></li>
-                    <li><button onclick="switchTab('scoreboard')" id="tab-scoreboard-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-amber-400"><span>🏆</span> <span>ກວດເບິ່ງຄະແນນແຕ່ລະຫ້ອງ</span></button></li>
                     <li><button onclick="switchTab('member')" id="tab-member-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400"><span>👤</span> <span>ລາຍງານອະນາໄມ (ສະມາຊິກ)</span></button></li>
                 </ul>
             </div>
 
             <!-- Categories -->
-            <div id="news-categories-box" class="bg-slate-800/80 backdrop-blur p-4 rounded-2xl border border-slate-700/80 shadow-xl">
+            <div id="news-categories-box" class="bg-slate-800/80 backdrop-blur p-4 rounded-2xl border border-slate-700/80 shadow-xl hidden">
                 <h2 class="font-bold text-emerald-400 mb-3 border-b border-slate-700 pb-2 text-sm uppercase tracking-wider">ໝວດໝູ່ຂ່າວສານ</h2>
                 <ul class="space-y-2 text-sm">
                     <li><button onclick="filterCategory('all')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-700/60 transition">ທັງໝົດ</button></li>
@@ -117,7 +117,18 @@
                 </div>
             </div>
 
-            <!-- SECTION 2: Hygiene Tracking (Cyber & Room) -->
+            <!-- SECTION 2: Scoreboard Full View (ໜ້າກວດເບິ່ງຄະແນນແຕ່ລະຫ້ອງ - ເປີດຂຶ້ນມາເປັນໜ້າแรกເລີຍ) -->
+            <div id="section-scoreboard" class="space-y-4 animate-fade-in">
+                <div class="bg-gradient-to-r from-amber-950/80 to-slate-800/80 p-6 rounded-2xl border border-amber-600/50 shadow-xl space-y-2">
+                    <h2 class="text-xl font-bold text-amber-400 flex items-center space-x-2"><span>🏆</span> <span>ຕາຕະລາງຄະແນນການອະນາໄມປະຈຳຫ້ອງ</span></h2>
+                    <p class="text-xs text-slate-300">ສະແດງຄະແນນສະສົມທັງໝົດຂອງແຕ່ລະຫ້ອງພັກ (ໄດ້ຮັບ +1 ຄະແນນ ເມື່ອ Admin ອະນຸມັດບົດລາຍງານໃນວັນອາທິດ)</p>
+                </div>
+                <div id="full-scoreboard-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="text-center py-12 text-slate-400 col-span-full">ກຳລັງໂຫຼດຄະແນນ...</div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: Hygiene Tracking (Cyber & Room) -->
             <div id="section-cyber" class="space-y-4 hidden animate-fade-in">
                 <div class="bg-gradient-to-r from-emerald-950/80 to-slate-800/80 p-5 rounded-2xl border border-emerald-800/50 shadow-xl flex justify-between items-center">
                     <div>
@@ -131,17 +142,6 @@
                 </div>
                 <div id="cyber-container" class="grid grid-cols-1 gap-4">
                     <div class="text-center py-12 text-slate-400">ກຳລັງໂຫຼດລາຍການ...</div>
-                </div>
-            </div>
-
-            <!-- SECTION 3: Scoreboard Full View (ໜ້າກວດເບິ່ງຄະແນນແຕ່ລະຫ້ອງ - ທຸກຄົນເຂົ້າເບິ່ງໄດ້) -->
-            <div id="section-scoreboard" class="space-y-4 hidden animate-fade-in">
-                <div class="bg-gradient-to-r from-amber-950/80 to-slate-800/80 p-6 rounded-2xl border border-amber-600/50 shadow-xl space-y-2">
-                    <h2 class="text-xl font-bold text-amber-400 flex items-center space-x-2"><span>🏆</span> <span>ຕາຕະລາງຄະແນນການອະນາໄມປະຈຳຫ້ອງ</span></h2>
-                    <p class="text-xs text-slate-300">ສະແດງຄະແນນສະສົມທັງໝົດຂອງແຕ່ລະຫ້ອງພັກ (ໄດ້ຮັບ +1 ຄະແນນ ເມື່ອ Admin ອະນຸມັດບົດລາຍງານໃນວັນອາທິດ)</p>
-                </div>
-                <div id="full-scoreboard-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="text-center py-12 text-slate-400 col-span-full">ກຳລັງໂຫຼດຄະແນນ...</div>
                 </div>
             </div>
 
@@ -349,6 +349,11 @@
         let allMemberReports = [];
         let currentShareData = { title: '', text: '', url: '' };
 
+        // ໂຫຼດຕາຕະລາງຄະແນນຂຶ້ນມາທັນທີເມື່ອເຂົ້າເວັບ
+        window.addEventListener('DOMContentLoaded', () => {
+            loadFullScoreboard();
+        });
+
         // --- ລະບົບນັບຈຳນວນຜູ້ເຂົ້າຊົມເວັບໄຊ ---
         async function trackVisitor() {
             const today = new Date().toISOString().split('T')[0];
@@ -424,7 +429,7 @@
                 loadCyberTasks();
             } else if (tab === 'scoreboard') {
                 scoreboardSec.classList.remove('hidden');
-                scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-amber-600/35 text-amber-300 font-medium transition duration-200 flex items-center space-x-2 text-amber-400";
+                scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-amber-600/35 text-amber-300 font-medium transition duration-200 flex items-center space-x-2 text-amber-400 font-bold bg-amber-500/20 border border-amber-500/40";
                 catBox.classList.add('hidden');
                 loadFullScoreboard();
             } else if (tab === 'member') {
