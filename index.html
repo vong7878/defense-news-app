@@ -13,6 +13,14 @@
     <!-- Google Font: Noto Sans Lao -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* 🚫 ຫ້າມເລືອກ ແລະ ຫ້າມກັອບປີ້ຕົວໜັງສືທຸກຕົວໃນໜ້າເວັບ */
+        * {
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none;    /* Firefox */
+            -ms-user-select: none;     /* IE10+/Edge */
+            user-select: none;         /* Standard */
+        }
+
         body { font-family: 'Noto Sans Lao', sans-serif; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -30,36 +38,12 @@
         }
         .animate-bell { animation: ring 0.5s ease-in-out infinite; }
 
-        /* 🦋 Keyframes ສຳລັບຜີເສື້ອສີທອງບິນທັບໜ້າຈໍ */
-        @keyframes butterflyFly1 {
-            0% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
-            25% { transform: translate(140px, -90px) rotate(20deg) scale(1.15); }
-            50% { transform: translate(280px, 30px) rotate(-15deg) scale(1); }
-            75% { transform: translate(120px, 110px) rotate(15deg) scale(1.1); }
-            100% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+        /* 🦋 ຜີເສື້ອສີທອງ (ຕັ້ງຄ່າ transition ໃຫ້ບິນຕາມນິ້ວມືລື່ນໄຫຼ) */
+        .interactive-butterfly {
+            position: absolute;
+            transition: transform 0.2s ease-out, left 0.3s ease-out, top 0.3s ease-out;
+            will-change: left, top;
         }
-
-        @keyframes butterflyFly2 {
-            0% { transform: translate(0px, 0px) rotate(0deg) scale(1.1); }
-            30% { transform: translate(-180px, -110px) rotate(-25deg) scale(0.95); }
-            60% { transform: translate(-90px, 140px) rotate(20deg) scale(1.2); }
-            90% { transform: translate(80px, -50px) rotate(-10deg) scale(1.05); }
-            100% { transform: translate(0px, 0px) rotate(0deg) scale(1.1); }
-        }
-
-        @keyframes butterflyFly3 {
-            0% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
-            20% { transform: translate(110px, 130px) rotate(25deg) scale(1.15); }
-            50% { transform: translate(-150px, 90px) rotate(-20deg) scale(1); }
-            80% { transform: translate(-110px, -110px) rotate(15deg) scale(1.1); }
-            100% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
-        }
-
-        .butterfly-1 { animation: butterflyFly1 12s ease-in-out infinite; }
-        .butterfly-2 { animation: butterflyFly2 16s ease-in-out infinite; }
-        .butterfly-3 { animation: butterflyFly3 14s ease-in-out infinite; }
-        .butterfly-4 { animation: butterflyFly1 18s ease-in-out infinite reverse; }
-        .butterfly-5 { animation: butterflyFly2 13s ease-in-out infinite reverse; }
 
         /* ✨ Keyframes ສຳລັບແສງສີທອງເປັ່ງປະກາຍເວລາຈິ້ມໜ້າຈໍ */
         @keyframes goldGlowEffect {
@@ -107,13 +91,13 @@
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white relative overflow-x-hidden">
 
-    <!-- 🦋 ຜີເສື້ອການຕູນສີທອງ 5 ໂຕ -->
-    <div class="fixed inset-0 pointer-events-none z-40 overflow-hidden">
-        <div class="absolute top-[20%] left-[5%] butterfly-1 opacity-95 drop-shadow-[0_0_15px_rgba(250,204,21,1)]"><span class="text-4xl filter drop-shadow">🦋</span></div>
-        <div class="absolute top-[45%] right-[8%] butterfly-2 opacity-95 drop-shadow-[0_0_15px_rgba(251,191,36,1)]"><span class="text-5xl filter drop-shadow">🦋</span></div>
-        <div class="absolute bottom-[25%] left-[12%] butterfly-3 opacity-90 drop-shadow-[0_0_12px_rgba(234,179,8,0.9)]"><span class="text-4xl filter drop-shadow">🦋</span></div>
-        <div class="absolute top-[70%] right-[25%] butterfly-4 opacity-90 drop-shadow-[0_0_12px_rgba(252,211,77,0.9)]"><span class="text-4xl filter drop-shadow">🦋</span></div>
-        <div class="absolute top-[12%] right-[40%] butterfly-5 opacity-95 drop-shadow-[0_0_16px_rgba(250,204,21,1)]"><span class="text-5xl filter drop-shadow">🦋</span></div>
+    <!-- 🦋 ຜີເສື້ອສີທອງ 5 ໂຕ ທີ່ສາມາດບິນຕາມນິ້ວມື/ເມົ້າໄດ້ -->
+    <div id="butterfly-layer" class="fixed inset-0 pointer-events-none z-40 overflow-hidden">
+        <div class="interactive-butterfly top-[20%] left-[5%] opacity-95 drop-shadow-[0_0_15px_rgba(250,204,21,1)]"><span class="text-4xl filter drop-shadow">🦋</span></div>
+        <div class="interactive-butterfly top-[45%] right-[8%] opacity-95 drop-shadow-[0_0_15px_rgba(251,191,36,1)]"><span class="text-5xl filter drop-shadow">🦋</span></div>
+        <div class="interactive-butterfly bottom-[25%] left-[12%] opacity-90 drop-shadow-[0_0_12px_rgba(234,179,8,0.9)]"><span class="text-4xl filter drop-shadow">🦋</span></div>
+        <div class="interactive-butterfly top-[70%] right-[25%] opacity-90 drop-shadow-[0_0_12px_rgba(252,211,77,0.9)]"><span class="text-4xl filter drop-shadow">🦋</span></div>
+        <div class="interactive-butterfly top-[12%] right-[40%] opacity-95 drop-shadow-[0_0_16px_rgba(250,204,21,1)]"><span class="text-5xl filter drop-shadow">🦋</span></div>
     </div>
 
     <!-- Navbar -->
@@ -623,8 +607,57 @@
             setInterval(verifySubAdminSession, 10000);
             initRealtimeListeners();
             initTouchGoldGlowEffect();
+            initInteractiveButterflies();
+            initAntiCopyProtection();
         });
 
+        // 🚫 ປ້ອງກັນການກັອບປີ້ (Disable Right-click & Keyboard Shortcuts for Copy)
+        function initAntiCopyProtection() {
+            document.addEventListener('contextmenu', (e) => e.preventDefault());
+            document.addEventListener('copy', (e) => {
+                e.preventDefault();
+                alert('⚠️ ຂໍອະໄພ, ລະບົບປ້ອງກັນການຄັດລອກ (Copy) ຂໍ້ຄວາມ!');
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
+                    e.preventDefault();
+                    alert('⚠️ ລະບົບປ້ອງກັນການຄັດລອກຂໍ້ມູນ!');
+                }
+            });
+        }
+
+        // 🦋 ລະບົບໃຫ້ນິ້ວມື/ເມົ້າບັງຄັບ ແລະ ດຶງດູດຜີເສື້ອສີທອງ
+        function initInteractiveButterflies() {
+            const butterflies = document.querySelectorAll('.interactive-butterfly');
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+
+            // ເກັບຕຳແໜ່ງນິ້ວມື ຫຼື ເມົ້າ
+            window.addEventListener('pointermove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            window.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 0) {
+                    mouseX = e.touches[0].clientX;
+                    mouseY = e.touches[0].clientY;
+                }
+            });
+
+            // ໃຫ້ຜີເສື້ອທຸກໂຕບິນຕາມຕຳແໜ່ງນິ້ວມື/ເມົ້າແບບລື່ນໄຫຼ
+            setInterval(() => {
+                butterflies.forEach((bf, index) => {
+                    const offsetX = Math.sin(Date.now() / 300 + index) * 60;
+                    const offsetY = Math.cos(Date.now() / 300 + index) * 60;
+                    
+                    bf.style.left = `${mouseX + offsetX}px`;
+                    bf.style.top = `${mouseY + offsetY}px`;
+                });
+            }, 50);
+        }
+
+        // ✨ ລະບົບສ້າງແສງສີທອງເປັ່ງປະກາຍເວລາຄລິກ ຫຼື ຈິ້ມໜ້າຈໍ
         function initTouchGoldGlowEffect() {
             window.addEventListener('pointerdown', (e) => {
                 const glow = document.createElement('div');
