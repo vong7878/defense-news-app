@@ -480,14 +480,12 @@
                         const data = docSnap.data();
                         
                         if (adminKey === 'SUB_ADMIN_1') {
-                            // Admin ຮອງ 1 อนุญาต 2 เครื่อง
                             let devices = data.devices || [];
                             if (!devices.includes(deviceSessionId)) {
-                                alert('⚠️ ບັນຊີ Admin ຮອງ 1 ນี้ ຖືກລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ! ລະບົບຈະພາທ່ານອອກຈາກລະບົບ.');
+                                alert('⚠️ ບັນຊີ Admin ຮອງ 1 ນີ້ ຖືກລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ! ລະບົບຈະພາທ່ານອອກຈາກລະບົບ.');
                                 await logoutSession();
                             }
                         } else {
-                            // Admin ຮອງ 2 ແລະ 3 อนุญาต 1 เครื่อง
                             const activeDevice = data.deviceId;
                             if (activeDevice !== deviceSessionId) {
                                 alert('⚠️ ບັນຊີນີ້ຖືກລັອກອິນຈາກເຄື່ອງມືຖືເຄື່ອງອື່ນແລ້ວ! ລະບົບຈະພາທ່ານອອກຈາກລະບົບ.');
@@ -537,7 +535,7 @@
             } else if (val.startsWith('SUB_ADMIN')) {
                 subAdminFields.classList.remove('hidden');
                 if (val === 'SUB_ADMIN_1') {
-                    hintElem.innerText = '* ໄອດີນີ້ ສามารถລັອກອິນໄດ້ສູງສຸດ 2 ເຄື່ອງມືຖືພ້ອມກັນ';
+                    hintElem.innerText = '* ໄອດີນີ້ ສາມາດລັອກອິນໄດ້ສູງສຸດ 2 ເຄື່ອງມືຖືພ້ອມກັນ';
                 } else {
                     hintElem.innerText = '* 1 ໄອດີ ສາມາດລັອກອິນໄດ້ພຽງ 1 ເຄື່ອງເທົ່ານັ້ນ';
                 }
@@ -631,7 +629,6 @@
                     const docSnap = await getDoc(docRef);
 
                     if (val === 'SUB_ADMIN_1') {
-                        // Admin ຮອງ 1: ໃຫ້ເຂົ້າໄດ້ 2 ເຄື່ອງ
                         let devices = [];
                         if (docSnap.exists()) {
                             devices = docSnap.data().devices || [];
@@ -639,7 +636,7 @@
 
                         if (!devices.includes(deviceSessionId)) {
                             if (devices.length >= 2) {
-                                alert(`⚠️ ຂໍອະໄພ! "${adminName}" ນี้ มีການລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ.`);
+                                alert(`⚠️ ຂໍອະໄພ! "${adminName}" ນີ້ ມີການລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ.`);
                                 return;
                             }
                             devices.push(deviceSessionId);
@@ -651,7 +648,6 @@
                         }, { merge: true });
 
                     } else {
-                        // Admin ຮອງ 2 ແລະ 3: ໃຫ້ເຂົ້າໄດ້ 1 ເຄື່ອງເທົ່ານັ້ນ
                         if (docSnap.exists()) {
                             const data = docSnap.data();
                             const lastActive = data.timestamp ? data.timestamp.toMillis() : 0;
@@ -1449,7 +1445,6 @@
             try {
                 const querySnapshot = await getDocs(collection(db, "cyber_tasks"));
                 allCyberTasks = [];
-                querySnapshot.querySnapshot.forEach((docSnap) => {}); // Placeholder
                 querySnapshot.forEach((docSnap) => {
                     allCyberTasks.push({ id: docSnap.id, ...docSnap.data() });
                 });
