@@ -43,6 +43,7 @@
                 <ul class="space-y-2 text-sm">
                     <li><button onclick="switchTab('news')" id="tab-news-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2"><span>📰</span> <span>ຂ່າວສານ & ແຈ້ງການ</span></button></li>
                     <li><button onclick="switchTab('cyber')" id="tab-cyber-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>🧹</span> <span>ຕິດຕາມການອະນາໄມ</span></button></li>
+                    <li><button onclick="switchTab('scoreboard')" id="tab-scoreboard-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-amber-400"><span>🏆</span> <span>ກວດເບິ່ງຄະແນນແຕ່ລະຫ້ອງ</span></button></li>
                     <li><button onclick="switchTab('member')" id="tab-member-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400"><span>👤</span> <span>ລາຍງານອະນາໄມ (ສະມາຊິກ)</span></button></li>
                 </ul>
             </div>
@@ -133,19 +134,19 @@
                 </div>
             </div>
 
-            <!-- SECTION 3: Member Report Form & Scoreboard -->
-            <div id="section-member" class="space-y-4 hidden animate-fade-in">
-                <!-- ຕารางຄະແນນສະສົມຂອງສະມາຊິກ/ຫ້ອງ -->
-                <div class="bg-slate-800/80 backdrop-blur p-5 rounded-2xl border border-emerald-600/60 shadow-xl space-y-3">
-                    <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-                        <h3 class="font-bold text-emerald-400 text-base">🏆 ตารางคะแนนสะสม (Scoreboard)</h3>
-                        <span class="text-xs text-emerald-300 bg-emerald-950 px-3 py-1 rounded-full border border-emerald-800">1 ບົດລາຍງານສຳເລັດ = +1 ຄະແນນ</span>
-                    </div>
-                    <div id="scoreboard-container" class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
-                        <div class="text-center py-4 text-slate-400 text-xs col-span-full">ກຳລັງໂຫຼດຄະແນນ...</div>
-                    </div>
+            <!-- SECTION 3: Scoreboard Full View (ໜ້າກວດເບິ່ງຄະແນນແຕ່ລະຫ້ອງ) -->
+            <div id="section-scoreboard" class="space-y-4 hidden animate-fade-in">
+                <div class="bg-gradient-to-r from-amber-950/80 to-slate-800/80 p-6 rounded-2xl border border-amber-600/50 shadow-xl space-y-2">
+                    <h2 class="text-xl font-bold text-amber-400 flex items-center space-x-2"><span>🏆</span> <span>ຕາຕະລາງຄະແນນການອະນາໄມປະຈຳຫ້ອງ</span></h2>
+                    <p class="text-xs text-slate-300">ສະແດງຄະແນນສະສົມທັງໝົດຂອງແຕ່ລະຫ້ອງພັກ (ໄດ້ຮັບ +1 ຄະແນນ ເມື່ອ Admin ອະນຸມັດບົດລາຍງານໃນວັນອາທິດ)</p>
                 </div>
+                <div id="full-scoreboard-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="text-center py-12 text-slate-400 col-span-full">ກຳລັງໂຫຼດຄະແນນ...</div>
+                </div>
+            </div>
 
+            <!-- SECTION 4: Member Report Form -->
+            <div id="section-member" class="space-y-4 hidden animate-fade-in">
                 <div class="bg-slate-800/80 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
                     <h2 class="text-xl font-bold text-emerald-400">👤 ຟອມສະມາຊິກ: ລາຍງານຜົນການອະນາໄມ & ຢືນຢັນຕົວຕົນ</h2>
                     <div class="bg-amber-950/50 border border-amber-600/50 p-3 rounded-xl text-xs text-amber-300">
@@ -393,19 +394,23 @@
         window.switchTab = (tab) => {
             const newsSec = document.getElementById('section-news');
             const cyberSec = document.getElementById('section-cyber');
+            const scoreboardSec = document.getElementById('section-scoreboard');
             const memberSec = document.getElementById('section-member');
             
             const newsBtn = document.getElementById('tab-news-btn');
             const cyberBtn = document.getElementById('tab-cyber-btn');
+            const scoreboardBtn = document.getElementById('tab-scoreboard-btn');
             const memberBtn = document.getElementById('tab-member-btn');
             const catBox = document.getElementById('news-categories-box');
 
             newsSec.classList.add('hidden');
             cyberSec.classList.add('hidden');
+            scoreboardSec.classList.add('hidden');
             memberSec.classList.add('hidden');
             
             newsBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
             cyberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
+            scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-amber-400";
             memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400";
 
             if (tab === 'news') {
@@ -417,12 +422,16 @@
                 cyberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2";
                 catBox.classList.add('hidden');
                 loadCyberTasks();
+            } else if (tab === 'scoreboard') {
+                scoreboardSec.classList.remove('hidden');
+                scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-amber-600/35 text-amber-300 font-medium transition duration-200 flex items-center space-x-2 text-amber-400";
+                catBox.classList.add('hidden');
+                loadFullScoreboard();
             } else if (tab === 'member') {
                 memberSec.classList.remove('hidden');
                 memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2 text-emerald-400";
                 catBox.classList.add('hidden');
                 loadMemberReports();
-                loadScoreboard();
             }
         };
 
@@ -491,7 +500,7 @@
             loadNews();
             loadCyberTasks();
             loadMemberReports();
-            loadScoreboard();
+            loadFullScoreboard();
         });
 
         async function loadNews() {
@@ -692,7 +701,6 @@
             });
         };
 
-        // --- ຟັງຊັນຊ່ວຍຄິດໄລ່ເລກອາທິດຂອງປີ ເພື່ອກວດສອບການສົ່ງອາທິດລະ 1 ຄັ້ງ ---
         function getWeekNumber(d) {
             d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
             d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
@@ -708,7 +716,6 @@
                 return;
             }
 
-            // 1. ກວດສອບວ່າແມ່ນມື້ວັນອາທິດ (Sunday = 0) ຫຼືບໍ່?
             const now = new Date();
             const currentDay = now.getDay();
             if (currentDay !== 0) {
@@ -733,7 +740,6 @@
                 return;
             }
 
-            // 2. ກວດສອບວ່າອາທິດນີ້ສົ່ງໄປແລ້ວຫຼືຍັງ (ຈຳກັດ 1 ຄັ້ງຕໍ່ອາທິດ ຕໍ່ User)
             const currentWeekStr = getWeekNumber(now);
             const reportsSnap = await getDocs(collection(db, "member_reports"));
             let alreadySubmittedThisWeek = false;
@@ -782,7 +788,7 @@
                 statusText.innerText = 'ກະລຸນາເລືອກຮູບຖ່າຍຢືນຢັນຢ່າງໜ້ອຍ 3 ຮູບຂຶ້ນໄປ';
 
                 loadMemberReports();
-                loadScoreboard();
+                loadFullScoreboard();
             } catch (err) {
                 console.error(err);
                 alert('ສົ່ງບົດລາຍງານຜິດພາດ: ' + err.message);
@@ -840,10 +846,11 @@
             `).join('');
         }
 
-        // --- ຟັງຊັນໂຫຼດ ແລະ ຄິດໄລ່ Scoreboard (ຄະແນນສະສົມຕາມຫ້ອງພັກ) ---
-        async function loadScoreboard() {
-            const container = document.getElementById('scoreboard-container');
+        // --- ຟັງຊັນໂຫຼດ ແລະ ສະແດງຕາຕະລາງຄະແນນ (Scoreboard) ---
+        async function loadFullScoreboard() {
+            const container = document.getElementById('full-scoreboard-container');
             if (!container) return;
+            container.innerHTML = `<div class="text-center py-12 text-slate-400 col-span-full">ກຳລັງໂຫຼດຄະແນນ...</div>`;
             try {
                 const querySnapshot = await getDocs(collection(db, "member_reports"));
                 let scores = {};
@@ -857,17 +864,28 @@
 
                 const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
                 
-                container.innerHTML = rooms.map(room => {
+                container.innerHTML = rooms.map((room, index) => {
                     const pts = scores[room] || 0;
                     return `
-                        <div class="bg-slate-900/90 border border-slate-700 p-3 rounded-xl text-center space-y-1 shadow">
-                            <span class="text-xs font-bold text-slate-300 block">${room}</span>
-                            <span class="text-xl font-extrabold text-emerald-400 block">${pts} <span class="text-xs font-normal text-slate-400">ຄະແນນ</span></span>
+                        <div class="bg-slate-800/80 backdrop-blur border ${pts > 0 ? 'border-amber-500/50 bg-amber-950/20' : 'border-slate-700'} p-5 rounded-2xl shadow-xl flex items-center justify-between animate-fade-in">
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-amber-500/20 text-amber-400 font-bold w-10 h-10 rounded-xl flex items-center justify-center text-base border border-amber-500/40">
+                                    #${index + 1}
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-100 text-base">${room}</h4>
+                                    <p class="text-xs text-slate-400">ສະຖານະ: ພ້ອມປະຕິບັດງານ</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-extrabold text-amber-400">${pts}</span>
+                                <span class="block text-[10px] text-slate-400 uppercase">ຄະແນນສະສົມ</span>
+                            </div>
                         </div>
                     `;
                 }).join('');
             } catch (err) {
-                console.error("Scoreboard error:", err);
+                container.innerHTML = `<div class="text-center py-12 text-red-400 col-span-full">ຜິດພາດ: ${err.message}</div>`;
             }
         }
 
@@ -888,7 +906,7 @@
                 alert('ອະນຸມັດສຳເລັດ! ບົດລາຍງານຖືກສົ່ງຂຶ້ນໜ້າ "ຕິດຕາມການອະນາໄມ" ແລະ ບວກ +1 ຄະແນນໃຫ້ຫ້ອງພັກຮຽບຮ້ອຍ.');
                 loadMemberReports();
                 loadCyberTasks();
-                loadScoreboard();
+                loadFullScoreboard();
             } catch (err) {
                 alert('ອະນຸມັດຜິດພາດ: ' + err.message);
             }
@@ -898,7 +916,7 @@
             if (confirm('ລົບລາຍງານນີ້ແທ້ບໍ?')) {
                 await deleteDoc(doc(db, "member_reports", id));
                 loadMemberReports();
-                loadScoreboard();
+                loadFullScoreboard();
             }
         };
 
