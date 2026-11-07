@@ -359,7 +359,6 @@
                     const userDocRef = doc(db, "users", user.uid);
                     const userDocSnap = await getDoc(userDocRef);
 
-                    // ຖ້າຫາກຍັງບໍ່ມີຂໍ້ມູນ User ນີ້ໃນ Database ໃຫ້ສ້າງບົດບາດເປັນ 'user' ໂດຍອັດຕະໂນມັດທັນທີ
                     if (!userDocSnap.exists()) {
                         await setDoc(userDocRef, {
                             uid: user.uid,
@@ -459,7 +458,6 @@
             }
         };
 
-        // --- ລະບົບ Google Login (ຮອງຮັບທຸກບັນຊີ Google ໃຫ້ເຂົ້າສູ່ລະບົບໄດ້ທັນຕາ) ---
         window.loginWithGoogle = async () => {
             try {
                 await signInWithRedirect(auth, googleProvider);
@@ -479,7 +477,6 @@
                 const userDocRef = doc(db, "users", user.uid);
                 const userDocSnap = await getDoc(userDocRef);
                 
-                // ຖ້າບັນຊີ Google ໃໝ່ທີ່ເພิ่งລັอตອິນເຂົ້າມາ ຍັງບໍ່ມີໃນ Database ລະບົບຈະບັນທຶກໃຫ້ເປັນ User ທັນທີອັດຕະໂນມັດ
                 if (!userDocSnap.exists()) {
                     await setDoc(userDocRef, {
                         uid: user.uid,
@@ -859,7 +856,6 @@
             `).join('');
         }
 
-        // --- ຟັງຊັນໂຫຼດ ແລະ ສະແດງຕາຕະລາງຄະແນນ (Scoreboard) ---
         async function loadFullScoreboard() {
             const container = document.getElementById('full-scoreboard-container');
             if (!container) return;
