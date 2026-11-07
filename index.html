@@ -352,13 +352,14 @@
         window.addEventListener('DOMContentLoaded', () => {
             loadFullScoreboard();
 
-            // ตรวจสอบผลลัพธ์หลังจากการ Login แบบ Redirect กลับมาที่หน้าเว็บ
+            // ตรวจสอบผลลัพธ์หลังจากการ Login แบบ Redirect กลับມາທີ່ໜ້າເວັບ
             getRedirectResult(auth).then(async (result) => {
                 if (result && result.user) {
                     const user = result.user;
                     const userDocRef = doc(db, "users", user.uid);
                     const userDocSnap = await getDoc(userDocRef);
 
+                    // ຖ້າຫາກຍັງບໍ່ມີຂໍ້ມູນ User ນີ້ໃນ Database ໃຫ້ສ້າງບົດບາດເປັນ 'user' ໂດຍອັດຕະໂນມັດທັນທີ
                     if (!userDocSnap.exists()) {
                         await setDoc(userDocRef, {
                             uid: user.uid,
@@ -458,7 +459,7 @@
             }
         };
 
-        // --- ລະບົບ Google Login (ແກ້ໄຂໃຫ້ຮອງຮັບມືຖືໂດຍໃຊ້ signInWithRedirect) ---
+        // --- ລະບົບ Google Login (ຮອງຮັບທຸກບັນຊີ Google ໃຫ້ເຂົ້າສູ່ລະບົບໄດ້ທັນຕາ) ---
         window.loginWithGoogle = async () => {
             try {
                 await signInWithRedirect(auth, googleProvider);
@@ -477,6 +478,8 @@
             if (user) {
                 const userDocRef = doc(db, "users", user.uid);
                 const userDocSnap = await getDoc(userDocRef);
+                
+                // ຖ້າບັນຊີ Google ໃໝ່ທີ່ເພิ่งລັอตອິນເຂົ້າມາ ຍັງບໍ່ມີໃນ Database ລະບົບຈະບັນທຶກໃຫ້ເປັນ User ທັນທີອັດຕະໂນມັດ
                 if (!userDocSnap.exists()) {
                     await setDoc(userDocRef, {
                         uid: user.uid,
