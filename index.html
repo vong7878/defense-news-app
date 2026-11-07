@@ -145,7 +145,6 @@
                             <input type="text" id="member-name" placeholder="ປ້ອນຊື່ ຫຼື ຕຳແໜ່ງຂອງທ່ານ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
                         </div>
                         
-                        <!-- ຕົວເລືອກເລກຫ້ອງພັກ (ລົບ 102 ອອກແລ້ວ) -->
                         <div>
                             <label class="block text-xs text-emerald-300 mb-1 font-semibold">🏠 ເລືອກຫ້ອງພັກທີ່ຮັບຜິດຊອບອະນາໄມ:</label>
                             <select id="member-room-number" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-slate-200">
@@ -326,7 +325,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, runTransaction, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, setDoc, runTransaction, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCiD4zPW-iNzSM6iMP8A4EmaxHInxB0Z9k",
@@ -342,7 +341,7 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // ຕັ້ງຄ່າໃຫ້ Firebase ຈື່ການເຂົ້າສູ່ລະບົບ (Persistence) ໄວ້ຕະຫຼອດໃນມືຖື/ບຣາວເຊີເຄື່ອງນັ້ນ
+        // ຕັ້ງຄ່າໃຫ້ Firebase ຈື່ການເຂົ້າສູ່ລະບົບ (Persistence)
         setPersistence(auth, browserLocalPersistence).catch((err) => {
             console.error("Auth persistence error:", err);
         });
@@ -354,11 +353,11 @@
         let allMemberReports = [];
         let isRegisterMode = false;
         let currentShareData = { title: '', text: '', url: '' };
+        let sessionUnsubscribe = null;
 
         // --- ລະບົບນັບຈຳນວນຜູ້ເຂົ້າຊົມເວັບໄຊ ---
         async function trackVisitor() {
             const today = new Date().toISOString().split('T')[0];
-
             try {
                 const todayRef = doc(db, "visitors", today);
                 const totalRef = doc(db, "visitors", "total_stats");
@@ -444,14 +443,37 @@
         window.toggleAuthMode = () => window.openAuthModal(!isRegisterMode);
 
         window.handleAuthSubmit = async () => {
-            const email = document.getElementById('auth-email').value;
+            const email = document.getElementById('auth-email').value.trim();
             const password = document.getElementById('auth-password').value;
+            if (!email || !password) return alert('ກະລຸນາຕື່ມອີເມວ ແລະ ລະຫັດຜ່ານ');
+
             try {
                 if (isRegisterMode) {
+                    const usersSnap = await getDocs(collection(db, "users"));
+                    let emailExists = false;
+                    usersSnap.forEach(d => {
+                        if (d.data().email === email) emailExists = true;
+                    });
+
+                    if (emailExists) {
+                        alert('ອີເມວນີ້ຖືກໃຊ້ລົງທະບຽນໄປແລ້ວ! 1 ອີເມວສາມາດລົງທະບຽນໄດ້ພຽງ 1 ບັນຊີເທົ່ານັ້ນ.');
+                        return;
+                    }
+
                     const cred = await createUserWithEmailAndPassword(auth, email, password);
                     await sendEmailVerification(cred.user);
-                    await addDoc(collection(db, "users"), { uid: cred.user.uid, email: email, role: 'user' });
-                    alert('ສະໝັກສະມາຊິກສຳເລັດ! ກະລຸນາຢືນຢັນອີເມວ.');
+                    
+                    const deviceToken = Math.random().toString(36).substring(2) + Date.now().toString(36);
+                    localStorage.setItem('device_session_token', deviceToken);
+
+                    await setDoc(doc(db, "users", cred.user.uid), { 
+                        uid: cred.user.uid, 
+                        email: email, 
+                        role: 'user',
+                        activeToken: deviceToken 
+                    });
+
+                    alert('ສະໝັກສະມາຊິກສຳເລັດ! ກະລຸນາຢືນຢັນອີເມວກ່ອນເຂົ້າສູ່ລະບົບ.');
                     await signOut(auth);
                 } else {
                     const cred = await signInWithEmailAndPassword(auth, email, password);
@@ -460,7 +482,15 @@
                         await signOut(auth);
                         return;
                     }
-                    alert('ເຂົ້າສູ່ລະບົບສຳເລັດ! ລະບົບຈະຈື່ການເຂົ້າສູ່ລະບົບໄວ້ໃຫ້ຕະຫຼອດ.');
+
+                    const deviceToken = Math.random().toString(36).substring(2) + Date.now().toString(36);
+                    localStorage.setItem('device_session_token', deviceToken);
+
+                    await updateDoc(doc(db, "users", cred.user.uid), {
+                        activeToken: deviceToken
+                    });
+
+                    alert('ເຂົ້າສູ່ລະບົບສຳເລັດ!');
                 }
                 window.closeAuthModal();
             } catch (err) {
@@ -470,20 +500,32 @@
 
         window.logout = () => signOut(auth);
 
+        function monitorDeviceSession(uid) {
+            if (sessionUnsubscribe) sessionUnsubscribe();
+            const userDocRef = doc(db, "users", uid);
+            sessionUnsubscribe = onSnapshot(userDocRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    const currentLocalToken = localStorage.getItem('device_session_token');
+                    if (data.activeToken && data.activeToken !== currentLocalToken) {
+                        alert('ບັນຊີນີ້ຖືກເຂົ້າສູ່ລະບົບຈາກອຸປະກອນ/ເຄື່ອງອື່ນ! ລະບົບຈຳເປັນຕ້ອງອອກຈາກລະບົບໃນເຄື່ອງນີ້.');
+                        signOut(auth);
+                        localStorage.removeItem('device_session_token');
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+
         onAuthStateChanged(auth, async (user) => {
             currentUser = user;
             const authNav = document.getElementById('auth-nav');
             const adminBox = document.getElementById('admin-panel-box');
 
             if (user && user.emailVerified) {
-                const qSnapshot = await getDocs(collection(db, "users"));
-                let foundRole = 'user';
-                qSnapshot.forEach((d) => {
-                    if (d.data().uid === user.uid || d.data().email === user.email) {
-                        foundRole = d.data().role || 'user';
-                    }
-                });
-                userRole = foundRole;
+                monitorDeviceSession(user.uid);
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                userRole = userDoc.exists() ? (userDoc.data().role || 'user') : 'user';
 
                 authNav.innerHTML = `
                     <div class="text-right">
@@ -495,6 +537,7 @@
                 if (userRole === 'admin') adminBox.classList.remove('hidden');
                 else adminBox.classList.add('hidden');
             } else {
+                if (sessionUnsubscribe) sessionUnsubscribe();
                 userRole = 'user';
                 authNav.innerHTML = `
                     <button onclick="openAuthModal(false)" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3.5 py-2 rounded-xl font-medium transition shadow-lg">ເຂົ້າສູ່ລະບົບ</button>
@@ -527,30 +570,79 @@
                 container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/80 rounded-2xl border border-slate-700">ຍັງບໍ່ມີຂ່າວສານໃນລະບົບ</div>`;
                 return;
             }
-            container.innerHTML = newsList.map(item => `
-                <div id="post-${item.id}" class="bg-slate-800/80 backdrop-blur border border-slate-700/80 rounded-2xl p-5 space-y-3 shadow-xl animate-fade-in">
-                    <div class="flex justify-between items-start">
-                        <span class="text-xs px-3 py-1 rounded-full font-medium ${item.category === 'notice' ? 'bg-red-950 text-red-300 border border-red-800' : 'bg-emerald-950 text-emerald-300 border border-emerald-800'}">
-                            ${item.category === 'notice' ? '📢 ແຈ້ງການດ່ວນ' : '🎖️ ພາວະກິດ/ກິດຈະກຳ'}
-                        </span>
-                        <span class="text-xs text-slate-400">${item.date || ''}</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-emerald-300">${item.title}</h3>
-                    <p class="text-sm text-slate-300 whitespace-pre-line leading-relaxed">${item.content}</p>
-                    <div class="flex justify-between items-center pt-3 border-t border-slate-700/60">
-                        <button onclick="handleShare('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.content.replace(/'/g, "\\'").substring(0, 100)}...')" class="text-xs bg-emerald-900/60 hover:bg-emerald-800 text-emerald-300 px-3.5 py-1.5 rounded-xl border border-emerald-700/60 transition flex items-center space-x-1 cursor-pointer">
-                            <span>🔗</span> <span>ແຊ / ກ໊ອບປີ້ລິ້ງ (Share)</span>
-                        </button>
-                        ${userRole === 'admin' ? `
-                            <div class="flex space-x-2">
-                                <button onclick="openEditNewsModal('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.category}', '${item.content.replace(/'/g, "\\'").replace(/\n/g, '\\n')}')" class="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded-lg text-emerald-300 transition">ແກ້ໄຂ</button>
-                                <button onclick="deleteNewsItem('${item.id}')" class="text-xs bg-red-950 hover:bg-red-900 px-3 py-1 rounded-lg text-red-300 transition">ລົບ</button>
+            container.innerHTML = newsList.map(item => {
+                const likes = item.likes || [];
+                const hasLiked = currentUser && likes.includes(currentUser.uid);
+                const likeCount = likes.length;
+
+                return `
+                    <div id="post-${item.id}" class="bg-slate-800/80 backdrop-blur border border-slate-700/80 rounded-2xl p-5 space-y-3 shadow-xl animate-fade-in">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs px-3 py-1 rounded-full font-medium ${item.category === 'notice' ? 'bg-red-950 text-red-300 border border-red-800' : 'bg-emerald-950 text-emerald-300 border border-emerald-800'}">
+                                ${item.category === 'notice' ? '📢 ແຈ້ງການດ່ວນ' : '🎖️ ພາວະກິດ/ກິດຈະກຳ'}
+                            </span>
+                            <span class="text-xs text-slate-400">${item.date || ''}</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-emerald-300">${item.title}</h3>
+                        <p class="text-sm text-slate-300 whitespace-pre-line leading-relaxed">${item.content}</p>
+                        
+                        <!-- Like & Share Action Bar -->
+                        <div class="flex flex-wrap justify-between items-center pt-3 border-t border-slate-700/60 gap-2">
+                            <div class="flex items-center space-x-2">
+                                <button onclick="toggleLike('${item.id}')" class="text-xs px-3.5 py-1.5 rounded-xl border transition flex items-center space-x-1.5 ${hasLiked ? 'bg-pink-600/30 text-pink-400 border-pink-500/50 hover:bg-pink-600/40' : 'bg-slate-900/60 text-slate-300 border-slate-700 hover:bg-slate-700'}">
+                                    <span>${hasLiked ? '❤️' : '🤍'}</span> 
+                                    <span>${hasLiked ? 'ຖືກໃຈແລ້ວ' : 'ຖືກໃຈ'} (${likeCount})</span>
+                                </button>
+                                <button onclick="handleShare('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.content.replace(/'/g, "\\'").substring(0, 100)}...')" class="text-xs bg-emerald-900/60 hover:bg-emerald-800 text-emerald-300 px-3.5 py-1.5 rounded-xl border border-emerald-700/60 transition flex items-center space-x-1">
+                                    <span>🔗</span> <span>ແຊ (Share)</span>
+                                </button>
                             </div>
-                        ` : ''}
+                            ${userRole === 'admin' ? `
+                                <div class="flex space-x-2">
+                                    <button onclick="openEditNewsModal('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.category}', '${item.content.replace(/'/g, "\\'").replace(/\n/g, '\\n')}')" class="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded-lg text-emerald-300 transition">ແກ້ໄຂ</button>
+                                    <button onclick="deleteNewsItem('${item.id}')" class="text-xs bg-red-950 hover:bg-red-900 px-3 py-1 rounded-lg text-red-300 transition">ລົບ</button>
+                                </div>
+                            ` : ''}
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
+
+        // --- ລະບົບກົດໄລຄ໌ (Like System) ---
+        window.toggleLike = async (newsId) => {
+            if (!currentUser) {
+                alert('ກະລຸນາເຂົ້າສູ່ລະບົບກ່ອນກົດຖືກໃຈ!');
+                openAuthModal(false);
+                return;
+            }
+
+            const newsRef = doc(db, "news", newsId);
+            try {
+                await runTransaction(db, async (transaction) => {
+                    const newsDoc = await transaction.get(newsRef);
+                    if (!newsDoc.exists()) throw "ບໍ່ພົບຂ່າວສານນີ້!";
+
+                    const data = newsDoc.data();
+                    let likes = data.likes || [];
+                    const uid = currentUser.uid;
+
+                    if (likes.includes(uid)) {
+                        // ຖ້າເຄີຍໄລຄ໌ແລ້ວ ໃຫ້ເອົາອອກ (Unlike)
+                        likes = likes.filter(id => id !== uid);
+                    } else {
+                        // ຖ່າຍັງບໍ່ເຄີຍໄລຄ໌ ໃຫ້ເພີ່ມເຂົ້າໄປ
+                        likes.push(uid);
+                    }
+
+                    transaction.update(newsRef, { likes: likes });
+                });
+                loadNews();
+            } catch (err) {
+                console.error("Error updating like:", err);
+                alert('ຜິດພາດ: ' + err);
+            }
+        };
 
         window.handleShare = (id, title, text) => {
             const baseUrl = window.location.origin + window.location.pathname;
@@ -600,7 +692,7 @@
             const content = document.getElementById('news-content').value;
             const date = new Date().toLocaleString('lo-LA');
             if (!title || !content) return alert('ກະລຸນາຕື່ມຂໍ້ມູນໃຫ້ຄົບ');
-            await addDoc(collection(db, "news"), { title, category, content, date });
+            await addDoc(collection(db, "news"), { title, category, content, date, likes: [] });
             alert('ເພີ່ມຂ່າວສຳເລັດ!');
             closeNewsModal();
             loadNews();
@@ -776,7 +868,6 @@
             try {
                 await updateDoc(doc(db, "member_reports", reportId), { approved: true });
 
-                // ບັນທຶກຫ້ອງ ແລະ ຊື່ລົງໃນ cyber_tasks ພ້ອມກັນເລີຍ
                 await addDoc(collection(db, "cyber_tasks"), {
                     title: `${report.room || 'ຫ້ອງບໍ່ລະບຸ'} - ໂດຍ: ${report.name}`,
                     description: report.description,
