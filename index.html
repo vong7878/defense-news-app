@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ລະບົບຂ່າວສານ ແລະ ຕິດຕາມການອະນາໄມ - ຈຸປ້ອງກັນ</title>
+    
+    <!-- Favicon / ໂລໂກ້ເທິງແຖບເວັບໄຊ -->
+    <link rel="icon" type="image/png" href="https://vong7878.github.io/defense/logo.png">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Font: Noto Sans Lao -->
@@ -15,9 +19,18 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+        
+        /* 🖼️ ຮູບພື້ນຫຼັງຫໍພັກ VKU ພ້ອມ Dark Overlay ໃຫ້ຕົວໜັງສືອ່ານງ່າຍ */
+        body {
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.90), rgba(15, 23, 42, 0.95)), 
+                        url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white">
+<body class="text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white">
 
     <!-- Navbar -->
     <header class="bg-emerald-950/90 backdrop-blur border-b border-emerald-800/60 sticky top-0 z-50 shadow-md">
@@ -281,7 +294,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-950 border-t border-slate-800 text-center py-4 text-xs text-slate-500">
+    <footer class="bg-slate-950/90 backdrop-blur border-t border-slate-800 text-center py-4 text-xs text-slate-500">
         ລະບົບຂ່າວສານ ແລະ ຕິດຕາມການອະນາໄມ ຈຸປ້ອງກັນ © 2026
     </footer>
 
@@ -636,7 +649,7 @@
 
                         if (!devices.includes(deviceSessionId)) {
                             if (devices.length >= 2) {
-                                alert(`⚠️ ຂໍອະໄພ! "${adminName}" ນີ້ ມີການລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ.`);
+                                alert(`⚠️ ຂໍອະໄພ! "${adminName}" ນี้ ມີການລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ.`);
                                 return;
                             }
                             devices.push(deviceSessionId);
