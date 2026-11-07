@@ -29,7 +29,7 @@
                     <p class="text-xs text-emerald-300">Defense Unit News & Hygiene Tracking</p>
                 </div>
             </div>
-            <!-- Auth Nav ປ່ຽນເປັນສະແດງສະຖານະຫ້ອງທີ່ລັອກອິນ -->
+            <!-- Auth Nav -->
             <div id="auth-nav" class="flex items-center space-x-3"></div>
         </div>
     </header>
@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            <!-- Admin Control Box (ສະແດງສະເພາະ Admin ທີ່ໃສ່ລະຫັດຜ່ານ ຫຼື ຕັ້ງຄ່າ) -->
+            <!-- Admin Control Box -->
             <div id="admin-panel-box" class="hidden bg-emerald-950/80 backdrop-blur p-4 rounded-2xl border border-emerald-600/50 shadow-xl animate-fade-in">
                 <h2 class="font-bold text-emerald-300 mb-3 border-b border-emerald-800 pb-2 text-sm uppercase tracking-wider">⚙️ ຈັດການລະບົບ (Admin)</h2>
                 <div class="space-y-2.5">
@@ -197,15 +197,15 @@
         ລະບົບຂ່າວສານ ແລະ ຕິດຕາມການອະນາໄມ ຈຸປ້ອງກັນ © 2026
     </footer>
 
-    <!-- MODAL: Room Login Modal (ປ່ຽນມາໃຊ້ໂຕນີ້ແທນ Google Login) -->
+    <!-- MODAL: Room/Admin Login Modal -->
     <div id="room-login-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4">
         <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl animate-fade-in text-center">
             <div class="bg-emerald-600 w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-white text-2xl font-bold shadow-lg">🛡️</div>
-            <h3 class="text-xl font-bold text-emerald-400">ເລືອກຫ້ອງພັກເພື່ອເຂົ້າສູ່ລະບົບ</h3>
-            <p class="text-xs text-slate-300">ກະລຸນາເລືອກຫ້ອງຂອງທ່ານເພື່ອເຂົ້າໃຊ້ງານ ແລະ ສົ່ງບົດລາຍງານ</p>
+            <h3 class="text-xl font-bold text-emerald-400">ເຂົ້າສູ່ລະບົບ</h3>
+            <p class="text-xs text-slate-300">ເລືອກຫ້ອງພັກສຳລັບ User ຫຼື ກົດປຸ່ມ Admin ເພື່ອເຂົ້າດ້ວຍອີເມວ</p>
             
             <div class="space-y-3 pt-2">
-                <select id="login-room-select" class="w-full bg-slate-900 border border-slate-700 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-slate-100 font-bold text-center">
+                <select id="login-room-select" onchange="handleLoginTypeChange(this.value)" class="w-full bg-slate-900 border border-slate-700 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-slate-100 font-bold text-center">
                     <option value="">-- ກະລຸນາເລືອກຫ້ອງພັກ --</option>
                     <option value="ຫ້ອງ 104">ຫ້ອງ 104</option>
                     <option value="ຫ້ອງ 105">ຫ້ອງ 105</option>
@@ -216,10 +216,19 @@
                     <option value="ຫ້ອງ 112">ຫ້ອງ 112</option>
                     <option value="ຫ້ອງ 113">ຫ້ອງ 113</option>
                     <option value="ຫ້ອງ 114">ຫ້ອງ 114</option>
-                    <option value="ADMIN">⚙️ ເຂົ້າສູ່ລະບົບຜູ້ດູແລ (Admin)</option>
+                    <option value="ADMIN_MODE">⚙️ ເຂົ້າສູ່ລະບົບຜູ້ດູແລ (Admin)</option>
                 </select>
-                <div id="admin-pass-box" class="hidden">
-                    <input type="password" id="admin-password-input" placeholder="ປ້ອນລະຫັດຜ່ານ Admin..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-center">
+
+                <!-- ຟອມສຳລັບ Admin ໃສ່ Email & Password -->
+                <div id="admin-auth-fields" class="hidden space-y-2.5 pt-2 text-left">
+                    <div>
+                        <label class="block text-[11px] text-emerald-300 mb-1">ອີເມວ Admin:</label>
+                        <input type="email" id="admin-email-input" placeholder="admin@example.com" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none focus:border-emerald-500 text-slate-200">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-emerald-300 mb-1">ລະຫັດຜ່ານ (Password):</label>
+                        <input type="password" id="admin-password-input" placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none focus:border-emerald-500 text-slate-200">
+                    </div>
                 </div>
             </div>
 
@@ -329,6 +338,7 @@
     <!-- Firebase SDK & App Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, setDoc, runTransaction, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -342,7 +352,12 @@
         };
 
         const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
         const db = getFirestore(app);
+
+        setPersistence(auth, browserLocalPersistence).catch((err) => {
+            console.error("Auth persistence error:", err);
+        });
 
         let currentRoomUser = localStorage.getItem('current_room_user') || null;
         let userRole = localStorage.getItem('current_user_role') || 'user';
@@ -354,18 +369,16 @@
         window.addEventListener('DOMContentLoaded', () => {
             loadFullScoreboard();
             checkRoomAuthUI();
-
-            // ເປີດ/ປິດ ຟິວລະຫັດ Admin ຕາມທີ່ເລືອກໃນ Dropdown
-            const roomSelect = document.getElementById('login-room-select');
-            roomSelect.addEventListener('change', (e) => {
-                const passBox = document.getElementById('admin-pass-box');
-                if (e.target.value === 'ADMIN') {
-                    passBox.classList.remove('hidden');
-                } else {
-                    passBox.classList.add('hidden');
-                }
-            });
         });
+
+        window.handleLoginTypeChange = (val) => {
+            const adminFields = document.getElementById('admin-auth-fields');
+            if (val === 'ADMIN_MODE') {
+                adminFields.classList.remove('hidden');
+            } else {
+                adminFields.classList.add('hidden');
+            }
+        };
 
         function checkRoomAuthUI() {
             const authNav = document.getElementById('auth-nav');
@@ -382,7 +395,7 @@
                         <span class="text-xs block text-emerald-400 font-bold">🏠 ${currentRoomUser}</span>
                         <span class="text-[10px] bg-slate-700 px-2 py-0.5 rounded text-slate-300 uppercase">${userRole}</span>
                     </div>
-                    <button onclick="logoutRoom()" class="bg-red-600/80 hover:bg-red-600 text-white text-xs px-3 py-1.5 rounded-lg transition shadow">ປ່ຽນຫ້ອງ/ອອກ</button>
+                    <button onclick="logoutSession()" class="bg-red-600/80 hover:bg-red-600 text-white text-xs px-3 py-1.5 rounded-lg transition shadow">ອອກຈາກລະບົບ</button>
                 `;
 
                 if (userRole === 'admin') {
@@ -392,7 +405,7 @@
                 }
             } else {
                 roomModal.classList.remove('hidden');
-                authNav.innerHTML = `<span class="text-xs text-amber-400 font-semibold">⚠️ ກະລຸນາເລືອກຫ້ອງກ่อน</span>`;
+                authNav.innerHTML = `<span class="text-xs text-amber-400 font-semibold">⚠️ ກະລຸນາເລືອກຫ້ອງກ່ອນ</span>`;
                 adminBox.classList.add('hidden');
             }
 
@@ -402,35 +415,55 @@
             loadFullScoreboard();
         }
 
-        window.confirmRoomLogin = () => {
+        window.confirmRoomLogin = async () => {
             const select = document.getElementById('login-room-select');
             const val = select.value;
 
             if (!val) {
-                alert('ກະລຸນາເລືອກຫ້ອງພັກກ່ອນ!');
+                alert('ກະລຸນາເລືອກຫ້ອງພັກ ຫຼື ເລືອກໂໝດ Admin!');
                 return;
             }
 
-            if (val === 'ADMIN') {
-                const pass = document.getElementById('admin-password-input').value;
-                if (pass === '123456' || pass === 'admin123') { // ລະຫັດຜ່ານ Admin ຕັ້ງໄວ້ກວດສອບງ່າຍໆ
-                    currentRoomUser = 'Admin ຜູ້ດູແລລະບົບ';
-                    userRole = 'admin';
-                } else {
-                    alert('ລະຫັດຜ່ານ Admin ບໍ່ຖືກຕ້ອງ!');
+            if (val === 'ADMIN_MODE') {
+                const email = document.getElementById('admin-email-input').value;
+                const password = document.getElementById('admin-password-input').value;
+
+                if (!email || !password) {
+                    alert('ກະລຸນາປ້ອນອີເມວ ແລະ ລະຫັດຜ່ານ Admin ໃຫ້ครบຖ້ວນ!');
                     return;
                 }
+
+                try {
+                    // ໃຊ້ Firebase Authentication ກວດສອບອີເມວ ແລະ ລະຫັດຜ່ານຈິງ
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                    currentRoomUser = `Admin: ${userCredential.user.email}`;
+                    userRole = 'admin';
+
+                    localStorage.setItem('current_room_user', currentRoomUser);
+                    localStorage.setItem('current_user_role', userRole);
+                    checkRoomAuthUI();
+                } catch (err) {
+                    alert('ລັອກອິນ Admin ບໍ່ສຳເລັດ: ' + err.message);
+                }
             } else {
+                // ລັອກອິນດ້ວຍໄອດີຫ້ອງປົກກະຕິ
                 currentRoomUser = val;
                 userRole = 'user';
-            }
 
-            localStorage.setItem('current_room_user', currentRoomUser);
-            localStorage.setItem('current_user_role', userRole);
-            checkRoomAuthUI();
+                localStorage.setItem('current_room_user', currentRoomUser);
+                localStorage.setItem('current_user_role', userRole);
+                checkRoomAuthUI();
+            }
         };
 
-        window.logoutRoom = () => {
+        window.logoutSession = async () => {
+            try {
+                if (userRole === 'admin') {
+                    await signOut(auth);
+                }
+            } catch (err) {
+                console.error(err);
+            }
             localStorage.removeItem('current_room_user');
             localStorage.removeItem('current_user_role');
             currentRoomUser = null;
@@ -745,7 +778,7 @@
             }
 
             const name = document.getElementById('member-name').value;
-            const roomNumber = currentRoomUser; // ໃຊ້ຫ້ອງທີ່ລັອກອິນຢູ່ອັດຕະໂນມັດ
+            const roomNumber = currentRoomUser;
             const description = document.getElementById('member-task-desc').value;
             const fileInput = document.getElementById('member-media-files');
             const statusText = document.getElementById('member-upload-status');
