@@ -329,7 +329,7 @@
                 <div class="bg-slate-800/85 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
                     <h2 class="text-xl font-bold text-emerald-400">👤 ຟອມສະມາຊິກ: ລາຍງານຜົນການອະນາໄມ & ຢືນຢັນຕົວຕົນ</h2>
                     <div class="bg-amber-950/50 border border-amber-600/50 p-3 rounded-xl text-xs text-amber-300">
-                        ⚠️ <b>ກົດເກນການສົ່ງ:</b> ແຕ່ລະຫ້ອງພັກສົ່ງໄດ້ <b>1 ຄັ້ງ ຕໍ່ 1 ອາທິດ (ສະເພາະມື້ວັນອາທິດ, ເວລາ 16:00 - 19:00 ໂມງ) ເທົ່ານັ້ນ!</b>
+                        ⚠️ <b>ກົດເກນການສົ່ງ:</b> ແຕ່ລະຫ້ອງພັກສົ່ງໄດ້ <b>1 ຄັ້ງ ຕໍ່ 1 ອາທິດ (ສະເພາະມື້ວັນອາທິດ, ເວລາ 16:00 - 19:00 ໂມງ) ເທົ່ານັ້ນ!</b> ແລະ <b>ຕ້ອງຖ່າຍຮູບສົດຜ່ານກ້ອງເທົ່ານັ້ນ (ຫ้ามເລືອກຮູບຈາກແກລເລີ)</b> ເພື່ອປ້ອງກັນການເອົາຮູບຄົນອື່ນມາສົ່ງ.
                     </div>
                     
                     <div class="space-y-3 pt-2">
@@ -348,9 +348,10 @@
                             <textarea id="member-task-desc" rows="3" placeholder="ອະທິບາຍຜົນການປະຕິບັດງານ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"></textarea>
                         </div>
                         <div>
-                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">📸 ອັບໂຫຼດຮູບຢືນຢັນຕົວຕົນ ແລະ ການອະນາໄມ (ຂັ້ນຕ່ຳ 3 ຮູບ):</label>
-                            <input type="file" id="member-media-files" multiple accept="image/*" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
-                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">ກະລຸນາເລືອກຮູບຖ່າຍຢືນຢັນຢ່າງໜ້ອຍ 3 ຮູບຂຶ້ນໄປ</p>
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">📸 ຖ່າຍຮູບສົດຢືນຢັນຕົວຕົນ ແລະ ການອະນາໄມ (ຂັ້ນຕ່ຳ 3 ຮູບ - ບັງຄັບເປີດກ້ອງ):</label>
+                            <!-- 📷 ປັບໃຫ້ເປີດກ້ອງຖ່າຍສົດໂດຍກົງ (capture="environment") ບໍ່ໃຫ້ເລືອກຮູບເກົ່າຈາກ Gallery -->
+                            <input type="file" id="member-media-files" multiple accept="image/*" capture="environment" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
+                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ລະບົບຈະັງຄັບເປີດກ້ອງຖ່າຍສົດ ຢ່າງໜ້ອຍ 3 ຮູບຂຶ້ນໄປ</p>
                         </div>
                     </div>
 
@@ -1637,7 +1638,7 @@
 
             const files = fileInput.files;
             if (files.length < 3) {
-                alert(`ກະລຸນາຖ່າຍຮູບຢືນຢັນຕົວຕົນ ແລະ ການອະນາໄມຢ່າງໜ້ອຍ 3 ຮູບ`);
+                alert(`ກະລຸນາຖ່າຍຮູບສົດຜ່ານກ້ອງຢ່າງໜ້ອຍ 3 ຮູບ`);
                 return;
             }
 
@@ -1657,7 +1658,7 @@
                 return;
             }
 
-            statusText.innerText = `ກຳລັງຍໍ່ຂະໜາດ ແລະ ປະມວນຜົນຮູບຢືນຢັນ (0/${files.length})...`;
+            statusText.innerText = `ກຳລັງຍໍ່ຂະໜາດ ແລະ ປະມວນຜົນຮູບຖ່າຍສົດ (0/${files.length})...`;
 
             try {
                 let mediaUrls = [];
@@ -1684,7 +1685,7 @@
                 document.getElementById('member-name').value = '';
                 document.getElementById('member-task-desc').value = '';
                 fileInput.value = '';
-                statusText.innerText = 'ກະລຸນາເລືອກຮູບຖ່າຍຢືນຢັນຢ່າງໜ້ອຍ 3 ຮູບຂຶ້ນໄປ';
+                statusText.innerText = '⚠️ ລະບົບຈະັງຄັບເປີດກ້ອງຖ່າຍສົດ ຢ່າງໜ້ອຍ 3 ຮູບຂຶ້ນໄປ';
 
                 loadMemberReports();
                 loadFullScoreSummary();
