@@ -229,24 +229,6 @@
         </div>
     </div>
 
-    <!-- MODAL: Login / Register -->
-    <div id="auth-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
-        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl animate-fade-in">
-            <h3 id="auth-modal-title" class="text-xl font-bold text-emerald-400">ເຂົ້າສູ່ລະບົບ</h3>
-            <div class="space-y-3">
-                <input type="email" id="auth-email" placeholder="ອີເມວ (Email)" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
-                <input type="password" id="auth-password" placeholder="ລະຫັດຜ່ານ (Password)" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
-            </div>
-            <div class="flex justify-end space-x-3 pt-2">
-                <button onclick="closeAuthModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-xl text-sm">ຍົກເລີກ</button>
-                <button id="auth-submit-btn" onclick="handleAuthSubmit()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-medium">ເຂົ້າສູ່ລະບົບ</button>
-            </div>
-            <div class="text-center pt-2">
-                <button onclick="toggleAuthMode()" id="auth-toggle-link" class="text-xs text-emerald-400 hover:underline">ຍັງບໍ່ມີບັນຊີ? ສະໝັກສະມາຊິກ</button>
-            </div>
-        </div>
-    </div>
-
     <!-- MODAL: Add News -->
     <div id="news-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
         <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl animate-fade-in">
@@ -324,7 +306,7 @@
     <!-- Firebase SDK & App Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, setDoc, runTransaction, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -340,8 +322,8 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+        const googleProvider = new GoogleAuthProvider();
 
-        // ຕັ້ງຄ່າໃຫ້ Firebase ຈື່ການເຂົ້າສູ່ລະບົບ (Persistence)
         setPersistence(auth, browserLocalPersistence).catch((err) => {
             console.error("Auth persistence error:", err);
         });
@@ -351,7 +333,6 @@
         let allNews = [];
         let allCyberTasks = [];
         let allMemberReports = [];
-        let isRegisterMode = false;
         let currentShareData = { title: '', text: '', url: '' };
         let sessionUnsubscribe = null;
 
@@ -432,69 +413,35 @@
             }
         };
 
-        window.openAuthModal = (reg = false) => {
-            isRegisterMode = reg;
-            document.getElementById('auth-modal-title').innerText = reg ? 'ສະໝັກສະມາຊິກ' : 'ເຂົ້າສູ່ລະບົບ';
-            document.getElementById('auth-submit-btn').innerText = reg ? 'ສະໝັກສະມາຊິກ' : 'ເຂົ້າສູ່ລະບົບ';
-            document.getElementById('auth-toggle-link').innerText = reg ? 'ມີບັນຊີແລ້ວ? ເຂົ້າສູ່ລະບົບ' : 'ຍັງບໍ່ມີບັນຊີ? ສະໝັກສະມາຊິກ';
-            document.getElementById('auth-modal').classList.remove('hidden');
-        };
-        window.closeAuthModal = () => document.getElementById('auth-modal').classList.add('hidden');
-        window.toggleAuthMode = () => window.openAuthModal(!isRegisterMode);
-
-        window.handleAuthSubmit = async () => {
-            const email = document.getElementById('auth-email').value.trim();
-            const password = document.getElementById('auth-password').value;
-            if (!email || !password) return alert('ກະລຸນາຕື່ມອີເມວ ແລະ ລະຫັດຜ່ານ');
-
+        // --- ລະບົບ Google Login ---
+        window.loginWithGoogle = async () => {
             try {
-                if (isRegisterMode) {
-                    const usersSnap = await getDocs(collection(db, "users"));
-                    let emailExists = false;
-                    usersSnap.forEach(d => {
-                        if (d.data().email === email) emailExists = true;
-                    });
+                const result = await signInWithPopup(auth, googleProvider);
+                const user = result.user;
 
-                    if (emailExists) {
-                        alert('ອີເມວນີ້ຖືກໃຊ້ລົງທະບຽນໄປແລ້ວ! 1 ອີເມວສາມາດລົງທະບຽນໄດ້ພຽງ 1 ບັນຊີເທົ່ານັ້ນ.');
-                        return;
-                    }
+                // ตรวจสอบว่ามีข้อมูล user ใน Firestore หรือยัง ถ้ายังให้สร้างอัตโนมัติ
+                const userDocRef = doc(db, "users", user.uid);
+                const userDocSnap = await getDoc(userDocRef);
 
-                    const cred = await createUserWithEmailAndPassword(auth, email, password);
-                    await sendEmailVerification(cred.user);
-                    
-                    const deviceToken = Math.random().toString(36).substring(2) + Date.now().toString(36);
-                    localStorage.setItem('device_session_token', deviceToken);
+                const deviceToken = Math.random().toString(36).substring(2) + Date.now().toString(36);
+                localStorage.setItem('device_session_token', deviceToken);
 
-                    await setDoc(doc(db, "users", cred.user.uid), { 
-                        uid: cred.user.uid, 
-                        email: email, 
+                if (!userDocSnap.exists()) {
+                    await setDoc(userDocRef, {
+                        uid: user.uid,
+                        email: user.email,
                         role: 'user',
-                        activeToken: deviceToken 
-                    });
-
-                    alert('ສະໝັກສະມາຊິກສຳເລັດ! ກະລຸນາຢືນຢັນອີເມວກ່ອນເຂົ້າສູ່ລະບົບ.');
-                    await signOut(auth);
-                } else {
-                    const cred = await signInWithEmailAndPassword(auth, email, password);
-                    if (!cred.user.emailVerified) {
-                        alert('ກະລຸນາຢືນຢັນອີເມວກ່ອນເຂົ້າໃຊ້ງານ!');
-                        await signOut(auth);
-                        return;
-                    }
-
-                    const deviceToken = Math.random().toString(36).substring(2) + Date.now().toString(36);
-                    localStorage.setItem('device_session_token', deviceToken);
-
-                    await updateDoc(doc(db, "users", cred.user.uid), {
                         activeToken: deviceToken
                     });
-
-                    alert('ເຂົ້າສູ່ລະບົບສຳເລັດ!');
+                } else {
+                    await updateDoc(userDocRef, {
+                        activeToken: deviceToken
+                    });
                 }
-                window.closeAuthModal();
+
+                alert('ເຂົ້າສູ່ລະບົບດ້ວຍ Google ສຳເລັດ!');
             } catch (err) {
-                alert('ຜິດພາດ: ' + err.message);
+                alert('ເຂົ້າສູ່ລະບົບຜິດພາດ: ' + err.message);
             }
         };
 
@@ -522,10 +469,24 @@
             const authNav = document.getElementById('auth-nav');
             const adminBox = document.getElementById('admin-panel-box');
 
-            if (user && user.emailVerified) {
+            if (user) {
                 monitorDeviceSession(user.uid);
-                const userDoc = await getDoc(doc(db, "users", user.uid));
-                userRole = userDoc.exists() ? (userDoc.data().role || 'user') : 'user';
+                
+                // ตรวจสอบความปลอดภัย ถ้ายังไม่มี document ใน users ให้สร้างอัตโนมัติป้องกัน Error
+                const userDocRef = doc(db, "users", user.uid);
+                const userDocSnap = await getDoc(userDocRef);
+                if (!userDocSnap.exists()) {
+                    const deviceToken = localStorage.getItem('device_session_token') || 'token';
+                    await setDoc(userDocRef, {
+                        uid: user.uid,
+                        email: user.email,
+                        role: 'user',
+                        activeToken: deviceToken
+                    });
+                    userRole = 'user';
+                } else {
+                    userRole = userDocSnap.data().role || 'user';
+                }
 
                 authNav.innerHTML = `
                     <div class="text-right">
@@ -540,8 +501,9 @@
                 if (sessionUnsubscribe) sessionUnsubscribe();
                 userRole = 'user';
                 authNav.innerHTML = `
-                    <button onclick="openAuthModal(false)" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3.5 py-2 rounded-xl font-medium transition shadow-lg">ເຂົ້າສູ່ລະບົບ</button>
-                    <button onclick="openAuthModal(true)" class="bg-slate-700 hover:bg-slate-600 text-emerald-300 text-xs px-3.5 py-2 rounded-xl transition">ສະໝັກ</button>
+                    <button onclick="loginWithGoogle()" class="bg-white hover:bg-slate-100 text-slate-900 text-xs px-4 py-2.5 rounded-xl font-semibold transition shadow-lg flex items-center space-x-2">
+                        <span>🌐</span> <span>ເຂົ້າສູ່ລະບົບດ້ວຍ Google</span>
+                    </button>
                 `;
                 adminBox.classList.add('hidden');
             }
@@ -586,7 +548,6 @@
                         <h3 class="text-lg font-bold text-emerald-300">${item.title}</h3>
                         <p class="text-sm text-slate-300 whitespace-pre-line leading-relaxed">${item.content}</p>
                         
-                        <!-- Like & Share Action Bar -->
                         <div class="flex flex-wrap justify-between items-center pt-3 border-t border-slate-700/60 gap-2">
                             <div class="flex items-center space-x-2">
                                 <button onclick="toggleLike('${item.id}')" class="text-xs px-3.5 py-1.5 rounded-xl border transition flex items-center space-x-1.5 ${hasLiked ? 'bg-pink-600/30 text-pink-400 border-pink-500/50 hover:bg-pink-600/40' : 'bg-slate-900/60 text-slate-300 border-slate-700 hover:bg-slate-700'}">
@@ -609,11 +570,10 @@
             }).join('');
         }
 
-        // --- ລະບົບກົດໄລຄ໌ (Like System) ---
         window.toggleLike = async (newsId) => {
             if (!currentUser) {
-                alert('ກະລຸນາເຂົ້າສູ່ລະບົບກ່ອນກົດຖືກໃຈ!');
-                openAuthModal(false);
+                alert('ກະລຸນາເຂົ້າສູ່ລະບົບດ້ວຍ Google ກ່ອນກົດຖືກໃຈ!');
+                loginWithGoogle();
                 return;
             }
 
@@ -628,10 +588,8 @@
                     const uid = currentUser.uid;
 
                     if (likes.includes(uid)) {
-                        // ຖ້າເຄີຍໄລຄ໌ແລ້ວ ໃຫ້ເອົາອອກ (Unlike)
                         likes = likes.filter(id => id !== uid);
                     } else {
-                        // ຖ່າຍັງບໍ່ເຄີຍໄລຄ໌ ໃຫ້ເພີ່ມເຂົ້າໄປ
                         likes.push(uid);
                     }
 
@@ -717,7 +675,6 @@
             }
         };
 
-        // --- ລະບົບສົ່ງບົດລາຍງານຂອງສະມາຊິກ ---
         const resizeAndConvertBase64 = (file) => {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -750,8 +707,8 @@
 
         window.submitMemberReport = async () => {
             if (!currentUser) {
-                alert('ກະລຸນາເຂົ້າສູ່ລະບົບກ່ອນສົ່ງບົດລາຍງານ!');
-                openAuthModal(false);
+                alert('ກະລຸນາເຂົ້າສູ່ລະບົບດ້ວຍ Google ກ່ອນສົ່ງບົດລາຍງານ!');
+                loginWithGoogle();
                 return;
             }
 
@@ -890,7 +847,6 @@
             }
         };
 
-        // --- Cyber Tasks Management (Hygiene Tracking Feed) ---
         async function loadCyberTasks() {
             const container = document.getElementById('cyber-container');
             if (!container) return;
