@@ -41,8 +41,8 @@
             <div class="bg-slate-800/80 backdrop-blur p-4 rounded-2xl border border-slate-700/80 shadow-xl">
                 <h2 class="font-bold text-emerald-400 mb-3 border-b border-slate-700 pb-2 text-sm uppercase tracking-wider">ເມນູຫຼັກ</h2>
                 <ul class="space-y-2 text-sm">
-                    <li><button onclick="switchTab('news')" id="tab-news-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2"><span>📰</span> <span>ຂ່າວສານ & ແຈ້ງການ</span></button></li>
-                    <li><button onclick="switchTab('scoreboard')" id="tab-scoreboard-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-amber-400 font-bold bg-amber-500/20 border border-amber-500/40"><span>🏆</span> <span>ກວດເບິ່ງຄະແນນແຕ່ລະຫ້ອງ</span></button></li>
+                    <li><button onclick="switchTab('news')" id="tab-news-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>📰</span> <span>ຂ່າວສານ & ແຈ້ງການ</span></button></li>
+                    <li><button onclick="switchTab('scoreboard')" id="tab-scoreboard-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 text-amber-400 font-bold bg-amber-500/20 border border-amber-500/40"><span>🏆</span> <span>ກວດເບິ່ງຄະແນນແຕ່ລະຫ້ອງ</span></button></li>
                     <li><button onclick="switchTab('cyber')" id="tab-cyber-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>🧹</span> <span>ຕິດຕາມການອະນາໄມ</span></button></li>
                     <li><button onclick="switchTab('member')" id="tab-member-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400"><span>👤</span> <span>ລາຍງານອະນາໄມ (ສະມາຊິກ)</span></button></li>
                 </ul>
@@ -95,7 +95,7 @@
         <section class="lg:col-span-3 space-y-4">
             
             <!-- SECTION 1: News Feed -->
-            <div id="section-news" class="space-y-4 animate-fade-in">
+            <div id="section-news" class="space-y-4 hidden animate-fade-in">
                 <div class="bg-gradient-to-r from-emerald-950/80 to-slate-800/80 p-5 rounded-2xl border border-emerald-800/50 shadow-xl flex justify-between items-center">
                     <div>
                         <h2 class="text-lg font-bold text-emerald-400">📊 ບົດສະຫຼຸບຂ່າວສານ ແລະ ແຈ້ງການ</h2>
@@ -117,7 +117,7 @@
                 </div>
             </div>
 
-            <!-- SECTION 2: Scoreboard Full View (ໜ້າກວດເບິ່ງຄະແນນແຕ່ລະຫ້ອງ - ເປີດຂຶ້ນມາເປັນໜ້າแรกເລີຍ) -->
+            <!-- SECTION 2: Scoreboard Full View -->
             <div id="section-scoreboard" class="space-y-4 animate-fade-in">
                 <div class="bg-gradient-to-r from-amber-950/80 to-slate-800/80 p-6 rounded-2xl border border-amber-600/50 shadow-xl space-y-2">
                     <h2 class="text-xl font-bold text-amber-400 flex items-center space-x-2"><span>🏆</span> <span>ຕາຕະລາງຄະແນນການອະນາໄມປະຈຳຫ້ອງ</span></h2>
@@ -150,7 +150,7 @@
                 <div class="bg-slate-800/80 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
                     <h2 class="text-xl font-bold text-emerald-400">👤 ຟອມສະມາຊິກ: ລາຍງານຜົນການອະນາໄມ & ຢືນຢັນຕົວຕົນ</h2>
                     <div class="bg-amber-950/50 border border-amber-600/50 p-3 rounded-xl text-xs text-amber-300">
-                        ⚠️ <b>ໝາຍເຫດ:</b> ລະບົບອະນຸຍາດໃຫ້ສົ່ງບົດລາຍງານໄດ້ <b>ອາທິດລະ 1 ຄັ້ງ ສະເພາະມື້ວັນອາທິດ</b> ເທົ່ານັ້ນ! (ສົ່ງແລ້ວຮັບທັນທີ +1 ຄະແນນ)
+                        ⚠️ <b>ກົດເກນການສົ່ງ:</b> ແຕ່ລະຫ້ອງພັກສາມາດສົ່ງບົດລາຍງານໄດ້ <b>1 ຄັ້ງ ຕໍ່ 1 ອາທິດ ໂດຍສົ່ງໄດ້ສະເພາະມື້ "ວັນອາທິດ" ເທົ່ານັ້ນ!</b>
                     </div>
                     
                     <div class="space-y-3 pt-2">
@@ -349,7 +349,6 @@
         let allMemberReports = [];
         let currentShareData = { title: '', text: '', url: '' };
 
-        // ໂຫຼດຕາຕະລາງຄະແນນຂຶ້ນມາທັນທີເມື່ອເຂົ້າເວັບ
         window.addEventListener('DOMContentLoaded', () => {
             loadFullScoreboard();
         });
@@ -721,6 +720,7 @@
                 return;
             }
 
+            // 1. ກວດສອບມື້: ຕ້ອງແມ່ນມື້ "ວັນອາທິດ" (Sunday = 0) ເທົ່ານັ້ນ
             const now = new Date();
             const currentDay = now.getDay();
             if (currentDay !== 0) {
@@ -745,18 +745,20 @@
                 return;
             }
 
+            // 2. ກວດສອບຕາມ "ຫ້ອງພັກ (Room)": ຈຳກັດ 1 ຫ້ອງພັກ ສົ່ງໄດ້ພຽງ 1 ຄັ້ງຕໍ່ອາທິດ
             const currentWeekStr = getWeekNumber(now);
             const reportsSnap = await getDocs(collection(db, "member_reports"));
-            let alreadySubmittedThisWeek = false;
+            let roomAlreadySubmittedThisWeek = false;
+
             reportsSnap.forEach(docSnap => {
                 const data = docSnap.data();
-                if (data.uid === currentUser.uid && data.weekTag === currentWeekStr) {
-                    alreadySubmittedThisWeek = true;
+                if (data.room === roomNumber && data.weekTag === currentWeekStr) {
+                    roomAlreadySubmittedThisWeek = true;
                 }
             });
 
-            if (alreadySubmittedThisWeek) {
-                alert('⚠️ ທ່ານໄດ້ສົ່ງບົດລາຍງານສຳລັບອາທິດນີ້ໄປແລ້ວ! (ອະນຸຍາດພຽງ 1 ຄັ້ງຕໍ່ອາທິດ)');
+            if (roomAlreadySubmittedThisWeek) {
+                alert(`⚠️ ຂໍອະໄພ! "${roomNumber}" ໄດ້ມີການສົ່ງບົດລາຍງານສຳລັບອາທິດນີ້ໄປແລ້ວ! (ຈຳກັດ 1 ຫ້ອງພັກ ສົ່ງໄດ້ 1 ຄັ້ງຕໍ່ອາທິດ)`);
                 return;
             }
 
