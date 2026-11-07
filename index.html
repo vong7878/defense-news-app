@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ລະບົບຂ່າວສານ ແລະ ຕິດຕາມການອະນາໄມ - ຈຸປ້ອງກັນ</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Font: Noto Sans Lao -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Noto Sans Lao', sans-serif; }
@@ -29,7 +27,6 @@
                     <p class="text-xs text-emerald-300">Defense Unit News & Hygiene Tracking</p>
                 </div>
             </div>
-            <!-- Auth Nav -->
             <div id="auth-nav" class="flex items-center space-x-3"></div>
         </div>
     </header>
@@ -126,7 +123,7 @@
                 </div>
             </div>
 
-            <!-- SECTION 3: Hygiene Tracking (Cyber & Room) -->
+            <!-- SECTION 3: Hygiene Tracking -->
             <div id="section-cyber" class="space-y-4 hidden animate-fade-in">
                 <div class="bg-gradient-to-r from-emerald-950/80 to-slate-800/80 p-5 rounded-2xl border border-emerald-800/50 shadow-xl flex justify-between items-center">
                     <div>
@@ -180,7 +177,6 @@
                     </div>
                 </div>
 
-                <!-- ປະຫວັດ ແລະ ລາຍການບົດລາຍງານຂອງສະມາຊິກ -->
                 <div class="bg-slate-800/80 backdrop-blur p-5 rounded-2xl border border-slate-700 shadow-xl space-y-4">
                     <h3 class="font-bold text-emerald-400 text-base">📋 ບົດລາຍງານທັງໝົດຂອງສະມາຊິກ (ສຳລັບ Admin ອະນຸມັດ)</h3>
                     <div id="member-reports-container" class="space-y-4">
@@ -219,7 +215,6 @@
                     <option value="ADMIN_MODE">⚙️ ເຂົ້າສູ່ລະບົບຜູ້ດູແລ (Admin)</option>
                 </select>
 
-                <!-- ຟອມສຳລັບ Admin ໃສ່ Email & Password -->
                 <div id="admin-auth-fields" class="hidden space-y-2.5 pt-2 text-left">
                     <div>
                         <label class="block text-[11px] text-emerald-300 mb-1">ອີເມວ Admin:</label>
@@ -247,24 +242,14 @@
             <p id="share-modal-title" class="text-xs text-slate-300 truncate font-medium"></p>
             
             <div class="grid grid-cols-2 gap-3 pt-2">
-                <button onclick="shareToPlatform('facebook')" class="bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition">
-                    <span>📘</span> <span>Facebook</span>
-                </button>
-                <button onclick="shareToPlatform('messenger')" class="bg-sky-600 hover:bg-sky-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition">
-                    <span>💬</span> <span>Messenger</span>
-                </button>
-                <button onclick="shareToPlatform('telegram')" class="bg-blue-500 hover:bg-blue-400 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition">
-                    <span>✈️</span> <span>Telegram</span>
-                </button>
-                <button onclick="shareToPlatform('whatsapp')" class="bg-green-600 hover:bg-green-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition">
-                    <span>🟢</span> <span>WhatsApp</span>
-                </button>
+                <button onclick="shareToPlatform('facebook')" class="bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition"><span>📘</span> <span>Facebook</span></button>
+                <button onclick="shareToPlatform('messenger')" class="bg-sky-600 hover:bg-sky-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition"><span>💬</span> <span>Messenger</span></button>
+                <button onclick="shareToPlatform('telegram')" class="bg-blue-500 hover:bg-blue-400 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition"><span>✈️</span> <span>Telegram</span></button>
+                <button onclick="shareToPlatform('whatsapp')" class="bg-green-600 hover:bg-green-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition"><span>🟢</span> <span>WhatsApp</span></button>
             </div>
 
             <div class="pt-2">
-                <button onclick="shareToPlatform('copy')" class="w-full bg-slate-700 hover:bg-slate-600 text-emerald-300 font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition border border-slate-600">
-                    <span>📋</span> <span>ກ໊ອບປີ້ລິ້ງໂພສນີ້ (Copy Link)</span>
-                </button>
+                <button onclick="shareToPlatform('copy')" class="w-full bg-slate-700 hover:bg-slate-600 text-emerald-300 font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition border border-slate-600"><span>📋</span> <span>ກ໊ອບປີ້ລິ້ງໂພສນີ້ (Copy Link)</span></button>
             </div>
 
             <div class="pt-2">
@@ -338,8 +323,8 @@
     <!-- Firebase SDK & App Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, setDoc, runTransaction, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, runTransaction, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCiD4zPW-iNzSM6iMP8A4EmaxHInxB0Z9k",
@@ -429,12 +414,11 @@
                 const password = document.getElementById('admin-password-input').value;
 
                 if (!email || !password) {
-                    alert('ກະລຸນາປ້ອນອີເມວ ແລະ ລະຫັດຜ່ານ Admin ໃຫ້ครบຖ້ວນ!');
+                    alert('ກະລຸນາປ້ອນອີເມວ ແລະ ລະຫັດຜ່ານ Admin ໃຫ້ຄົບຖ້ວນ!');
                     return;
                 }
 
                 try {
-                    // ໃຊ້ Firebase Authentication ກວດສອບອີເມວ ແລະ ລະຫັດຜ່ານຈິງ
                     const userCredential = await signInWithEmailAndPassword(auth, email, password);
                     currentRoomUser = `Admin: ${userCredential.user.email}`;
                     userRole = 'admin';
@@ -446,7 +430,6 @@
                     alert('ລັອກອິນ Admin ບໍ່ສຳເລັດ: ' + err.message);
                 }
             } else {
-                // ລັອກອິນດ້ວຍໄອດີຫ້ອງປົກກະຕິ
                 currentRoomUser = val;
                 userRole = 'user';
 
@@ -471,7 +454,6 @@
             checkRoomAuthUI();
         };
 
-        // --- ລະບົບນັບຈຳນວນຜູ້ເຂົ້າຊົມເວັບໄຊ ---
         async function trackVisitor() {
             const today = new Date().toISOString().split('T')[0];
             try {
@@ -532,7 +514,7 @@
             
             newsBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
             cyberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
-            scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-amber-400";
+            scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 text-amber-400";
             memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400";
 
             if (tab === 'news') {
