@@ -56,8 +56,13 @@
                     <li><button onclick="switchTab('scoreboard')" id="tab-scoreboard-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 hover:bg-slate-700/60"><span>🏆</span> <span>ຕາຕະລາງຄະແນນແຕ່ລະຫ້ອງ</span></button></li>
                     <li><button onclick="switchTab('cyber')" id="tab-cyber-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>🧹</span> <span>ຕິດຕາມການອະນາໄມ</span></button></li>
                     <li><button onclick="switchTab('member')" id="tab-member-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400"><span>👤</span> <span>ລາຍງານອະນາໄມ (ສະມາຊິກ)</span></button></li>
+                    
                     <!-- Admin Chat Tab (Visible only for Admins) -->
-                    <li id="tab-admin-chat-li" class="hidden"><button onclick="switchTab('admin-chat')" id="tab-admin-chat-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-400 font-bold bg-sky-500/10 border border-sky-500/30"><span>💬</span> <span>ແຊັດລົມວຽກ Admin (4 ຄົນ)</span></button></li>
+                    <li id="tab-admin-chat-li" class="hidden pt-2 border-t border-slate-700">
+                        <button onclick="switchTab('admin-chat')" id="tab-admin-chat-btn" class="w-full text-left px-3.5 py-3 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-300 font-bold bg-sky-600/30 border border-sky-500/60 shadow-lg animate-pulse">
+                            <span>💬</span> <span>ແຊັດລົມວຽກ Admin (4 ຄົນ)</span>
+                        </button>
+                    </li>
                 </ul>
             </div>
 
@@ -252,7 +257,7 @@
                 <div class="bg-gradient-to-r from-sky-950/90 via-slate-800/90 to-emerald-950/90 p-5 rounded-2xl border border-sky-500/40 shadow-xl flex justify-between items-center">
                     <div>
                         <h2 class="text-lg font-bold text-sky-400 flex items-center space-x-2"><span>💬</span> <span>ຫ້ອງແຊັດລົມວຽກ Admin (ຜູ້ສ້າງ ແລະ Admin ຮອງ 1, 2, 3)</span></h2>
-                        <p class="text-xs text-slate-300 mt-0.5">ພື້ນທີ່ສຳລັບ Admin ທັງ 4 ຄົນ ປຶກສາ ແລະ ສື່ສານກันภายใน</p>
+                        <p class="text-xs text-slate-300 mt-0.5">ພື້ນທີ່ສຳລັບ Admin ທັງ 4 ຄົນ ປຶກສາ ແລະ ສື່ສານກັນภายใน</p>
                     </div>
                 </div>
 
@@ -691,7 +696,7 @@
             scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
             cyberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
             memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400";
-            if(adminChatBtn) adminChatBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-400 font-bold bg-sky-500/10 border border-sky-500/30";
+            if(adminChatBtn) adminChatBtn.className = "w-full text-left px-3.5 py-3 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-300 font-bold bg-sky-600/30 border border-sky-500/60 shadow-lg";
 
             if (tab === 'news') {
                 newsSec.classList.remove('hidden');
@@ -723,7 +728,7 @@
                     return;
                 }
                 adminChatSec.classList.remove('hidden');
-                adminChatBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-sky-600/35 text-sky-300 font-bold transition duration-200 flex items-center space-x-2 border border-sky-500/50";
+                adminChatBtn.className = "w-full text-left px-3.5 py-3 rounded-xl bg-sky-600 text-white font-bold transition duration-200 flex items-center space-x-2 border border-sky-400 shadow-xl";
                 catBox.classList.add('hidden');
             }
         };
