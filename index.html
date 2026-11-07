@@ -320,7 +320,7 @@
     <!-- Firebase SDK & App Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, setDoc, runTransaction, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -351,6 +351,25 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadFullScoreboard();
+
+            // ตรวจสอบผลลัพธ์หลังจากการ Login แบบ Redirect กลับมาที่หน้าเว็บ
+            getRedirectResult(auth).then(async (result) => {
+                if (result && result.user) {
+                    const user = result.user;
+                    const userDocRef = doc(db, "users", user.uid);
+                    const userDocSnap = await getDoc(userDocRef);
+
+                    if (!userDocSnap.exists()) {
+                        await setDoc(userDocRef, {
+                            uid: user.uid,
+                            email: user.email,
+                            role: 'user'
+                        });
+                    }
+                }
+            }).catch((error) => {
+                console.error("Redirect login error:", error);
+            });
         });
 
         // --- ລະບົບນັບຈຳນວນຜູ້ເຂົ້າຊົມເວັບໄຊ ---
@@ -439,24 +458,10 @@
             }
         };
 
-        // --- ລະບົບ Google Login ---
+        // --- ລະບົບ Google Login (ແກ້ໄຂໃຫ້ຮອງຮັບມືຖືໂດຍໃຊ້ signInWithRedirect) ---
         window.loginWithGoogle = async () => {
             try {
-                const result = await signInWithPopup(auth, googleProvider);
-                const user = result.user;
-
-                const userDocRef = doc(db, "users", user.uid);
-                const userDocSnap = await getDoc(userDocRef);
-
-                if (!userDocSnap.exists()) {
-                    await setDoc(userDocRef, {
-                        uid: user.uid,
-                        email: user.email,
-                        role: 'user'
-                    });
-                }
-
-                alert('ເຂົ້າສູ່ລະບົບດ້ວຍ Google ສຳເລັດ!');
+                await signInWithRedirect(auth, googleProvider);
             } catch (err) {
                 alert('ເຂົ້າສູ່ລະບົບຜິດພາດ: ' + err.message);
             }
@@ -720,7 +725,6 @@
                 return;
             }
 
-            // 1. ກວດສອບມື້: ຕ້ອງແມ່ນມື້ "ວັນອາທິດ" (Sunday = 0) ເທົ່ານັ້ນ
             const now = new Date();
             const currentDay = now.getDay();
             if (currentDay !== 0) {
@@ -745,7 +749,6 @@
                 return;
             }
 
-            // 2. ກວດສອບຕາມ "ຫ້ອງພັກ (Room)": ຈຳກັດ 1 ຫ້ອງພັກ ສົ່ງໄດ້ພຽງ 1 ຄັ້ງຕໍ່ອາທິດ
             const currentWeekStr = getWeekNumber(now);
             const reportsSnap = await getDocs(collection(db, "member_reports"));
             let roomAlreadySubmittedThisWeek = false;
