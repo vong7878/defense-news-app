@@ -20,6 +20,16 @@
         }
         .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
         
+        @keyframes ring {
+            0% { transform: rotate(0deg); }
+            20% { transform: rotate(15deg); }
+            40% { transform: rotate(-15deg); }
+            60% { transform: rotate(10deg); }
+            80% { transform: rotate(-10deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .animate-bell { animation: ring 0.5s ease-in-out infinite; }
+
         /* 🖼️ ຮູບພື້ນຫຼັງໜ້າຈໍເວັບໄຊ (ຫໍພັກ VKU) */
         body {
             background: linear-gradient(to bottom, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.94)), 
@@ -55,10 +65,32 @@
                 </div>
             </div>
 
-            <!-- 🕒 Realtime Clock Widget -->
-            <div class="flex items-center space-x-2 bg-slate-900/80 px-3.5 py-1.5 rounded-xl border border-emerald-500/30 text-xs shadow-inner w-full sm:w-auto justify-center">
-                <span class="text-emerald-400 animate-pulse">🕒</span>
-                <span id="live-clock" class="text-emerald-300 font-bold tracking-wide">ກຳລັງໂຫຼດເວລາ...</span>
+            <!-- Middle Widget: Clock & Notification Bell -->
+            <div class="flex items-center space-x-3 w-full sm:w-auto justify-center">
+                <!-- 🕒 Realtime Clock Widget -->
+                <div class="flex items-center space-x-2 bg-slate-900/80 px-3.5 py-1.5 rounded-xl border border-emerald-500/30 text-xs shadow-inner">
+                    <span class="text-emerald-400 animate-pulse">🕒</span>
+                    <span id="live-clock" class="text-emerald-300 font-bold tracking-wide">ກຳລັງໂຫຼດເວລາ...</span>
+                </div>
+
+                <!-- 🔔 Notification Bell Button -->
+                <div class="relative">
+                    <button onclick="toggleNotificationDropdown()" class="relative bg-slate-900/80 hover:bg-slate-800 p-2 rounded-xl border border-amber-500/40 text-amber-400 transition shadow-inner flex items-center justify-center w-9 h-9">
+                        <span id="bell-icon" class="text-lg">🔔</span>
+                        <span id="notification-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-md hidden">0</span>
+                    </button>
+
+                    <!-- Dropdown Notification Box -->
+                    <div id="notification-dropdown" class="absolute right-0 mt-2 w-80 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl hidden z-50 overflow-hidden animate-fade-in">
+                        <div class="bg-slate-800 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                            <span class="font-bold text-amber-400 text-xs uppercase tracking-wider">🔔 ການແຈ້ງເຕືອນລ້າສຸດ</span>
+                            <button onclick="clearNotifications()" class="text-[10px] text-slate-400 hover:text-white underline">ລ້າງທັງໝົດ</button>
+                        </div>
+                        <div id="notification-list" class="max-h-64 overflow-y-auto divide-y divide-slate-800 text-xs">
+                            <div class="p-4 text-center text-slate-500">ຍังບໍ່ມີການແຈ້ງເຕືອນ</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Auth Nav -->
@@ -80,6 +112,13 @@
                     <li><button onclick="switchTab('cyber')" id="tab-cyber-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>🧹</span> <span>ຕິດຕາມການອະນາໄມ</span></button></li>
                     <li><button onclick="switchTab('member')" id="tab-member-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400"><span>👤</span> <span>ລາຍງານອະນາໄມ (ສະມາຊິກ)</span></button></li>
                     
+                    <!-- User Feedback / Comment Tab -->
+                    <li>
+                        <button onclick="switchTab('user-feedback')" id="tab-user-feedback-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-pink-400">
+                            <span>💬</span> <span>ປະກອບຄຳຄິດຄຳເຫັນ</span>
+                        </button>
+                    </li>
+
                     <!-- Admin Chat Tab -->
                     <li id="tab-admin-chat-li" class="hidden pt-2 border-t border-slate-700">
                         <button onclick="switchTab('admin-chat')" id="tab-admin-chat-btn" class="w-full text-left px-3.5 py-3 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-300 font-bold bg-sky-600/30 border border-sky-500/60 shadow-lg">
@@ -275,12 +314,48 @@
                 </div>
             </div>
 
+            <!-- SECTION 7: User Feedback / Comment Section -->
+            <div id="section-user-feedback" class="space-y-4 hidden animate-fade-in">
+                <div class="bg-gradient-to-r from-pink-950/90 via-slate-800/90 to-emerald-950/90 p-5 rounded-2xl border border-pink-500/40 shadow-xl flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-bold text-pink-400 flex items-center space-x-2"><span>💬</span> <span>ປະກອບຄຳຄິດຄຳເຫັນຕໍ່ການປະຕິບັດງານຂອງຈຸປ້ອງກັນ</span></h2>
+                        <p class="text-xs text-slate-300 mt-0.5">ຄຳຄິດຄຳເຫັນຂອງທ່ານຈະຖືກສົ່ງตรงເຖິງຫ້ອງແຊັດ Admin ທັງ 4 ຄົນທັນທີ</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/80 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs text-pink-300 mb-1 font-semibold">🏠 ຫ້ອງພັກຂອງທ່ານ (ຜູ້ສົ່ງ):</label>
+                            <input type="text" id="feedback-room-display" readonly class="w-full bg-slate-900/80 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm text-pink-400 font-bold" value="ຍັງບໍ່ໄດ້ເລືອກຫ້ອງ">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-pink-300 mb-1 font-semibold">ຂໍ້ຄວາມຄຳຄິດຄຳເຫັນ / ຂໍ້ສະເໜີແນະ:</label>
+                            <textarea id="feedback-text-input" rows="4" placeholder="ພິມຄຳຄິດຄຳເຫັນ ຫຼື ຂໍ້ສະເໜີແນະຕໍ່ການປະຕິບັດງານຂອງຈຸປ້ອງກັນ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-pink-500 text-slate-100"></textarea>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <button onclick="submitUserFeedback()" class="w-full bg-pink-600 hover:bg-pink-500 text-white font-medium py-3 px-4 rounded-xl transition text-sm shadow-lg flex items-center justify-center space-x-2">
+                            <span>🚀</span> <span>ສົ່ງຄຳຄິດຄຳເຫັນໃຫ້ Admin ທັງ 4 ຄົນ</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- History of feedback sent -->
+                <div class="bg-slate-800/80 backdrop-blur p-5 rounded-2xl border border-slate-700 shadow-xl space-y-3">
+                    <h3 class="font-bold text-pink-400 text-sm uppercase tracking-wider">📜 ປະຫວັດຄຳຄິດຄຳເຫັນທີ່ເຄີຍສົ່ງ</h3>
+                    <div id="user-feedback-history" class="space-y-3">
+                        <div class="text-center py-6 text-slate-400">ກຳລັງໂຫຼດປະຫວັດ...</div>
+                    </div>
+                </div>
+            </div>
+
             <!-- SECTION 6: Admin Private Chat -->
             <div id="section-admin-chat" class="space-y-4 hidden animate-fade-in">
                 <div class="bg-gradient-to-r from-sky-950/90 via-slate-800/90 to-emerald-950/90 p-5 rounded-2xl border border-sky-500/40 shadow-xl flex justify-between items-center">
                     <div>
                         <h2 class="text-lg font-bold text-sky-400 flex items-center space-x-2"><span>💬</span> <span>ຫ້ອງແຊັດລົມວຽກ Admin (ຜູ້ສ້າງ ແລະ Admin ຮອງ 1, 2, 3)</span></h2>
-                        <p class="text-xs text-slate-300 mt-0.5">ພື້ນທີ່ສຳລັບ Admin ທັງ 4 ຄົນ ປຶກສາ ແລະ ສື່ສານກັນภายใน</p>
+                        <p class="text-xs text-slate-300 mt-0.5">ພື້ນທີ່ສຳລັບ Admin ທັງ 4 ຄົນ ປຶກສາ ແລະ ສື່ສານກັນภายใน (ລວມທັງຄຳຄິດຄຳເຫັນຈາກ User)</p>
                     </div>
                 </div>
 
@@ -290,7 +365,7 @@
                     </div>
 
                     <div class="pt-3 border-t border-slate-700 flex gap-2">
-                        <input type="text" id="admin-chat-input" onkeydown="if(event.key==='Enter') sendAdminMessage()" placeholder="ພิมพ์ຂໍ້ຄວາມສົນທະນາວຽກ..." class="flex-grow bg-slate-900 border border-slate-700 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-sky-500 text-slate-100">
+                        <input type="text" id="admin-chat-input" onkeydown="if(event.key==='Enter') sendAdminMessage()" placeholder="ພິມຂໍ້ຄວາມສົນທະນາວຽກ..." class="flex-grow bg-slate-900 border border-slate-700 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-sky-500 text-slate-100">
                         <button onclick="sendAdminMessage()" class="bg-sky-600 hover:bg-sky-500 text-white font-medium px-5 py-3 rounded-xl transition text-sm shadow-lg flex items-center space-x-1">
                             <span>📤</span> <span>ສົ່ງ</span>
                         </button>
@@ -471,8 +546,13 @@
         let allNews = [];
         let allCyberTasks = [];
         let allMemberReports = [];
+        let allFeedbacks = [];
+        let notifications = JSON.parse(localStorage.getItem('user_notifications') || '[]');
         let currentShareData = { title: '', text: '', url: '' };
         let chatUnsubscribe = null;
+        let globalNewsUnsubscribe = null;
+        let globalFeedbackUnsubscribe = null;
+        let isInitialLoad = true;
 
         const subAdminPins = {
             "SUB_ADMIN_1": "1234",
@@ -487,7 +567,140 @@
             setInterval(updateLiveClock, 1000);
             
             setInterval(verifySubAdminSession, 10000);
+            initRealtimeListeners();
         });
+
+        // 🔊 Function to play loud alert sound using Web Audio API
+        function playLoudAlertSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Play 3 loud beeps
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        if (audioCtx.state === 'suspended') {
+                            audioCtx.resume();
+                        }
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(880, audioCtx.currentTime); // High pitch A5
+                        
+                        gain.gain.setValueAtTime(1.0, audioCtx.currentTime); // Max volume loudness
+                        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                        
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.3);
+                    }, i * 350);
+                }
+            } catch (e) {
+                console.error("Audio play error:", e);
+            }
+        }
+
+        function addNotification(title, message) {
+            const newNotif = {
+                id: Date.now(),
+                title: title,
+                message: message,
+                time: new Date().toLocaleTimeString('lo-LA', { hour: '2-digit', minute: '2-digit' }),
+                read: false
+            };
+            notifications.unshift(newNotif);
+            if (notifications.length > 20) notifications.pop(); // Keep last 20
+            localStorage.setItem('user_notifications', JSON.stringify(notifications));
+            
+            updateNotificationUI();
+            playLoudAlertSound();
+        }
+
+        function updateNotificationUI() {
+            const badge = document.getElementById('notification-badge');
+            const bellIcon = document.getElementById('bell-icon');
+            const list = document.getElementById('notification-list');
+
+            const unreadCount = notifications.filter(n => !n.read).length;
+
+            if (unreadCount > 0) {
+                badge.innerText = unreadCount;
+                badge.classList.remove('hidden');
+                bellIcon.classList.add('animate-bell');
+            } else {
+                badge.classList.add('hidden');
+                bellIcon.classList.remove('animate-bell');
+            }
+
+            if (notifications.length === 0) {
+                list.innerHTML = `<div class="p-4 text-center text-slate-500">ຍັງບໍ່ມີການແຈ້ງເຕືອນ</div>`;
+                return;
+            }
+
+            list.innerHTML = notifications.map(n => `
+                <div class="p-3 hover:bg-slate-800 transition ${n.read ? 'opacity-70' : 'bg-slate-800/60 font-semibold'}">
+                    <div class="flex justify-between items-center text-amber-400 mb-0.5">
+                        <span>${n.title}</span>
+                        <span class="text-[10px] text-slate-400">${n.time}</span>
+                    </div>
+                    <p class="text-slate-200 text-[11px] truncate">${n.message}</p>
+                </div>
+            `).join('');
+        }
+
+        window.toggleNotificationDropdown = () => {
+            const dropdown = document.getElementById('notification-dropdown');
+            dropdown.classList.toggle('hidden');
+
+            // Mark all as read when opened
+            if (!dropdown.classList.contains('hidden')) {
+                notifications.forEach(n => n.read = true);
+                localStorage.setItem('user_notifications', JSON.stringify(notifications));
+                updateNotificationUI();
+            }
+        };
+
+        window.clearNotifications = () => {
+            notifications = [];
+            localStorage.setItem('user_notifications', JSON.stringify(notifications));
+            updateNotificationUI();
+        };
+
+        // Realtime listeners for news and feedbacks to trigger alert bell & sound
+        function initRealtimeListeners() {
+            // Listen to News updates
+            const newsQuery = query(collection(db, "news"), orderBy("date", "desc"));
+            globalNewsUnsubscribe = onSnapshot(newsQuery, (snapshot) => {
+                if (!isInitialLoad) {
+                    snapshot.docChanges().forEach((change) => {
+                        if (change.type === "added") {
+                            const newsData = change.doc.data();
+                            addNotification("📢 ແຈ້ງການ/ຂ່າວສານໃໝ່!", newsData.title);
+                        }
+                    });
+                }
+            });
+
+            // Listen to User Feedbacks / Admin Group messages
+            const chatQuery = query(collection(db, "admin_chats"), orderBy("timestamp", "desc"));
+            globalFeedbackUnsubscribe = onSnapshot(chatQuery, (snapshot) => {
+                if (!isInitialLoad) {
+                    snapshot.docChanges().forEach((change) => {
+                        if (change.type === "added") {
+                            const msgData = change.doc.data();
+                            if (msgData.sender !== currentRoomUser) {
+                                addNotification("💬 ຂໍ້ຄວາມກຸ່ມ / ແຈ້ງເຕືອນໃໝ່", `${msgData.sender}: ${msgData.text}`);
+                            }
+                        }
+                    });
+                }
+                isInitialLoad = false;
+            }, () => {
+                isInitialLoad = false;
+            });
+        }
 
         async function verifySubAdminSession() {
             if (userRole === 'admin' && currentRoomUser && currentRoomUser.startsWith('Admin ຮອງ')) {
@@ -565,11 +778,13 @@
             const adminBox = document.getElementById('admin-panel-box');
             const roomModal = document.getElementById('room-login-modal');
             const roomDisplay = document.getElementById('member-room-display');
+            const feedbackRoomDisplay = document.getElementById('feedback-room-display');
             const adminChatLi = document.getElementById('tab-admin-chat-li');
 
             if (currentRoomUser) {
                 roomModal.classList.add('hidden');
                 if (roomDisplay) roomDisplay.value = currentRoomUser;
+                if (feedbackRoomDisplay) feedbackRoomDisplay.value = currentRoomUser;
 
                 authNav.innerHTML = `
                     <div class="text-right">
@@ -600,6 +815,8 @@
             loadCyberTasks();
             loadMemberReports();
             loadFullScoreSummary();
+            loadUserFeedbacks();
+            updateNotificationUI();
         }
 
         window.confirmRoomLogin = async () => {
@@ -737,6 +954,7 @@
             const scoreboardSec = document.getElementById('section-scoreboard');
             const cyberSec = document.getElementById('section-cyber');
             const memberSec = document.getElementById('section-member');
+            const feedbackSec = document.getElementById('section-user-feedback');
             const adminChatSec = document.getElementById('section-admin-chat');
             
             const newsBtn = document.getElementById('tab-news-btn');
@@ -744,6 +962,7 @@
             const scoreboardBtn = document.getElementById('tab-scoreboard-btn');
             const cyberBtn = document.getElementById('tab-cyber-btn');
             const memberBtn = document.getElementById('tab-member-btn');
+            const feedbackBtn = document.getElementById('tab-user-feedback-btn');
             const adminChatBtn = document.getElementById('tab-admin-chat-btn');
             const catBox = document.getElementById('news-categories-box');
 
@@ -752,6 +971,7 @@
             scoreboardSec.classList.add('hidden');
             cyberSec.classList.add('hidden');
             memberSec.classList.add('hidden');
+            feedbackSec.classList.add('hidden');
             if(adminChatSec) adminChatSec.classList.add('hidden');
             
             newsBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
@@ -759,6 +979,7 @@
             scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
             cyberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
             memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400";
+            feedbackBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-pink-400";
             if(adminChatBtn) adminChatBtn.className = "w-full text-left px-3.5 py-3 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-300 font-bold bg-sky-600/30 border border-sky-500/60 shadow-lg";
 
             if (tab === 'news') {
@@ -785,6 +1006,11 @@
                 memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2 text-emerald-400";
                 catBox.classList.add('hidden');
                 loadMemberReports();
+            } else if (tab === 'user-feedback') {
+                feedbackSec.classList.remove('hidden');
+                feedbackBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-pink-600/35 text-pink-300 font-medium transition duration-200 flex items-center space-x-2 text-pink-400";
+                catBox.classList.add('hidden');
+                loadUserFeedbacks();
             } else if (tab === 'admin-chat') {
                 if (userRole !== 'admin') {
                     alert('⚠️ ສຳລັບ Admin ເທົ່ານັ້ນ!');
@@ -795,6 +1021,81 @@
                 catBox.classList.add('hidden');
             }
         };
+
+        window.submitUserFeedback = async () => {
+            if (!currentRoomUser || currentRoomUser.includes('Admin') || currentRoomUser.includes('ຜູ້ສ້າງ')) {
+                alert('ກະລຸນາລັອກອິນດ້ວຍໄອດີຫ້ອງພັກກ່ອນສົ່ງຄຳຄິດຄຳເຫັນ!');
+                document.getElementById('room-login-modal').classList.remove('hidden');
+                return;
+            }
+
+            const textInput = document.getElementById('feedback-text-input');
+            const commentText = textInput.value.trim();
+
+            if (!commentText) {
+                alert('ກະລຸນາປ້ອນຂໍ້ຄວາມຄຳຄິດຄຳເຫັນກ່ອນ!');
+                return;
+            }
+
+            const timeStr = new Date().toLocaleString('lo-LA', { hour: '2-digit', minute: '2-digit' });
+            const dateStr = new Date().toLocaleString('lo-LA');
+            const senderName = `💬 ຄວາມຄິດຄຳເຫັນຈາກ [${currentRoomUser}]`;
+
+            try {
+                await addDoc(collection(db, "user_feedbacks"), {
+                    room: currentRoomUser,
+                    comment: commentText,
+                    date: dateStr,
+                    timestamp: new Date()
+                });
+
+                await addDoc(collection(db, "admin_chats"), {
+                    sender: senderName,
+                    text: commentText,
+                    time: timeStr,
+                    timestamp: new Date()
+                });
+
+                alert('🎉 ສົ່ງຄຳຄິດຄຳເຫັນຫາ Admin ທັງ 4 ຄົນສຳເລັດແລ້ວ!');
+                textInput.value = '';
+                loadUserFeedbacks();
+            } catch (err) {
+                alert('ສົ່ງຄຳຄິດຄຳເຫັນຜິດພາດ: ' + err.message);
+            }
+        };
+
+        async function loadUserFeedbacks() {
+            const container = document.getElementById('user-feedback-history');
+            if (!container) return;
+            try {
+                const q = query(collection(db, "user_feedbacks"), orderBy("timestamp", "desc"));
+                const snapshot = await getDocs(q);
+                
+                if (snapshot.empty) {
+                    container.innerHTML = `<div class="text-center py-6 text-slate-500">ຍັງບໍ່ມີປະຫວັດຄຳຄິດຄຳເຫັນ.</div>`;
+                    return;
+                }
+
+                let html = '';
+                snapshot.forEach(docSnap => {
+                    const fb = docSnap.data();
+                    if (fb.room === currentRoomUser || userRole === 'admin') {
+                        html += `
+                            <div class="bg-slate-900/60 p-4 rounded-xl border border-pink-500/30 space-y-2 animate-fade-in">
+                                <div class="flex justify-between items-center text-xs text-slate-400 border-b border-slate-800 pb-1.5">
+                                    <span class="font-bold text-pink-400">🏠 ${fb.room}</span>
+                                    <span>${fb.date || ''}</span>
+                                </div>
+                                <p class="text-sm text-slate-200 whitespace-pre-line">${fb.comment}</p>
+                            </div>
+                        `;
+                    }
+                });
+                container.innerHTML = html || `<div class="text-center py-6 text-slate-500">ຍັງບໍ່ມີປະຫວັດຄຳຄິດຄຳເຫັນສຳລັບຫ້ອງຂອງທ່ານ.</div>`;
+            } catch (err) {
+                container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${err.message}</div>`;
+            }
+        }
 
         function listenAdminChat() {
             if (chatUnsubscribe) chatUnsubscribe();
@@ -812,10 +1113,12 @@
                 snapshot.forEach((docSnap) => {
                     const msg = docSnap.data();
                     const isMe = msg.sender === currentRoomUser;
+                    const isFeedback = msg.sender.includes('ຄວາມຄິດຄຳເຫັນ');
+                    
                     html += `
                         <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'} animate-fade-in">
                             <span class="text-[10px] text-slate-400 mb-1 px-1">${msg.sender} (${msg.time || ''})</span>
-                            <div class="max-w-[75%] px-4 py-2.5 rounded-2xl text-sm ${isMe ? 'bg-sky-600 text-white rounded-br-none shadow-lg' : 'bg-slate-700 text-slate-100 rounded-bl-none border border-slate-600'}">
+                            <div class="max-w-[75%] px-4 py-2.5 rounded-2xl text-sm ${isFeedback ? 'bg-pink-950/80 text-pink-200 border border-pink-500/60 rounded-bl-none shadow-lg' : isMe ? 'bg-sky-600 text-white rounded-br-none shadow-lg' : 'bg-slate-700 text-slate-100 rounded-bl-none border border-slate-600'}">
                                 ${msg.text}
                             </div>
                         </div>
@@ -834,7 +1137,7 @@
             if (!text) return;
 
             if (userRole !== 'admin') {
-                alert('⚠️ ຂໍອະໄພ! ສະເພາະ Admin ເທົ່ານັ້ນທີ່ມີສິດສົ່ງຂໍ້ຄວາມ.');
+                alert('⚠️ ຂໍອະໄພ! ສະເພາະ Admin ເທົ່ານັ້ນທີ່ມີສິດສົ່ງຂໍ້ຄວາມໃນຫ້ອງແຊັດລົມວຽກ Admin.');
                 return;
             }
 
