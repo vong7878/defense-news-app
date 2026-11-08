@@ -388,7 +388,7 @@
                         <div>
                             <label class="block text-xs text-emerald-300 mb-1 font-semibold">📷 ຖ່າຍຮູບພາບ ຫຼື 📹 ວິດີໂອຜ່ານກ້ອງ:</label>
                             <input type="file" id="member-media-files" accept="image/*,video/*" capture="environment" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
-                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ຖ້າເປັນຮູບພາບຈະສະແດງໃນເວັບທັນທີ, ຖ້າເປັນວິດີໂອຈະອັບໂຫລດຂຶ້ນ Google Drive ອັດຕະໂນມັດ</p>
+                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ຖ້າເປັນຮູບຈະສະແດງໃນເວັບທັນທີ, ຖ້າເປັນວິດີໂອຈະອັບໂຫລດຂຶ້ນ Google Drive ອັດຕະໂນມັດ</p>
                         </div>
                     </div>
 
@@ -1307,7 +1307,7 @@
                 const dateStr = new Date().toLocaleString('lo-LA');
                 const reasonText = points > 0 ? `➕ ຮັບຄະແນນພິເສດ (+${points} ຄະແນນ) ຈາກຜູ້ສ້າງເວັບໄຊ` : `➖ ຖືກຫັກຄະແນນ (${points} ຄະແນນ) ຈາກຜູ້ສ້າງເວັບໄຊ`;
                 await addDoc(collection(db, "member_reports"), {
-                    room: room, name: "ຜູ້ສ້າງເວັບໄຊ (Super Admin)", description: reasonText, mediaUrls: [], date: dateStr, weekTag: "special_adjustment_" + Date.now(), approved: true, specialPoints: points 
+                    room: room, name: "ຜູ້ສ້າງເວັບໄຊ (Super Admin)", description: reasonText, mediaItems: [], date: dateStr, weekTag: "special_adjustment_" + Date.now(), approved: true, specialPoints: points 
                 });
                 alert(`🎉 ບັນທຶກການປັບຄະແນນໃຫ້ [${room}] ສຳເລັດແລ້ວ!`);
                 document.getElementById('special-point-value').value = '';
@@ -1683,13 +1683,11 @@
                 reader.onload = async () => {
                     try {
                         const base64Data = reader.result;
-                        // ຖ້າເປັນຮູບພາບ (Image) ໃຫ້ສົ່ງ Base64 ກັບໄປໃຊ້ສະແດງໃນເວັບໄດ້ເລີຍ ບໍ່ຕ້ອງຜ່ານ Drive
                         if (file.type.startsWith('image/')) {
                             resolve({ type: 'image', url: base64Data });
                             return;
                         }
 
-                        // ຖ້າເປັນວິດີໂອ (Video) ໃຫ້ອັບໂຫລດຂຶ້ນ Google Drive
                         const response = await fetch(DRIVE_WEB_APP_URL, {
                             method: "POST",
                             body: JSON.stringify({
@@ -1750,7 +1748,7 @@
             try {
                 let mediaItems = [];
                 const uploadedMedia = await uploadMediaSmart(files[0]);
-                mediaItems.push(uploadedMedia); // { type: 'image'/'video', url: '...' }
+                mediaItems.push(uploadedMedia);
 
                 statusText.innerText = `⏳ ກຳລັງບັນທຶກບົດລາຍງານ...`;
                 await addDoc(collection(db, "member_reports"), {
@@ -1781,10 +1779,15 @@
             if (!container) return;
             if (allMemberReports.length === 0) { container.innerHTML = `<div class="text-center py-8 text-slate-500">ຍັງບໍ່ມີບົດລາຍງານ</div>`; return; }
             container.innerHTML = allMemberReports.map(rep => {
-                // Compatibility for old data (mediaUrls) and new data (mediaItems)
                 let items = rep.mediaItems || [];
+                // 🛠️ ປັບປຸງ: ຖ້າເປັນຂໍ້ມູນເກົ່າ (mediaUrls) ໃຫ້ກວດສອບວ່າແມ່ນຮູບພາບ Base64 ຫຼື URL ປົກກະຕິ ຫຼື ບໍ່, ຖ້າແມ່ນໃຫ້ປ່ຽນເປັນ type: image ໂດຍອັດຕະໂນມັດ
                 if (items.length === 0 && rep.mediaUrls) {
-                    items = rep.mediaUrls.map(u => ({ type: 'video', url: u }));
+                    items = rep.mediaUrls.map(u => {
+                        if (typeof u === 'string' && (u.startsWith('data:image/') || u.match(/\.(jpeg|jpg|png|gif|webp)$/i))) {
+                            return { type: 'image', url: u };
+                        }
+                        return { type: 'video', url: u };
+                    });
                 }
                 return `
                     <div class="bg-slate-900/85 border ${rep.approved ? 'border-emerald-600' : 'border-slate-700'} rounded-xl p-4 space-y-3 shadow-md animate-fade-in">
@@ -1869,8 +1872,14 @@
             if (allCyberTasks.length === 0) { container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">ຍັງບໍ່ມີລາຍການ</div>`; return; }
             container.innerHTML = allCyberTasks.map(task => {
                 let items = task.mediaItems || [];
+                // 🛠️ ປັບປຸງ: ກວດສອບข้อมูลเก่า (mediaUrls) ໃຫ້ສະແດງເປັນຮູບຖ້າເປັນລິ້ງຮູບ
                 if (items.length === 0 && task.mediaUrls) {
-                    items = task.mediaUrls.map(u => ({ type: 'video', url: u }));
+                    items = task.mediaUrls.map(u => {
+                        if (typeof u === 'string' && (u.startsWith('data:image/') || u.match(/\.(jpeg|jpg|png|gif|webp)$/i))) {
+                            return { type: 'image', url: u };
+                        }
+                        return { type: 'video', url: u };
+                    });
                 }
                 return `
                     <div class="bg-slate-800/85 backdrop-blur border border-emerald-600 bg-emerald-950/25 rounded-2xl p-5 shadow-lg animate-fade-in space-y-3">
