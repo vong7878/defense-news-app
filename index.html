@@ -365,45 +365,40 @@
             </div>
 
             <!-- SECTION: Snake Game (ເກມງູກິນຂຽດ) -->
-            <div id="section-snake-game" class="space-y-4 hidden animate-fade-in">
-                <div class="bg-gradient-to-r from-emerald-950/90 via-slate-800/90 to-emerald-950/90 p-5 rounded-2xl border border-emerald-500/40 shadow-xl flex justify-between items-center">
+            <div id="section-snake-game" class="space-y-3 hidden animate-fade-in">
+                <div class="bg-gradient-to-r from-emerald-950/90 via-slate-800/90 to-emerald-950/90 p-3.5 rounded-2xl border border-emerald-500/40 shadow-xl flex justify-between items-center">
                     <div>
-                        <h2 class="text-lg font-bold text-emerald-400 flex items-center space-x-2"><span>🐍</span> <span>ເກມງູກິນຂຽດ (Snake & Frog Game)</span></h2>
-                        <p class="text-xs text-slate-300 mt-0.5">ຄວບຄຸມງູກິນຂຽດ 🐸 ເພື່ອສະສົມຄະແນນ! ຮອງຮັບທັງມືຖືຈໍສຳຜັດ ແລະ ຄອມພິວເຕີ</p>
+                        <h2 class="text-base font-bold text-emerald-400 flex items-center space-x-1.5"><span>🐍</span> <span>ເກມງູກິນຂຽດ</span></h2>
+                        <p class="text-[11px] text-slate-300">ຄວບຄຸມງູກິນຂຽດ 🐸 ສະສົມຄະແນນ (ຄວາມໄວປັບຊ້າລົງ)</p>
                     </div>
                 </div>
 
-                <div class="bg-slate-800/90 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-2xl flex flex-col items-center space-y-4">
-                    <!-- Scoreboard Game -->
-                    <div class="flex justify-between w-full max-w-md bg-slate-900/80 px-4 py-2.5 rounded-xl border border-slate-700 text-sm">
+                <div class="bg-slate-800/90 backdrop-blur p-4 rounded-2xl border border-slate-700 shadow-2xl flex flex-col items-center space-y-3">
+                    <div class="flex justify-between w-full max-w-[260px] bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-700 text-xs">
                         <span>⭐ ຄະແນນ: <strong id="snake-score" class="text-amber-400">0</strong></span>
-                        <span>🏆 ຄະແນນສູງສຸດ: <strong id="snake-highscore" class="text-emerald-400">0</strong></span>
+                        <span>🏆 ສູງສຸດ: <strong id="snake-highscore" class="text-emerald-400">0</strong></span>
                     </div>
 
-                    <!-- Canvas Game Board -->
-                    <div class="relative border-4 border-emerald-600/60 rounded-2xl overflow-hidden shadow-2xl bg-slate-950">
-                        <canvas id="snakeCanvas" width="320" height="320" class="block w-[300px] h-[300px] sm:w-[320px] sm:h-[320px]"></canvas>
+                    <div class="relative border-2 border-emerald-600/60 rounded-xl overflow-hidden shadow-2xl bg-slate-950">
+                        <canvas id="snakeCanvas" width="240" height="240" class="block w-[240px] h-[240px]"></canvas>
                         
-                        <!-- Overlay Start / Game Over -->
-                        <div id="snake-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-center space-y-3">
-                            <h3 id="snake-overlay-title" class="text-xl font-bold text-emerald-400">🐍 ເກມງູກິນຂຽດ</h3>
-                            <p id="snake-overlay-desc" class="text-xs text-slate-300">ກົດປຸ່ມເລີ່ມຕົ້ນດ້ານລຸ່ມເພື່ອຫຼິ້ນ!</p>
-                            <button onclick="startSnakeGame()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-6 rounded-xl text-sm shadow-lg transition">
+                        <div id="snake-overlay" class="absolute inset-0 bg-black/85 backdrop-blur-sm flex flex-col items-center justify-center p-3 text-center space-y-2">
+                            <h3 id="snake-overlay-title" class="text-base font-bold text-emerald-400">🐍 ເກມງູກິນຂຽດ</h3>
+                            <p id="snake-overlay-desc" class="text-[11px] text-slate-300">ກົດປຸ່ມເລີ່ມຕົ້ນດ້ານລຸ່ມເພື່ອຫຼິ້ນ!</p>
+                            <button onclick="startSnakeGame()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 px-5 rounded-xl text-xs shadow-lg transition">
                                 🎮 ເລີ່ມເກມເລີຍ
                             </button>
                         </div>
                     </div>
 
-                    <!-- Touch Controls for Android / Mobile Touchscreen -->
-                    <div class="flex flex-col items-center space-y-2 w-full max-w-xs pt-2">
-                        <button onclick="changeSnakeDir('UP')" class="w-16 h-14 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-xl shadow border border-slate-600 flex items-center justify-center">⬆️</button>
-                        <div class="flex space-x-12">
-                            <button onclick="changeSnakeDir('LEFT')" class="w-16 h-14 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-xl shadow border border-slate-600 flex items-center justify-center">⬅️</button>
-                            <button onclick="changeSnakeDir('RIGHT')" class="w-16 h-14 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-xl shadow border border-slate-600 flex items-center justify-center">➡️</button>
+                    <div class="flex flex-col items-center space-y-1 w-full max-w-[220px]">
+                        <button onclick="changeSnakeDir('UP')" class="w-14 h-11 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-lg shadow border border-slate-600 flex items-center justify-center">⬆️</button>
+                        <div class="flex space-x-8">
+                            <button onclick="changeSnakeDir('LEFT')" class="w-14 h-11 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-lg shadow border border-slate-600 flex items-center justify-center">⬅️</button>
+                            <button onclick="changeSnakeDir('RIGHT')" class="w-14 h-11 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-lg shadow border border-slate-600 flex items-center justify-center">➡️</button>
                         </div>
-                        <button onclick="changeSnakeDir('DOWN')" class="w-16 h-14 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-xl shadow border border-slate-600 flex items-center justify-center">⬇️</button>
+                        <button onclick="changeSnakeDir('DOWN')" class="w-14 h-11 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-lg shadow border border-slate-600 flex items-center justify-center">⬇️</button>
                     </div>
-                    <p class="text-[11px] text-slate-400 text-center">* ຫລິ້ນໄດ້ທັງກົດປຸ່ມລຸ່ມນີ້, ທຳທ່າປັດໜ້າຈໍ, ຫຼື ໃຊ້ປຸ່ມລູກສອນເທິງຄອມພິວເຕີ</p>
                 </div>
             </div>
 
@@ -434,7 +429,6 @@
                     </div>
                 </div>
 
-                <!-- History of feedback sent -->
                 <div class="bg-slate-800/85 backdrop-blur p-5 rounded-2xl border border-slate-700 shadow-xl space-y-3">
                     <h3 class="font-bold text-pink-400 text-sm uppercase tracking-wider">📜 ປະຫວັດຄຳຄິດຄຳເຫັນທີ່ເຄີຍສົ່ງ</h3>
                     <div id="user-feedback-history" class="space-y-3">
@@ -469,7 +463,7 @@
         </section>
     </main>
 
-    <!-- MODAL: Guide / How to use (ຄູ່ມືວິທີໃຊ້ງານເວັບ) -->
+    <!-- MODAL: Guide / How to use -->
     <div id="guide-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center hidden z-50 p-4">
         <div class="bg-slate-800 border border-cyan-500/50 rounded-2xl max-w-2xl w-full p-6 space-y-5 shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-700 pb-3">
@@ -481,26 +475,12 @@
             </div>
 
             <div class="space-y-4 text-xs text-slate-300 leading-relaxed">
-                <!-- User Section -->
                 <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-2">
                     <h4 class="font-bold text-emerald-400 text-sm flex items-center space-x-1"><span>👤</span> <span>ສຳລັບ User (ທຸກຫ້ອງພັກ: ຫ້ອງ 104 - 114)</span></h4>
                     <ul class="list-disc list-inside space-y-1.5 text-slate-300">
                         <li><b>ຂໍ້ຈຳກັດອຸປະກອນ:</b> ຕ້ອງເຂົ້າໃຊ້ງານຜ່ານ **ມືຖື (Mobile / Tablet)** ເທົ່ານັ້ນ! ຫ້າມເຂົ້າຜ່ານຄອມພິວເຕີ.</li>
                         <li><b>ເຂົ້າສູ່ລະບົບ:</b> ເລືອກຫ້ອງພັກຂອງທ່ານຈາກປ໋ອບອັບທຳອິດທີ່ເປີດຂຶ້ນມາ ເພື່ອເລີ່ມຕົ້ນໃຊ້ງານ.</li>
-                        <li><b>ອ່ານຂ່າວສານ & ກົດຖືກໃຈ:</b> ເບິ່ງປະກາດສຳຄັນຈາກຈຸປ້ອງກັນ ແລະ ສາມາດກົດປຸ່ມ "ຖືກໃຈ (Like)" ເພື່ອສະແດງຄວາມພໍໃຈ.</li>
-                        <li><b>ສົ່ງບົດລາຍງານອະນາໄມ (ວັນອາທິດ):</b> ໄປທີ່ເມນູ "ລາຍງານອະນາໄມ (ສະມາຊິກ)" ເພື່ອສົ່ງຜົນງານ **ສະເພາະມື້ວັນອາທິດ ເວລາ 16:00 - 19:00 ໂມງ** (ຕ້ອງຖ່າຍຮູບສົດຜ່ານກ້ອງ 3 ຮູບຂຶ້ນໄປ).</li>
-                        <li><b>ຫຼິ້ນເກມງູກິນຂຽດ:</b> ເຂົ້າເມນູ "ເກມງູກິນຂຽດ" ເພື່ອຜ່ອນຄາຍ ແລະ ແຂ່ງຂັນຄະແນນສູງສຸດຜ່ານຈໍສຳຜັດມືຖືໄດ້ເລີຍ!</li>
-                    </ul>
-                </div>
-
-                <!-- Admin Section -->
-                <div class="bg-slate-900/80 p-4 rounded-xl border border-sky-500/40 space-y-2">
-                    <h4 class="font-bold text-sky-400 text-sm flex items-center space-x-1"><span>⚙️</span> <span>ສຳລັບ Admin (ຜູ້ສ້າງ ແລະ Admin ຮອງ 1-3)</span></h4>
-                    <ul class="list-disc list-inside space-y-1.5 text-slate-300">
-                        <li><b>ສິດພິເສດ:</b> Admin ສามารถເຂົ້າໃຊ້ງານໄດ້ **ທັງຜ່ານຄອມພິວເຕີ ແລະ ມືຖື** ໂດຍບໍ່ມີການບລັອກ.</li>
-                        <li><b>ເຂົ້າສູ່ລະບົບ Admin:</b> ເລືອກ "ຜູ້ສ້າງເວັບໄຊ" (ໃຊ້ Email/Password) ຫຼື ເລືອກ "Admin ຮອງ 1-3" (ໃຊ້ PIN Code).</li>
-                        <li><b>ອະນຸມັດບົດລາຍງານ:</b> ໄປທີ່ເມນູລາຍງານສະມາຊິກ ແລ້ວກົດ "✅ ອະນຸມັດ" ເພື່ອໃຫ້ຫ້ອງນັ້ນໄດ້ຮັບ **+1 ຄະແນນ** ໂດຍອັດຕະໂນມັດ.</li>
-                        <li><b>ຫ້ອງແຊັດລົມວຽກ Admin:</b> ໃຊ້ເມນູ "ແຊັດລົມວຽກ Admin" ເພື່ອປຶກສາວຽກຮ່ວມກັນລະຫວ່າງ Admin ທັງ 4 ຄົນ.</li>
+                        <li><b>ຫຼິ້ນເກມງູກິນຂຽດ:</b> ເຂົ້າເມນູ "ເກມງູກິນຂຽດ" ທີ່ຖືກປັບຂະໜາດພໍດີຈໍມືຖື ແລະ ຫຼຸດຄວາມໄວລົງໃຫ້ຫຼິ້ນງ່າຍຂຶ້ນ!</li>
                     </ul>
                 </div>
             </div>
@@ -523,7 +503,7 @@
         <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl animate-fade-in text-center">
             <div class="bg-emerald-600 w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-white text-2xl font-bold shadow-lg">🛡️</div>
             <h3 class="text-xl font-bold text-emerald-400">ເຂົ້າສູ່ລະບົບ</h3>
-            <p class="text-xs text-slate-300">ເລືອກຫ້ອງພັກສຳລັບ User (ຕ້ອງເຂົ້າຜ່ານມືຖື) ຫຼື ເລືອກໂໝດ Admin</p>
+            <p class="text-xs text-slate-300">ເລືອກຫ້ອງພັກສຳລັບ User (ຕ້ອງຢູ່ດານັງ ແລະ ຜ່ານມືຖື) ຫຼື ເລືອກໂໝດ Admin</p>
             
             <div class="space-y-3 pt-2">
                 <select id="login-room-select" onchange="handleLoginTypeChange(this.value)" class="w-full bg-slate-900 border border-slate-700 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-slate-100 font-bold text-center">
@@ -537,7 +517,7 @@
                     <option value="ຫ້ອງ 112">ຫ້ອງ 112</option>
                     <option value="ຫ້ອງ 113">ຫ້ອງ 113</option>
                     <option value="ຫ້ອງ 114">ຫ້ອງ 114</option>
-                    <option value="SUPER_ADMIN">👑 ຜູ້ສ້າງເວັບໄຊ (ເຂົ້າດ້ວຍອີເມວ - ຫຼິ້ນໄດ້ທັງຄອມ/ມືຖື)</option>
+                    <option value="SUPER_ADMIN">👑 ຜູ້ສ້າງເວັບໄຊ (ເຂົ້າດ້ວຍອີເມວ)</option>
                     <option value="SUB_ADMIN_1">⚙️ Admin ຮອງ 1 (ໄອດີພໍ)</option>
                     <option value="SUB_ADMIN_2">⚙️ Admin ຮອງ 2 (ໄອດີພໍ)</option>
                     <option value="SUB_ADMIN_3">⚙️ Admin ຮອງ 3 (ໄອດີພໍ)</option>
@@ -557,7 +537,7 @@
                 <div id="sub-admin-fields" class="hidden space-y-2.5 pt-2 text-left bg-emerald-950/40 p-3 rounded-xl border border-emerald-500/30">
                     <label class="block text-[11px] text-emerald-300 mb-1">ປ້ອນລະຫັດຜ່ານ / ໄອດີພໍ (PIN Code) ຂອງ Admin:</label>
                     <input type="password" id="sub-admin-pin" placeholder="ປ້ອນລະຫັດ 4-6 ຕົວເລກ..." class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-center text-sm font-bold tracking-widest text-amber-400 focus:outline-none focus:border-emerald-500">
-                    <p id="sub-admin-hint" class="text-[10px] text-slate-400 italic text-center mt-1">* Admin ເຂົ້າໄດ້ທັງຄອມ ແລະ ມືຖື</p>
+                    <p id="sub-admin-hint" class="text-[10px] text-slate-400 italic text-center mt-1">* Admin ເຂົ້າໄດ້ທັງຄອມ ແລະ ມືຖື ໂດຍບໍ່ຈຳກັດພິກັດ</p>
                 </div>
             </div>
 
@@ -573,7 +553,7 @@
     <div id="desktop-blocked-modal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl flex items-center justify-center hidden z-50 p-4">
         <div class="bg-slate-900 border border-red-500/50 rounded-2xl max-w-md w-full p-8 space-y-5 shadow-2xl text-center animate-fade-in">
             <div class="w-16 h-16 bg-red-600/20 border border-red-500/40 text-red-400 text-3xl rounded-2xl mx-auto flex items-center justify-center shadow-lg">💻🚫</div>
-            <h3 class="text-xl font-bold text-red-400">ຂໍອະໄພ! ຫាម User ເຂົ້າຜ່ານຄອມພິວເຕີ</h3>
+            <h3 class="text-xl font-bold text-red-400">ຂໍອະໄພ! ຫ້າມ User ເຂົ້າຜ່ານຄອມພິວເຕີ</h3>
             <p class="text-xs text-slate-300 leading-relaxed">
                 ລະບົບນີ້ກຳນົດໃຫ້ <b>User (ທຸກຫ້ອງພັກ)</b> ຕ້ອງເຂົ້າໃຊ້ງານຜ່ານ **ໂທລະສັບມືຖື (Mobile / Tablet)** ເທົ່ານັ້ນ!<br><br>
                 ຖ້າທ່ານເປັນ Admin ໃຫ້ກົດປຸ່ມດ້ານລຸ່ມນີ້ເພື່ອເຂົ້າສູ່ລະບົບ Admin.
@@ -583,6 +563,18 @@
                     🔑 ເຂົ້າສູ່ລະບົບສຳລັບ Admin
                 </button>
             </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Blocked Location User Modal (นอกเมืองดานัง) -->
+    <div id="location-blocked-modal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-900 border border-amber-500/50 rounded-2xl max-w-md w-full p-8 space-y-5 shadow-2xl text-center animate-fade-in">
+            <div class="w-16 h-16 bg-amber-600/20 border border-amber-500/40 text-amber-400 text-3xl rounded-2xl mx-auto flex items-center justify-center shadow-lg">📍🚫</div>
+            <h3 class="text-xl font-bold text-amber-400">ຂໍອະໄພ! ຢູ່ນອກເຂດພື້ນທີ່</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                ລະບົບກຳນົດໃຫ້ <b>User</b> ຕ້ອງຢູ່ໃນ **ເມືອງດານັງ, ប្រເທດຫວຽດນາມ** ເທົ່ານັ້ນຈຶ່ງຈະສາມາດເຂົ້າໃຊ້ງານໄດ້!<br><br>
+                ກະລຸນາເປີດ GPS ຂອງທ່ານ ຫຼື ກັບເຂົ້າມาໃນເຂດດານັງ.
+            </p>
         </div>
     </div>
 
@@ -714,12 +706,12 @@
         let frog = {};
         let score = 0;
         let highScore = localStorage.getItem('snake_highscore') || 0;
-        let dx = 16;
+        let dx = 12;
         let dy = 0;
-        let nextDx = 16;
+        let nextDx = 12;
         let nextDy = 0;
-        const gridSize = 16;
-        const canvasSize = 320;
+        const gridSize = 12;
+        const canvasSize = 240;
 
         const subAdminPins = {
             "SUB_ADMIN_1": "1234",
@@ -729,6 +721,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             checkDeviceRestriction();
+            checkLocationRestriction();
             checkRoomAuthUI();
             loadFullScoreSummary();
             updateLiveClock();
@@ -742,7 +735,7 @@
             initSnakeKeyboardControls();
         });
 
-        // 💻 ກວດສອບອຸປະກອນ: ຖ້າເປັນ User ທີ່ເຂົ້າຜ່ານຄອມພິວເຕີ ໃຫ້ບລັອກທັນຕິ
+        // 💻 ກວດສອບອຸປະກອນ
         function checkDeviceRestriction() {
             const isDesktop = getDeviceType() === 'desktop';
             const isCurrentlyAdmin = userRole === 'admin';
@@ -753,8 +746,52 @@
             }
         }
 
+        // 📍 ກວດສອບພິກັດ GPS ວ່າຢູ່ໃນເມືອງດານັງ, ຫວຽດນາມ ຫຼືບໍ່ (ຍົກເວັ້ນ Admin)
+        function checkLocationRestriction() {
+            if (userRole === 'admin') return; // Admin ຜ່ານໄດ້ເລີຍ
+
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    // ພິກັດໃຈກາງເມືອງດານັງ: Lat ~ 16.0544, Lon ~ 108.2022 (ກຳນົດรัศมี ~ 40 ກິໂລແມັດ ໃຫ້ครอบคลຸມທົ່ວເມືອງດານັງ)
+                    const danangLat = 16.0544;
+                    const danangLon = 108.2022;
+                    const maxDistanceKm = 40; 
+
+                    const distance = getDistanceFromLatLonInKm(lat, lon, danangLat, danangLon);
+
+                    if (distance > maxDistanceKm) {
+                        document.getElementById('location-blocked-modal').classList.remove('hidden');
+                        document.getElementById('room-login-modal').classList.add('hidden');
+                    }
+                }, (error) => {
+                    console.warn("Geolocation permission denied or error:", error);
+                    // ຖ້າ User ປິດ GPS ຫຼື ບໍ່ອະນຸຍາດ ສາມາດແຈ້ງເຕືອນໄດ້
+                }, { timeout: 10000 });
+            }
+        }
+
+        function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+            const R = 6371; // รัศมีโลกหน่วยเป็นกิโลเมตร
+            const dLat = deg2rad(lat2 - lat1);
+            const dLon = deg2rad(lon2 - lon1);
+            const a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2); 
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            return R * c;
+        }
+
+        function deg2rad(deg) {
+            return deg * (Math.PI/180);
+        }
+
         window.openAdminLoginFromBlocked = () => {
             document.getElementById('desktop-blocked-modal').classList.add('hidden');
+            document.getElementById('location-blocked-modal').classList.add('hidden');
             document.getElementById('room-login-modal').classList.remove('hidden');
         };
 
@@ -762,9 +799,9 @@
         window.startSnakeGame = () => {
             document.getElementById('snake-overlay').classList.add('hidden');
             snake = [
-                { x: 160, y: 160 },
-                { x: 144, y: 160 },
-                { x: 128, y: 160 }
+                { x: 120, y: 120 },
+                { x: 108, y: 120 },
+                { x: 96, y: 120 }
             ];
             score = 0;
             document.getElementById('snake-score').innerText = score;
@@ -776,7 +813,7 @@
             spawnFrog();
 
             if (snakeInterval) clearInterval(snakeInterval);
-            snakeInterval = setInterval(gameLoop, 110);
+            snakeInterval = setInterval(gameLoop, 150);
         };
 
         function spawnFrog() {
@@ -836,7 +873,7 @@
             ctx.fillStyle = '#020617';
             ctx.fillRect(0, 0, canvasSize, canvasSize);
 
-            ctx.font = '16px serif';
+            ctx.font = '14px serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText('🐸', frog.x + gridSize / 2, frog.y + gridSize / 2);
@@ -844,7 +881,7 @@
             snake.forEach((part, index) => {
                 ctx.fillStyle = index === 0 ? '#10b981' : '#059669';
                 ctx.beginPath();
-                ctx.roundRect(part.x + 1, part.y + 1, gridSize - 2, gridSize - 2, 4);
+                ctx.roundRect(part.x + 1, part.y + 1, gridSize - 2, gridSize - 2, 3);
                 ctx.fill();
             });
         }
@@ -854,7 +891,7 @@
             snakeInterval = null;
             const overlay = document.getElementById('snake-overlay');
             document.getElementById('snake-overlay-title').innerText = '💀 ເກມຈົບແລ້ວ (Game Over)';
-            document.getElementById('snake-overlay-desc').innerHTML = `ຄະແນນຂອງທ່ານ: <strong class="text-amber-400 text-base">${score}</strong><br>ກົດປຸ່ມລຸ່ມນີ້ເພື່ອເລີ່ມຫຼິ້ນໃໝ່!`;
+            document.getElementById('snake-overlay-desc').innerHTML = `ຄະແນນຂອງທ່ານ: <strong class="text-amber-400 text-sm">${score}</strong><br>ກົດປຸ່ມລຸ່ມນີ້ເພື່ອເລີ່ມຫຼິ້ນໃໝ່!`;
             overlay.classList.remove('hidden');
         }
 
@@ -1207,6 +1244,7 @@
                     localStorage.setItem('current_room_user', currentRoomUser);
                     localStorage.setItem('current_user_role', userRole);
                     document.getElementById('desktop-blocked-modal').classList.add('hidden');
+                    document.getElementById('location-blocked-modal').classList.add('hidden');
                     checkRoomAuthUI();
                 } catch (err) {
                     alert('ລັອກອິນຜູ້ສ້າງບໍ່ສຳເລັດ: ' + err.message);
@@ -1268,13 +1306,13 @@
                     localStorage.setItem('current_room_user', currentRoomUser);
                     localStorage.setItem('current_user_role', userRole);
                     document.getElementById('desktop-blocked-modal').classList.add('hidden');
+                    document.getElementById('location-blocked-modal').classList.add('hidden');
                     checkRoomAuthUI();
                     alert(`🎉 ເຂົ້າສູ່ລະບົບ ${adminName} ສຳເລັດ!`);
                 } catch (err) {
                     alert('ຜິດພາດໃນການເຊື່ອມຕໍ່: ' + err.message);
                 }
             } else {
-                // ຫ້າມ User ປົກກະຕິລັອກອິນຜ່ານຄອມເດັດຂາດ
                 if (getDeviceType() === 'desktop') {
                     alert('⚠️ ຂໍອະໄພ! ຫ້າມ User ເຂົ້າຜ່ານຄອມພິວເຕີ.');
                     return;
@@ -1317,6 +1355,7 @@
 
             checkRoomAuthUI();
             checkDeviceRestriction();
+            checkLocationRestriction();
         };
 
         window.switchTab = (tab) => {
