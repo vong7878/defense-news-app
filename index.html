@@ -166,6 +166,13 @@
                         </button>
                     </li>
 
+                    <!-- 🎮 ປຸ່ມເມນູເກມງູກິນຂຽດ -->
+                    <li>
+                        <button onclick="switchTab('snake-game')" id="tab-snake-game-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-300 font-bold bg-emerald-600/20 border border-emerald-500/40 shadow-md">
+                            <span>🐍</span> <span>ເກມງູກິນຂຽດ (Snake)</span>
+                        </button>
+                    </li>
+
                     <li id="tab-admin-chat-li" class="hidden pt-2 border-t border-slate-700">
                         <button onclick="switchTab('admin-chat')" id="tab-admin-chat-btn" class="w-full text-left px-3.5 py-3 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-300 font-bold bg-sky-600/30 border border-sky-500/60 shadow-lg">
                             <span>💬</span> <span>ແຊັດລົມວຽກ Admin (4 ຄົນ)</span>
@@ -357,6 +364,49 @@
                 </div>
             </div>
 
+            <!-- SECTION: Snake Game (ເກມງູກິນຂຽດ) -->
+            <div id="section-snake-game" class="space-y-4 hidden animate-fade-in">
+                <div class="bg-gradient-to-r from-emerald-950/90 via-slate-800/90 to-emerald-950/90 p-5 rounded-2xl border border-emerald-500/40 shadow-xl flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-bold text-emerald-400 flex items-center space-x-2"><span>🐍</span> <span>ເກມງູກິນຂຽດ (Snake & Frog Game)</span></h2>
+                        <p class="text-xs text-slate-300 mt-0.5">ຄວບຄຸມງູກິນຂຽດ 🐸 ເພື່ອສະສົມຄະແນນ! ຮອງຮັບທັງມືຖືຈໍສຳຜັດ ແລະ ຄອມພິວເຕີ</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/90 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-2xl flex flex-col items-center space-y-4">
+                    <!-- Scoreboard Game -->
+                    <div class="flex justify-between w-full max-w-md bg-slate-900/80 px-4 py-2.5 rounded-xl border border-slate-700 text-sm">
+                        <span>⭐ ຄະແນນ: <strong id="snake-score" class="text-amber-400">0</strong></span>
+                        <span>🏆 ຄະແນນສູງສຸດ: <strong id="snake-highscore" class="text-emerald-400">0</strong></span>
+                    </div>
+
+                    <!-- Canvas Game Board -->
+                    <div class="relative border-4 border-emerald-600/60 rounded-2xl overflow-hidden shadow-2xl bg-slate-950">
+                        <canvas id="snakeCanvas" width="320" height="320" class="block w-[300px] h-[300px] sm:w-[320px] sm:h-[320px]"></canvas>
+                        
+                        <!-- Overlay Start / Game Over -->
+                        <div id="snake-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-center space-y-3">
+                            <h3 id="snake-overlay-title" class="text-xl font-bold text-emerald-400">🐍 ເກມງູກິນຂຽດ</h3>
+                            <p id="snake-overlay-desc" class="text-xs text-slate-300">ກົດປຸ່ມເລີ່ມຕົ້ນດ້ານລຸ່ມເພື່ອຫຼິ້ນ!</p>
+                            <button onclick="startSnakeGame()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-6 rounded-xl text-sm shadow-lg transition">
+                                🎮 ເລີ່ມເກມເລີຍ
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Touch Controls for Android / Mobile Touchscreen -->
+                    <div class="flex flex-col items-center space-y-2 w-full max-w-xs pt-2">
+                        <button onclick="changeSnakeDir('UP')" class="w-16 h-14 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-xl shadow border border-slate-600 flex items-center justify-center">⬆️</button>
+                        <div class="flex space-x-12">
+                            <button onclick="changeSnakeDir('LEFT')" class="w-16 h-14 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-xl shadow border border-slate-600 flex items-center justify-center">⬅️</button>
+                            <button onclick="changeSnakeDir('RIGHT')" class="w-16 h-14 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-xl shadow border border-slate-600 flex items-center justify-center">➡️</button>
+                        </div>
+                        <button onclick="changeSnakeDir('DOWN')" class="w-16 h-14 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-xl shadow border border-slate-600 flex items-center justify-center">⬇️</button>
+                    </div>
+                    <p class="text-[11px] text-slate-400 text-center">* ຫລິ້ນໄດ້ທັງກົດປຸ່ມລຸ່ມນີ້, ທຳທ່າປັດໜ້າຈໍ, ຫຼື ໃຊ້ປຸ່ມລູກສອນເທິງຄອມພິວເຕີ</p>
+                </div>
+            </div>
+
             <!-- SECTION 7: User Feedback / Comment Section -->
             <div id="section-user-feedback" class="space-y-4 hidden animate-fade-in">
                 <div class="bg-gradient-to-r from-pink-950/90 via-slate-800/90 to-emerald-950/90 p-5 rounded-2xl border border-pink-500/40 shadow-xl flex justify-between items-center">
@@ -435,10 +485,10 @@
                 <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-2">
                     <h4 class="font-bold text-emerald-400 text-sm flex items-center space-x-1"><span>👤</span> <span>ສຳລັບ User (ທຸກຫ້ອງພັກ: ຫ້ອງ 104 - 114)</span></h4>
                     <ul class="list-disc list-inside space-y-1.5 text-slate-300">
-                        <li><b>ເຂົ້າສູ່ລະບົບ:</b> ເລືອກຫ້ອງພັກຂອງທ່ານຈາກປ໋ອບອັບທຳອິດທີ່ເປີດຂຶ້ນມາ ເພື່ອເລີ່ມຕົ້ນใช้งาน.</li>
-                        <li><b>ອ່ານຂ່າວສານ & ກົດຖືກໃຈ:</b> ເບິ່ງປະກາດສຳຄັນຈາກຈຸປ້ອງກັນ ແລະ ສາມາດກົດປຸ່ມ "ຖືກໃຈ (Like)" ເພື່ອສະແດງຄວາມ ພໍໃຈ.</li>
+                        <li><b>ເຂົ້າສູ່ລະບົບ:</b> ເລືອກຫ້ອງພັກຂອງທ່ານຈາກປ໋ອບອັບທຳອິດທີ່ເປີດຂຶ້ນມາ ເພື່ອເລີ່ມຕົ້ນໃຊ້ງານ.</li>
+                        <li><b>ອ່ານຂ່າວສານ & ກົດຖືກໃຈ:</b> ເບິ່ງປະກາດສຳຄັນຈາກຈຸປ້ອງກັນ ແລະ ສາມາດກົດປຸ່ມ "ຖືກໃຈ (Like)" ເเพື່ອສະແດງຄວາມພໍໃຈ.</li>
                         <li><b>ສົ່ງບົດລາຍງານອະນາໄມ (ວັນອາທິດ):</b> ໄປທີ່ເມນູ "ລາຍງານອະນາໄມ (ສະມາຊິກ)" ເພື່ອສົ່ງຜົນງານ **ສະເພາະມື້ວັນອາທິດ ເວລາ 16:00 - 19:00 ໂມງ** (ຕ້ອງຖ່າຍຮູບສົດຜ່ານກ້ອງ 3 ຮູບຂຶ້ນໄປ).</li>
-                        <li><b>ປະກອບຄຳຄິດຄຳເຫັນ:</b> ໃຊ້ເມນູ "ປະກອບຄຳຄິດຄຳເຫັນ" ເພື່ອສົ່ງຂໍ້ສະເໜີແນະໄປຫາ Admin ທັງ 4 ຄົນທັນທີ.</li>
+                        <li><b>ຫຼິ້ນເກມງູກິນຂຽດ:</b> ເຂົ້າເມນູ "ເກມງູກິນຂຽດ" ເພື່ອຜ່ອນຄາຍ ແລະ ແຂ່ງຂັນຄະແນນສູງສຸດຜ່ານຈໍສຳຜັດມືຖືໄດ້ເລີຍ!</li>
                     </ul>
                 </div>
 
@@ -649,6 +699,19 @@
         let globalFeedbackUnsubscribe = null;
         let isInitialLoad = true;
 
+        // Snake Game Variables
+        let snakeInterval = null;
+        let snake = [];
+        let frog = {};
+        let score = 0;
+        let highScore = localStorage.getItem('snake_highscore') || 0;
+        let dx = 16;
+        let dy = 0;
+        let nextDx = 16;
+        let nextDy = 0;
+        const gridSize = 16;
+        const canvasSize = 320;
+
         const subAdminPins = {
             "SUB_ADMIN_1": "1234",
             "SUB_ADMIN_2": "5678",
@@ -666,7 +729,131 @@
             initTouchGoldGlowEffect();
             initInteractiveButterflies();
             initAntiCopyProtection();
+            initSnakeKeyboardControls();
         });
+
+        // 🐍 Snake Game Logic & Controls
+        window.startSnakeGame = () => {
+            document.getElementById('snake-overlay').classList.add('hidden');
+            snake = [
+                { x: 160, y: 160 },
+                { x: 144, y: 160 },
+                { x: 128, y: 160 }
+            ];
+            score = 0;
+            document.getElementById('snake-score').innerText = score;
+            document.getElementById('snake-highscore').innerText = highScore;
+            dx = gridSize;
+            dy = 0;
+            nextDx = gridSize;
+            nextDy = 0;
+            spawnFrog();
+
+            if (snakeInterval) clearInterval(snakeInterval);
+            snakeInterval = setInterval(gameLoop, 110);
+        };
+
+        function spawnFrog() {
+            const cols = canvasSize / gridSize;
+            frog = {
+                x: Math.floor(Math.random() * cols) * gridSize,
+                y: Math.floor(Math.random() * cols) * gridSize
+            };
+            // ບໍ່ໃຫ້ເກີດທັບຕົວງູ
+            snake.forEach(part => {
+                if (part.x === frog.x && part.y === frog.y) {
+                    spawnFrog();
+                }
+            });
+        }
+
+        function gameLoop() {
+            dx = nextDx;
+            dy = nextDy;
+
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+            // ກວດສອບຊົນຂອບ
+            if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) {
+                gameOver();
+                return;
+            }
+
+            // ກວດສອບຊົນໂຕເອງ
+            for (let i = 0; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    gameOver();
+                    return;
+                }
+            }
+
+            snake.unshift(head);
+
+            // ກວດສອບກິນຂຽດ
+            if (head.x === frog.x && head.y === frog.y) {
+                score += 10;
+                document.getElementById('snake-score').innerText = score;
+                if (score > highScore) {
+                    highScore = score;
+                    localStorage.setItem('snake_highscore', highScore);
+                    document.getElementById('snake-highscore').innerText = highScore;
+                }
+                spawnFrog();
+            } else {
+                snake.pop();
+            }
+
+            drawSnakeGame();
+        }
+
+        function drawSnakeGame() {
+            const canvas = document.getElementById('snakeCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            // ພື້ນຫຼັງກະດານ
+            ctx.fillStyle = '#020617';
+            ctx.fillRect(0, 0, canvasSize, canvasSize);
+
+            // ວາດຂຽດ 🐸
+            ctx.font = '16px serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🐸', frog.x + gridSize / 2, frog.y + gridSize / 2);
+
+            // ວາດງູ 🐍
+            snake.forEach((part, index) => {
+                ctx.fillStyle = index === 0 ? '#10b981' : '#059669';
+                ctx.beginPath();
+                ctx.roundRect(part.x + 1, part.y + 1, gridSize - 2, gridSize - 2, 4);
+                ctx.fill();
+            });
+        }
+
+        function gameOver() {
+            clearInterval(snakeInterval);
+            snakeInterval = null;
+            const overlay = document.getElementById('snake-overlay');
+            document.getElementById('snake-overlay-title').innerText = '💀 ເກມຈົບແລ້ວ (Game Over)';
+            document.getElementById('snake-overlay-desc').innerHTML = `ຄະແນນຂອງທ່ານ: <strong class="text-amber-400 text-base">${score}</strong><br>ກົດປຸ່ມລຸ່ມນີ້ເພື່ອເລີ່ມຫຼິ້ນໃໝ່!`;
+            overlay.classList.remove('hidden');
+        }
+
+        window.changeSnakeDir = (dir) => {
+            if (dir === 'UP' && dy === 0) { nextDx = 0; nextDy = -gridSize; }
+            if (dir === 'DOWN' && dy === 0) { nextDx = 0; nextDy = gridSize; }
+            if (dir === 'LEFT' && dx === 0) { nextDx = -gridSize; nextDy = 0; }
+            if (dir === 'RIGHT' && dx === 0) { nextDx = gridSize; nextDy = 0; }
+        };
+
+        function initSnakeKeyboardControls() {
+            window.addEventListener('keydown', (e) => {
+                if (['ArrowUp', 'KeyW'].includes(e.code)) { window.changeSnakeDir('UP'); e.preventDefault(); }
+                if (['ArrowDown', 'KeyS'].includes(e.code)) { window.changeSnakeDir('DOWN'); e.preventDefault(); }
+                if (['ArrowLeft', 'KeyA'].includes(e.code)) { window.changeSnakeDir('LEFT'); e.preventDefault(); }
+                if (['ArrowRight', 'KeyD'].includes(e.code)) { window.changeSnakeDir('RIGHT'); e.preventDefault(); }
+            });
+        }
 
         // 📖 ຄວບຄຸມການເປີດ-ປິດ Modal ຄູ່ມືວິທີໃຊ້ງານ
         window.openGuideModal = () => {
@@ -1112,6 +1299,7 @@
             const scoreboardSec = document.getElementById('section-scoreboard');
             const cyberSec = document.getElementById('section-cyber');
             const memberSec = document.getElementById('section-member');
+            const snakeGameSec = document.getElementById('section-snake-game');
             const feedbackSec = document.getElementById('section-user-feedback');
             const adminChatSec = document.getElementById('section-admin-chat');
             
@@ -1120,6 +1308,7 @@
             const scoreboardBtn = document.getElementById('tab-scoreboard-btn');
             const cyberBtn = document.getElementById('tab-cyber-btn');
             const memberBtn = document.getElementById('tab-member-btn');
+            const snakeGameBtn = document.getElementById('tab-snake-game-btn');
             const feedbackBtn = document.getElementById('tab-user-feedback-btn');
             const adminChatBtn = document.getElementById('tab-admin-chat-btn');
             const catBox = document.getElementById('news-categories-box');
@@ -1129,6 +1318,7 @@
             scoreboardSec.classList.add('hidden');
             cyberSec.classList.add('hidden');
             memberSec.classList.add('hidden');
+            snakeGameSec.classList.add('hidden');
             feedbackSec.classList.add('hidden');
             if(adminChatSec) adminChatSec.classList.add('hidden');
             
@@ -1137,6 +1327,7 @@
             scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
             cyberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
             memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400";
+            snakeGameBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-300";
             feedbackBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-pink-400";
             if(adminChatBtn) adminChatBtn.className = "w-full text-left px-3.5 py-3 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-300 font-bold bg-sky-600/30 border border-sky-500/60 shadow-lg";
 
@@ -1164,6 +1355,10 @@
                 memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2 text-emerald-400";
                 catBox.classList.add('hidden');
                 loadMemberReports();
+            } else if (tab === 'snake-game') {
+                snakeGameSec.classList.remove('hidden');
+                snakeGameBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/40 text-emerald-200 font-bold transition duration-200 flex items-center space-x-2 border border-emerald-500/50 shadow-md";
+                catBox.classList.add('hidden');
             } else if (tab === 'user-feedback') {
                 feedbackSec.classList.remove('hidden');
                 feedbackBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-pink-600/35 text-pink-300 font-medium transition duration-200 flex items-center space-x-2 text-pink-400";
