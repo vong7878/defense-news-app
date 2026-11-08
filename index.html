@@ -1604,22 +1604,9 @@
 
                 const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
                 
-                // 🔍 ຄິດໄລ່ຄະແນນຂອງຫ້ອງ 109 ເປັນມາດຖານ
-                let baseScore109 = 1; 
-                querySnapshot.forEach(docSnap => {
-                    const data = docSnap.data();
-                    if (data.approved && data.room === 'ຫ້ອງ 109') {
-                        baseScore109 = (scores['ຫ້ອງ 109'] || 0) + 1;
-                    }
-                });
-
-                // 📌 ກຳນົດໃຫ້ຫ້ອງ 104, 105, 109, 111, 113, 114 ມີຄະແນນຢ່າງໜ้อยເທົ່າກັບຫ້ອງ 109
-                const targetRooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 109", "ຫ້ອງ 111", "ຫ້ອງ 113", "ຫ້ອງ 114"];
+                // 📌 ກຳນົດຄ່າເລີ່ມຕົ້ນທຸກຫ້ອງໃຫ້ເທົ່າກັນ (1 ຄະແນນ) ໂດຍບໍ່ມີຫ້ອງໃດໄດ້ 2 ຄະແນນພິເສດ
                 rooms.forEach(r => {
-                    scores[r] = 0;
-                    if (targetRooms.includes(r)) {
-                        scores[r] = Math.max(1, baseScore109);
-                    }
+                    scores[r] = 1;
                 });
 
                 // ➕ ບວກຄະແນນເພີ່ມຕາມ Database ທີ່ກົດອະນຸມັດແລ້ວ
@@ -1678,20 +1665,8 @@
                 let scores = {};
                 const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
                 
-                let baseScore109 = 1;
-                querySnapshot.forEach(docSnap => {
-                    const data = docSnap.data();
-                    if (data.approved && data.room === 'ຫ້ອງ 109') {
-                        baseScore109++;
-                    }
-                });
-
-                const targetRooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 109", "ຫ້ອງ 111", "ຫ້ອງ 113", "ຫ້ອງ 114"];
                 rooms.forEach(room => {
-                    scores[room] = 0;
-                    if (targetRooms.includes(room)) {
-                        scores[room] = Math.max(1, baseScore109);
-                    }
+                    scores[room] = 1;
                 });
 
                 querySnapshot.forEach(docSnap => {
