@@ -100,7 +100,7 @@
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white relative overflow-x-hidden">
 
-    <!-- 🦋 ຜີເສື້ອສີທອງບິນໄປມາ (ເຊື່ອງອັດຕະໂນມັດເມື່ອຢູ່ໜ້າເກມງູ) -->
+    <!-- 🦋 ຜີເສື້ອສີທອງບິນໄປມາ -->
     <div id="butterfly-layer" class="fixed inset-0 pointer-events-none z-40 overflow-hidden">
         <div class="interactive-butterfly" style="top: 15%; left: 8%;">🦋</div>
         <div class="interactive-butterfly" style="top: 45%; right: 10%; animation-delay: 1s;">🦋</div>
@@ -226,7 +226,7 @@
                         <span>+</span> <span>ເພີ່ມຫົວຂໍ້ອະນາໄມ (Admin)</span>
                     </button>
 
-                    <!-- ⭐ ຈັດການຄະແນນພິເສດ (ສະເພາະຜູ້ສ້າງເວັບໄຊ) - ຮອງຮັບບວກ/ລົບ -->
+                    <!-- ⭐ ຈັດການຄະແນນພິເສດ (ສະເພາະຜູ້ສ້າງເວັບໄຊ) - ເລີ່ມຕົ້ນ 0 ຄະແນນ ແລະ ໃຫ້ຜູ້ສ້າງໃຫ້ເອງ -->
                     <div id="super-admin-special-points" class="mt-3 pt-3 border-t border-emerald-800 space-y-2 hidden">
                         <h3 class="font-bold text-amber-400 text-xs uppercase tracking-wider">⭐ ປັບຄະແນນພິເສດ (ບວກ/ລົບ)</h3>
                         <select id="special-room-select" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-100 font-bold">
@@ -234,7 +234,7 @@
                             <option value="ຫ້ອງ 104">ຫ້ອງ 104</option>
                             <option value="ຫ້ອງ 105">ຫ້ອງ 105</option>
                             <option value="ຫ້ອງ 108">ຫ້ອງ 108</option>
-                            <option value="ຫ້ອງ 109" selected>ຫ້ອງ 109</option>
+                            <option value="ຫ້ອງ 109">ຫ້ອງ 109</option>
                             <option value="ຫ້ອງ 110">ຫ້ອງ 110</option>
                             <option value="ຫ້ອງ 111">ຫ້ອງ 111</option>
                             <option value="ຫ້ອງ 112">ຫ້ອງ 112</option>
@@ -242,7 +242,7 @@
                             <option value="ຫ້ອງ 114">ຫ້ອງ 114</option>
                         </select>
                         <div class="flex gap-2">
-                            <input type="number" id="special-point-value" placeholder="ໃສ່ຄະແນນ (ເຊັ່ນ: -1, 3, 4, 5)" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-100">
+                            <input type="number" id="special-point-value" placeholder="ໃສ່ຄະແນນ (ເຊັ່ນ: 1, 3, 5 ຫຼື -1)" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-100">
                             <button onclick="submitSpecialPoint()" class="bg-amber-600 hover:bg-amber-500 text-white font-medium px-3 py-2 rounded-xl text-xs transition whitespace-nowrap shadow">
                                 ບັນທຶກ
                             </button>
@@ -284,7 +284,7 @@
                     <h2 class="text-2xl font-extrabold text-amber-400 flex items-center space-x-2">
                         <span>📊</span> <span>ໜ້າສະຫຼຸບຄະແນນການອະນາໄມທັງໝົດ (Dashboard)</span>
                     </h2>
-                    <p class="text-xs text-slate-300">ສະຫຼຸບອັນດັບຄວາມສະອາດ, ຄະແນນສະສົມ ແລະ ຜົນການປະຕິບັດງານຂອງທຸກໆຫ້ອງພັກ (ທຸກຫ້ອງເລີ່ມຕົ້ນທີ່ 1 ຄະແນນ)</p>
+                    <p class="text-xs text-slate-300">ສະຫຼຸບອັນດັບຄວາມສະອາດ, ຄະແນນສະສົມ ແລະ ຜົນການປະຕິບັດງານຂອງທຸກໆຫ້ອງພັກ (ທຸກຫ້ອງເລີ່ມຕົ້ນທີ່ 0 ຄະແນນ)</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -325,7 +325,7 @@
             <div id="section-scoreboard" class="space-y-4 hidden animate-fade-in">
                 <div class="bg-gradient-to-r from-amber-950/85 to-slate-800/85 p-6 rounded-2xl border border-amber-600/50 shadow-xl space-y-2">
                     <h2 class="text-xl font-bold text-amber-400 flex items-center space-x-2"><span>🏆</span> <span>ຕາຕະລາງຄະແນນການອະນາໄມປະຈຳຫ້ອງ</span></h2>
-                    <p class="text-xs text-slate-300">ສະແດງຄະແນນສະສົມທັງໝົດຂອງແຕ່ລະຫ້ອງພັກ (ບໍ່ມີຫ້ອງໃດໄດ້ 0 ຄະແນນ)</p>
+                    <p class="text-xs text-slate-300">ສະແດງຄະແນນສະສົມທັງໝົດຂອງແຕ່ລະຫ້ອງພັກ (ທຸກຫ້ອງເລີ່ມຕົ້ນທີ່ 0 ຄະແນນ)</p>
                 </div>
                 <div id="full-scoreboard-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="text-center py-12 text-slate-400 col-span-full">ກຳລັງໂຫຼດຄະແນນ...</div>
@@ -528,7 +528,7 @@
                 <div id="guide-section-super" class="bg-amber-950/40 p-4 rounded-xl border border-amber-500/30 space-y-2 hidden">
                     <h4 class="font-bold text-amber-400 text-sm flex items-center space-x-1"><span>👑</span> <span>ຄູ່ມືສຳລັບ ຜູ້ສ້າງເວັບໄຊ (Super Admin)</span></h4>
                     <ul class="list-disc list-inside space-y-1.5 text-slate-300">
-                        <li><b>ການຈັດການຄະແນນພິເສດ:</b> ສາມາດບວກ (ເຊັ່ນ: 3, 4, 5) ຫຼື ລົບ (ເຊັ່ນ: -1) ຄະແນນໃຫ້ແຕ່ລະຫ້ອງໄດ້ໂດຍກົງຈາກ Admin Panel.</li>
+                        <li><b>ການຈັດການຄະແນນພິເສດ:</b> ສາມາດບວກ (ເຊັ່ນ: 1, 3, 5) ຫຼື ລົບ (ເຊັ່ນ: -1) ຄະແນນໃຫ້ແຕ່ລະຫ້ອງໄດ້ໂດຍກົງຈາກ Admin Panel.</li>
                         <li><b>ການຈັດການຂ່າວສານ & ລົບລາຍງານ:</b> ມີສິດເຕັມທີ່ໃນການເພີ່ມ, ແກ້ໄຂ, ລົບຂ່າວສານ ແລະ ລົບລາຍງານ.</li>
                     </ul>
                 </div>
@@ -1335,7 +1335,7 @@
             checkLocationRestriction();
         };
 
-        // ⭐ ຟັງຊັນໃຫ້ຄະແນນພິເສດ (ຮອງຮັບທັງບວກ +3, +4, +5 ແລະ ລົບ -1 ໄດ້ຢ່າງອິດສະຫຼະ)
+        // ⭐ ຟັງຊັນໃຫ້ຄະແນນພິເສດ (ເລີ່ມຕົ້ນ 0 ແລະ ໃຫ້ຜູ້ສ້າງປັບບວກ/ລົບໄດ້ຕາມໃຈ)
         window.submitSpecialPoint = async () => {
             if (!isSuperAdmin()) {
                 alert('⚠️ ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນທີ່ມີສິດປັບຄະແນນພິເສດ!');
@@ -1345,7 +1345,7 @@
             const pointInput = document.getElementById('special-point-value').value;
             if (!room) { alert('ກະລຸນາເລືອກຫ້ອງພັກ!'); return; }
             const points = parseInt(pointInput);
-            if (isNaN(points) || points === 0) { alert('ກະລຸນາໃສ່ຈຳນວນຄະແນນທີ່ຖືກຕ້ອງ (ເຊັ່ນ: -1, 3, 4, 5)'); return; }
+            if (isNaN(points) || points === 0) { alert('ກະລຸນາໃສ່ຈຳນວນຄະແນນທີ່ຖືກຕ້ອງ (ເຊັ່ນ: 1, 3, 5 ຫຼື -1)'); return; }
 
             try {
                 const dateStr = new Date().toLocaleString('lo-LA');
@@ -1361,7 +1361,7 @@
                     date: dateStr,
                     weekTag: "special_adjustment_" + Date.now(),
                     approved: true,
-                    specialPoints: points // บันทึกค่าคะแนนพิเศษ (+ หรือ -)
+                    specialPoints: points 
                 });
 
                 alert(`🎉 ບັນທຶກການປັບຄະແນນໃຫ້ [${room}] ຈຳນວນ ${points > 0 ? '+' + points : points} ຄະແນນ ສຳເລັດແລ້ວ!`);
@@ -1501,13 +1501,13 @@
                 let approvedReportsCount = 0;
                 const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
                 
-                rooms.forEach(r => { scores[r] = 1; }); // ເລີ່ມຕົ້ນທຸກຫ້ອງທີ່ 1 ຄະແນນ
+                rooms.forEach(r => { scores[r] = 0; }); // ເລີ່ມຕົ້ນທຸກຫ້ອງທີ່ 0 ຄະແນນ
 
                 querySnapshot.forEach(docSnap => {
                     const data = docSnap.data();
                     if (data.approved && data.room) {
                         const ptsToAdd = (data.specialPoints !== undefined) ? data.specialPoints : 1;
-                        scores[data.room] = (scores[data.room] || 1) + ptsToAdd;
+                        scores[data.room] = (scores[data.room] || 0) + ptsToAdd;
                         if (scores[data.room] < 0) scores[data.room] = 0;
                         if (ptsToAdd > 0) approvedReportsCount += 1;
                     }
@@ -1526,8 +1526,8 @@
 
                 const highestPoint = Math.max(...Object.values(scores), 1);
                 container.innerHTML = rooms.map(room => {
-                    const pts = scores[room] || 1;
-                    const percent = Math.round((pts / highestPoint) * 100);
+                    const pts = scores[room] || 0;
+                    const percent = highestPoint > 0 ? Math.round((pts / highestPoint) * 100) : 0;
                     return `
                         <div class="space-y-1 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60">
                             <div class="flex justify-between items-center text-xs font-semibold">
@@ -1551,18 +1551,18 @@
                 let scores = {};
                 const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
                 
-                rooms.forEach(room => { scores[room] = 1; });
+                rooms.forEach(room => { scores[room] = 0; }); // ເລີ່ມຕົ້ນທຸກຫ້ອງທີ່ 0 ຄະແນນ
                 querySnapshot.forEach(docSnap => {
                     const data = docSnap.data();
                     if (data.approved && data.room) { 
                         const ptsToAdd = (data.specialPoints !== undefined) ? data.specialPoints : 1;
-                        scores[data.room] = (scores[data.room] || 1) + ptsToAdd; 
+                        scores[data.room] = (scores[data.room] || 0) + ptsToAdd; 
                         if (scores[data.room] < 0) scores[data.room] = 0;
                     }
                 });
                 
                 container.innerHTML = rooms.map((room, index) => {
-                    const pts = scores[room] || 1;
+                    const pts = scores[room] || 0;
                     return `
                         <div class="bg-slate-800/85 backdrop-blur border border-amber-500/50 bg-amber-950/20 p-5 rounded-2xl shadow-xl flex items-center justify-between animate-fade-in">
                             <div class="flex items-center space-x-3">
