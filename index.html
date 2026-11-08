@@ -101,6 +101,7 @@
                         url('https://tiawellnessresort.com/wp-content/uploads/2026/09/cau-rong-bieu-tuong-kien-truc-tai-da-nang.webp');
             background-size: cover;
             background-position: center;
+            transition: all 0.4s ease-in-out;
         }
     </style>
 </head>
@@ -115,8 +116,13 @@
         <div class="interactive-butterfly" style="top: 25%; right: 40%; animation-delay: 2.5s;">🦋</div>
     </div>
 
-    <!-- Navbar -->
-    <header class="navbar-custom-bg backdrop-blur border-b border-emerald-800/60 sticky top-0 z-50 shadow-md">
+    <!-- 👁️ ປຸ່ມລອຍສຳລັບເປີດ/ປິດ Header ເມື່ອຊ່ອນຢູ່ (Floating Toggle Button) -->
+    <button id="floating-header-btn" onclick="toggleHeaderVis()" class="fixed top-3 right-3 bg-slate-900/90 hover:bg-slate-800 text-emerald-400 p-2.5 rounded-2xl border border-emerald-500/50 shadow-2xl z-50 transition transform hover:scale-105 active:scale-95 flex items-center space-x-1 text-xs font-bold">
+        <span id="floating-toggle-icon">🙈</span> <span id="floating-toggle-text">ຊ່ອນ Header</span>
+    </button>
+
+    <!-- Navbar / Header (ສາມາດຊ່ອນ/ສະແດງໄດ້) -->
+    <header id="main-header" class="navbar-custom-bg backdrop-blur border-b border-emerald-800/60 sticky top-0 z-40 shadow-md transform transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center justify-between w-full sm:w-auto">
                 <div class="flex items-center space-x-3">
@@ -160,7 +166,7 @@
                 </div>
             </div>
 
-            <div id="auth-nav" class="flex items-center space-x-3 w-full sm:w-auto justify-end"></div>
+            <div id="auth-nav" class="flex items-center space-x-3 w-full sm:w-auto justify-end pr-28 lg:pr-0"></div>
         </div>
     </header>
 
@@ -756,6 +762,7 @@
         let globalNewsUnsubscribe = null;
         let globalFeedbackUnsubscribe = null;
         let isInitialLoad = true;
+        let isHeaderHidden = false;
 
         // Snake Game Variables
         let snakeInterval = null;
@@ -791,6 +798,24 @@
             initSnakeKeyboardControls();
             initButterfliesMovement();
         });
+
+        // 👁️ ຟັງຊັນສຳລັບເປີດ/ປິດ ສະແດງຜົນ Header (ແຖບດ້ານເທິງ)
+        window.toggleHeaderVis = () => {
+            const header = document.getElementById('main-header');
+            const icon = document.getElementById('floating-toggle-icon');
+            const text = document.getElementById('floating-toggle-text');
+            
+            isHeaderHidden = !isHeaderHidden;
+            if (isHeaderHidden) {
+                header.classList.add('-translate-y-full', 'opacity-0');
+                icon.innerText = '👁️';
+                text.innerText = 'ເປີດ Header';
+            } else {
+                header.classList.remove('-translate-y-full', 'opacity-0');
+                icon.innerText = '🙈';
+                text.innerText = 'ຊ່ອນ Header';
+            }
+        };
 
         // ☰ ຟັງຊັນສຳລັບເປີດ-ປິດ Sidebar (ເມນູດ້ານຂ້າງ) ຜ່ານປຸ່ມສາມຈໍ້າໃນມືຖື
         window.toggleSidebarMobile = () => {
@@ -1780,7 +1805,6 @@
             if (allMemberReports.length === 0) { container.innerHTML = `<div class="text-center py-8 text-slate-500">ຍັງບໍ່ມີບົດລາຍງານ</div>`; return; }
             container.innerHTML = allMemberReports.map(rep => {
                 let items = rep.mediaItems || [];
-                // 🛠️ ປັບປຸງ: ຖ້າເປັນຂໍ້ມູນເກົ່າ (mediaUrls) ໃຫ້ກວດສອບວ່າແມ່ນຮູບພາບ Base64 ຫຼື URL ປົກກະຕິ ຫຼື ບໍ່, ຖ້າແມ່ນໃຫ້ປ່ຽນເປັນ type: image ໂດຍອັດຕະໂນມັດ
                 if (items.length === 0 && rep.mediaUrls) {
                     items = rep.mediaUrls.map(u => {
                         if (typeof u === 'string' && (u.startsWith('data:image/') || u.match(/\.(jpeg|jpg|png|gif|webp)$/i))) {
@@ -1872,7 +1896,6 @@
             if (allCyberTasks.length === 0) { container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">ຍັງບໍ່ມີລາຍການ</div>`; return; }
             container.innerHTML = allCyberTasks.map(task => {
                 let items = task.mediaItems || [];
-                // 🛠️ ປັບປຸງ: ກວດສອບข้อมูลเก่า (mediaUrls) ໃຫ້ສະແດງເປັນຮູບຖ້າເປັນລິ້ງຮູບ
                 if (items.length === 0 && task.mediaUrls) {
                     items = task.mediaUrls.map(u => {
                         if (typeof u === 'string' && (u.startsWith('data:image/') || u.match(/\.(jpeg|jpg|png|gif|webp)$/i))) {
