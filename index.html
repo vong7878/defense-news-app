@@ -102,7 +102,7 @@
 
     <!-- 🦋 ຜີເສື້ອສີທອງບິນໄປມາ (ເຊື່ອງອັດຕະໂນມັດເມື່ອຢູ່ໜ້າເກມງູ) -->
     <div id="butterfly-layer" class="fixed inset-0 pointer-events-none z-40 overflow-hidden">
-        <div class="interactive-butterfly top-[15%][left-[8%]]" style="top: 15%; left: 8%;">🦋</div>
+        <div class="interactive-butterfly" style="top: 15%; left: 8%;">🦋</div>
         <div class="interactive-butterfly" style="top: 45%; right: 10%; animation-delay: 1s;">🦋</div>
         <div class="interactive-butterfly" style="bottom: 20%; left: 15%; animation-delay: 2s;">🦋</div>
         <div class="interactive-butterfly" style="top: 70%; right: 25%; animation-delay: 1.5s;">🦋</div>
@@ -123,7 +123,6 @@
             </div>
 
             <div class="flex items-center space-x-3 w-full sm:w-auto justify-center">
-                <!-- 📖 ປຸ່ມຄູ່ມືວິທີໃຊ້ງານ -->
                 <button onclick="openGuideModal()" class="bg-cyan-600/80 hover:bg-cyan-500 text-white text-xs px-3 py-1.5 rounded-xl border border-cyan-400/40 transition shadow flex items-center space-x-1 font-semibold">
                     <span>📖</span> <span>ວິທີໃຊ້ງານ</span>
                 </button>
@@ -175,7 +174,6 @@
                         </button>
                     </li>
 
-                    <!-- 🎮 ປຸ່ມເມນູເກມງູກິນຂຽດ -->
                     <li>
                         <button onclick="switchTab('snake-game')" id="tab-snake-game-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-300 font-bold bg-emerald-600/20 border border-emerald-500/40 shadow-md">
                             <span>🐍</span> <span>ເກມງູກິນຂຽດ (Snake)</span>
@@ -227,6 +225,29 @@
                     <button onclick="openCyberModal()" class="w-full bg-emerald-700 hover:bg-emerald-600 text-white font-medium py-2 px-3.5 rounded-xl transition text-sm flex items-center justify-center space-x-2">
                         <span>+</span> <span>ເພີ່ມຫົວຂໍ້ອະນາໄມ (Admin)</span>
                     </button>
+
+                    <!-- ⭐ ຈັດການຄະແນນພິເສດ (ສະເພາະຜູ້ສ້າງເວັບໄຊ) -->
+                    <div id="super-admin-special-points" class="mt-3 pt-3 border-t border-emerald-800 space-y-2 hidden">
+                        <h3 class="font-bold text-amber-400 text-xs uppercase tracking-wider">⭐ ປັບຄະແນນພິເສດ (ບວກ/ລົບ)</h3>
+                        <select id="special-room-select" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-100 font-bold">
+                            <option value="">-- ເລືອກຫ້ອງພັກ --</option>
+                            <option value="ຫ້ອງ 104">ຫ້ອງ 104</option>
+                            <option value="ຫ້ອງ 105">ຫ້ອງ 105</option>
+                            <option value="ຫ້ອງ 108">ຫ້ອງ 108</option>
+                            <option value="ຫ້ອງ 109">ຫ້ອງ 109</option>
+                            <option value="ຫ້ອງ 110">ຫ້ອງ 110</option>
+                            <option value="ຫ້ອງ 111">ຫ້ອງ 111</option>
+                            <option value="ຫ້ອງ 112">ຫ້ອງ 112</option>
+                            <option value="ຫ້ອງ 113">ຫ້ອງ 113</option>
+                            <option value="ຫ້ອງ 114">ຫ້ອງ 114</option>
+                        </select>
+                        <div class="flex gap-2">
+                            <input type="number" id="special-point-value" placeholder="ຄະແນນ (ເຊັ່ນ: 1 ຫຼື -1)" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-100">
+                            <button onclick="submitSpecialPoint()" class="bg-amber-600 hover:bg-amber-500 text-white font-medium px-3 py-2 rounded-xl text-xs transition whitespace-nowrap shadow">
+                                ບັນທຶກ
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </aside>
@@ -373,7 +394,7 @@
                 </div>
             </div>
 
-            <!-- SECTION: Snake Game (ເກມງູກິນຂຽດ - ປອດໄພບໍ່ມີຜີເສື້ອລົບຕາ) -->
+            <!-- SECTION: Snake Game -->
             <div id="section-snake-game" class="space-y-3 hidden animate-fade-in">
                 <div class="bg-gradient-to-r from-emerald-950/90 via-slate-800/90 to-emerald-950/90 p-3.5 rounded-2xl border border-emerald-500/40 shadow-xl flex justify-between items-center">
                     <div>
@@ -484,7 +505,6 @@
             </div>
 
             <div class="space-y-4 text-xs text-slate-300 leading-relaxed">
-                <!-- 👤 ສ່ວນສຳລັບ User (ເຫັນສະເພາະ User) -->
                 <div id="guide-section-user" class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-2">
                     <h4 class="font-bold text-emerald-400 text-sm flex items-center space-x-1"><span>👤</span> <span>ຄູ່ມືສຳລັບ User (ທຸກຫ້ອງພັກ: ຫ້ອງ 104 - 114)</span></h4>
                     <ul class="list-disc list-inside space-y-1.5 text-slate-300">
@@ -492,28 +512,24 @@
                         <li><b>ເຂົ້າສູ່ລະບົບ:</b> ເລືອກຫ້ອງພັກຂອງທ່ານຈາກປ໋ອບອັບທຳອິດທີ່ເປີດຂຶ້ນມາ ເພື່ອເລີ່ມຕົ້ນໃຊ້ງານ.</li>
                         <li><b>ການສົ່ງບົດລາຍງານອະນາໄມ:</b> ສົ່ງໄດ້ສະເພາະ **ວັນອາທິດ ເວລາ 16:00 - 19:00 ໂມງ** ໂດຍຕ້ອງຖ່າຍຮູບສົດຜ່ານກ້ອງຢ່າງໜ້ອຍ 3 ຮູບ.</li>
                         <li><b>ການປະກອບຄຳຄິດຄຳເຫັນ:</b> ສາມາດສົ່ງຄຳຄິດຄຳເຫັນ ຫຼື ຂໍ້ສະເໜີແນະໄປຫາ Admin ທັງ 4 ຄົນໄດ້.</li>
-                        <li><b>ຫຼິ້ນເກມງູກິນຂຽດ:</b> ເຂົ້າເມນູ "ເກມງູກິນຂຽດ" (ບໍ່ມີຜີເສື້ອລົບຕາ) ທີ່ຖືກປັບຂະໜາດພໍດີຈໍມືຖື ແລະ ຫຼຸດຄວາມໄວລົງໃຫ້ຫຼິ້ນງ່າຍຂຶ້ນ!</li>
+                        <li><b>ຫຼິ້ນເກມງູກິນຂຽດ:</b> ເຂົ້າເມນູ "ເກມງູກິນຂຽດ" ທີ່ຖືກປັບຂະໜາດພໍດີຈໍມືຖື ແລະ ຫຼຸດຄວາມໄວລົງ!</li>
                     </ul>
                 </div>
 
-                <!-- ⚙️ ສ່ວນສຳລັບ Admin (ເຫັນສະເພາະ Admin ຮອງ ແລະ ຜູ້ສ້າງ) -->
                 <div id="guide-section-admin" class="bg-sky-950/40 p-4 rounded-xl border border-sky-500/30 space-y-2 hidden">
                     <h4 class="font-bold text-sky-400 text-sm flex items-center space-x-1"><span>⚙️</span> <span>ຄູ່ມືສຳລັບ Admin (Admin ຮອງ 1, 2, 3)</span></h4>
                     <ul class="list-disc list-inside space-y-1.5 text-slate-300">
                         <li><b>ການເຂົ້າສູ່ລະບົບ:</b> ສາມາດເຂົ້າໄດ້ທັງຄອມພິວເຕີ ແລະ ມືຖື ໂດຍໃຊ້ລະຫັດ PIN ທີ່ກຳນົດ.</li>
-                        <li><b>ການອະນຸມັດບົດລາຍງານ:</b> Admin ຮອງມີສິດກວດສອບ ແລະ ກົດອະນຸມັດບົດລາຍງານການອະນາໄມຂອງສະມາຊິກເພື່ອໃຫ້ໄດ້ຮັບ +1 ຄະແນນເຊັ່ນດຽວກັນ.</li>
-                        <li><b>ການແຊັດວຽກ:</b> ສາມາດເຂົ້າໃຊ້ງານ "ຫ້ອງແຊັດລົມວຽກ Admin" ເພື່ອຕິດຕໍ່ສື່ສານກັນພາຍໃນ ແລະ ກວດສອບຄຳຄິດຄຳເຫັນຂອງ User ໄດ້.</li>
+                        <li><b>ການອະນຸມັດບົດລາຍງານ:</b> Admin ຮອງມີສິດກວດສອບ ແລະ ກົດອະນຸມັດບົດລາຍງານການອະນາໄມຂອງສະມາຊິກເພື່ອໃຫ້ໄດ້ຮັບ +1 ຄະແນນ.</li>
+                        <li><b>ການແຊັດວຽກ:</b> ສາມາດເຂົ້າໃຊ້ງານ "ຫ້ອງແຊັດລົມວຽກ Admin" ເພື່ອຕິດຕໍ່ສື່ສານກັນພາຍໃນ.</li>
                     </ul>
                 </div>
 
-                <!-- 👑 ສ່ວນສຳລັບ ຜູ້ສ້າງເວັບໄຊ (ເຫັນສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ) -->
                 <div id="guide-section-super" class="bg-amber-950/40 p-4 rounded-xl border border-amber-500/30 space-y-2 hidden">
-                    <h4 class="font-bold text-amber-400 text-sm flex items-center space-x-1"><span>👑</span> <span>ຄູ່ມືສຳລັບ ຜູ້ສ້າງເວັບໄຊ (Super Admin - ເຫັນທຸກຢ່າງແບບເຕັມສິດ)</span></h4>
+                    <h4 class="font-bold text-amber-400 text-sm flex items-center space-x-1"><span>👑</span> <span>ຄູ່ມືສຳລັບ ຜູ້ສ້າງເວັບໄຊ (Super Admin)</span></h4>
                     <ul class="list-disc list-inside space-y-1.5 text-slate-300">
-                        <li><b>ການຈັດການຂ່າວສານ:</b> ມີສິດເພີ່ມ, ແກ້ໄຂ, ແລະ ລົບຂ່າວສານ ຫຼື ແຈ້ງການທັງໝົດໃນລະບົບ.</li>
-                        <li><b>ການອະນຸມັດບົດລາຍງານ:</b> ກວດສອບ ແລະ ກົດອະນຸມັດບົດລາຍງານການອະນາໄມຂອງສະມາຊິກເພື່ອໃຫ້ໄດ້ຮັບ +1 ຄະແນນ.</li>
-                        <li><b>ການຈັດການຫົວຂໍ້ອະນາໄມ:</b> ເພີ່ມ ແລະ ລົບລາຍການຕິດຕາມການອະນາໄມພ້ອມອັບໂຫຼດຮູບພາບ.</li>
-                        <li><b>ການຄວບຄຸມລະບົບ:</b> ສາມາດເຂົ້າເຖິງທຸກຟັງຊັນ ແລະ ຈັດການຄວາມຮຽບຮ້ອຍທັງໝົດຂອງເວັບໄຊໄດ້ຢ່າງອິດສະຫຼະ.</li>
+                        <li><b>ການຈັດການຄະແນນພິເສດ:</b> ສามารถບວກ (+) ຫຼື ລົບ (-) ຄະແນນໃຫ້ແຕ່ລະຫ້ອງໄດ້ໂດຍກົງຈາກ Admin Panel.</li>
+                        <li><b>ການຈັດການຂ່າວສານ & ລົບລາຍງານ:</b> ມີສິດເຕັມທີ່ໃນການເພີ່ມ, ແກ້ໄຂ, ລົບຂ່າວສານ ແລະ ລົບລາຍງານ.</li>
                     </ul>
                 </div>
             </div>
@@ -599,7 +615,7 @@
         </div>
     </div>
 
-    <!-- MODAL: Blocked Location User Modal (นอกเมืองดานัง) -->
+    <!-- MODAL: Blocked Location User Modal -->
     <div id="location-blocked-modal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl flex items-center justify-center hidden z-50 p-4">
         <div class="bg-slate-900 border border-amber-500/50 rounded-2xl max-w-md w-full p-8 space-y-5 shadow-2xl text-center animate-fade-in">
             <div class="w-16 h-16 bg-amber-600/20 border border-amber-500/40 text-amber-400 text-3xl rounded-2xl mx-auto flex items-center justify-center shadow-lg">📍🚫</div>
@@ -725,7 +741,6 @@
         let allNews = [];
         let allCyberTasks = [];
         let allMemberReports = [];
-        let allFeedbacks = [];
         let notifications = JSON.parse(localStorage.getItem('user_notifications') || '[]');
         let currentShareData = { title: '', text: '', url: '' };
         let chatUnsubscribe = null;
@@ -772,7 +787,6 @@
         function initButterfliesMovement() {
             const butterflies = document.querySelectorAll('.interactive-butterfly');
             
-            // ໃຫ້ແມງກະເບື້ອແຕ່ລະໂຕມີຕຳແໜ່ງ ແລະ ຄວາມเร็วແບບສຸ່ມເລັກນ້ອຍ
             butterflies.forEach((bf, index) => {
                 let posX = Math.random() * window.innerWidth * 0.8;
                 let posY = Math.random() * window.innerHeight * 0.8;
@@ -782,7 +796,6 @@
                 bf.style.left = `${posX}px`;
                 bf.style.top = `${posY}px`;
 
-                // ຟັງຊັນເຄື່ອນທີ່ອັດຕະໂນມັດ
                 setInterval(() => {
                     posX += speedX;
                     posY += speedY;
@@ -795,7 +808,6 @@
                 }, 50);
             });
 
-            // ບິນຕາມເມົ້າ ຫຼື ການຈິ້ມໜ້າຈໍ
             window.addEventListener('pointermove', (e) => {
                 const mouseX = e.clientX;
                 const mouseY = e.clientY;
@@ -809,7 +821,6 @@
             });
         }
 
-        // 💻 ກວດສອບອຸປະກອນ
         function checkDeviceRestriction() {
             const isDesktop = getDeviceType() === 'desktop';
             const isCurrentlyAdmin = userRole === 'admin';
@@ -820,9 +831,8 @@
             }
         }
 
-        // 📍 ກວດສອບພິກັດ GPS ວ່າຢູ່ໃນເມືອງດານັງ, ຫວຽດນາມ ຫຼືບໍ່ (ຍົກເວັ້ນ Admin)
         function checkLocationRestriction() {
-            if (userRole === 'admin') return; // Admin ຜ່ານໄດ້ເລີຍ
+            if (userRole === 'admin') return;
 
             if ("geolocation" in navigator) {
                 navigator.geolocation.getCurrentPosition((position) => {
@@ -840,7 +850,7 @@
                         document.getElementById('room-login-modal').classList.add('hidden');
                     }
                 }, (error) => {
-                    console.warn("Geolocation permission denied or error:", error);
+                    console.warn("Geolocation error:", error);
                 }, { timeout: 10000 });
             }
         }
@@ -857,9 +867,7 @@
             return R * c;
         }
 
-        function deg2rad(deg) {
-            return deg * (Math.PI/180);
-        }
+        function deg2rad(deg) { return deg * (Math.PI/180); }
 
         window.openAdminLoginFromBlocked = () => {
             document.getElementById('desktop-blocked-modal').classList.add('hidden');
@@ -867,7 +875,7 @@
             document.getElementById('room-login-modal').classList.remove('hidden');
         };
 
-        // 🐍 Snake Game Logic & Controls
+        // 🐍 Snake Game Logic
         window.startSnakeGame = () => {
             document.getElementById('snake-overlay').classList.add('hidden');
             snake = [
@@ -895,16 +903,13 @@
                 y: Math.floor(Math.random() * cols) * gridSize
             };
             snake.forEach(part => {
-                if (part.x === frog.x && part.y === frog.y) {
-                    spawnFrog();
-                }
+                if (part.x === frog.x && part.y === frog.y) spawnFrog();
             });
         }
 
         function gameLoop() {
             dx = nextDx;
             dy = nextDy;
-
             const head = { x: snake[0].x + dx, y: snake[0].y + dy };
 
             if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) {
@@ -920,7 +925,6 @@
             }
 
             snake.unshift(head);
-
             if (head.x === frog.x && head.y === frog.y) {
                 score += 10;
                 document.getElementById('snake-score').innerText = score;
@@ -933,7 +937,6 @@
             } else {
                 snake.pop();
             }
-
             drawSnakeGame();
         }
 
@@ -941,7 +944,6 @@
             const canvas = document.getElementById('snakeCanvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
-
             ctx.fillStyle = '#020617';
             ctx.fillRect(0, 0, canvasSize, canvasSize);
 
@@ -1002,25 +1004,16 @@
             } else {
                 userSec.classList.remove('hidden');
             }
-
             document.getElementById('guide-modal').classList.remove('hidden');
         };
 
-        window.closeGuideModal = () => {
-            document.getElementById('guide-modal').classList.add('hidden');
-        };
+        window.closeGuideModal = () => document.getElementById('guide-modal').classList.add('hidden');
 
         function initAntiCopyProtection() {
             document.addEventListener('contextmenu', (e) => e.preventDefault());
             document.addEventListener('copy', (e) => {
                 e.preventDefault();
-                alert('⚠️ ຂໍອະໄພ, ລະບົບປ້ອງກັນການຄັດລອກ (Copy) ຂໍ້ຄວາມ!');
-            });
-            document.addEventListener('keydown', (e) => {
-                if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'S')) {
-                    e.preventDefault();
-                    alert('⚠️ ລະບົບປ້ອງກັນການຄັດລອກຂໍ້ມູນ!');
-                }
+                alert('⚠️ ຂໍອະໄພ, ລະບົບປ້ອງກັນການຄັດລອກຂໍ້ຄວາມ!');
             });
         }
 
@@ -1031,10 +1024,7 @@
                 glow.style.left = `${e.clientX}px`;
                 glow.style.top = `${e.clientY}px`;
                 document.body.appendChild(glow);
-
-                setTimeout(() => {
-                    glow.remove();
-                }, 600);
+                setTimeout(() => glow.remove(), 600);
             });
         }
 
@@ -1043,28 +1033,20 @@
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 for (let i = 0; i < 3; i++) {
                     setTimeout(() => {
-                        if (audioCtx.state === 'suspended') {
-                            audioCtx.resume();
-                        }
+                        if (audioCtx.state === 'suspended') audioCtx.resume();
                         const osc = audioCtx.createOscillator();
                         const gain = audioCtx.createGain();
-                        
                         osc.type = 'sine';
                         osc.frequency.setValueAtTime(880, audioCtx.currentTime);
-                        
                         gain.gain.setValueAtTime(1.0, audioCtx.currentTime);
                         gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                        
                         osc.connect(gain);
                         gain.connect(audioCtx.destination);
-                        
                         osc.start();
                         osc.stop(audioCtx.currentTime + 0.3);
                     }, i * 350);
                 }
-            } catch (e) {
-                console.error("Audio play error:", e);
-            }
+            } catch (e) { console.error(e); }
         }
 
         function addNotification(title, message) {
@@ -1078,7 +1060,6 @@
             notifications.unshift(newNotif);
             if (notifications.length > 20) notifications.pop();
             localStorage.setItem('user_notifications', JSON.stringify(notifications));
-            
             updateNotificationUI();
             playLoudAlertSound();
         }
@@ -1087,7 +1068,6 @@
             const badge = document.getElementById('notification-badge');
             const bellIcon = document.getElementById('bell-icon');
             const list = document.getElementById('notification-list');
-
             const unreadCount = notifications.filter(n => !n.read).length;
 
             if (unreadCount > 0) {
@@ -1118,7 +1098,6 @@
         window.toggleNotificationDropdown = () => {
             const dropdown = document.getElementById('notification-dropdown');
             dropdown.classList.toggle('hidden');
-
             if (!dropdown.classList.contains('hidden')) {
                 notifications.forEach(n => n.read = true);
                 localStorage.setItem('user_notifications', JSON.stringify(notifications));
@@ -1138,8 +1117,7 @@
                 if (!isInitialLoad) {
                     snapshot.docChanges().forEach((change) => {
                         if (change.type === "added") {
-                            const newsData = change.doc.data();
-                            addNotification("📢 ແຈ້ງການ/ຂ່າວສານໃໝ່!", newsData.title);
+                            addNotification("📢 ແຈ້ງການ/ຂ່າວສານໃໝ່!", change.doc.data().title);
                         }
                     });
                 }
@@ -1158,9 +1136,7 @@
                     });
                 }
                 isInitialLoad = false;
-            }, () => {
-                isInitialLoad = false;
-            });
+            }, () => { isInitialLoad = false; });
         }
 
         async function verifySubAdminSession() {
@@ -1171,24 +1147,20 @@
                     const docSnap = await getDoc(docRef);
                     if (docSnap.exists()) {
                         const data = docSnap.data();
-                        
                         if (adminKey === 'SUB_ADMIN_1') {
                             let devices = data.devices || [];
                             if (!devices.includes(deviceSessionId)) {
-                                alert('⚠️ ບັນຊີ Admin ຮອງ 1 ນີ້ ຖືກລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ! ລະບົບຈະພາທ່ານອອກຈາກລະບົບ.');
+                                alert('⚠️ ບັນຊີ Admin ຮອງ 1 ນີ້ ຖືກລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ!');
                                 await logoutSession();
                             }
                         } else {
-                            const activeDevice = data.deviceId;
-                            if (activeDevice !== deviceSessionId) {
-                                alert('⚠️ ບັນຊີນີ້ຖືກລັອກອິນຈາກເຄື່ອງມືຖືເຄື່ອງອື່ນແລ້ວ! ລະບົບຈະພາທ່ານອອກຈາກລະບົບ.');
+                            if (data.deviceId !== deviceSessionId) {
+                                alert('⚠️ ບັນຊີນີ້ຖືກລັອກອິນຈາກເຄື່ອງມືຖືເຄື່ອງອື່ນແລ້ວ!');
                                 await logoutSession();
                             }
                         }
                     }
-                } catch (e) {
-                    console.error(e);
-                }
+                } catch (e) { console.error(e); }
             }
         }
 
@@ -1199,19 +1171,8 @@
         function updateLiveClock() {
             const clockElement = document.getElementById('live-clock');
             if (!clockElement) return;
-
             const now = new Date();
-            const options = { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric', 
-                hour: '2-digit', 
-                minute: '2-digit', 
-                second: '2-digit',
-                hour12: false 
-            };
-            clockElement.innerText = now.toLocaleDateString('lo-LA', options);
+            clockElement.innerText = now.toLocaleDateString('lo-LA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
         }
 
         window.handleLoginTypeChange = (val) => {
@@ -1226,11 +1187,7 @@
                 adminFields.classList.remove('hidden');
             } else if (val.startsWith('SUB_ADMIN')) {
                 subAdminFields.classList.remove('hidden');
-                if (val === 'SUB_ADMIN_1') {
-                    hintElem.innerText = '* ໄອດີນີ້ ສາມາດລັອກອິນໄດ້ສູງສຸດ 2 ເຄື່ອງພ້ອມກັນ';
-                } else {
-                    hintElem.innerText = '* 1 ໄອດີ ສາມາດລັອກອິນໄດ້ພຽງ 1 ເຄື່ອງເທົ່ານັ້ນ';
-                }
+                hintElem.innerText = (val === 'SUB_ADMIN_1') ? '* ໄອດີນີ້ ສາມາດລັອກອິນໄດ້ສູງສຸດ 2 ເຄື່ອງພ້ອມກັນ' : '* 1 ໄອດີ ສາມາດລັອກອິນໄດ້ພຽງ 1 ເຄື່ອງເທົ່ານັ້ນ';
             }
         };
 
@@ -1241,6 +1198,7 @@
             const roomDisplay = document.getElementById('member-room-display');
             const feedbackRoomDisplay = document.getElementById('feedback-room-display');
             const adminChatLi = document.getElementById('tab-admin-chat-li');
+            const superAdminSpecialPoints = document.getElementById('super-admin-special-points');
 
             if (currentRoomUser) {
                 roomModal.classList.add('hidden');
@@ -1258,10 +1216,16 @@
                 if (userRole === 'admin') {
                     adminBox.classList.remove('hidden');
                     if (adminChatLi) adminChatLi.classList.remove('hidden');
+                    if (isSuperAdmin()) {
+                        if(superAdminSpecialPoints) superAdminSpecialPoints.classList.remove('hidden');
+                    } else {
+                        if(superAdminSpecialPoints) superAdminSpecialPoints.classList.add('hidden');
+                    }
                     listenAdminChat();
                 } else {
                     adminBox.classList.add('hidden');
                     if (adminChatLi) adminChatLi.classList.add('hidden');
+                    if(superAdminSpecialPoints) superAdminSpecialPoints.classList.add('hidden');
                     if (chatUnsubscribe) { chatUnsubscribe(); chatUnsubscribe = null; }
                 }
             } else {
@@ -1271,6 +1235,7 @@
                 authNav.innerHTML = `<span class="text-xs text-amber-400 font-semibold">⚠️ ກະລຸນາເລືອກຫ້ອງກ່ອນ</span>`;
                 adminBox.classList.add('hidden');
                 if (adminChatLi) adminChatLi.classList.add('hidden');
+                if(superAdminSpecialPoints) superAdminSpecialPoints.classList.add('hidden');
                 if (chatUnsubscribe) { chatUnsubscribe(); chatUnsubscribe = null; }
             }
 
@@ -1285,106 +1250,63 @@
         window.confirmRoomLogin = async () => {
             const select = document.getElementById('login-room-select');
             const val = select.value;
-
-            if (!val) {
-                alert('ກະລຸນາເລືອກຫ້ອງພັກ ຫຼື ໂໝດ Admin!');
-                return;
-            }
+            if (!val) { alert('ກະລຸນາເລືອກຫ້ອງພັກ ຫຼື ໂໝດ Admin!'); return; }
 
             if (val === 'SUPER_ADMIN') {
                 const email = document.getElementById('admin-email-input').value;
                 const password = document.getElementById('admin-password-input').value;
-
-                if (!email || !password) {
-                    alert('ກະລຸນາປ້ອນອີເມວ ແລະ ລະຫັດຜ່ານຜູ້ສ້າງໃຫ້ຄົບຖ້ວນ!');
-                    return;
-                }
+                if (!email || !password) { alert('ກະລຸນາປ້ອນອີເມວ ແລະ ລະຫັດຜ່ານຜູ້ສ້າງ!'); return; }
 
                 try {
                     const userCredential = await signInWithEmailAndPassword(auth, email, password);
                     currentRoomUser = `ຜູ້ສ້າງ: ${userCredential.user.email}`;
                     userRole = 'admin';
-
                     localStorage.setItem('current_room_user', currentRoomUser);
                     localStorage.setItem('current_user_role', userRole);
                     document.getElementById('desktop-blocked-modal').classList.add('hidden');
                     document.getElementById('location-blocked-modal').classList.add('hidden');
                     checkRoomAuthUI();
-                } catch (err) {
-                    alert('ລັອກອິນຜູ້ສ້າງບໍ່ສຳເລັດ: ' + err.message);
-                }
+                } catch (err) { alert('ລັອກອິນຜູ້ສ້າງບໍ່ສຳເລັດ: ' + err.message); }
             } else if (val.startsWith('SUB_ADMIN')) {
                 const pinInput = document.getElementById('sub-admin-pin').value;
-                const expectedPin = subAdminPins[val];
-
-                if (pinInput !== expectedPin) {
-                    alert('❌ ລະຫັດຜ່ານ PIN ບໍ່ຖືກຕ້ອງ!');
-                    return;
-                }
+                if (pinInput !== subAdminPins[val]) { alert('❌ ລະຫັດຜ່ານ PIN ບໍ່ຖືກຕ້ອງ!'); return; }
 
                 const adminName = val === 'SUB_ADMIN_1' ? 'Admin ຮອງ 1' : val === 'SUB_ADMIN_2' ? 'Admin ຮອງ 2' : 'Admin ຮອງ 3';
-
                 try {
                     const docRef = doc(db, "admin_sessions", val);
                     const docSnap = await getDoc(docRef);
 
                     if (val === 'SUB_ADMIN_1') {
-                        let devices = [];
-                        if (docSnap.exists()) {
-                            devices = docSnap.data().devices || [];
-                        }
-
+                        let devices = docSnap.exists() ? (docSnap.data().devices || []) : [];
                         if (!devices.includes(deviceSessionId)) {
-                            if (devices.length >= 2) {
-                                alert(`⚠️ ຂໍອະໄພ! "${adminName}" ນີ້ ມີການລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ.`);
-                                return;
-                            }
+                            if (devices.length >= 2) { alert(`⚠️ "${adminName}" ນี้ ມີການລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ.`); return; }
                             devices.push(deviceSessionId);
                         }
-
-                        await setDoc(docRef, {
-                            devices: devices,
-                            timestamp: new Date()
-                        }, { merge: true });
-
+                        await setDoc(docRef, { devices: devices, timestamp: new Date() }, { merge: true });
                     } else {
                         if (docSnap.exists()) {
                             const data = docSnap.data();
-                            const lastActive = data.timestamp ? data.timestamp.toMillis() : 0;
-                            const nowTime = Date.now();
-                            if (data.deviceId !== deviceSessionId && (nowTime - lastActive < 7200000)) {
-                                alert(`⚠️ ຂໍອະໄພ! "${adminName}" ນີ້ ກຳລັງຖືກເປີດໃຊ້ງານຢູ່ເທິງມືຖືເຄື່ອງອື່ນແລ້ວ (ຈຳກັດ 1 ໄອດີ ຕໍ່ 1 ເຄື່ອງ).`);
+                            if (data.deviceId !== deviceSessionId && (Date.now() - (data.timestamp ? data.timestamp.toMillis() : 0) < 7200000)) {
+                                alert(`⚠️ "${adminName}" ນີ້ ກຳລັງຖືກເປີດໃຊ້ງານຢູ່ເທິງມືຖືເຄື່ອງອື່ນແລ້ວ!`);
                                 return;
                             }
                         }
-
-                        await setDoc(docRef, {
-                            deviceId: deviceSessionId,
-                            timestamp: new Date()
-                        });
+                        await setDoc(docRef, { deviceId: deviceSessionId, timestamp: new Date() });
                     }
 
                     currentRoomUser = adminName;
                     userRole = 'admin';
-
                     localStorage.setItem('current_room_user', currentRoomUser);
                     localStorage.setItem('current_user_role', userRole);
                     document.getElementById('desktop-blocked-modal').classList.add('hidden');
                     document.getElementById('location-blocked-modal').classList.add('hidden');
                     checkRoomAuthUI();
                     alert(`🎉 ເຂົ້າສູ່ລະບົບ ${adminName} ສຳເລັດ!`);
-                } catch (err) {
-                    alert('ຜິດພາດໃນການເຊື່ອມຕໍ່: ' + err.message);
-                }
+                } catch (err) { alert('ຜິດພາດ: ' + err.message); }
             } else {
-                if (getDeviceType() === 'desktop') {
-                    alert('⚠️ ຂໍອະໄພ! ຫ້າມ User ເຂົ້າຜ່ານຄອມພິວເຕີ.');
-                    return;
-                }
-
+                if (getDeviceType() === 'desktop') { alert('⚠️ ຫ້າມ User ເຂົ້າຜ່ານຄອມພິວເຕີ.'); return; }
                 currentRoomUser = val;
                 userRole = 'user';
-
                 localStorage.setItem('current_room_user', currentRoomUser);
                 localStorage.setItem('current_user_role', userRole);
                 checkRoomAuthUI();
@@ -1393,33 +1315,59 @@
 
         window.logoutSession = async () => {
             try {
-                if (userRole === 'admin' && currentRoomUser.includes('ຜູ້ສ້າງ')) {
-                    await signOut(auth);
-                } else if (userRole === 'admin' && currentRoomUser.includes('Admin ຮອງ 1')) {
+                if (userRole === 'admin' && currentRoomUser.includes('ຜູ້ສ້າງ')) await signOut(auth);
+                else if (userRole === 'admin' && currentRoomUser.includes('Admin ຮອງ 1')) {
                     const docRef = doc(db, "admin_sessions", "SUB_ADMIN_1");
                     const docSnap = await getDoc(docRef);
                     if (docSnap.exists()) {
-                        let devices = docSnap.data().devices || [];
-                        devices = devices.filter(id => id !== deviceSessionId);
+                        let devices = (docSnap.data().devices || []).filter(id => id !== deviceSessionId);
                         await updateDoc(docRef, { devices: devices });
                     }
                 }
-            } catch (err) {
-                console.error(err);
-            }
+            } catch (e) { console.error(e); }
             localStorage.removeItem('current_room_user');
             localStorage.removeItem('current_user_role');
             currentRoomUser = null;
             userRole = 'user';
-            
             document.getElementById('login-room-select').value = "";
-            document.getElementById('admin-auth-fields').classList.add('hidden');
-            document.getElementById('sub-admin-fields').classList.add('hidden');
-            document.getElementById('sub-admin-pin').value = "";
-
             checkRoomAuthUI();
             checkDeviceRestriction();
             checkLocationRestriction();
+        };
+
+        // ⭐ ຟັງຊັນໃຫ້ຄະແນນພິເສດ (ບວກ/ລົບ) ຈາກຜູ້ສ້າງເວັບໄຊ
+        window.submitSpecialPoint = async () => {
+            if (!isSuperAdmin()) {
+                alert('⚠️ ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນທີ່ມີສິດປັບຄະແນນພິເສດ!');
+                return;
+            }
+            const room = document.getElementById('special-room-select').value;
+            const pointInput = document.getElementById('special-point-value').value;
+            if (!room) { alert('ກະລຸນາເລືອກຫ້ອງພັກ!'); return; }
+            const points = parseInt(pointInput);
+            if (isNaN(points)) { alert('ກະລຸນາໃສ່ຈຳນວນຄະແນນທີ່ຖືກຕ້ອງ (ເຊັ່ນ: 1 ຫຼື -1)'); return; }
+
+            try {
+                const dateStr = new Date().toLocaleString('lo-LA');
+                const reasonText = points >= 0 ? `➕ ຮັບຄະແນນພິເສດ (+${points}) ຈາກຜູ້ສ້າງເວັບໄຊ` : `➖ ຖືກຫັກຄະແນນ (${points}) ຈາກຜູ້ສ້າງເວັບໄຊ`;
+
+                await addDoc(collection(db, "member_reports"), {
+                    room: room,
+                    name: "ຜູ້ສ້າງເວັບໄຊ (Super Admin)",
+                    description: reasonText,
+                    mediaUrls: [],
+                    date: dateStr,
+                    weekTag: "special_adjustment_" + Date.now(),
+                    approved: true
+                });
+
+                alert(`🎉 ບັນທຶກການປັບຄະແນນໃຫ້ [${room}] ຈຳນວນ ${points > 0 ? '+' + points : points} ຄະແນນ ສຳເລັດແລ້ວ!`);
+                document.getElementById('special-point-value').value = '';
+                document.getElementById('special-room-select').value = '';
+                loadMemberReports();
+                loadFullScoreSummary();
+                loadFullScoreboard();
+            } catch (err) { alert('ຜິດພາດ: ' + err.message); }
         };
 
         window.switchTab = (tab) => {
@@ -1433,16 +1381,6 @@
             const adminChatSec = document.getElementById('section-admin-chat');
             const butterflyLayer = document.getElementById('butterfly-layer');
             
-            const newsBtn = document.getElementById('tab-news-btn');
-            const scoreSummaryBtn = document.getElementById('tab-score-summary-btn');
-            const scoreboardBtn = document.getElementById('tab-scoreboard-btn');
-            const cyberBtn = document.getElementById('tab-cyber-btn');
-            const memberBtn = document.getElementById('tab-member-btn');
-            const snakeGameBtn = document.getElementById('tab-snake-game-btn');
-            const feedbackBtn = document.getElementById('tab-user-feedback-btn');
-            const adminChatBtn = document.getElementById('tab-admin-chat-btn');
-            const catBox = document.getElementById('news-categories-box');
-
             newsSec.classList.add('hidden');
             scoreSummarySec.classList.add('hidden');
             scoreboardSec.classList.add('hidden');
@@ -1452,63 +1390,23 @@
             feedbackSec.classList.add('hidden');
             if(adminChatSec) adminChatSec.classList.add('hidden');
 
-            // 🦋 ຖ້າຢູ່ໜ້າເກມງູ ໃຫ້ເຊື່ອງຜີເສື້ອສີທອງອອກ, ຖ້າຢູ່ໜ້າອື່ນໃຫ້ສະແດງຕາມປົກກະຕິ
             if (tab === 'snake-game') {
                 if (butterflyLayer) butterflyLayer.classList.add('hidden');
             } else {
                 if (butterflyLayer) butterflyLayer.classList.remove('hidden');
             }
-            
-            newsBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
-            scoreSummaryBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-amber-300";
-            scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
-            cyberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
-            memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400";
-            snakeGameBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-300";
-            feedbackBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-pink-400";
-            if(adminChatBtn) adminChatBtn.className = "w-full text-left px-3.5 py-3 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-300 font-bold bg-sky-600/30 border border-sky-500/60 shadow-lg";
 
-            if (tab === 'news') {
-                newsSec.classList.remove('hidden');
-                newsBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2";
-                catBox.classList.remove('hidden');
-            } else if (tab === 'score-summary') {
-                scoreSummarySec.classList.remove('hidden');
-                scoreSummaryBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-amber-600/35 text-amber-300 font-bold transition duration-200 flex items-center space-x-2 border border-amber-500/40";
-                catBox.classList.add('hidden');
-                loadFullScoreSummary();
-            } else if (tab === 'scoreboard') {
-                scoreboardSec.classList.remove('hidden');
-                scoreboardBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-700 text-slate-100 font-medium transition duration-200 flex items-center space-x-2";
-                catBox.classList.add('hidden');
-                loadFullScoreboard();
-            } else if (tab === 'cyber') {
-                cyberSec.classList.remove('hidden');
-                cyberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2";
-                catBox.classList.add('hidden');
-                loadCyberTasks();
-            } else if (tab === 'member') {
-                memberSec.classList.remove('hidden');
-                memberBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/35 text-emerald-300 font-medium transition duration-200 flex items-center space-x-2 text-emerald-400";
-                catBox.classList.add('hidden');
-                loadMemberReports();
-            } else if (tab === 'snake-game') {
-                snakeGameSec.classList.remove('hidden');
-                snakeGameBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-emerald-600/40 text-emerald-200 font-bold transition duration-200 flex items-center space-x-2 border border-emerald-500/50 shadow-md";
-                catBox.classList.add('hidden');
-            } else if (tab === 'user-feedback') {
-                feedbackSec.classList.remove('hidden');
-                feedbackBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-pink-600/35 text-pink-300 font-medium transition duration-200 flex items-center space-x-2 text-pink-400";
-                catBox.classList.add('hidden');
-                loadUserFeedbacks();
-            } else if (tab === 'admin-chat') {
-                if (userRole !== 'admin') {
-                    alert('⚠️ ສຳລັບ Admin ເທົ່ານັ້ນ!');
-                    return;
-                }
+            if (tab === 'news') { newsSec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.remove('hidden'); }
+            else if (tab === 'score-summary') { scoreSummarySec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.add('hidden'); loadFullScoreSummary(); }
+            else if (tab === 'scoreboard') { scoreboardSec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.add('hidden'); loadFullScoreboard(); }
+            else if (tab === 'cyber') { cyberSec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.add('hidden'); loadCyberTasks(); }
+            else if (tab === 'member') { memberSec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.add('hidden'); loadMemberReports(); }
+            else if (tab === 'snake-game') { snakeGameSec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.add('hidden'); }
+            else if (tab === 'user-feedback') { feedbackSec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.add('hidden'); loadUserFeedbacks(); }
+            else if (tab === 'admin-chat') {
+                if (userRole !== 'admin') { alert('⚠️ ສຳລັບ Admin ເທົ່ານັ້ນ!'); return; }
                 adminChatSec.classList.remove('hidden');
-                adminChatBtn.className = "w-full text-left px-3.5 py-3 rounded-xl bg-sky-600 text-white font-bold transition duration-200 flex items-center space-x-2 border border-sky-400 shadow-xl";
-                catBox.classList.add('hidden');
+                document.getElementById('news-categories-box').classList.add('hidden');
             }
         };
 
@@ -1518,54 +1416,24 @@
                 document.getElementById('room-login-modal').classList.remove('hidden');
                 return;
             }
-
-            const textInput = document.getElementById('feedback-text-input');
-            const commentText = textInput.value.trim();
-
-            if (!commentText) {
-                alert('ກະລຸນາປ້ອນຂໍ້ຄວາມຄຳຄິດຄຳເຫັນກ່ອນ!');
-                return;
-            }
-
-            const timeStr = new Date().toLocaleTimeString('lo-LA', { hour: '2-digit', minute: '2-digit' });
-            const dateStr = new Date().toLocaleString('lo-LA');
-            const senderName = `💬 ຄວາມຄິດຄຳເຫັນຈາກ [${currentRoomUser}]`;
+            const commentText = document.getElementById('feedback-text-input').value.trim();
+            if (!commentText) { alert('ກະລຸນາປ້ອນຂໍ້ຄວາມຄຳຄິດຄຳເຫັນ!'); return; }
 
             try {
-                await addDoc(collection(db, "user_feedbacks"), {
-                    room: currentRoomUser,
-                    comment: commentText,
-                    date: dateStr,
-                    timestamp: new Date()
-                });
-
-                await addDoc(collection(db, "admin_chats"), {
-                    sender: senderName,
-                    text: commentText,
-                    time: timeStr,
-                    timestamp: new Date()
-                });
-
-                alert('🎉 ສົ່ງຄຳຄິດຄຳເຫັນຫາ Admin ທັງ 4 ຄົນສຳເລັດແລ້ວ!');
-                textInput.value = '';
+                await addDoc(collection(db, "user_feedbacks"), { room: currentRoomUser, comment: commentText, date: new Date().toLocaleString('lo-LA'), timestamp: new Date() });
+                await addDoc(collection(db, "admin_chats"), { sender: `💬 ຄວາມຄິດຄຳເຫັນຈາກ [${currentRoomUser}]`, text: commentText, time: new Date().toLocaleTimeString('lo-LA', { hour: '2-digit', minute: '2-digit' }), timestamp: new Date() });
+                alert('🎉 ສົ່ງຄຳຄິດຄຳເຫັນສຳເລັດ!');
+                document.getElementById('feedback-text-input').value = '';
                 loadUserFeedbacks();
-            } catch (err) {
-                alert('ສົ່ງຄຳຄິດຄຳເຫັນຜິດພາດ: ' + err.message);
-            }
+            } catch (err) { alert('ຜິດພາດ: ' + err.message); }
         };
 
         async function loadUserFeedbacks() {
             const container = document.getElementById('user-feedback-history');
             if (!container) return;
             try {
-                const q = query(collection(db, "user_feedbacks"), orderBy("timestamp", "desc"));
-                const snapshot = await getDocs(q);
-                
-                if (snapshot.empty) {
-                    container.innerHTML = `<div class="text-center py-6 text-slate-500">ຍັງບໍ່ມີປະຫວັດຄຳຄິດຄຳເຫັນ.</div>`;
-                    return;
-                }
-
+                const snapshot = await getDocs(query(collection(db, "user_feedbacks"), orderBy("timestamp", "desc")));
+                if (snapshot.empty) { container.innerHTML = `<div class="text-center py-6 text-slate-500">ຍັງບໍ່ມີປະຫວັດຄຳຄິດຄຳເຫັນ.</div>`; return; }
                 let html = '';
                 snapshot.forEach(docSnap => {
                     const fb = docSnap.data();
@@ -1581,30 +1449,21 @@
                         `;
                     }
                 });
-                container.innerHTML = html || `<div class="text-center py-6 text-slate-500">ຍັງບໍ່ມີປະຫວັດຄຳຄິດຄຳເຫັນສຳລັບຫ້ອງຂອງທ່ານ.</div>`;
-            } catch (err) {
-                container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${err.message}</div>`;
-            }
+                container.innerHTML = html || `<div class="text-center py-6 text-slate-500">ຍັງບໍ່ມີປະຫວັດສຳລັບຫ້ອງຂອງທ່ານ.</div>`;
+            } catch (err) { container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${err.message}</div>`; }
         }
 
         function listenAdminChat() {
             if (chatUnsubscribe) chatUnsubscribe();
-            const q = query(collection(db, "admin_chats"), orderBy("timestamp", "asc"));
-            chatUnsubscribe = onSnapshot(q, (snapshot) => {
+            chatUnsubscribe = onSnapshot(query(collection(db, "admin_chats"), orderBy("timestamp", "asc")), (snapshot) => {
                 const container = document.getElementById('admin-chat-messages');
                 if (!container) return;
-
-                if (snapshot.empty) {
-                    container.innerHTML = `<div class="text-center py-12 text-slate-500">ຍັງບໍ່ມີຂໍ້ຄວາມສົນທະນາ. ເລີ່ມສົນທະນາກັນເລີຍ!</div>`;
-                    return;
-                }
-
+                if (snapshot.empty) { container.innerHTML = `<div class="text-center py-12 text-slate-500">ຍັງບໍ່ມີຂໍ້ຄວາມສົນທະນາ.</div>`; return; }
                 let html = '';
                 snapshot.forEach((docSnap) => {
                     const msg = docSnap.data();
                     const isMe = msg.sender === currentRoomUser;
                     const isFeedback = msg.sender.includes('ຄວາມຄິດຄຳເຫັນ');
-                    
                     html += `
                         <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'} animate-fade-in">
                             <span class="text-[10px] text-slate-400 mb-1 px-1">${msg.sender} (${msg.time || ''})</span>
@@ -1616,32 +1475,17 @@
                 });
                 container.innerHTML = html;
                 container.scrollTop = container.scrollHeight;
-            }, (error) => {
-                console.error("Chat error:", error);
             });
         }
 
         window.sendAdminMessage = async () => {
             const input = document.getElementById('admin-chat-input');
             const text = input.value.trim();
-            if (!text) return;
-
-            if (userRole !== 'admin') {
-                alert('⚠️ ຂໍອະໄພ! ສະເພາະ Admin ເທົ່ານັ້ນທີ່ມີສິດສົ່ງຂໍ້ຄວາມໃນຫ້ອງແຊັດລົມວຽກ Admin.');
-                return;
-            }
-
+            if (!text || userRole !== 'admin') return;
             try {
                 input.value = '';
-                await addDoc(collection(db, "admin_chats"), {
-                    sender: currentRoomUser,
-                    text: text,
-                    time: new Date().toLocaleTimeString('lo-LA', { hour: '2-digit', minute: '2-digit' }),
-                    timestamp: new Date()
-                });
-            } catch (err) {
-                alert('ສົ່ງຂໍ້ຄວາມຜິດພາດ: ' + err.message);
-            }
+                await addDoc(collection(db, "admin_chats"), { sender: currentRoomUser, text: text, time: new Date().toLocaleTimeString('lo-LA', { hour: '2-digit', minute: '2-digit' }), timestamp: new Date() });
+            } catch (err) { alert('ຜິດພາດ: ' + err.message); }
         };
 
         async function loadFullScoreSummary() {
@@ -1652,15 +1496,10 @@
                 let scores = {};
                 let totalPts = 0;
                 let approvedReportsCount = 0;
-
                 const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
                 
-                // 📌 ກຳນົດຄ່າເລີ່ມຕົ້ນທຸກຫ້ອງໃຫ້ເທົ່າກັນ (1 ຄະແນນ) ໂດຍບໍ່ມີຫ້ອງໃດໄດ້ 0 ຄະແນນ (ລວມ 108, 110, 112)
-                rooms.forEach(r => {
-                    scores[r] = 1;
-                });
+                rooms.forEach(r => { scores[r] = 1; }); // ເລີ່ມຕົ້ນທຸກຫ້ອງທີ່ 1 ຄະແນນ
 
-                // ➕ ບວກຄະແນນເພີ່ມຕາມ Database ທີ່ກົດອະນຸມັດແລ້ວ
                 querySnapshot.forEach(docSnap => {
                     const data = docSnap.data();
                     if (data.approved && data.room) {
@@ -1670,14 +1509,10 @@
                 });
 
                 totalPts = Object.values(scores).reduce((a, b) => a + b, 0);
-
                 let maxPts = -1;
                 let topRoom = 'ຍັງບໍ່ມີຂໍ້ມູນ';
                 rooms.forEach(r => {
-                    if (scores[r] > maxPts) {
-                        maxPts = scores[r];
-                        topRoom = r;
-                    }
+                    if (scores[r] > maxPts) { maxPts = scores[r]; topRoom = r; }
                 });
 
                 document.getElementById('summary-top-room').innerText = `${topRoom} (${maxPts} ຄະແນນ)`;
@@ -1688,7 +1523,6 @@
                 container.innerHTML = rooms.map(room => {
                     const pts = scores[room] || 1;
                     const percent = Math.round((pts / highestPoint) * 100);
-
                     return `
                         <div class="space-y-1 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60">
                             <div class="flex justify-between items-center text-xs font-semibold">
@@ -1701,30 +1535,21 @@
                         </div>
                     `;
                 }).join('');
-
-            } catch (err) {
-                container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${err.message}</div>`;
-            }
+            } catch (err) { container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${err.message}</div>`; }
         }
 
         async function loadFullScoreboard() {
             const container = document.getElementById('full-scoreboard-container');
             if (!container) return;
-            container.innerHTML = `<div class="text-center py-12 text-slate-400 col-span-full">ກຳລັງໂຫຼດຄະແນນ...</div>`;
             try {
                 const querySnapshot = await getDocs(collection(db, "member_reports"));
                 let scores = {};
                 const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
                 
-                rooms.forEach(room => {
-                    scores[room] = 1;
-                });
-
+                rooms.forEach(room => { scores[room] = 1; });
                 querySnapshot.forEach(docSnap => {
                     const data = docSnap.data();
-                    if (data.approved && data.room) {
-                        scores[data.room] = (scores[data.room] || 1) + 1;
-                    }
+                    if (data.approved && data.room) { scores[data.room] = (scores[data.room] || 1) + 1; }
                 });
                 
                 container.innerHTML = rooms.map((room, index) => {
@@ -1747,9 +1572,7 @@
                         </div>
                     `;
                 }).join('');
-            } catch (err) {
-                container.innerHTML = `<div class="text-center py-12 text-red-400 col-span-full">ຜິດພາດ: ${err.message}</div>`;
-            }
+            } catch (err) { container.innerHTML = `<div class="text-center py-12 text-red-400 col-span-full">ຜິດພາດ: ${err.message}</div>`; }
         }
 
         function getDeviceType() {
@@ -1762,45 +1585,22 @@
         async function trackVisitor() {
             const today = new Date().toISOString().split('T')[0];
             const device = getDeviceType(); 
-            const sessionKey = `visited_${today}`;
-            
-            if (sessionStorage.getItem(sessionKey)) {
-                loadVisitorStats();
-                return;
-            }
+            if (sessionStorage.getItem(`visited_${today}`)) { loadVisitorStats(); return; }
 
             try {
-                const todayRef = doc(db, "visitors", today);
-                const totalRef = doc(db, "visitors", "total_stats");
-
                 await runTransaction(db, async (transaction) => {
+                    const todayRef = doc(db, "visitors", today);
+                    const totalRef = doc(db, "visitors", "total_stats");
                     const todayDoc = await transaction.get(todayRef);
-                    if (!todayDoc.exists()) {
-                        transaction.set(todayRef, { desktop: device === 'desktop' ? 1 : 0, mobile: device === 'mobile' ? 1 : 0, count: 1 });
-                    } else {
-                        transaction.update(todayRef, {
-                            desktop: increment(device === 'desktop' ? 1 : 0),
-                            mobile: increment(device === 'mobile' ? 1 : 0),
-                            count: increment(1)
-                        });
-                    }
+                    if (!todayDoc.exists()) transaction.set(todayRef, { desktop: device === 'desktop' ? 1 : 0, mobile: device === 'mobile' ? 1 : 0, count: 1 });
+                    else transaction.update(todayRef, { desktop: increment(device === 'desktop' ? 1 : 0), mobile: increment(device === 'mobile' ? 1 : 0), count: increment(1) });
 
                     const totalDoc = await transaction.get(totalRef);
-                    if (!totalDoc.exists()) {
-                        transaction.set(totalRef, { desktop: device === 'desktop' ? 1 : 0, mobile: device === 'mobile' ? 1 : 0, count: 1 });
-                    } else {
-                        transaction.update(totalRef, {
-                            desktop: increment(device === 'desktop' ? 1 : 0),
-                            mobile: increment(device === 'mobile' ? 1 : 0),
-                            count: increment(1)
-                        });
-                    }
+                    if (!totalDoc.exists()) transaction.set(totalRef, { desktop: device === 'desktop' ? 1 : 0, mobile: device === 'mobile' ? 1 : 0, count: 1 });
+                    else transaction.update(totalRef, { desktop: increment(device === 'desktop' ? 1 : 0), mobile: increment(device === 'mobile' ? 1 : 0), count: increment(1) });
                 });
-
-                sessionStorage.setItem(sessionKey, 'true');
-            } catch (err) {
-                console.error("Error tracking visitor:", err);
-            }
+                sessionStorage.setItem(`visited_${today}`, 'true');
+            } catch (e) { console.error(e); }
             loadVisitorStats();
         }
 
@@ -1813,38 +1613,26 @@
                     document.getElementById('visitor-mobile').innerText = (data.mobile || 0).toLocaleString();
                     document.getElementById('visitor-total').innerText = (data.count || 0).toLocaleString();
                 }
-            } catch (err) {
-                console.error("Error loading visitor stats:", err);
-            }
+            } catch (e) { console.error(e); }
         }
-
         trackVisitor();
 
         async function loadNews() {
             try {
-                const querySnapshot = await getDocs(collection(db, "news"));
+                const snapshot = await getDocs(collection(db, "news"));
                 allNews = [];
-                querySnapshot.forEach((docSnap) => {
-                    allNews.push({ id: docSnap.id, ...docSnap.data() });
-                });
+                snapshot.forEach(docSnap => allNews.push({ id: docSnap.id, ...docSnap.data() }));
                 document.getElementById('stat-total-news').innerText = allNews.length;
                 renderNews(allNews);
-            } catch (err) {
-                console.error(err);
-            }
+            } catch (e) { console.error(e); }
         }
 
         function renderNews(newsList) {
             const container = document.getElementById('news-container');
-            if (newsList.length === 0) {
-                container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">ຍັງບໍ່ມີຂ່າວສານໃນລະບົບ</div>`;
-                return;
-            }
+            if (newsList.length === 0) { container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">ຍັງບໍ່ມີຂ່າວສານ</div>`; return; }
             container.innerHTML = newsList.map(item => {
                 const likes = item.likes || [];
                 const hasLiked = currentRoomUser && likes.includes(currentRoomUser);
-                const likeCount = likes.length;
-
                 return `
                     <div id="post-${item.id}" class="bg-slate-800/85 backdrop-blur border border-slate-700/80 rounded-2xl p-5 space-y-3 shadow-xl animate-fade-in">
                         <div class="flex justify-between items-start">
@@ -1858,18 +1646,15 @@
                         
                         <div class="flex flex-wrap justify-between items-center pt-3 border-t border-slate-700/60 gap-2">
                             <div class="flex items-center space-x-2">
-                                <button onclick="toggleLike('${item.id}')" class="text-xs px-3.5 py-1.5 rounded-xl border transition flex items-center space-x-1.5 ${hasLiked ? 'bg-pink-600/30 text-pink-400 border-pink-500/50 hover:bg-pink-600/40' : 'bg-slate-900/60 text-slate-300 border-slate-700 hover:bg-slate-700'}">
-                                    <span>${hasLiked ? '❤️' : '🤍'}</span> 
-                                    <span>${hasLiked ? 'ຖືກໃຈແລ້ວ' : 'ຖືກໃຈ'} (${likeCount})</span>
+                                <button onclick="toggleLike('${item.id}')" class="text-xs px-3.5 py-1.5 rounded-xl border transition flex items-center space-x-1.5 ${hasLiked ? 'bg-pink-600/30 text-pink-400 border-pink-500/50' : 'bg-slate-900/60 text-slate-300 border-slate-700'}">
+                                    <span>${hasLiked ? '❤️' : '🤍'}</span> <span>${hasLiked ? 'ຖືກໃຈແລ້ວ' : 'ຖືກໃຈ'} (${likes.length})</span>
                                 </button>
-                                <button onclick="handleShare('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.content.replace(/'/g, "\\'").substring(0, 100)}...')" class="text-xs bg-emerald-900/60 hover:bg-emerald-800 text-emerald-300 px-3.5 py-1.5 rounded-xl border border-emerald-700/60 transition flex items-center space-x-1">
-                                    <span>🔗</span> <span>ແຊ (Share)</span>
-                                </button>
+                                <button onclick="handleShare('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.content.replace(/'/g, "\\'").substring(0, 100)}...')" class="text-xs bg-emerald-900/60 text-emerald-300 px-3.5 py-1.5 rounded-xl border border-emerald-700/60 transition"><span>🔗</span> <span>ແຊ</span></button>
                             </div>
                             ${userRole === 'admin' && isSuperAdmin() ? `
                                 <div class="flex space-x-2">
-                                    <button onclick="openEditNewsModal('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.category}', '${item.content.replace(/'/g, "\\'").replace(/\n/g, '\\n')}')" class="text-xs bg-amber-600 hover:bg-amber-500 px-3 py-1.5 rounded-lg text-white font-medium transition flex items-center space-x-1"><span>✏️</span> <span>ແກ້ໄຂຂ່າວ</span></button>
-                                    <button onclick="deleteNewsItem('${item.id}')" class="text-xs bg-red-950 hover:bg-red-900 px-3 py-1.5 rounded-lg text-red-300 transition">ລົບ</button>
+                                    <button onclick="openEditNewsModal('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.category}', '${item.content.replace(/'/g, "\\'").replace(/\n/g, '\\n')}')" class="text-xs bg-amber-600 px-3 py-1.5 rounded-lg text-white">ແກ້ໄຂ</button>
+                                    <button onclick="deleteNewsItem('${item.id}')" class="text-xs bg-red-950 px-3 py-1.5 rounded-lg text-red-300">ລົບ</button>
                                 </div>
                             ` : ''}
                         </div>
@@ -1879,81 +1664,44 @@
         }
 
         window.toggleLike = async (newsId) => {
-            if (!currentRoomUser) {
-                alert('ກະລຸນາເລືອກຫ້ອງພັກກ່ອນກົດຖືກໃຈ!');
-                document.getElementById('room-login-modal').classList.remove('hidden');
-                return;
-            }
-
+            if (!currentRoomUser) { alert('ກະລຸນາເລືອກຫ້ອງພັກກ່ອນ!'); document.getElementById('room-login-modal').classList.remove('hidden'); return; }
             const newsRef = doc(db, "news", newsId);
             try {
                 await runTransaction(db, async (transaction) => {
-                    const newsDoc = await transaction.get(newsRef);
-                    if (!newsDoc.exists()) throw "ບໍ່ພົບຂ່າວສານນີ້!";
-
-                    const data = newsDoc.data();
-                    let likes = data.likes || [];
-                    const roomUser = currentRoomUser;
-
-                    if (likes.includes(roomUser)) {
-                        likes = likes.filter(r => r !== roomUser);
-                    } else {
-                        likes.push(roomUser);
-                    }
-
+                    const docSnap = await transaction.get(newsRef);
+                    if (!docSnap.exists()) throw "ບໍ່ພົບຂ່າວສານ!";
+                    let likes = docSnap.data().likes || [];
+                    if (likes.includes(currentRoomUser)) likes = likes.filter(r => r !== currentRoomUser);
+                    else likes.push(currentRoomUser);
                     transaction.update(newsRef, { likes: likes });
                 });
                 loadNews();
-            } catch (err) {
-                console.error("Error updating like:", err);
-                alert('ຜິດພາດ: ' + err);
-            }
+            } catch (e) { alert('ຜິດພາດ: ' + e); }
         };
 
         window.handleShare = (id, title, text) => {
-            const baseUrl = window.location.origin + window.location.pathname;
-            const postUrl = `${baseUrl}#post-${id}`;
-            currentShareData = { title, text, url: postUrl };
+            currentShareData = { title, text, url: `${window.location.origin + window.location.pathname}#post-${id}` };
             document.getElementById('share-modal-title').innerText = title;
             document.getElementById('share-modal').classList.remove('hidden');
         };
-
         window.closeShareModal = () => document.getElementById('share-modal').classList.add('hidden');
 
         window.shareToPlatform = (platform) => {
-            const encodedUrl = encodeURIComponent(currentShareData.url);
-            const encodedText = encodeURIComponent(`${currentShareData.title}\n${currentShareData.text}`);
-            let shareUrl = '';
-
-            switch (platform) {
-                case 'facebook': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`; break;
-                case 'messenger': shareUrl = `https://www.facebook.com/dialog/send?link=${encodedUrl}&app_id=291494419107518&redirect_uri=${encodedUrl}`; break;
-                case 'telegram': shareUrl = `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`; break;
-                case 'whatsapp': shareUrl = `https://api.whatsapp.com/send?text=${encodedText}%20${encodedUrl}`; break;
-                case 'copy':
-                    navigator.clipboard.writeText(`${currentShareData.title}\n${currentShareData.url}`).then(() => {
-                        alert('ກ໊ອບປີ້ລິ້ງໂພສສຳເລັດແລ້ວ!');
-                        closeShareModal();
-                    });
-                    return;
+            const url = encodeURIComponent(currentShareData.url);
+            const text = encodeURIComponent(`${currentShareData.title}\n${currentShareData.text}`);
+            if (platform === 'facebook') window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+            else if (platform === 'messenger') window.open(`https://www.facebook.com/dialog/send?link=${url}&app_id=291494419107518&redirect_uri=${url}`, '_blank', 'width=600,height=400');
+            else if (platform === 'telegram') window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+            else if (platform === 'whatsapp') window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, '_blank', 'width=600,height=400');
+            else if (platform === 'copy') {
+                navigator.clipboard.writeText(`${currentShareData.title}\n${currentShareData.url}`).then(() => { alert('ກ໊ອບປີ້ລິ້ງສຳເລັດ!'); closeShareModal(); });
             }
-            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
         };
 
-        window.openNewsModal = () => {
-            if (!isSuperAdmin()) {
-                alert('⚠️ ຂໍອະໄພ! Admin ຮອງບໍ່ມີສິດເພີ່ມ/ແກ້ໄຂ/ລົບຂ່າວສານ ຕ້ອງຜ່ານຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ.');
-                return;
-            }
-            document.getElementById('news-modal').classList.remove('hidden');
-        };
+        window.openNewsModal = () => { if (!isSuperAdmin()) { alert('ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ!'); return; } document.getElementById('news-modal').classList.remove('hidden'); };
         window.closeNewsModal = () => document.getElementById('news-modal').classList.add('hidden');
-        
         window.openEditNewsModal = (id, title, category, content) => {
-            if (!isSuperAdmin()) {
-                alert('⚠️ ຂໍອະໄພ! Admin ຮອງບໍ່ມີສິດແກ້ໄຂຂ່າວສານ.');
-                return;
-            }
+            if (!isSuperAdmin()) { alert('ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ!'); return; }
             document.getElementById('edit-news-id').value = id;
             document.getElementById('edit-news-title').value = title;
             document.getElementById('edit-news-category').value = category;
@@ -1963,217 +1711,134 @@
         window.closeEditNewsModal = () => document.getElementById('edit-news-modal').classList.add('hidden');
 
         window.saveNews = async () => {
-            if (!isSuperAdmin()) {
-                alert('⚠️ ຂໍອະໄພ! ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນທີ່ມີສິດບັນທຶກຂ່າວສານ.');
-                return;
-            }
+            if (!isSuperAdmin()) return;
             const title = document.getElementById('news-title').value;
             const category = document.getElementById('news-category').value;
             const content = document.getElementById('news-content').value;
-            const date = new Date().toLocaleString('lo-LA');
             if (!title || !content) return alert('ກະລຸນາຕື່ມຂໍ້ມູນໃຫ້ຄົບ');
-            await addDoc(collection(db, "news"), { title, category, content, date, likes: [] });
+            await addDoc(collection(db, "news"), { title, category, content, date: new Date().toLocaleString('lo-LA'), likes: [] });
             alert('ເພີ່ມຂ່າວສຳເລັດ!');
             closeNewsModal();
             loadNews();
         };
 
         window.updateNews = async () => {
-            if (!isSuperAdmin()) {
-                alert('⚠️ ຂໍອະໄພ! ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນທີ່ມີສິດແກ້ໄຂຂ່າວສານ.');
-                return;
-            }
+            if (!isSuperAdmin()) return;
             const id = document.getElementById('edit-news-id').value;
             const title = document.getElementById('edit-news-title').value;
             const category = document.getElementById('edit-news-category').value;
             const content = document.getElementById('edit-news-content').value;
             if (!title || !content) return alert('ກະລຸນາຕື່ມຂໍ້ມູນໃຫ້ຄົບ');
-            
-            try {
-                await updateDoc(doc(db, "news", id), { title, category, content });
-                alert('ແກ້ໄຂຂ່າວສຳເລັດ!');
-                closeEditNewsModal();
-                loadNews();
-            } catch (err) {
-                alert('ແກ້ໄຂຜິດພາດ: ' + err.message);
-            }
+            await updateDoc(doc(db, "news", id), { title, category, content });
+            alert('ແກ້ໄຂຂ່າວສຳເລັດ!');
+            closeEditNewsModal();
+            loadNews();
         };
 
         window.deleteNewsItem = async (id) => {
-            if (!isSuperAdmin()) {
-                alert('⚠️ ຂໍອະໄພ! Admin ຮອງບໍ່ມີສິດລົບຂ່າວສານ.');
-                return;
-            }
-            if (confirm('ລົບຂ່າວນີ້ແທ້ບໍ?')) {
-                await deleteDoc(doc(db, "news", id));
-                loadNews();
-            }
+            if (!isSuperAdmin()) return;
+            if (confirm('ລົບຂ່າວນີ້ແທ້ບໍ?')) { await deleteDoc(doc(db, "news", id)); loadNews(); }
         };
 
         const resizeAndConvertBase64 = (file) => {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
-                reader.onload = (event) => {
+                reader.onload = (e) => {
                     const img = new Image();
-                    img.src = event.target.result;
+                    img.src = e.target.result;
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
-                        let width = img.width;
-                        let height = img.height;
-                        const MAX_WIDTH = 800;
-                        const MAX_HEIGHT = 800;
-                        if (width > height) {
-                            if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
-                        } else {
-                            if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; }
-                        }
-                        canvas.width = width;
-                        canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
+                        let w = img.width, h = img.height;
+                        if (w > h) { if (w > 800) { h *= 800 / w; w = 800; } }
+                        else { if (h > 800) { w *= 800 / h; h = 800; } }
+                        canvas.width = w; canvas.height = h;
+                        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
                         resolve(canvas.toDataURL('image/jpeg', 0.7));
                     };
-                    img.onerror = (error) => reject(error);
+                    img.onerror = reject;
                 };
-                reader.onerror = (error) => reject(error);
+                reader.onerror = reject;
             });
         };
 
         function getWeekNumber(d) {
             d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
             d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
-            var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
-            var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1)/7);
-            return `${d.getUTCFullYear()}-W${weekNo}`;
+            return `${d.getUTCFullYear()}-W${Math.ceil((((d - new Date(Date.UTC(d.getUTCFullYear(),0,1))) / 86400000) + 1)/7)}`;
         }
 
         window.submitMemberReport = async () => {
             if (!currentRoomUser || currentRoomUser.includes('Admin') || currentRoomUser.includes('ຜູ້ສ້າງ')) {
-                alert('ກະລຸນາລັອກອິນດ້ວຍໄອດີຫ້ອງພັກກ່ອນສົ່ງບົດລາຍງານ!');
+                alert('ກະລຸນາລັອກອິນດ້ວຍໄອດີຫ້ອງພັກກ່ອນ!');
                 document.getElementById('room-login-modal').classList.remove('hidden');
                 return;
             }
 
             const now = new Date();
-            const currentDay = now.getDay();
-            
-            if (currentDay !== 0) {
-                alert('⚠️ ຂໍອະໄພ! ລະບົບອະນຸຍາດໃຫ້ສົ່ງບົດລາຍງານສະເພາະ "ມື້ວັນອາທິດ" ເທົ່ານັ້ນ.');
-                return;
-            }
-
-            const currentHour = now.getHours();
-            const currentMinute = now.getMinutes();
-            const totalMinutesNow = currentHour * 60 + currentMinute;
-            const startMinutes = 16 * 60;
-            const endMinutes = 19 * 60;
-
-            if (totalMinutesNow < startMinutes || totalMinutesNow > endMinutes) {
-                alert(`⚠️ ຂໍອະໄພ! ລະບົບເປີດໃຫ້ສົ່ງບົດລາຍງານສະເພາະຊ່ວງເວລາ 16:00 ຫາ 19:00 ໂມງເທົ່ານັ້ນ.`);
-                return;
-            }
+            if (now.getDay() !== 0) { alert('⚠️ ລະບົບອະນຸຍາດໃຫ້ສົ່ງສະເພາະມື້ວັນອາທິດເທົ່ານັ້ນ!'); return; }
+            const totalMinutesNow = now.getHours() * 60 + now.getMinutes();
+            if (totalMinutesNow < 960 || totalMinutesNow > 1140) { alert('⚠️ ເວລາສົ່ງ: 16:00 - 19:00 ໂມງ!'); return; }
 
             const name = document.getElementById('member-name').value;
-            const roomNumber = currentRoomUser;
             const description = document.getElementById('member-task-desc').value;
             const fileInput = document.getElementById('member-media-files');
             const statusText = document.getElementById('member-upload-status');
-
-            if (!name || !description) {
-                alert('ກະລຸນາປ້ອນຊື່ ແລະ ລາຍລະອຽດການອະນາໄມໃຫ້ຄົບຖ້ວນ');
-                return;
-            }
+            if (!name || !description) return alert('ກະລຸນາປ້ອນຂໍ້ມູນໃຫ້ຄົບ');
 
             const files = fileInput.files;
-            if (files.length < 3) {
-                alert(`ກະລຸນາຖ່າຍຮູບສົດຜ່ານກ້ອງຢ່າງໜ້ອຍ 3 ຮູບ`);
-                return;
-            }
+            if (files.length < 3) return alert('ກະລຸນາຖ່າຍຮູບສົດຢ່າງໜ້ອຍ 3 ຮູບ');
 
             const currentWeekStr = getWeekNumber(now);
             const reportsSnap = await getDocs(collection(db, "member_reports"));
-            let roomAlreadySubmittedThisWeek = false;
-
+            let submitted = false;
             reportsSnap.forEach(docSnap => {
-                const data = docSnap.data();
-                if (data.room === roomNumber && data.weekTag === currentWeekStr) {
-                    roomAlreadySubmittedThisWeek = true;
-                }
+                if (docSnap.data().room === currentRoomUser && docSnap.data().weekTag === currentWeekStr) submitted = true;
             });
+            if (submitted) return alert('⚠️ ຫ້ອງຂອງທ່ານສົ່ງບົດລາຍງານສຳລັບອາທິດນີ້ໄປແລ້ວ!');
 
-            if (roomAlreadySubmittedThisWeek) {
-                alert(`⚠️ ຂໍອະໄພ! "${roomNumber}" ໄດ້ມີການສົ່ງບົດລາຍງານສຳລັບອາທິດນີ້ໄປແລ້ວ!`);
-                return;
-            }
-
-            statusText.innerText = `ກຳລັງຍໍ່ຂະໜາດ ແລະ ປະມວນຜົນຮູບຖ່າຍສົດ (0/${files.length})...`;
-
+            statusText.innerText = `ກຳລັງປະມວນຜົນຮູບຖ່າຍ (0/${files.length})...`;
             try {
                 let mediaUrls = [];
                 for (let i = 0; i < files.length; i++) {
-                    statusText.innerText = `ກຳລັງປະມວນຜົນຮູບທີ່ (${i + 1}/${files.length})`;
-                    const base64Img = await resizeAndConvertBase64(files[i]);
-                    mediaUrls.push(base64Img);
+                    statusText.innerText = `ກຳລັງປະມວນຜົນຮູບที่ (${i + 1}/${files.length})`;
+                    mediaUrls.push(await resizeAndConvertBase64(files[i]));
                 }
-
-                statusText.innerText = `ກຳລັງສົ່ງບົດລາຍງານເຂົ້າລະບົບ...`;
-                const dateStr = new Date().toLocaleString('lo-LA');
-
+                statusText.innerText = `ກຳລັງສົ່ງບົດລາຍງານ...`;
                 await addDoc(collection(db, "member_reports"), {
-                    room: roomNumber,
-                    name: name,
-                    description: description,
-                    mediaUrls: mediaUrls,
-                    date: dateStr,
-                    weekTag: currentWeekStr,
-                    approved: false
+                    room: currentRoomUser, name, description, mediaUrls, date: new Date().toLocaleString('lo-LA'), weekTag: currentWeekStr, approved: false
                 });
-
-                alert('ສົ່ງບົດລາຍງານສຳເລັດ! ກະລຸນາລໍຖ້າ Admin ອະນຸມັດເພື່ອຮັບ +1 ຄະແນນ.');
+                alert('ສົ່ງບົດລາຍງານສຳເລັດ! ລໍຖ້າ Admin ອະນຸມັດ.');
                 document.getElementById('member-name').value = '';
                 document.getElementById('member-task-desc').value = '';
                 fileInput.value = '';
-                statusText.innerText = '⚠️ ລະບົບຈະບັງຄັບເປີດກ້ອງຖ່າຍສົດ ຢ່າງໜ້ອຍ 3 ຮູບຂຶ້ນໄປ';
-
+                statusText.innerText = '⚠️ ລະບົບຈະບັງຄັບເປີດກ້ອງຖ່າຍສົດ ຢ່າງໜ້ອຍ 3 ຮູບ';
                 loadMemberReports();
                 loadFullScoreSummary();
-            } catch (err) {
-                console.error(err);
-                alert('ສົ່ງບົດລາຍງານຜິດພາດ: ' + err.message);
-                statusText.innerText = 'ສົ່ງບໍ່ສຳເລັດ, ກະລຸນາລອງໃໝ່ອີກຄັ້ງ';
-            }
+            } catch (e) { alert('ຜິດພາດ: ' + e.message); statusText.innerText = 'ສົ່ງບໍ່ສຳເລັດ'; }
         };
 
         async function loadMemberReports() {
             const container = document.getElementById('member-reports-container');
             if (!container) return;
-            container.innerHTML = `<div class="text-center py-6 text-slate-400">ກຳລັງໂຫຼດລາຍການ...</div>`;
             try {
-                const querySnapshot = await getDocs(collection(db, "member_reports"));
+                const snapshot = await getDocs(collection(db, "member_reports"));
                 allMemberReports = [];
-                querySnapshot.forEach((docSnap) => {
-                    allMemberReports.push({ id: docSnap.id, ...docSnap.data() });
-                });
+                snapshot.forEach(docSnap => allMemberReports.push({ id: docSnap.id, ...docSnap.data() }));
                 renderMemberReports();
-            } catch (err) {
-                container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${err.message}</div>`;
-            }
+            } catch (e) { container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${e.message}</div>`; }
         }
 
         function renderMemberReports() {
             const container = document.getElementById('member-reports-container');
             if (!container) return;
-            if (allMemberReports.length === 0) {
-                container.innerHTML = `<div class="text-center py-8 text-slate-500 bg-slate-900/50 rounded-xl border border-slate-700">ຍັງບໍ່ມີບົດລາຍງານຈາກສະມາຊິກ</div>`;
-                return;
-            }
+            if (allMemberReports.length === 0) { container.innerHTML = `<div class="text-center py-8 text-slate-500">ຍັງບໍ່ມີບົດລາຍງານ</div>`; return; }
             container.innerHTML = allMemberReports.map(rep => `
                 <div class="bg-slate-900/85 border ${rep.approved ? 'border-emerald-600' : 'border-slate-700'} rounded-xl p-4 space-y-3 shadow-md animate-fade-in">
                     <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2">
-                        <span class="font-bold text-emerald-400">🏠 ໄອດີຫ້ອງ: ${rep.room || 'ບໍ່ລະບຸ'} | 👤 ຜູ້ສົ່ງ: ${rep.name}</span>
+                        <span class="font-bold text-emerald-400">🏠 ຫ້ອງ: ${rep.room || ''} | 👤 ຜູ້ສົ່ງ: ${rep.name}</span>
                         <div class="flex items-center space-x-2">
-                            <span class="px-2 py-0.5 rounded text-[10px] ${rep.approved ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-amber-950 text-amber-300 border border-amber-800'}">
+                            <span class="px-2 py-0.5 rounded text-[10px] ${rep.approved ? 'bg-emerald-950 text-emerald-300' : 'bg-amber-950 text-amber-300'}">
                                 ${rep.approved ? '✅ ອະນຸມັດແລ້ວ (+1 ຄະແນນ)' : '⏳ ລໍຖ້າ Admin ອະນຸມັດ'}
                             </span>
                             <span class="text-slate-400">${rep.date || ''}</span>
@@ -2181,195 +1846,119 @@
                     </div>
                     <p class="text-sm text-slate-200 whitespace-pre-line">${rep.description}</p>
                     <div class="grid grid-cols-3 sm:grid-cols-4 gap-2 pt-2">
-                        ${rep.mediaUrls.map((url, idx) => `
+                        ${(rep.mediaUrls || []).map((url, idx) => `
                             <div class="relative group">
-                                <a href="${url}" target="_blank"><img src="${url}" class="w-full h-20 object-cover rounded-lg hover:opacity-80 transition border border-slate-700"></a>
-                                <a href="${url}" download="hygiene_image_${idx+1}.jpg" class="absolute bottom-1 right-1 bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] px-1.5 py-0.5 rounded shadow flex items-center space-x-0.5 opacity-95 transition">
-                                    <span>📥</span> <span>ໂຫຼດ</span>
-                                </a>
+                                <a href="${url}" target="_blank"><img src="${url}" class="w-full h-20 object-cover rounded-lg border border-slate-700"></a>
+                                <a href="${url}" download="img_${idx+1}.jpg" class="absolute bottom-1 right-1 bg-emerald-600 text-white text-[10px] px-1.5 py-0.5 rounded">📥</a>
                             </div>
                         `).join('')}
                     </div>
                     <div class="flex justify-end space-x-2 pt-2">
                         ${userRole === 'admin' ? `
-                            ${!rep.approved ? `<button onclick="approveMemberReport('${rep.id}')" class="text-xs bg-emerald-600 hover:bg-emerald-500 px-3 py-1.5 rounded-lg text-white font-medium transition">✅ ອະນຸມັດ (+1 ຄະແນນ)</button>` : ''}
-                            ${isSuperAdmin() ? `<button onclick="deleteMemberReport('${rep.id}')" class="text-xs bg-red-950 hover:bg-red-900 px-3 py-1.5 rounded-lg text-red-300 transition">ລົບລາຍງານ</button>` : ''}
-                        ` : `
-                            <span class="text-[11px] text-slate-500 italic">🔒 ສຳລັບ Admin ເທົ່ານັ້ນ</span>
-                        `}
+                            ${!rep.approved ? `<button onclick="approveMemberReport('${rep.id}')" class="text-xs bg-emerald-600 px-3 py-1.5 rounded-lg text-white font-medium">✅ ອະນຸມັດ (+1 ຄະແນນ)</button>` : ''}
+                            ${isSuperAdmin() ? `<button onclick="deleteMemberReport('${rep.id}')" class="text-xs bg-red-950 px-3 py-1.5 rounded-lg text-red-300">ລົບລາຍງານ</button>` : ''}
+                        ` : ''}
                     </div>
                 </div>
             `).join('');
         }
 
-        // ⚙️ ອັບເດດໃຫ້ Admin ຮອງ (SUB_ADMIN_1, 2, 3) ແລະ Super Admin ສามารถກົດອະນຸມັດໄດ້
+        // ⚙️ ອັບເດດໃຫ້ Admin ຮອງ (SUB_ADMIN_1, 2, 3) ສາມາດກົດອະນຸມັດໄດ້
         window.approveMemberReport = async (reportId) => {
-            if (userRole !== 'admin') {
-                alert('⚠️ ຂໍອະໄພ! ສະເພາະ Admin ເທົ່ານັ້ນທີ່ມີສິດອະນຸມັດບົດລາຍງານ.');
-                return;
-            }
-
+            if (userRole !== 'admin') { alert('⚠️ ສະເພາະ Admin ເທົ່ານັ້ນ!'); return; }
             const report = allMemberReports.find(r => r.id === reportId);
             if (!report) return;
 
             try {
                 await updateDoc(doc(db, "member_reports", reportId), { approved: true });
-
                 await addDoc(collection(db, "cyber_tasks"), {
-                    title: `${report.room || 'ຫ້ອງບໍ່ລະບຸ'} - ໂດຍ: ${report.name} (+1 ຄະແນນ)`,
+                    title: `${report.room || 'ຫ້ອງ'} - ໂດຍ: ${report.name} (+1 ຄະແນນ)`,
                     description: report.description,
                     mediaUrls: report.mediaUrls,
                     date: report.date || new Date().toLocaleString('lo-LA')
                 });
-
                 alert('ອະນຸມັດສຳເລັດ!');
                 loadMemberReports();
                 loadCyberTasks();
                 loadFullScoreSummary();
-            } catch (err) {
-                alert('ອະນຸມັດຜິດພາດ: ' + err.message);
-            }
+            } catch (e) { alert('ຜິດພາດ: ' + e.message); }
         };
 
         window.deleteMemberReport = async (id) => {
-            if (!isSuperAdmin()) {
-                alert('⚠️ ຂໍອະໄພ! ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນທີ່ມີສິດລົບລາຍງານ.');
-                return;
-            }
-            if (confirm('ລົບລາຍງານນີ້ແທ້ບໍ?')) {
-                await deleteDoc(doc(db, "member_reports", id));
-                loadMemberReports();
-                loadFullScoreSummary();
-            }
+            if (!isSuperAdmin()) { alert('ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ!'); return; }
+            if (confirm('ລົບລາຍງານນີ້ແທ້ບໍ?')) { await deleteDoc(doc(db, "member_reports", id)); loadMemberReports(); loadFullScoreSummary(); }
         };
 
         async function loadCyberTasks() {
             const container = document.getElementById('cyber-container');
             if (!container) return;
-            container.innerHTML = `<div class="text-center py-12 text-slate-400">ກຳລັງໂຫຼດລາຍການ...</div>`;
             try {
-                const querySnapshot = await getDocs(collection(db, "cyber_tasks"));
+                const snapshot = await getDocs(collection(db, "cyber_tasks"));
                 allCyberTasks = [];
-                querySnapshot.forEach((docSnap) => {
-                    allCyberTasks.push({ id: docSnap.id, ...docSnap.data() });
-                });
-                
-                const total = allCyberTasks.length;
-                const statElem = document.getElementById('stat-cyber-done');
-                if (statElem) statElem.innerText = `${total} / ${total}`;
-                
+                snapshot.forEach(docSnap => allCyberTasks.push({ id: docSnap.id, ...docSnap.data() }));
+                document.getElementById('stat-cyber-done').innerText = `${allCyberTasks.length} / ${allCyberTasks.length}`;
                 renderCyberTasks();
-            } catch (err) {
-                container.innerHTML = `<div class="text-center py-12 text-red-400">ຜິດພາດ: ${err.message}</div>`;
-            }
+            } catch (e) { container.innerHTML = `<div class="text-center py-12 text-red-400">ຜິດພາດ: ${e.message}</div>`; }
         }
 
         function renderCyberTasks() {
             const container = document.getElementById('cyber-container');
             if (!container) return;
-            if (allCyberTasks.length === 0) {
-                container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">ຍັງບໍ່ມີລາຍການຕິດຕາມການອະນາໄມ</div>`;
-                return;
-            }
-            container.innerHTML = allCyberTasks.map(task => {
-                const mediaHtml = task.mediaUrls && task.mediaUrls.length > 0 ? `
+            if (allCyberTasks.length === 0) { container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">ຍັງບໍ່ມີລາຍການ</div>`; return; }
+            container.innerHTML = allCyberTasks.map(task => `
+                <div class="bg-slate-800/85 backdrop-blur border border-emerald-600 bg-emerald-950/25 rounded-2xl p-5 shadow-lg animate-fade-in space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" checked disabled class="w-5 h-5 accent-emerald-500">
+                            <div>
+                                <h4 class="font-bold text-emerald-300 text-base">${task.title}</h4>
+                                <p class="text-[11px] text-emerald-400/90 mt-0.5">📅 ວັນເວລາ: ${task.date || ''}</p>
+                                <p class="text-xs text-slate-300 mt-1">${task.description || ''}</p>
+                            </div>
+                        </div>
+                        ${userRole === 'admin' && isSuperAdmin() ? `<button onclick="deleteCyberTask('${task.id}')" class="text-xs bg-red-950 px-3 py-1 rounded-lg text-red-300">ລົບ</button>` : ''}
+                    </div>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 pt-3 border-t border-slate-700">
-                        ${task.mediaUrls.map((url, idx) => `
+                        ${(task.mediaUrls || []).map((url, idx) => `
                             <div class="relative group">
-                                <a href="${url}" target="_blank"><img src="${url}" class="w-full h-24 object-cover rounded-xl hover:opacity-80 transition"></a>
-                                <a href="${url}" download="cyber_image_${idx+1}.jpg" class="absolute bottom-2 right-2 bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] px-2 py-1 rounded-lg shadow flex items-center space-x-1 opacity-95 transition">
-                                    <span>📥</span> <span>ດາວໂຫຼດຮູບ</span>
-                                </a>
+                                <a href="${url}" target="_blank"><img src="${url}" class="w-full h-24 object-cover rounded-xl"></a>
+                                <a href="${url}" download="cyber_${idx+1}.jpg" class="absolute bottom-2 right-2 bg-emerald-600 text-white text-[11px] px-2 py-1 rounded-lg">📥</a>
                             </div>
                         `).join('')}
                     </div>
-                ` : '';
-
-                return `
-                    <div class="bg-slate-800/85 backdrop-blur border border-emerald-600 bg-emerald-950/25 rounded-2xl p-5 shadow-lg animate-fade-in space-y-3">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <input type="checkbox" checked disabled class="w-5 h-5 accent-emerald-500 cursor-not-allowed">
-                                <div>
-                                    <h4 class="font-bold text-emerald-300 text-base">${task.title}</h4>
-                                    <p class="text-[11px] text-emerald-400/90 font-medium mt-0.5">📅 ວັນເວລາລາຍງານ: ${task.date || 'ບໍ່ລະບຸ'}</p>
-                                    <p class="text-xs text-slate-300 mt-1">${task.description || ''}</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <span class="text-xs px-3 py-1 rounded-full bg-emerald-900/80 text-emerald-200 border border-emerald-700">✅ ສຳເລັດແລ້ວ</span>
-                                ${userRole === 'admin' && isSuperAdmin() ? `<button onclick="deleteCyberTask('${task.id}')" class="text-xs bg-red-950 hover:bg-red-900 px-3 py-1 rounded-lg text-red-300 transition ml-2">ລົບ</button>` : ''}
-                            </div>
-                        </div>
-                        ${mediaHtml}
-                    </div>
-                `;
-            }).join('');
+                </div>
+            `).join('');
         }
 
-        window.openCyberModal = () => {
-            if (!isSuperAdmin()) {
-                alert('⚠️ ຂໍອະໄພ! ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນທີ່ມີສິດເພີ່ມຫົວຂໍ້ອະນາໄມ.');
-                return;
-            }
-            document.getElementById('cyber-modal').classList.remove('hidden');
-        };
+        window.openCyberModal = () => { if (!isSuperAdmin()) { alert('ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ!'); return; } document.getElementById('cyber-modal').classList.remove('hidden'); };
         window.closeCyberModal = () => document.getElementById('cyber-modal').classList.add('hidden');
 
         window.saveCyberTaskBase64 = async () => {
-            if (!isSuperAdmin()) {
-                alert('⚠️ ຂໍອະໄພ! ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນທີ່ມີສິດບັນທຶກ.');
-                return;
-            }
+            if (!isSuperAdmin()) return;
             const title = document.getElementById('cyber-task-title').value;
             const description = document.getElementById('cyber-task-desc').value;
-            const fileInput = document.getElementById('cyber-media-files');
-            const statusText = document.getElementById('upload-status');
-            
+            const files = document.getElementById('cyber-media-files').files;
             if (!title) return alert('ກະລຸນາໃສ່ຫົວຂໍ້');
+            if (files.length < 6) return alert('ກະລຸນາເລືອກຮູບພາບຂັ້ນຕ່ຳ 6 ຮູບ');
 
-            const files = fileInput.files;
-            if (files.length < 6) {
-                alert(`ກະລຸນາເລືອກຮູບພາບຂັ້ນຕ່ຳ 6 ຮູບ`);
-                return;
-            }
-
-            statusText.innerText = `ກຳລັງຍໍ່ຂະໜາດ ແລະ ປະມວນຜົນຮູບພາບ...`;
-
+            const statusText = document.getElementById('upload-status');
+            statusText.innerText = `ກຳລັງປະມວນຜົນຮູບພາບ...`;
             try {
                 let mediaUrls = [];
                 for (let i = 0; i < files.length; i++) {
-                    statusText.innerText = `ກຳລັງປະມວນຜົນຮູບທີ່ (${i + 1}/${files.length})`;
-                    const compressedBase64 = await resizeAndConvertBase64(files[i]);
-                    mediaUrls.push(compressedBase64);
+                    mediaUrls.push(await resizeAndConvertBase64(files[i]));
                 }
-
-                statusText.innerText = `ກຳລັງບັນທຶກຂໍ້ມູນລົງ Database...`;
-                const dateStr = new Date().toLocaleString('lo-LA');
-                await addDoc(collection(db, "cyber_tasks"), { title, description, mediaUrls, date: dateStr });
-                
-                alert('ເພີ່ມລາຍການ ແລະ ບັນທຶກຮູບພາບສຳເລັດ!');
+                await addDoc(collection(db, "cyber_tasks"), { title, description, mediaUrls, date: new Date().toLocaleString('lo-LA') });
+                alert('ເພີ່ມລາຍການສຳເລັດ!');
                 closeCyberModal();
-                fileInput.value = '';
-                statusText.innerText = 'ກະລຸນາເລືອກຮູບພາບຢ່າງໜ້ອຍ 6 ຮູບຂຶ້ນໄປ';
                 loadCyberTasks();
                 switchTab('cyber');
-            } catch (err) {
-                console.error(err);
-                alert('ເກີດຂໍ້ຜິດພາດ: ' + err.message);
-                statusText.innerText = 'ບັນທຶກບໍ່ສຳເລັດ';
-            }
+            } catch (e) { alert('ຜິດພາດ: ' + e.message); }
         };
 
         window.deleteCyberTask = async (id) => {
-            if (!isSuperAdmin()) {
-                alert('⚠️ ຂໍອະໄພ! ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນທີ່ມີສິດລົບລາຍການນີ້.');
-                return;
-            }
-            if (confirm('ລົບລາຍການນີ້ແທ້ບໍ?')) {
-                await deleteDoc(doc(db, "cyber_tasks", id));
-                loadCyberTasks();
-            }
+            if (!isSuperAdmin()) return;
+            if (confirm('ລົບລາຍການນີ້ແທ້ບໍ?')) { await deleteDoc(doc(db, "cyber_tasks", id)); loadCyberTasks(); }
         };
 
         window.filterCategory = (cat) => {
