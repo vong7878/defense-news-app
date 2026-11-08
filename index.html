@@ -226,7 +226,7 @@
                         <span>+</span> <span>ເພີ່ມຫົວຂໍ້ອະນາໄມ (Admin)</span>
                     </button>
 
-                    <!-- ⭐ ຈັດການຄະແນນພິເສດ (ສະເພາະຜູ້ສ້າງເວັບໄຊ) - ເລີ່ມຕົ້ນ 0 ຄະແນນ ແລະ ໃຫ້ຜູ້ສ້າງໃຫ້ເອງ -->
+                    <!-- ⭐ ຈັດການຄະແນນພິເສດ (ສະເພາະຜູ້ສ້າງເວັບໄຊ) -->
                     <div id="super-admin-special-points" class="mt-3 pt-3 border-t border-emerald-800 space-y-2 hidden">
                         <h3 class="font-bold text-amber-400 text-xs uppercase tracking-wider">⭐ ປັບຄະແນນພິເສດ (ບວກ/ລົບ)</h3>
                         <select id="special-room-select" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-100 font-bold">
@@ -242,7 +242,7 @@
                             <option value="ຫ້ອງ 114">ຫ້ອງ 114</option>
                         </select>
                         <div class="flex gap-2">
-                            <input type="number" id="special-point-value" placeholder="ໃສ່ຄະແນນ (ເຊັ່ນ: 1, 3, 5 ຫຼື -1)" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-100">
+                            <input type="number" id="special-point-value" placeholder="ໃສ່ຄະແນນ (ເຊັ່ນ: 3, 5 ຫຼື -1)" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-100">
                             <button onclick="submitSpecialPoint()" class="bg-amber-600 hover:bg-amber-500 text-white font-medium px-3 py-2 rounded-xl text-xs transition whitespace-nowrap shadow">
                                 ບັນທຶກ
                             </button>
@@ -284,7 +284,7 @@
                     <h2 class="text-2xl font-extrabold text-amber-400 flex items-center space-x-2">
                         <span>📊</span> <span>ໜ້າສະຫຼຸບຄະແນນການອະນາໄມທັງໝົດ (Dashboard)</span>
                     </h2>
-                    <p class="text-xs text-slate-300">ສະຫຼຸບອັນດັບຄວາມສະອາດ, ຄະແນນສະສົມ ແລະ ຜົນການປະຕິບັດງານຂອງທຸກໆຫ້ອງພັກ (ທຸກຫ້ອງເລີ່ມຕົ້ນທີ່ 0 ຄະແນນ)</p>
+                    <p class="text-xs text-slate-300">ສະຫຼຸບອັນດັບຄວາມສະອາດ, ຄະແນນສະສົມ ແລະ ຜົນການປະຕິບັດງານຂອງທຸກໆຫ້ອງພັກ (ເລີ່ມຕົ້ນที่ 0 ຄະແນນ)</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -325,7 +325,7 @@
             <div id="section-scoreboard" class="space-y-4 hidden animate-fade-in">
                 <div class="bg-gradient-to-r from-amber-950/85 to-slate-800/85 p-6 rounded-2xl border border-amber-600/50 shadow-xl space-y-2">
                     <h2 class="text-xl font-bold text-amber-400 flex items-center space-x-2"><span>🏆</span> <span>ຕາຕະລາງຄະແນນການອະນາໄມປະຈຳຫ້ອງ</span></h2>
-                    <p class="text-xs text-slate-300">ສະແດງຄະແນນສະສົມທັງໝົດຂອງແຕ່ລະຫ້ອງພັກ (ທຸກຫ້ອງເລີ່ມຕົ້ນທີ່ 0 ຄະແນນ)</p>
+                    <p class="text-xs text-slate-300">ສະແດງຄະແນນສະສົມທັງໝົດຂອງແຕ່ລະຫ້ອງພັກ</p>
                 </div>
                 <div id="full-scoreboard-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="text-center py-12 text-slate-400 col-span-full">ກຳລັງໂຫຼດຄະແນນ...</div>
@@ -381,7 +381,7 @@
 
                     <div class="pt-3">
                         <button onclick="submitMemberReport()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 px-4 rounded-xl transition text-sm shadow-lg">
-                            🚀 ສົ່ງບົດລາຍງານຮັບ +1 ຄະແນນ (ວັນອາທິດ 16:00 - 19:00)
+                            🚀 ສົ່ງບົດລາຍງານຮັບຄະແນນ (ວັນອາທິດ 16:00 - 19:00)
                         </button>
                     </div>
                 </div>
@@ -511,8 +511,7 @@
                         <li><b>ຂໍ້ຈຳກັດອຸປະກອນ:</b> ຕ້ອງເຂົ້າໃຊ້ງານຜ່ານ **ມືຖື (Mobile / Tablet)** ເທົ່ານັ້ນ! ຫ້າມເຂົ້າຜ່ານຄອມພິວເຕີ.</li>
                         <li><b>ເຂົ້າສູ່ລະບົບ:</b> ເລືອກຫ້ອງພັກຂອງທ່ານຈາກປ໋ອບອັບທຳອິດທີ່ເປີດຂຶ້ນມາ ເພື່ອເລີ່ມຕົ້ນໃຊ້ງານ.</li>
                         <li><b>ການສົ່ງບົດລາຍງານອະນາໄມ:</b> ສົ່ງໄດ້ສະເພາະ **ວັນອາທິດ ເວລາ 16:00 - 19:00 ໂມງ** ໂດຍຕ້ອງຖ່າຍຮູບສົດຜ່ານກ້ອງຢ່າງໜ້ອຍ 3 ຮູບ.</li>
-                        <li><b>ການປະກອບຄຳຄິດຄຳເຫັນ:</b> ສາມາດສົ່ງຄຳຄິດຄຳເຫັນ ຫຼື ຂໍ້ສະເໜີແນະໄປຫາ Admin ທັງ 4 ຄົນໄດ້.</li>
-                        <li><b>ຫຼິ້ນເກມງູກິນຂຽດ:</b> ເຂົ້າເມນູ "ເກມງູກິນຂຽດ" ທີ່ຖືກປັບຂະໜາດພໍດີຈໍມືຖື ແລະ ຫຼຸດຄວາມໄວລົງ!</li>
+                        <li><b>ການແຈ້ງເຕືອນ:</b> ລະບົບຈະສົ່ງສຽງ ແລະ ແຈ້ງເຕືອນໄປທີ່ກະດິ່ງ (🔔) ທັນທີເມື່ອ Admin ອະນຸມັດໂພສ ຫຼື ປັບຄະແນນ.</li>
                     </ul>
                 </div>
 
@@ -520,16 +519,14 @@
                     <h4 class="font-bold text-sky-400 text-sm flex items-center space-x-1"><span>⚙️</span> <span>ຄູ່ມືສຳລັບ Admin (Admin ຮອງ 1, 2, 3)</span></h4>
                     <ul class="list-disc list-inside space-y-1.5 text-slate-300">
                         <li><b>ການເຂົ້າສູ່ລະບົບ:</b> ສາມາດເຂົ້າໄດ້ທັງຄອມພິວເຕີ ແລະ ມືຖື ໂດຍໃຊ້ລະຫັດ PIN ທີ່ກຳນົດ.</li>
-                        <li><b>ການອະນຸມັດບົດລາຍງານ:</b> Admin ຮອງມີສິດກວດສອບ ແລະ ກົດອະນຸມັດບົດລາຍງານການອະນາໄມຂອງສະມາຊິກເພື່ອໃຫ້ໄດ້ຮັບ +1 ຄະແນນ.</li>
-                        <li><b>ການແຊັດວຽກ:</b> ສາມາດເຂົ້າໃຊ້ງານ "ຫ້ອງແຊັດລົມວຽກ Admin" ເພື່ອຕິດຕໍ່ສື່ສານກັນພາຍໃນ.</li>
+                        <li><b>ການອະນຸມັດບົດລາຍງານ:</b> Admin ຮອງມີສິດກວດສອບ ແລະ ກົດອະນຸມັດບົດລາຍງານການອະນາໄມ.</li>
                     </ul>
                 </div>
 
                 <div id="guide-section-super" class="bg-amber-950/40 p-4 rounded-xl border border-amber-500/30 space-y-2 hidden">
                     <h4 class="font-bold text-amber-400 text-sm flex items-center space-x-1"><span>👑</span> <span>ຄູ່ມືສຳລັບ ຜູ້ສ້າງເວັບໄຊ (Super Admin)</span></h4>
                     <ul class="list-disc list-inside space-y-1.5 text-slate-300">
-                        <li><b>ການຈັດການຄະແນນພິເສດ:</b> ສາມາດບວກ (ເຊັ່ນ: 1, 3, 5) ຫຼື ລົບ (ເຊັ່ນ: -1) ຄະແນນໃຫ້ແຕ່ລະຫ້ອງໄດ້ໂດຍກົງຈາກ Admin Panel.</li>
-                        <li><b>ການຈັດການຂ່າວສານ & ລົບລາຍງານ:</b> ມີສິດເຕັມທີ່ໃນການເພີ່ມ, ແກ້ໄຂ, ລົບຂ່າວສານ ແລະ ລົບລາຍງານ.</li>
+                        <li><b>ການຈັດການຄະແນນພິເສດ:</b> ສາມາດບວກ (ເຊັ່ນ: 3, 5) ຫຼື ລົບ (ເຊັ່ນ: -1) ຄະແນນໃຫ້ແຕ່ລະຫ້ອງໄດ້ໂດຍກົງຈາກ Admin Panel.</li>
                     </ul>
                 </div>
             </div>
@@ -719,7 +716,7 @@
             apiKey: "AIzaSyCiD4zPW-iNzSM6iMP8A4EmaxHInxB0Z9k",
             authDomain: "defense-news-app-2143d.firebaseapp.com",
             projectId: "defense-news-app-2143d",
-            storageBucket: "defense-news-app-2143d.firebasestorage.app",
+            storageBucket: "defense-news-app-2143d.appspot.com",
             messagingSenderId: "55873751006",
             appId: "1:55873751006:web:b7e9b971ae94a1f5d93f4f",
             measurementId: "G-YYM4JLS1L2"
@@ -783,7 +780,7 @@
             initButterfliesMovement();
         });
 
-        // 🦋 ຟັງຊັນສຳລັບໃຫ້ແມງກະເບື້ອຂຍັບບິນໄປມາອັດຕະໂນມັດ ແລະ ຕາມເມົ້າ/ນິ້ວມື
+        // 🦋 ຜີເສື້ອສີທອງບິນໄປມາ
         function initButterfliesMovement() {
             const butterflies = document.querySelectorAll('.interactive-butterfly');
             
@@ -1111,7 +1108,9 @@
             updateNotificationUI();
         };
 
+        // 🔔 ຟັງຊັນ Realtime Listener ຕິດຕາມການອະນຸມັດ ແລະ ຄະແນນພິເສດ ເພື່ອເຕືອນ User ໂດຍອັດຕະໂນມັດ
         function initRealtimeListeners() {
+            // 1. ຟັງຂ່າວສານໃໝ່
             const newsQuery = query(collection(db, "news"), orderBy("date", "desc"));
             globalNewsUnsubscribe = onSnapshot(newsQuery, (snapshot) => {
                 if (!isInitialLoad) {
@@ -1123,6 +1122,31 @@
                 }
             });
 
+            // 2. ຟັງການອະນຸມັດບົດລາຍງານ ແລະ ຄະແນນພິເສດ (ສຳລັບເຕືອນ User)
+            const reportsQuery = query(collection(db, "member_reports"), orderBy("date", "desc"));
+            onSnapshot(reportsQuery, (snapshot) => {
+                if (!isInitialLoad) {
+                    snapshot.docChanges().forEach((change) => {
+                        const data = change.doc.data();
+                        // ຖ້າຫ້ອງກົງກັບ User ທີ່ກຳລັງລັອກອິນຢູ່
+                        if (currentRoomUser && data.room === currentRoomUser) {
+                            if (data.approved && change.type === "modified") {
+                                addNotification("🎉 ບົດລາຍງານຖືກອະນຸມັດແລ້ວ!", `ຫ້ອງຂອງທ່ານ (${data.room}) ໄດ້ຮັບການອະນຸມັດແລ້ວ!`);
+                                loadFullScoreSummary();
+                                loadFullScoreboard();
+                            } else if (data.specialPoints !== undefined && change.type === "added") {
+                                const pts = data.specialPoints;
+                                const signText = pts > 0 ? `+${pts}` : `${pts}`;
+                                addNotification("⭐ ມີການປັບຄະແນນພິເສດ!", `ຫ້ອງຂອງທ່ານ (${data.room}) ຖືກປັບຄະແນນ ${signText} ຈາກຜູ້ສ້າງເວັບໄຊ!`);
+                                loadFullScoreSummary();
+                                loadFullScoreboard();
+                            }
+                        }
+                    });
+                }
+            });
+
+            // 3. ຟັງແຊັດ ແລະ ຄວາມຄິດຄຳເຫັນ
             const chatQuery = query(collection(db, "admin_chats"), orderBy("timestamp", "desc"));
             globalFeedbackUnsubscribe = onSnapshot(chatQuery, (snapshot) => {
                 if (!isInitialLoad) {
@@ -1345,7 +1369,7 @@
             const pointInput = document.getElementById('special-point-value').value;
             if (!room) { alert('ກະລຸນາເລືອກຫ້ອງພັກ!'); return; }
             const points = parseInt(pointInput);
-            if (isNaN(points) || points === 0) { alert('ກະລຸນາໃສ່ຈຳນວນຄະແນນທີ່ຖືກຕ້ອງ (ເຊັ່ນ: 1, 3, 5 ຫຼື -1)'); return; }
+            if (isNaN(points) || points === 0) { alert('ກະລຸນາໃສ່ຈຳນວນຄະແນນທີ່ຖືກຕ້ອງ (ເຊັ່ນ: 3, 5 ຫຼື -1)'); return; }
 
             try {
                 const dateStr = new Date().toLocaleString('lo-LA');
@@ -1848,7 +1872,7 @@
                         <span class="font-bold text-emerald-400">🏠 ຫ້ອງ: ${rep.room || ''} | 👤 ຜູ້ສົ່ງ: ${rep.name}</span>
                         <div class="flex items-center space-x-2">
                             <span class="px-2 py-0.5 rounded text-[10px] ${rep.approved ? 'bg-emerald-950 text-emerald-300' : 'bg-amber-950 text-amber-300'}">
-                                ${rep.approved ? '✅ ອະນຸມັດແລ້ວ (+1 ຄະແນນ)' : '⏳ ລໍຖ້າ Admin ອະນຸມັດ'}
+                                ${rep.approved ? '✅ ອະນຸມັດແລ້ວ' : '⏳ ລໍຖ້າ Admin ອະນຸມັດ'}
                             </span>
                             <span class="text-slate-400">${rep.date || ''}</span>
                         </div>
@@ -1864,7 +1888,7 @@
                     </div>
                     <div class="flex justify-end space-x-2 pt-2">
                         ${userRole === 'admin' ? `
-                            ${!rep.approved ? `<button onclick="approveMemberReport('${rep.id}')" class="text-xs bg-emerald-600 px-3 py-1.5 rounded-lg text-white font-medium">✅ ອະນຸມັດ (+1 ຄະແນນ)</button>` : ''}
+                            ${!rep.approved ? `<button onclick="approveMemberReport('${rep.id}')" class="text-xs bg-emerald-600 px-3 py-1.5 rounded-lg text-white font-medium">✅ ອະນຸມັດ</button>` : ''}
                             ${isSuperAdmin() ? `<button onclick="deleteMemberReport('${rep.id}')" class="text-xs bg-red-950 px-3 py-1.5 rounded-lg text-red-300">ລົບລາຍງານ</button>` : ''}
                         ` : ''}
                     </div>
@@ -1880,7 +1904,7 @@
             try {
                 await updateDoc(doc(db, "member_reports", reportId), { approved: true });
                 await addDoc(collection(db, "cyber_tasks"), {
-                    title: `${report.room || 'ຫ້ອງ'} - ໂດຍ: ${report.name} (+1 ຄະແນນ)`,
+                    title: `${report.room || 'ຫ້ອງ'} - ໂດຍ: ${report.name}`,
                     description: report.description,
                     mediaUrls: report.mediaUrls,
                     date: report.date || new Date().toLocaleString('lo-LA')
