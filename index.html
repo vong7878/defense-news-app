@@ -120,12 +120,12 @@
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center justify-between w-full sm:w-auto">
                 <div class="flex items-center space-x-3">
+                    <!-- ປຸ່ມສາມຈໍ້າ (⋮) ສຳລັບເປີດ/ປິດ Sidebar ຢູ່ມືຖື -->
+                    <button onclick="toggleSidebarMobile()" class="bg-slate-900/80 hover:bg-slate-800 p-2 rounded-xl border border-emerald-500/40 text-emerald-400 transition shadow flex items-center justify-center w-9 h-9 lg:hidden text-xl font-bold">
+                        ⋮
+                    </button>
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYff3WPJ1yzOiXHvS7NZuw-gyAjw25bht1HKPCVR3mSBYEhqInb6tgDUS-&s=10" alt="Logo" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-emerald-900/50 border border-emerald-500/40">
                     <div>
-                        <!-- ປຸ່ມສາມຈໍ້າ (⋮) ສຳລັບເປີດ/ປິດ Sidebar ຢູ່ມືຖື -->
-                <button onclick="toggleSidebarMobile()" class="bg-slate-900/80 hover:bg-slate-800 p-2 rounded-xl border border-emerald-500/40 text-emerald-400 transition shadow flex items-center justify-center w-9 h-9 lg:hidden text-xl font-bold">
-                    ⋮
-                </button>
                         <h1 class="font-bold text-lg tracking-wider text-emerald-400">ຈຸປ້ອງກັນຂ່າວສານ</h1>
                         <p class="text-xs text-emerald-300">Defense Unit News & Hygiene Tracking</p>
                     </div>
@@ -168,9 +168,12 @@
     <main class="flex-grow max-w-7xl mx-auto px-4 py-6 w-full grid grid-cols-1 lg:grid-cols-4 gap-6 relative z-30">
         
         <!-- Sidebar Navigation -->
-        <aside class="lg:col-span-1 space-y-6">
+        <aside id="sidebar-container" class="lg:col-span-1 space-y-6 hidden lg:block">
             <div class="bg-slate-800/85 backdrop-blur p-4 rounded-2xl border border-slate-700/80 shadow-xl">
-                <h2 class="font-bold text-emerald-400 mb-3 border-b border-slate-700 pb-2 text-sm uppercase tracking-wider">ເມນູຫຼັກ</h2>
+                <div class="flex justify-between items-center border-b border-slate-700 pb-2 mb-3">
+                    <h2 class="font-bold text-emerald-400 text-sm uppercase tracking-wider">ເມນູຫຼັກ</h2>
+                    <button onclick="toggleSidebarMobile()" class="text-slate-400 hover:text-white lg:hidden text-sm font-bold">✕ ປິດ</button>
+                </div>
                 <ul class="space-y-2 text-sm">
                     <li><button onclick="switchTab('news')" id="tab-news-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>📰</span> <span>ຂ່າວສານ & ແຈ້ງການ</span></button></li>
                     <li><button onclick="switchTab('score-summary')" id="tab-score-summary-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 text-amber-300 font-bold bg-amber-500/20 border border-amber-500/40"><span>📊</span> <span>ໜ້າສະຫຼຸບຄະແນນ (Summary)</span></button></li>
@@ -789,6 +792,17 @@
             initButterfliesMovement();
         });
 
+        // ☰ ຟັງຊັນສຳລັບເປີດ-ປິດ Sidebar (ເມນູດ້ານຂ້າງ) ຜ່ານປຸ່ມສາມຈໍ້າໃນມືຖື
+        window.toggleSidebarMobile = () => {
+            const sidebar = document.getElementById('sidebar-container');
+            sidebar.classList.toggle('hidden');
+            if (!sidebar.classList.contains('hidden')) {
+                sidebar.classList.add('fixed', 'inset-0', 'z-50', 'bg-slate-900/95', 'p-6', 'overflow-y-auto');
+            } else {
+                sidebar.classList.remove('fixed', 'inset-0', 'z-50', 'bg-slate-900/95', 'p-6', 'overflow-y-auto');
+            }
+        };
+
         function initButterfliesMovement() {
             const butterflies = document.querySelectorAll('.interactive-butterfly');
             butterflies.forEach((bf, index) => {
@@ -1328,6 +1342,12 @@
                 if (userRole !== 'admin') { alert('⚠️ ສຳລັບ Admin ເທົ່ານັ້ນ!'); return; }
                 adminChatSec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.add('hidden');
             }
+
+            // ປິດ Sidebar ອັດຕະໂນມັດເມື່ອກົດເລືອກເມນູໃນມືຖື
+            const sidebar = document.getElementById('sidebar-container');
+            if (window.innerWidth < 1024 && !sidebar.classList.contains('hidden')) {
+                toggleSidebarMobile();
+            }
         };
 
         window.submitUserFeedback = async () => {
@@ -1655,7 +1675,6 @@
             if (confirm('ລົບຂ່າວນີ້ແທ້ບໍ?')) { await deleteDoc(doc(db, "news", id)); loadNews(); }
         };
 
-        // ☁️ ຟັງຊັນອັບໂຫລດວິດີໂອຂຶ້ນ Google Drive ຜ່ານ Apps Script Web App
         const uploadVideoToGoogleDrive = (roomName, file) => {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -1673,7 +1692,7 @@
                         });
                         const result = await response.json();
                         if (result.status === "success") {
-                            resolve(result.webViewUrl); // ส่งคืนลิงก์ดูบน Google Drive
+                            resolve(result.webViewUrl);
                         } else {
                             reject(new Error(result.message || "อัปโหลดไม่สำเร็จ"));
                         }
