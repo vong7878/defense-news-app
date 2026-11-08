@@ -356,7 +356,7 @@
                 <div class="bg-gradient-to-r from-emerald-950/85 to-slate-800/85 p-5 rounded-2xl border border-emerald-800/50 shadow-xl flex justify-between items-center">
                     <div>
                         <h2 class="text-lg font-bold text-emerald-400">📊 ບົດສະຫຼຸບຄວາມຄືບໜ້າການອະນາໄມ</h2>
-                        <p class="text-xs text-slate-300 mt-0.5">ທຸກໂພສໃນລະບົບຖືກໝາຍວ່າສຳເລັດແລ້ວໂດຍອັດຕະໂນມັດ ພ້ອມຮູບພາບ ແລະ ລິ້ງເບິ່ງວິດີໂອຜ່ານ Drive</p>
+                        <p class="text-xs text-slate-300 mt-0.5">ທຸກໂພສໃນລະບົບຖືກໝາຍວ່າສຳເລັດແລ້ວໂດຍອັດຕະໂນມັດ ພ້ອມຮູບພາບເກົ່າ ແລະ ລິ້ງເບິ່ງວິດີໂອຜ່ານ Drive</p>
                     </div>
                     <div class="bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-700 text-center">
                         <span id="stat-cyber-done" class="block text-xl font-bold text-emerald-400">0 / 0</span>
@@ -513,7 +513,7 @@
         </section>
     </main>
 
-    <!-- MODAL: Guide / How to use -->
+    <!-- MODAL: Guide / How to use (Updated with full details for User & Admin) -->
     <div id="guide-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center hidden z-50 p-4">
         <div class="bg-slate-800 border border-cyan-500/50 rounded-2xl max-w-2xl w-full p-6 space-y-5 shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-700 pb-3">
@@ -525,26 +525,50 @@
             </div>
 
             <div class="space-y-4 text-xs text-slate-300 leading-relaxed">
-                <div id="guide-section-user" class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-2">
-                    <h4 class="font-bold text-emerald-400 text-sm flex items-center space-x-1"><span>👤</span> <span>ຄູ່ມືສຳລັບ User (ທຸກຫ້ອງພັກ: ຫ້ອງ 104 - 114)</span></h4>
-                    <ul class="list-disc list-inside space-y-1.5 text-slate-300">
-                        <li><b>ຂໍ້ຈຳກັດອຸປະກອນ:</b> ຕ້ອງເຂົ້າໃຊ້ງານຜ່ານ **ມືຖື (Mobile / Tablet)** ເທົ່ານັ້ນ! ຫ້າມເຂົ້າຜ່ານຄອມພິວເຕີ.</li>
-                        <li><b>ເຂົ້າສູ່ລະບົບ:</b> ເລືອກຫ້ອງພັກຂອງທ່ານຈາກປ໋ອບອັບທຳອິດທີ່ເປີດຂຶ້ນມາ ເພື່ອເລີ່ມຕົ້ນໃຊ້ງານ.</li>
-                        <li><b>ການສົ່ງບົດລາຍງານ:</b> ຕ້ອງ **ເປີດກ້ອງຖ່າຍສົດວິດີໂອ** ເທົ່ານັ້ນ (ຫ້າມເລືອກຈາກ Gallery) ແລະ ຄວາມຍາວ **ບໍ່ເກີນ 1 ນາທີ**.</li>
+                <!-- 👤 ສຳລັບ User -->
+                <div id="guide-section-user" class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <h4 class="font-bold text-emerald-400 text-sm flex items-center space-x-1"><span>👤</span> <span>ຄູ່ມືສຳລັບ User (ສະມາຊິກຫ້ອງພັກ 104 - 114)</span></h4>
+                    <ul class="list-disc list-inside space-y-2 text-slate-300">
+                        <li><b>ການເຂົ້າສູ່ລະບົບ:</b> ເປີດເວັບໄຊຂຶ້ນມາແລ້ວເລືອກຫ້ອງພັກຂອງທ່ານ (ເຊັ່ນ: ຫ້ອງ 104) ຈາກປ໋ອບອັບລັອກອິນ ເພື່ອເລີ່ມຕົ້ນໃຊ້ງານ.</li>
+                        <li><b>ຂໍ້ຈຳກັດອຸປະກອນ:</b> ລະບົບກຳນົດໃຫ້ User ຕ້ອງເຂົ້າໃຊ້ງານຜ່ານ **ໂທລະສັບມືຖື (Mobile / Tablet)** ແລະ ຕ້ອງຢູ່ໃນເຂດພື້ນທີ່ເມືອງດານັງ, ຫວຽດນາມ ເທົ່ານັ້ນ.</li>
+                        <li><b>ການສົ່ງບົດລາຍງານອະນາໄມ:</b> 
+                            <ul class="list-disc list-inside pl-5 mt-1 space-y-1 text-slate-300">
+                                <li>ເປີດໄປທີ່ເມນູ <b>"ລາຍງານອະນາໄມ (ສະມາຊິກ)"</b>.</li>
+                                <li>ສົ່ງໄດ້ສະເພາະ **ມື້ວັນອາທິດ, ເວລາ 16:00 - 19:00 ໂມງ** ເທົ່ານັ້ນ (1 ອາທິດ / 1 ครั้ง).</li>
+                                <li><b>ກົດເກນວິດີໂອໃໝ່:</b> ຕ້ອງ **ເປີດກ້ອງຖ່າຍສົດ (Live Camera Capture)** ເທົ່ານັ້ນ! **ຫ້າມເລືອກຈາກ Gallery ຫຼື ໄຟລ໌ໃນເຄື່ອງ** ແລະ ຄວາມຍາວວິດີໂອ **ຕ້ອງບໍ່ເກີນ 1 ນາທີ (60 ວິນາທີ)**.</li>
+                            </ul>
+                        </li>
+                        <li><b>ການປະກອບຄຳຄິດຄຳເຫັນ:</b> ສามารถໄປທີ່ເມນູ <b>"ປະກອບຄຳຄິດຄຳເຫັນ"</b> ເພື່ອສົ່ງຂໍ້ສະເໜີແນະ ຊຶ່ງຈະຖືກສົ່ງຕົງເຖິງຫ້ອງແຊັດ Admin ທັງ 4 ຄົນທັນທີ.</li>
                     </ul>
                 </div>
 
-                <div id="guide-section-admin" class="bg-sky-950/40 p-4 rounded-xl border border-sky-500/30 space-y-2 hidden">
+                <!-- ⚙️ ສຳລັບ Admin -->
+                <div id="guide-section-admin" class="bg-sky-950/40 p-4 rounded-xl border border-sky-500/30 space-y-3 hidden">
                     <h4 class="font-bold text-sky-400 text-sm flex items-center space-x-1"><span>⚙️</span> <span>ຄູ່ມືສຳລັບ Admin (Admin ຮອງ 1, 2, 3)</span></h4>
-                    <ul class="list-disc list-inside space-y-1.5 text-slate-300">
-                        <li><b>ການເຂົ້າສູ່ລະບົບ:</b> ສາມາດເຂົ້າໄດ້ທັງຄອມພິວເຕີ ແລະ ມືຖື ໂດຍໃຊ້ລະຫັດ PIN ທີ່ກຳນົດ.</li>
+                    <ul class="list-disc list-inside space-y-2 text-slate-300">
+                        <li><b>ການເຂົ້າສູ່ລະບົບ:</b> ສามารถເຂົ້າໄດ້ທັງຄອມພິວເຕີ ແລະ ມືຖື ໂດຍເລືອກໄອດີ Admin ທີ່ຕ້ອງການ ແລ້ວປ້ອນ **ລະຫັດ PIN 4 ຕົວເລກ** (Admin ຮອງ 1: <code>1234</code>, Admin ຮອງ 2: <code>5678</code>, Admin ຮອງ 3: <code>9999</code>).</li>
+                        <li><b>ການກວດສອບອຸປະກອນ:</b> Admin ຮອງ 1 ສามารถລັອກອິນພ້ອມກັນໄດ້ສູງສຸດ 2 ເຄື່ອງ, ສ່ວນ Admin ຮອງ 2 ແລະ 3 ລັອກອິນໄດ້ 1 ເຄື່ອງຕໍ່ 1 ໄອດີ.</li>
+                        <li><b>ໜ້າທີ່ຫຼັກ:</b> 
+                            <ul class="list-disc list-inside pl-5 mt-1 space-y-1 text-slate-300">
+                                <li>ກວດສອບ ແລະ **ອະນຸມັດບົດລາຍງານ** ທີ່ສະມາຊິກສົ່ງເຂົ້າມາ.</li>
+                               <li>ເຂົ້າໃຊ້ງານ **ຫ້ອງແຊັດລົມວຽກ Admin** ເພື່ອສົນທະນາ ແລະ ຕິດຕາມຄຳຄິດຄຳເຫັນຈາກສະມາຊິກ.</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
 
-                <div id="guide-section-super" class="bg-amber-950/40 p-4 rounded-xl border border-amber-500/30 space-y-2 hidden">
+                <!-- 👑 ສຳລັບ Super Admin (ຜູ້ສ້າງ) -->
+                <div id="guide-section-super" class="bg-amber-950/40 p-4 rounded-xl border border-amber-500/30 space-y-3 hidden">
                     <h4 class="font-bold text-amber-400 text-sm flex items-center space-x-1"><span>👑</span> <span>ຄູ່ມືສຳລັບ ຜູ້ສ້າງເວັບໄຊ (Super Admin)</span></h4>
-                    <ul class="list-disc list-inside space-y-1.5 text-slate-300">
-                        <li><b>ການຈັດການຄະແນນພິເສດ:</b> ສາມາດບວກ ຫຼື ລົບ ຄະແນນໃຫ້ແຕ່ລະຫ້ອງໄດ້ໂດຍກົງ.</li>
+                    <ul class="list-disc list-inside space-y-2 text-slate-300">
+                        <li><b>ການເຂົ້າສູ່ລະບົບ:</b> ເລືອກ <b>"ຜູ້ສ້າງເວັບໄຊ (ເຂົ້າດ້ວຍອີເມວ)"</b> ແລ້ວປ້ອນອີເມວ ແລະ ລະຫັດຜ່ານ Firebase ຂອງທ່ານ.</li>
+                        <li><b>ການຈັດການລະບົບຂັ້ນສູງ:</b>
+                            <ul class="list-disc list-inside pl-5 mt-1 space-y-1 text-slate-300">
+                                <li>ເພີ່ມ, ແກ້ໄຂ ຫຼື ລົບ **ຂ່າວສານ ແລະ ແຈ້ງການ** ໃນລະບົບ.</li>
+                                <li>ເພີ່ມຮູບພາບ ຫຼື ວິດີໂອອະນາໄມລົງໃນໜ້າ **ຕິດຕາມການອະນາໄມ**.</li>
+                                <li><b>ປັບຄະແນນພິເສດ (ບວກ/ລົບ):</b> ສามารถເລືອກຫ້ອງພັກ ແລະ ໃສ່ຄະແນນພິເສດ (ເຊັ່ນ: 3, 5 ຫຼື -1) ເພື່ອປັບຄະແນນໃຫ້ແຕ່ລະຫ້ອງໄດ້ໂດຍກົງ.</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -1834,7 +1858,7 @@
             } catch (e) { container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${e.message}</div>`; }
         }
 
-        // 💡 ຟັງຊັນຊ່ວຍກວດສອບວ່າເປັນຮູບພາບຫຼືບໍ່
+        // 💡 ຟັງຊັນຊ່ວຍກວດສອບວ່າເປັນຮູບພາບຫຼືບໍ່ (ຮອງຮັບຮູບພາບເກົ່າ)
         function isImageItem(item) {
             if (!item) return false;
             if (typeof item === 'string') {
