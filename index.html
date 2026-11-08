@@ -572,8 +572,8 @@
             <div class="w-16 h-16 bg-amber-600/20 border border-amber-500/40 text-amber-400 text-3xl rounded-2xl mx-auto flex items-center justify-center shadow-lg">📍🚫</div>
             <h3 class="text-xl font-bold text-amber-400">ຂໍອະໄພ! ຢູ່ນອກເຂດພື້ນທີ່</h3>
             <p class="text-xs text-slate-300 leading-relaxed">
-                ລະບົບກຳນົດໃຫ້ <b>User</b> ຕ້ອງຢູ່ໃນ **ເມືອງດານັງ, ប្រເທດຫວຽດນາມ** ເທົ່ານັ້ນຈຶ່ງຈະສາມາດເຂົ້າໃຊ້ງານໄດ້!<br><br>
-                ກະລຸນາເປີດ GPS ຂອງທ່ານ ຫຼື ກັບເຂົ້າມาໃນເຂດດານັງ.
+                ລະບົບກຳນົດໃຫ້ <b>User</b> ຕ້ອງຢູ່ໃນ **ເມືອງດານັງ, ຫວຽດນາມ** ເທົ່ານັ້ນຈຶ່ງຈະສາມາດເຂົ້າໃຊ້ງານໄດ້!<br><br>
+                ກະລຸນາເປີດ GPS ຂອງທ່ານ ຫຼື ກັບເຂົ້າມາໃນເຂດດານັງ.
             </p>
         </div>
     </div>
@@ -755,7 +755,7 @@
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
 
-                    // ພິກັດໃຈກາງເມືອງດານັງ: Lat ~ 16.0544, Lon ~ 108.2022 (ກຳນົດรัศมี ~ 40 ກິໂລແມັດ ໃຫ້ครอบคลຸມທົ່ວເມືອງດານັງ)
+                    // ພິກັດໃຈກາງເມືອງດານັງ: Lat ~ 16.0544, Lon ~ 108.2022 (รัศมี ~ 40 ກິໂລແມັດ)
                     const danangLat = 16.0544;
                     const danangLon = 108.2022;
                     const maxDistanceKm = 40; 
@@ -768,13 +768,12 @@
                     }
                 }, (error) => {
                     console.warn("Geolocation permission denied or error:", error);
-                    // ຖ້າ User ປິດ GPS ຫຼື ບໍ່ອະນຸຍາດ ສາມາດແຈ້ງເຕືອນໄດ້
                 }, { timeout: 10000 });
             }
         }
 
         function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-            const R = 6371; // รัศมีโลกหน่วยเป็นกิโลเมตร
+            const R = 6371; 
             const dLat = deg2rad(lat2 - lat1);
             const dLon = deg2rad(lon2 - lon1);
             const a = 
