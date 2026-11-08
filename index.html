@@ -394,7 +394,6 @@
                         </div>
                         <div>
                             <label class="block text-xs text-emerald-300 mb-1 font-semibold">📹 ຖ່າຍວິດີໂອສົດຜ່ານກ້ອງ (ຄວາມຍາວສູງສຸດ 1 ນາທີ):</label>
-                            <!-- 🛑 បັງຄັບຮັບສະເພາະວິດີໂອ ແລະ ບັງຄັບເປີດກ້ອງຖ່າຍສົດເທົ່ານັ້ນ (ຫ້າມເລືອກຈາກ Gallery) -->
                             <input type="file" id="member-media-files" accept="video/*" capture="environment" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
                             <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ລະບົບຈະກວດສອບຄວາມຍາວວິດີໂອຕ້ອງບໍ່ເກີນ 60 ວິນາທີ ແລະ ຈະອັບໂຫລດຂຶ້ນ Google Drive ອັດຕະໂນມັດ</p>
                         </div>
@@ -1736,7 +1735,7 @@
                         if (result.status === "success") {
                             resolve({ type: 'video', url: result.webViewUrl });
                         } else {
-                            reject(new Error(result.message || "อัปโหลดไม่สำเร็จ"));
+                            reject(new Error(result.message || "ອັບໂຫລດບໍ່ສຳເລັດ"));
                         }
                     } catch (err) {
                         reject(err);
@@ -1752,7 +1751,6 @@
             return `${d.getUTCFullYear()}-W${Math.ceil((((d - new Date(Date.UTC(d.getUTCFullYear(),0,1))) / 86400000) + 1)/7)}`;
         }
 
-        // 🛑 ฟังก์ชันตรวจสอบความยาววิดีโอต้องไม่เกิน 60 วินาที (1 นาที)
         function checkVideoDuration(file) {
             return new Promise((resolve) => {
                 const video = document.createElement('video');
@@ -1762,7 +1760,7 @@
                     resolve(video.duration);
                 };
                 video.onerror = function() {
-                    resolve(0); // หากอ่านค่าไม่ได้ให้ผ่านไปก่อน
+                    resolve(0); 
                 };
                 video.src = URL.createObjectURL(file);
             });
@@ -1790,11 +1788,10 @@
 
             const videoFile = files[0];
 
-            // 🛑 ກວດສອບຄວາມຍາວວິດີໂອ (ຕ້ອງບໍ່ເກີນ 60 ວິນາທີ)
             statusText.innerText = `⏳ ກຳລັງກວດສອບຄວາມຍາວວິດີໂອ...`;
             const duration = await checkVideoDuration(videoFile);
-            if (duration > 62) { // เผื่อความคลาดเคลื่อนเล็กน้อย 62 วินาที
-                alert(`❌ ວິດີໂະຍາວເກີນໄປ (${Math.round(duration)} วินาที)! ລະບົບກຳນົດໃຫ້ຖ່າຍວິດີໂອຄວາມຍາວສູງສຸດບໍ່ເກີນ 1 ນາທີ.`);
+            if (duration > 62) {
+                alert(`❌ ວິດີໂະຍາວເກີນໄປ (${Math.round(duration)} ວິນາທີ)! ລະບົບກຳນົດໃຫ້ຖ່າຍວິດີໂອຄວາມຍາວສູງສຸດບໍ່ເກີນ 1 ນາທີ.`);
                 statusText.innerText = '⚠️ ກະລຸນາຖ່າຍວິດີໂອໃໝ່ ຄວາມຍາວບໍ່ເກີນ 1 ນາທີ!';
                 return;
             }
@@ -1837,6 +1834,17 @@
             } catch (e) { container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${e.message}</div>`; }
         }
 
+        // 💡 ຟັງຊັນຊ່ວຍກວດສອບວ່າເປັນຮູບພາບຫຼືບໍ່
+        function isImageItem(item) {
+            if (!item) return false;
+            if (typeof item === 'string') {
+                return item.startsWith('data:image/') || item.match(/\.(jpeg|jpg|png|gif|webp)$/i);
+            }
+            if (item.type === 'image') return true;
+            if (item.url && (item.url.startsWith('data:image/') || item.url.match(/\.(jpeg|jpg|png|gif|webp)$/i))) return true;
+            return false;
+        }
+
         function renderMemberReports() {
             const container = document.getElementById('member-reports-container');
             if (!container) return;
@@ -1844,7 +1852,7 @@
             container.innerHTML = allMemberReports.map(rep => {
                 let items = rep.mediaItems || [];
                 if (items.length === 0 && rep.mediaUrls) {
-                    items = rep.mediaUrls.map(u => ({ type: 'video', url: u }));
+                    items = rep.mediaUrls.map(u => ({ type: isImageItem(u) ? 'image' : 'video', url: u }));
                 }
                 return `
                     <div class="bg-slate-900/85 border ${rep.approved ? 'border-emerald-600' : 'border-slate-700'} rounded-xl p-4 space-y-3 shadow-md animate-fade-in">
@@ -1859,12 +1867,25 @@
                         </div>
                         <p class="text-sm text-slate-200 whitespace-pre-line">${rep.description}</p>
                         <div class="grid grid-cols-1 gap-2 pt-2">
-                            ${items.map(item => `
-                                <div class="relative group bg-slate-950 p-3 rounded-xl border border-slate-700 text-center space-y-2">
-                                    <span class="text-xs text-emerald-400 font-bold block">📹 ວິດີໂອຖ່າຍສົດ (ສູງສຸດ 1 ນາທີ) ເທິງ Google Drive</span>
-                                    <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 ເປີດເບິ່ງວິດີໂອໃນ Google Drive</a>
-                                </div>
-                            `).join('')}
+                            ${items.map(item => {
+                                const isImg = isImageItem(item);
+                                const mediaUrl = item.url || item;
+                                if (isImg) {
+                                    return `
+                                        <div class="relative group bg-slate-950 p-2 rounded-xl border border-slate-700 text-center space-y-2">
+                                            <span class="text-xs text-emerald-400 font-bold block">📷 ຮູບພາບການປະຕິບັດງານ</span>
+                                            <img src="${mediaUrl}" alt="Report Image" class="max-h-64 mx-auto rounded-lg object-contain cursor-pointer hover:opacity-95 transition" onclick="window.open('${mediaUrl}')">
+                                        </div>
+                                    `;
+                                } else {
+                                    return `
+                                        <div class="relative group bg-slate-950 p-3 rounded-xl border border-slate-700 text-center space-y-2">
+                                            <span class="text-xs text-emerald-400 font-bold block">📁 ວິດີໂອບົນ Google Drive</span>
+                                            <a href="${mediaUrl}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 ເປີດເບິ່ງວິດີໂອໃນ Google Drive</a>
+                                        </div>
+                                    `;
+                                }
+                            }).join('')}
                         </div>
                         <div class="flex justify-end space-x-2 pt-2">
                             ${userRole === 'admin' ? `
@@ -1918,6 +1939,9 @@
             if (allCyberTasks.length === 0) { container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">ຍັງບໍ່ມີລາຍການ</div>`; return; }
             container.innerHTML = allCyberTasks.map(task => {
                 let items = task.mediaItems || [];
+                if (items.length === 0 && task.mediaUrls) {
+                    items = task.mediaUrls.map(u => ({ type: isImageItem(u) ? 'image' : 'video', url: u }));
+                }
                 return `
                     <div class="bg-slate-800/85 backdrop-blur border border-emerald-600 bg-emerald-950/25 rounded-2xl p-5 shadow-lg animate-fade-in space-y-3">
                         <div class="flex items-center justify-between">
@@ -1932,12 +1956,25 @@
                             ${userRole === 'admin' && isSuperAdmin() ? `<button onclick="deleteCyberTask('${task.id}')" class="text-xs bg-red-950 px-3 py-1 rounded-lg text-red-300">ລົບ</button>` : ''}
                         </div>
                         <div class="grid grid-cols-1 gap-2 mt-3 pt-3 border-t border-slate-700">
-                            ${items.map(item => `
-                                <div class="relative group bg-slate-950 p-3 rounded-xl border border-slate-700 text-center space-y-2">
-                                    <span class="text-xs text-emerald-400 font-bold block">📁 ວິດີໂອບົນ Google Drive</span>
-                                    <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 ເປີດເບິ່ງວິດີໂອໃນ Google Drive</a>
-                                </div>
-                            `).join('')}
+                            ${items.map(item => {
+                                const isImg = isImageItem(item);
+                                const mediaUrl = item.url || item;
+                                if (isImg) {
+                                    return `
+                                        <div class="relative group bg-slate-950 p-2 rounded-xl border border-slate-700 text-center space-y-2">
+                                            <span class="text-xs text-emerald-400 font-bold block">📷 ຮູບພາບການປະຕິບັດງານ</span>
+                                            <img src="${mediaUrl}" alt="Task Image" class="max-h-64 mx-auto rounded-lg object-contain cursor-pointer hover:opacity-95 transition" onclick="window.open('${mediaUrl}')">
+                                        </div>
+                                    `;
+                                } else {
+                                    return `
+                                        <div class="relative group bg-slate-950 p-3 rounded-xl border border-slate-700 text-center space-y-2">
+                                            <span class="text-xs text-emerald-400 font-bold block">📁 ວິດີໂອບົນ Google Drive</span>
+                                            <a href="${mediaUrl}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 ເປີດເບິ່ງວິດີໂອໃນ Google Drive</a>
+                                        </div>
+                                    `;
+                                }
+                            }).join('')}
                         </div>
                     </div>
                 `;
