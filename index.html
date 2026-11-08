@@ -360,7 +360,7 @@
                 <div class="bg-slate-800/85 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
                     <h2 class="text-xl font-bold text-emerald-400">👤 ຟອມສະມາຊິກ: ລາຍງານຜົນການອະນາໄມ & ຢືນຢັນຕົວຕົນ</h2>
                     <div class="bg-amber-950/50 border border-amber-600/50 p-3 rounded-xl text-xs text-amber-300">
-                        ⚠️ <b>ກົດເກນການສົ່ງ:</b> ແຕ່ລະຫ້ອງພັກສົ່ງໄດ້ <b>1 ຄັ້ງ ຕໍ່ 1 ອາທິດ (ສະເພາະມື້ວັນອາທິດ, ເວລາ 16:00 - 19:00 ໂມງ) ເທົ່ານັ້ນ!</b> ແລະ <b>ຕ້ອງບັນທຶກວິດີໂອສົດຜ່ານກ້ອງ (Capture Video) ຄວາມຍາວບໍ່ເກີນ 1 ນາທີ</b> (ລະບົບຈະຮັດຂະໜາດອັດຕະໂນມັດ).
+                        ⚠️ <b>ກົດເກນການສົ່ງ:</b> ແຕ່ລະຫ້ອງພັກສົ່ງໄດ້ <b>1 ຄັ້ງ ຕໍ່ 1 ອາທິດ (ສະເພາະມື້ວັນອາທິດ, ເວລາ 16:00 - 19:00 ໂມງ) ເທົ່ານັ້ນ!</b> ແລະ <b>ຕ້ອງບັນທຶກວິດີໂອສົດຜ່ານກ້ອງ (Capture Video) ຄວາມຍາວບໍ່ເກີນ 1 ນາທີ</b> (ລະບົບຈະອັບໂຫລດຂຶ້ນ Google Drive ให้อັດຕະໂນມັດ).
                     </div>
                     
                     <div class="space-y-3 pt-2">
@@ -381,7 +381,7 @@
                         <div>
                             <label class="block text-xs text-emerald-300 mb-1 font-semibold">📹 ບັນທຶກວິດີໂອສົດຜ່ານກ້ອງ (ບັງຄັບເປີດກ້ອງ / ບໍ່ເກີນ 1 ນາທີ):</label>
                             <input type="file" id="member-media-files" accept="video/*" capture="environment" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
-                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ລະບົບຈະຮັດຂະໜາດວິດີໂອອັດຕະໂນມັດເພື່ອໃຫ້ພໍດີກັບຖານຂໍ້ມູນ</p>
+                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ລະບົບຈະອັບໂຫລດວິດີໂອຂຶ້ນ Google Drive ໂດຍອັດຕະໂນມັດ</p>
                         </div>
                     </div>
 
@@ -698,7 +698,7 @@
                 <div>
                     <label class="block text-xs text-emerald-300 mb-1 font-semibold">🎬 ບັນທຶກວິດີໂອສົດຜ່ານກ້ອງ (ຄວາມຍາວບໍ່ເກີນ 1 ນາທີ / Max 60s):</label>
                     <input type="file" id="cyber-media-files" accept="video/*" capture="environment" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
-                    <p id="upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ວິດີໂອຈະຖືກບີບອັດຂະໜາດອັດຕະໂນມັດ</p>
+                    <p id="upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ວິດີໂອຈະຖືກອັບໂຫລດຂຶ້ນ Google Drive ອັດຕະໂນມັດ</p>
                 </div>
             </div>
             <div class="flex justify-end space-x-3 pt-2">
@@ -727,6 +727,9 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+
+        // 🔗 URL Google Apps Script ທີ່ເຊື່ອມຕໍ່ກັບ Google Drive ຂອງທ່ານ
+        const DRIVE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzExA_T2J2SpmD1fykUwV4ZK1oPuGSrpbsUMiLifVdROjL9Uocq3MBAtR3TnYjcFOkj/exec";
 
         setPersistence(auth, browserLocalPersistence).catch((err) => {
             console.error("Auth persistence error:", err);
@@ -1648,106 +1651,33 @@
             if (confirm('ລົບຂ່າວນີ້ແທ້ບໍ?')) { await deleteDoc(doc(db, "news", id)); loadNews(); }
         };
 
-        // 🎬 ລະບົບປັບບີບອັດຂະໜາດວິດີໂອ (Video Compression & Canvas Resizing) ໃຫ້ຕ່ຳກວ່າ 1MB
-        const processVideoFile = (file) => {
+        // ☁️ ຟັງຊັນອັບໂຫລດວິດີໂອຂຶ້ນ Google Drive ຜ່ານ Apps Script Web App
+        const uploadVideoToGoogleDrive = (roomName, file) => {
             return new Promise((resolve, reject) => {
-                if (!file.type.startsWith('video/')) {
-                    reject(new Error("ກະລຸນາບັນທຶກໄຟລ໌ວິດີໂອເທົ່ານັ້ນ!"));
-                    return;
-                }
-
-                const videoElem = document.createElement('video');
-                videoElem.preload = 'metadata';
-                videoElem.muted = true;
-                videoElem.playsInline = true;
-
-                videoElem.onloadedmetadata = () => {
-                    window.URL.revokeObjectURL(videoElem.src);
-                    if (videoElem.duration > 61) {
-                        reject(new Error("⚠️ ວິດີໂອຍາວເກີນ 1 ນາທີ (60 ວິນາທີ)! ກະລຸນາບັນທຶກໃໝ່ໃຫ້ສັ້ນກວ່າ."));
-                        return;
-                    }
-
-                    // ໃຊ້ Canvas ບີບອັດຂະໜາດລົງ (ลด Resolution เหลือความกว้าง 480p เพื่อลดขนาดไฟล์ไม่ให้เกิน 1MB)
-                    const canvas = document.createElement('canvas');
-                    const targetWidth = 480;
-                    const scale = targetWidth / videoElem.videoWidth;
-                    canvas.width = targetWidth;
-                    canvas.height = Math.round(videoElem.videoHeight * scale);
-                    const ctx = canvas.getContext('2d');
-
-                    if (!window.MediaRecorder) {
-                        // Fallback: ຖ້າ browser ບໍ່ຮອງຮັບ MediaRecorder ໃຫ້ອ່ານແບບທຳມະດາ
-                        const reader = new FileReader();
-                        reader.readAsDataURL(file);
-                        reader.onload = (e) => resolve(e.target.result);
-                        reader.onerror = (err) => reject(err);
-                        return;
-                    }
-
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = async () => {
                     try {
-                        const stream = canvas.captureStream(25); // 25 FPS
-                        let mediaRecorder;
-                        let chunks = [];
-
-                        try {
-                            mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp8,opus' });
-                        } catch (err) {
-                            try {
-                                mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
-                            } catch (e2) {
-                                mediaRecorder = new MediaRecorder(stream);
-                            }
+                        const base64Data = reader.result;
+                        const response = await fetch(DRIVE_WEB_APP_URL, {
+                            method: "POST",
+                            body: JSON.stringify({
+                                room: roomName,
+                                filename: `video_${Date.now()}.webm`,
+                                filedata: base64Data
+                            })
+                        });
+                        const result = await response.json();
+                        if (result.status === "success") {
+                            resolve(result.webViewUrl); // ส่งคืนลิงก์ดูบน Google Drive
+                        } else {
+                            reject(new Error(result.message || "อัปโหลดไม่สำเร็จ"));
                         }
-
-                        mediaRecorder.ondataavailable = (e) => {
-                            if (e.data && e.data.size > 0) chunks.push(e.data);
-                        };
-
-                        mediaRecorder.onstop = () => {
-                            const blob = new Blob(chunks, { type: 'video/webm' });
-                            const reader = new FileReader();
-                            reader.readAsDataURL(blob);
-                            reader.onload = (e) => {
-                                const base64Result = e.target.result;
-                                // ຖ້າຂະໜາດຍັງໃຫຍ່ເກີນ 900KB ໃຫ້ເຕືອນ
-                                if (base64Result.length > 1000000) {
-                                    reject(new Error("⚠️ ວິດີໂອຍັງມີຂະໜາດໃຫຍ່ເກີນໄປ! ກະລຸນາບັນທຶກໃຫ້ສັ້ນລົງ (ປະມານ 10-15ວິນາທີ)."));
-                                } else {
-                                    resolve(base64Result);
-                                }
-                            };
-                            reader.onerror = (err) => reject(err);
-                        };
-
-                        mediaRecorder.start();
-                        videoElem.play();
-
-                        const drawTimer = setInterval(() => {
-                            if (videoElem.ended || videoElem.paused) {
-                                clearInterval(drawTimer);
-                                mediaRecorder.stop();
-                            } else {
-                                ctx.drawImage(videoElem, 0, 0, canvas.width, canvas.height);
-                            }
-                        }, 40);
-
-                        videoElem.onended = () => {
-                            clearInterval(drawTimer);
-                            if (mediaRecorder.state !== 'inactive') mediaRecorder.stop();
-                        };
-
                     } catch (err) {
-                        // ຖ້າເກີດ Error ໃນການ Capture ໃຫ້ໃຊ້ FileReader ທຳມະດາ
-                        const reader = new FileReader();
-                        reader.readAsDataURL(file);
-                        reader.onload = (e) => resolve(e.target.result);
-                        reader.onerror = (e) => reject(e);
+                        reject(err);
                     }
                 };
-
-                videoElem.onerror = () => reject(new Error("ບໍ່ສາມາດອ່ານໄຟລ໌ວິດີໂອຈາກກ້ອງໄດ້!"));
-                videoElem.src = URL.createObjectURL(file);
+                reader.onerror = (error) => reject(error);
             });
         };
 
@@ -1785,23 +1715,23 @@
             });
             if (submitted) return alert('⚠️ ຫ້ອງຂອງທ່ານສົ່ງບົດລາຍງານສຳລັບອາທິດນີ້ໄປແລ້ວ!');
 
-            statusText.innerText = `⏳ ກຳລັງບີບອັດຂະໜາດວິດີໂອ... ກະລຸນາຖ້າຈັກໜ້ອຍ...`;
+            statusText.innerText = `⏳ ກຳລັງອັບໂຫລດວິດີໂອຂຶ້ນ Google Drive... ກະລຸນາຖ້າຈັກໜ້ອຍ...`;
             try {
                 let mediaUrls = [];
-                const videoDataUrl = await processVideoFile(files[0]);
-                mediaUrls.push(videoDataUrl);
+                const driveVideoUrl = await uploadVideoToGoogleDrive(currentRoomUser, files[0]);
+                mediaUrls.push(driveVideoUrl);
 
-                statusText.innerText = `⏳ ກຳລັງສົ່ງບົດລາຍງານ...`;
+                statusText.innerText = `⏳ ກຳລັງບັນທຶກບົດລາຍງານ...`;
                 await addDoc(collection(db, "member_reports"), {
                     room: currentRoomUser, name, description, mediaUrls, date: new Date().toLocaleString('lo-LA'), weekTag: currentWeekStr, approved: false
                 });
-                alert('🎉 ສົ່ງບົດລາຍງານສຳເລັດ! ລໍຖ້າ Admin ອະນຸມັດ.');
+                alert('🎉 ສົ່ງບົດລາຍງານສຳເລັດ! ວິດີໂອຖືກເກັບໄວ້ໃນ Google Drive เรียบร้อยແລ້ວ.');
                 document.getElementById('member-name').value = '';
                 document.getElementById('member-task-desc').value = '';
                 fileInput.value = '';
-                statusText.innerText = '⚠️ ລະບົບຈະຮັດຂະໜາດວິດີໂອອັດຕະໂນມັດ';
+                statusText.innerText = '⚠️ ລະບົບຈະອັບໂຫລດວິດີໂອຂຶ້ນ Google Drive ອັດຕະໂນມັດ';
                 loadMemberReports(); loadFullScoreSummary();
-            } catch (e) { alert(e.message); statusText.innerText = '❌ ສົ່ງບໍ່ສຳເລັດ (ໄຟລ໌ໃຫຍ່ເກີນໄປ)'; }
+            } catch (e) { alert(e.message); statusText.innerText = '❌ ອັບໂຫລດບໍ່ສຳເລັດ'; }
         };
 
         async function loadMemberReports() {
@@ -1833,9 +1763,9 @@
                     <p class="text-sm text-slate-200 whitespace-pre-line">${rep.description}</p>
                     <div class="grid grid-cols-1 gap-2 pt-2">
                         ${(rep.mediaUrls || []).map((url, idx) => `
-                            <div class="relative group">
-                                <video src="${url}" controls class="w-full h-48 object-cover rounded-xl border border-slate-700"></video>
-                                <a href="${url}" download="video_${idx+1}.mp4" class="absolute bottom-2 right-2 bg-emerald-600 text-white text-xs px-2.5 py-1 rounded-lg shadow">📥 ດາວໂຫຼດວິດີໂອ</a>
+                            <div class="relative group bg-slate-950 p-3 rounded-xl border border-slate-700 text-center space-y-2">
+                                <span class="text-xs text-emerald-400 font-bold block">📁 ວິດີໂອບົນ Google Drive</span>
+                                <a href="${url}" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 ເປີດເບິ່ງວິດີໂອໃນ Google Drive</a>
                             </div>
                         `).join('')}
                     </div>
@@ -1903,9 +1833,9 @@
                     </div>
                     <div class="grid grid-cols-1 gap-2 mt-3 pt-3 border-t border-slate-700">
                         ${(task.mediaUrls || []).map((url, idx) => `
-                            <div class="relative group">
-                                <video src="${url}" controls class="w-full h-56 object-cover rounded-xl"></video>
-                                <a href="${url}" download="cyber_video_${idx+1}.mp4" class="absolute bottom-2 right-2 bg-emerald-600 text-white text-xs px-2.5 py-1 rounded-lg shadow">📥 ດາວໂຫຼດວິດີໂອ</a>
+                            <div class="relative group bg-slate-950 p-3 rounded-xl border border-slate-700 text-center space-y-2">
+                                <span class="text-xs text-emerald-400 font-bold block">📁 ວິດີໂອບົນ Google Drive</span>
+                                <a href="${url}" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 ເປີດເບິ່ງວິດີໂອໃນ Google Drive</a>
                             </div>
                         `).join('')}
                     </div>
@@ -1925,16 +1855,16 @@
             if (files.length === 0) return alert('ກະລຸນາບັນທຶກວິດີໂອຜ່ານກ້ອງ');
 
             const statusText = document.getElementById('upload-status');
-            statusText.innerText = `⏳ ກຳລັງບີບອັດຂະໜາດວິດີໂອ...`;
+            statusText.innerText = `⏳ ກຳລັງອັບໂຫລດວິດີໂອຂຶ້ນ Google Drive...`;
             try {
                 let mediaUrls = [];
-                const videoDataUrl = await processVideoFile(files[0]);
-                mediaUrls.push(videoDataUrl);
+                const driveVideoUrl = await uploadVideoToGoogleDrive("Admin_Uploads", files[0]);
+                mediaUrls.push(driveVideoUrl);
 
                 await addDoc(collection(db, "cyber_tasks"), { title, description, mediaUrls, date: new Date().toLocaleString('lo-LA') });
                 alert('ເພີ່ມລາຍການວິດີໂອສຳເລັດ!');
                 closeCyberModal(); loadCyberTasks(); switchTab('cyber');
-            } catch (e) { alert(e.message); statusText.innerText = '⚠️ ວິດີໂອໃຫຍ່ເກີນໄປ'; }
+            } catch (e) { alert(e.message); statusText.innerText = '❌ ອັບໂຫລດບໍ່ສຳເລັດ'; }
         };
 
         window.deleteCyberTask = async (id) => {
