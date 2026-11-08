@@ -475,12 +475,36 @@
             </div>
 
             <div class="space-y-4 text-xs text-slate-300 leading-relaxed">
-                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-2">
-                    <h4 class="font-bold text-emerald-400 text-sm flex items-center space-x-1"><span>👤</span> <span>ສຳລັບ User (ທຸກຫ້ອງພັກ: ຫ້ອງ 104 - 114)</span></h4>
+                <!-- 👤 ສ່ວນສຳລັບ User (ເຫັນສະເພາະ User) -->
+                <div id="guide-section-user" class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-2">
+                    <h4 class="font-bold text-emerald-400 text-sm flex items-center space-x-1"><span>👤</span> <span>ຄູ່ມືສຳລັບ User (ທຸກຫ້ອງພັກ: ຫ້ອງ 104 - 114)</span></h4>
                     <ul class="list-disc list-inside space-y-1.5 text-slate-300">
                         <li><b>ຂໍ້ຈຳກັດອຸປະກອນ:</b> ຕ້ອງເຂົ້າໃຊ້ງານຜ່ານ **ມືຖື (Mobile / Tablet)** ເທົ່ານັ້ນ! ຫ້າມເຂົ້າຜ່ານຄອມພິວເຕີ.</li>
                         <li><b>ເຂົ້າສູ່ລະບົບ:</b> ເລືອກຫ້ອງພັກຂອງທ່ານຈາກປ໋ອບອັບທຳອິດທີ່ເປີດຂຶ້ນມາ ເພື່ອເລີ່ມຕົ້ນໃຊ້ງານ.</li>
+                        <li><b>ການສົ່ງບົດລາຍງານອະນາໄມ:</b> ສົ່ງໄດ້ສະເພາະ **ວັນອາທິດ ເວລາ 16:00 - 19:00 ໂມງ** ໂດຍຕ້ອງຖ່າຍຮູບສົດຜ່ານກ້ອງຢ່າງໜ້ອຍ 3 ຮູບ.</li>
+                        <li><b>ການປະກອບຄຳຄິດຄຳເຫັນ:</b> ສາມາດສົ່ງຄຳຄິດຄຳເຫັນ ຫຼື ຂໍ້ສະເໜີແນະໄປຫາ Admin ທັງ 4 ຄົນໄດ້.</li>
                         <li><b>ຫຼິ້ນເກມງູກິນຂຽດ:</b> ເຂົ້າເມນູ "ເກມງູກິນຂຽດ" ທີ່ຖືກປັບຂະໜາດພໍດີຈໍມືຖື ແລະ ຫຼຸດຄວາມໄວລົງໃຫ້ຫຼິ້ນງ່າຍຂຶ້ນ!</li>
+                    </ul>
+                </div>
+
+                <!-- ⚙️ ສ່ວນສຳລັບ Admin (ເຫັນສະເພາະ Admin ຮອງ ແລະ ຜູ້ສ້າງ) -->
+                <div id="guide-section-admin" class="bg-sky-950/40 p-4 rounded-xl border border-sky-500/30 space-y-2 hidden">
+                    <h4 class="font-bold text-sky-400 text-sm flex items-center space-x-1"><span>⚙️</span> <span>ຄູ່ມືສຳລັບ Admin (Admin ຮອງ 1, 2, 3)</span></h4>
+                    <ul class="list-disc list-inside space-y-1.5 text-slate-300">
+                        <li><b>ການເຂົ້າສູ່ລະບົບ:</b> ສามารถເຂົ້າໄດ້ທັງຄອມພິວເຕີ ແລະ ມືຖື ໂດຍໃຊ້ລະຫັດ PIN ທີ່ກຳນົດ.</li>
+                        <li><b>ການແຊັດວຽກ:</b> ສາມາດເຂົ້າໃຊ້ງານ "ຫ້ອງແຊັດລົມວຽກ Admin" ເພື່ອຕິດຕໍ່ສື່ສານກັນພາຍໃນ ແລະ ກວດສອບຄຳຄິດຄຳເຫັນຂອງ User ໄດ້.</li>
+                        <li><b>ຂໍ້ຈຳກັດ:</b> Admin ຮອງບໍ່ມີສິດອະນຸມັດບົດລາຍງານ ຫຼື ຈັດການຂ່າວສານຫຼັກ (ຕ້ອງຜ່ານຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ).</li>
+                    </ul>
+                </div>
+
+                <!-- 👑 ສ່ວນສຳລັບ ຜູ້ສ້າງເວັບໄຊ (ເຫັນສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ) -->
+                <div id="guide-section-super" class="bg-amber-950/40 p-4 rounded-xl border border-amber-500/30 space-y-2 hidden">
+                    <h4 class="font-bold text-amber-400 text-sm flex items-center space-x-1"><span>👑</span> <span>ຄູ່ມືສຳລັບ ຜູ້ສ້າງເວັບໄຊ (Super Admin - ເຫັນທຸກຢ່າງແບບເຕັມສິດ)</span></h4>
+                    <ul class="list-disc list-inside space-y-1.5 text-slate-300">
+                        <li><b>ການຈັດການຂ່າວສານ:</b> ມີສິດເພີ່ມ, ແກ້ໄຂ, ແລະ ລົບຂ່າວສານ ຫຼື ແຈ້ງການທັງໝົດໃນລະບົບ.</li>
+                        <li><b>ການອະນຸມັດບົດລາຍງານ:</b> ກວດສອບ ແລະ ກົດອະນຸມັດບົດລາຍງານການອະນາໄມຂອງສະມາຊິກເພື່ອໃຫ້ໄດ້ຮັບ +1 ຄະແນນ.</li>
+                        <li><b>ການຈັດການຫົວຂໍ້ອະນາໄມ:</b> ເພີ່ມ ແລະ ລົບລາຍການຕິດຕາມການອະນາໄມພ້ອມອັບໂຫຼດຮູບພາບ.</li>
+                        <li><b>ການຄວບຄຸມລະບົບ:</b> ສາມາດເຂົ້າເຖິງທຸກຟັງຊັນ ແລະ ຈັດການຄວາມຮຽບຮ້ອຍທັງໝົດຂອງເວັບໄຊໄດ້ຢ່າງອິດສະຫຼະ.</li>
                     </ul>
                 </div>
             </div>
@@ -755,7 +779,6 @@
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
 
-                    // ພິກັດໃຈກາງເມືອງດານັງ: Lat ~ 16.0544, Lon ~ 108.2022 (รัศมี ~ 40 ກິໂລແມັດ)
                     const danangLat = 16.0544;
                     const danangLon = 108.2022;
                     const maxDistanceKm = 40; 
@@ -911,8 +934,31 @@
         }
 
         window.openGuideModal = () => {
+            const userSec = document.getElementById('guide-section-user');
+            const adminSec = document.getElementById('guide-section-admin');
+            const superSec = document.getElementById('guide-section-super');
+
+            userSec.classList.add('hidden');
+            adminSec.classList.add('hidden');
+            superSec.classList.add('hidden');
+
+            if (isSuperAdmin()) {
+                // 👑 ຜູ້ສ້າງເວັບເບິ່ງໄດ້ໝົດທຸກສ່ວນ
+                userSec.classList.remove('hidden');
+                adminSec.classList.remove('hidden');
+                superSec.classList.remove('hidden');
+            } else if (userRole === 'admin') {
+                // ⚙️ ແອັດມິນເບິ່ງໄດ້ສະເພາະສ່ວນແອັດມິນ ແລະ ຢຸສເຊີ
+                userSec.classList.remove('hidden');
+                adminSec.classList.remove('hidden');
+            } else {
+                // 👤 ຢຸສເຊີເບິ່ງໄດ້ສະເພາະສ່ວນຢຸສເຊີ
+                userSec.classList.remove('hidden');
+            }
+
             document.getElementById('guide-modal').classList.remove('hidden');
         };
+
         window.closeGuideModal = () => {
             document.getElementById('guide-modal').classList.add('hidden');
         };
