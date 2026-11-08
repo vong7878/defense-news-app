@@ -797,7 +797,26 @@
             initAntiCopyProtection();
             initSnakeKeyboardControls();
             initButterfliesMovement();
+            
+            // ตรวจสอบ URL Hash เพื่อเปิดโพສເກົ່າອັດຕະໂນມັດຖ້າມີການກົດແຊຣ໌ມາ
+            setTimeout(checkUrlHashForPost, 800);
         });
+
+        // 🔗 ຟັງຊັນກວດສອບ Hash ໃນ URL ເພື່ອເລື່ອນໄປຫາໂພສເກົ່າທີ່ຖືກແຊຣ໌ມາ
+        function checkUrlHashForPost() {
+            const hash = window.location.hash;
+            if (hash && hash.startsWith('#post-')) {
+                switchTab('news');
+                setTimeout(() => {
+                    const postElem = document.querySelector(hash);
+                    if (postElem) {
+                        postElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        postElem.classList.add('highlight-flash');
+                        setTimeout(() => postElem.classList.remove('highlight-flash'), 3000);
+                    }
+                }, 400);
+            }
+        }
 
         // 👁️ ຟັງຊັນສຳລັບເປີດ/ປິດ ສະແດງຜົນ Header (ແຖບດ້ານເທິງ)
         window.toggleHeaderVis = () => {
@@ -1613,7 +1632,7 @@
                                 <button onclick="toggleLike('${item.id}')" class="text-xs px-3.5 py-1.5 rounded-xl border transition flex items-center space-x-1.5 ${hasLiked ? 'bg-pink-600/30 text-pink-400 border-pink-500/50' : 'bg-slate-900/60 text-slate-300 border-slate-700'}">
                                     <span>${hasLiked ? '❤️' : '🤍'}</span> <span>${hasLiked ? 'ຖືກໃຈແລ້ວ' : 'ຖືກໃຈ'} (${likes.length})</span>
                                 </button>
-                                <button onclick="handleShare('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.content.replace(/'/g, "\\'").substring(0, 100)}...')" class="text-xs bg-emerald-900/60 text-emerald-300 px-3.5 py-1.5 rounded-xl border border-emerald-700/60 transition"><span>🔗</span> <span>ແຊ</span></button>
+                                <button onclick="handleShare('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.content.replace(/'/g, "\\'").replace(/\n/g, ' ').substring(0, 100)}...')" class="text-xs bg-emerald-900/60 text-emerald-300 px-3.5 py-1.5 rounded-xl border border-emerald-700/60 transition flex items-center space-x-1"><span>🔗</span> <span>ແຊ</span></button>
                             </div>
                             ${userRole === 'admin' && isSuperAdmin() ? `
                                 <div class="flex space-x-2">
@@ -1644,7 +1663,8 @@
         };
 
         window.handleShare = (id, title, text) => {
-            currentShareData = { title, text, url: `${window.location.origin + window.location.pathname}#post-${id}` };
+            const baseUrl = window.location.origin + window.location.pathname;
+            currentShareData = { title, text, url: `${baseUrl}#post-${id}` };
             document.getElementById('share-modal-title').innerText = title;
             document.getElementById('share-modal').classList.remove('hidden');
         };
