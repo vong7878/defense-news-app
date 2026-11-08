@@ -229,7 +229,7 @@
                         <span>+</span> <span>ເພີ່ມຂ່າວ/ແຈ້ງການ</span>
                     </button>
                     <button onclick="openCyberModal()" class="w-full bg-emerald-700 hover:bg-emerald-600 text-white font-medium py-2 px-3.5 rounded-xl transition text-sm flex items-center justify-center space-x-2">
-                        <span>+</span> <span>ເພີ່ມວິດີໂອອະນາໄມ (Admin)</span>
+                        <span>+</span> <span>ເພີ່ມຮູບ/ວິດີໂອອະນາໄມ (Admin)</span>
                     </button>
 
                     <!-- ⭐ ຈັດການຄະແນນພິເສດ (ສະເພາະຜູ້ສ້າງເວັບໄຊ) -->
@@ -343,7 +343,7 @@
                 <div class="bg-gradient-to-r from-emerald-950/85 to-slate-800/85 p-5 rounded-2xl border border-emerald-800/50 shadow-xl flex justify-between items-center">
                     <div>
                         <h2 class="text-lg font-bold text-emerald-400">📊 ບົດສະຫຼຸບຄວາມຄືບໜ້າການອະນາໄມ</h2>
-                        <p class="text-xs text-slate-300 mt-0.5">ທຸກໂພສໃນລະບົບຖືກໝາຍວ່າສຳເລັດແລ້ວໂດຍອັດຕະໂນມັດ ພ້ອມປຸ່ມດາວໂຫຼດວິດີໂອ</p>
+                        <p class="text-xs text-slate-300 mt-0.5">ສະແດງຮູບພາບ ແລະ ວິດີໂອຜົນງານການອະນາໄມທັງໝົດ</p>
                     </div>
                     <div class="bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-700 text-center">
                         <span id="stat-cyber-done" class="block text-xl font-bold text-emerald-400">0 / 0</span>
@@ -360,7 +360,7 @@
                 <div class="bg-slate-800/85 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
                     <h2 class="text-xl font-bold text-emerald-400">👤 ຟອມສະມາຊິກ: ລາຍງານຜົນການອະນາໄມ & ຢືນຢັນຕົວຕົນ</h2>
                     <div class="bg-amber-950/50 border border-amber-600/50 p-3 rounded-xl text-xs text-amber-300">
-                        ⚠️ <b>ກົດເກນການສົ່ງ:</b> ແຕ່ລະຫ້ອງພັກສົ່ງໄດ້ <b>1 ຄັ້ງ ຕໍ່ 1 ອາທິດ (ສະເພາະມື້ວັນອາທິດ, ເວລາ 16:00 - 19:00 ໂມງ) ເທົ່ານັ້ນ!</b> ແລະ <b>ຕ້ອງບັນທຶກວິດີໂອສົດຜ່ານກ້ອງ (Capture Video) ຄວາມຍາວບໍ່ເກີນ 1 ນາທີ</b> (ລະບົບຈະອັບໂຫລດຂຶ້ນ Google Drive ให้อັດຕະໂນມັດ).
+                        ⚠️ <b>ກົດເກນການສົ່ງ:</b> ແຕ່ລະຫ້ອງພັກສົ່ງໄດ້ <b>1 ຄັ້ງ ຕໍ່ 1 ອາທິດ (ສະເພາະມື້ວັນອາທິດ, ເວລາ 16:00 - 19:00 ໂມງ) ເທົ່ານັ້ນ!</b> ແລະ <b>ສາມາດເລືອກອັບໂຫຼດໄດ້ທັງ ຮູບພາບ (Images) ຫລື ວິດີໂອ (Videos)</b>.
                     </div>
                     
                     <div class="space-y-3 pt-2">
@@ -379,9 +379,9 @@
                             <textarea id="member-task-desc" rows="3" placeholder="ອະທິບາຍຜົນການປະຕິບັດງານ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"></textarea>
                         </div>
                         <div>
-                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">📹 ບັນທຶກວິດີໂອສົດຜ່ານກ້ອງ (ບັງຄັບເປີດກ້ອງ / ບໍ່ເກີນ 1 ນາທີ):</label>
-                            <input type="file" id="member-media-files" accept="video/*" capture="environment" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
-                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ລະບົບຈະອັບໂຫລດວິດີໂອຂຶ້ນ Google Drive ໂດຍອັດຕະໂນມັດ</p>
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">📷 📁 ເລືອກຮູບພາບ ຫລື ວິດີໂອຜົນງານ:</label>
+                            <input type="file" id="member-media-files" accept="image/*,video/*" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
+                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ຮູບພາບຈະສະແດງຜົນເປັນຮູບໂດຍກົງ, ວິດີໂອຈະຖືກອັບໂຫລດຂຶ້ນ Drive</p>
                         </div>
                     </div>
 
@@ -455,7 +455,7 @@
                         </div>
                         <div>
                             <label class="block text-xs text-pink-300 mb-1 font-semibold">ຂໍ້ຄວາມຄຳຄິດຄຳເຫັນ / ຂໍ້ສະເໜີແນະ:</label>
-                            <textarea id="feedback-text-input" rows="4" placeholder="ພິມຄຳຄິດຄຳເຫັນ ຫຼື ຂໍ້ສະເໜີແນະຕໍ່ການປະຕິບັດງານຂອງຈຸປ້ອງກັນ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-pink-500 text-slate-100"></textarea>
+                            <textarea id="feedback-text-input" rows="4" placeholder="ພິມຄຳຄິດຄຳເຫັນ ຫຼື ຂໍ້ສະເໜີແນະ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-pink-500 text-slate-100"></textarea>
                         </div>
                     </div>
                     <div class="pt-2">
@@ -687,18 +687,18 @@
         </div>
     </div>
 
-    <!-- MODAL: Add Hygiene Task Video (Admin) -->
+    <!-- MODAL: Add Hygiene Task Media (Admin) -->
     <div id="cyber-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
         <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto">
-            <h3 class="text-xl font-bold text-emerald-400">ເພີ່ມວິດີໂອອະນາໄມ (Admin)</h3>
+            <h3 class="text-xl font-bold text-emerald-400">ເພີ່ມຮູບ/ວິດີໂອອະນາໄມ (Admin)</h3>
             <div class="space-y-3">
-                <input type="text" id="cyber-task-title" placeholder="ຫົວຂໍ້ (ເຊັ່ນ: ວິດີໂອອະນາໄມໜ້າຫ້ອງພັກ)" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
+                <input type="text" id="cyber-task-title" placeholder="ຫົວຂໍ້ (ເຊັ່ນ: ຮູບ/ວິດີໂອອະນາໄມໜ້າຫ້ອງພັກ)" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
                 <textarea id="cyber-task-desc" rows="3" placeholder="ຄຳແນະນຳເພີ່ມເຕີມ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"></textarea>
                 
                 <div>
-                    <label class="block text-xs text-emerald-300 mb-1 font-semibold">🎬 ບັນທຶກວິດີໂອສົດຜ່ານກ້ອງ (ຄວາມຍາວບໍ່ເກີນ 1 ນາທີ / Max 60s):</label>
-                    <input type="file" id="cyber-media-files" accept="video/*" capture="environment" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
-                    <p id="upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ວິດີໂອຈະຖືກອັບໂຫລດຂຶ້ນ Google Drive ອັດຕະໂນມັດ</p>
+                    <label class="block text-xs text-emerald-300 mb-1 font-semibold">🎬 📷 ເລືອກຮູບພາບ ຫລື ວິດີໂອ:</label>
+                    <input type="file" id="cyber-media-files" accept="image/*,video/*" capture="environment" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
+                    <p id="upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ຮູບພາບຈະສະແດງຜົນທັນທີ, ວິດີໂອຈະຖືກອັບໂຫລດຂຶ້ນ Drive ອັດຕະໂນມັດ</p>
                 </div>
             </div>
             <div class="flex justify-end space-x-3 pt-2">
@@ -1651,27 +1651,60 @@
             if (confirm('ລົບຂ່າວນີ້ແທ້ບໍ?')) { await deleteDoc(doc(db, "news", id)); loadNews(); }
         };
 
-        // ☁️ ຟັງຊັນອັບໂຫລດວິດີໂອຂຶ້ນ Google Drive ຜ່ານ Apps Script Web App
-        const uploadVideoToGoogleDrive = (roomName, file) => {
+        // 🌟 ຟັງຊັນກວດສອບ ແລະ ສະແດງຜົນ (ຮູບພາບ ສະແດງເປັນ <img> ໂດຍກົງ / ວິດີໂອ ສະແດງເປັນ ລິ້ງ Drive)
+        function renderMediaPreview(url) {
+            if (!url) return '';
+
+            // ກວດສອບວ່າເປັນໄຟລ໌ຮູບພາບ ຫຼື ບໍ່ (Base64 image, JPG, PNG, GIF, WEBP ຫຼື ຮູບພາບ Google Drive)
+            const isImage = url.startsWith('data:image/') || 
+                            url.match(/\.(jpeg|jpg|gif|png|webp)($|\?)/i) || 
+                            url.includes('drive.google.com/thumbnail') || 
+                            url.includes('googleusercontent.com');
+
+            if (isImage) {
+                return `
+                    <div class="bg-slate-950 p-2 rounded-xl border border-slate-700 text-center my-2">
+                        <img src="${url}" class="max-h-64 mx-auto rounded-lg object-contain w-full" alt="ຮູບພາບຜົນງານອະນາໄມ" loading="lazy">
+                    </div>
+                `;
+            } else {
+                // ຖ້າເປັນວິດີໂອ ໃຫ້ສະແດງເປັນປຸ່ມເປີດໃນ Google Drive
+                return `
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-700 text-center space-y-1 my-2">
+                        <span class="text-xs text-emerald-400 font-bold block">🎬 ວິດີໂອບົນ Google Drive</span>
+                        <a href="${url}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 ເປີດເບິ່ງວິດີໂອໃນ Google Drive</a>
+                    </div>
+                `;
+            }
+        }
+
+        // ☁️ ຟັງຊັນອັບໂຫລດໄຟລ໌ (ຮູບ/ວິດີໂອ) ຂຶ້ນ Google Drive ຫຼື ເກັບ Base64
+        const uploadFileToGoogleDrive = (roomName, file) => {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onload = async () => {
                     try {
                         const base64Data = reader.result;
-                        const response = await fetch(DRIVE_WEB_APP_URL, {
-                            method: "POST",
-                            body: JSON.stringify({
-                                room: roomName,
-                                filename: `video_${Date.now()}.webm`,
-                                filedata: base64Data
-                            })
-                        });
-                        const result = await response.json();
-                        if (result.status === "success") {
-                            resolve(result.webViewUrl); // ส่งคืนลิงก์ดูบน Google Drive
+                        // ຖ້າເປັນຮູບພາບ ຈະບັນທຶກ Base64 ເພື່ອສະແດງຜົນເປັນຮູບພາບໃນໜ້າເວັບໄດ້ທັນທີ
+                        if (file.type.startsWith('image/')) {
+                            resolve(base64Data);
                         } else {
-                            reject(new Error(result.message || "อัปโหลดไม่สำเร็จ"));
+                            // ຖ້າເປັນວິດີໂອ ຈະອັບໂຫລດຂຶ້ນ Google Drive ຜ່ານ Apps Script Web App
+                            const response = await fetch(DRIVE_WEB_APP_URL, {
+                                method: "POST",
+                                body: JSON.stringify({
+                                    room: roomName,
+                                    filename: `video_${Date.now()}.${file.name.split('.').pop() || 'webm'}`,
+                                    filedata: base64Data
+                                })
+                            });
+                            const result = await response.json();
+                            if (result.status === "success") {
+                                resolve(result.webViewUrl);
+                            } else {
+                                reject(new Error(result.message || "ອັບໂຫລດບໍ່ສຳເລັດ"));
+                            }
                         }
                     } catch (err) {
                         reject(err);
@@ -1705,7 +1738,7 @@
             if (!name || !description) return alert('ກະລຸນາປ້ອນຂໍ້ມູນໃຫ້ຄົບ');
 
             const files = fileInput.files;
-            if (files.length === 0) return alert('ກະລຸນາບັນທຶກວິດີໂອສົດຜ່ານກ້ອງກ່ອນສົ່ງ');
+            if (files.length === 0) return alert('ກະລຸນາເລືອກຮູບພາບ ຫລື ວິດີໂອກ່ອນສົ່ງ!');
 
             const currentWeekStr = getWeekNumber(now);
             const reportsSnap = await getDocs(collection(db, "member_reports"));
@@ -1715,21 +1748,21 @@
             });
             if (submitted) return alert('⚠️ ຫ້ອງຂອງທ່ານສົ່ງບົດລາຍງານສຳລັບອາທິດນີ້ໄປແລ້ວ!');
 
-            statusText.innerText = `⏳ ກຳລັງອັບໂຫລດວິດີໂອຂຶ້ນ Google Drive... ກະລຸນາຖ້າຈັກໜ້ອຍ...`;
+            statusText.innerText = `⏳ ກຳລັງປະມວນຜົນອັບໂຫລດ... ກະລຸນາຖ້າຈັກໜ້ອຍ...`;
             try {
                 let mediaUrls = [];
-                const driveVideoUrl = await uploadVideoToGoogleDrive(currentRoomUser, files[0]);
-                mediaUrls.push(driveVideoUrl);
+                const mediaUrl = await uploadFileToGoogleDrive(currentRoomUser, files[0]);
+                mediaUrls.push(mediaUrl);
 
                 statusText.innerText = `⏳ ກຳລັງບັນທຶກບົດລາຍງານ...`;
                 await addDoc(collection(db, "member_reports"), {
                     room: currentRoomUser, name, description, mediaUrls, date: new Date().toLocaleString('lo-LA'), weekTag: currentWeekStr, approved: false
                 });
-                alert('🎉 ສົ່ງບົດລາຍງານສຳເລັດ! ວິດີໂອຖືກເກັບໄວ້ໃນ Google Drive เรียบร้อยແລ້ວ.');
+                alert('🎉 ສົ່ງບົດລາຍງານສຳເລັດ!');
                 document.getElementById('member-name').value = '';
                 document.getElementById('member-task-desc').value = '';
                 fileInput.value = '';
-                statusText.innerText = '⚠️ ລະບົບຈະອັບໂຫລດວິດີໂອຂຶ້ນ Google Drive ອັດຕະໂນມັດ';
+                statusText.innerText = '⚠️ ຮູບພາບຈະສະແດງຜົນເປັນຮູບໂດຍກົງ, ວິດີໂອຈະຖືກອັບໂຫລດຂຶ້ນ Drive';
                 loadMemberReports(); loadFullScoreSummary();
             } catch (e) { alert(e.message); statusText.innerText = '❌ ອັບໂຫລດບໍ່ສຳເລັດ'; }
         };
@@ -1762,12 +1795,7 @@
                     </div>
                     <p class="text-sm text-slate-200 whitespace-pre-line">${rep.description}</p>
                     <div class="grid grid-cols-1 gap-2 pt-2">
-                        ${(rep.mediaUrls || []).map((url, idx) => `
-                            <div class="relative group bg-slate-950 p-3 rounded-xl border border-slate-700 text-center space-y-2">
-                                <span class="text-xs text-emerald-400 font-bold block">📁 ວິດີໂອບົນ Google Drive</span>
-                                <a href="${url}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 ເປີດເບິ່ງວິດີໂອໃນ Google Drive</a>
-                            </div>
-                        `).join('')}
+                        ${(rep.mediaUrls || []).map((url) => renderMediaPreview(url)).join('')}
                     </div>
                     <div class="flex justify-end space-x-2 pt-2">
                         ${userRole === 'admin' ? `
@@ -1817,7 +1845,7 @@
         function renderCyberTasks() {
             const container = document.getElementById('cyber-container');
             if (!container) return;
-            if (allCyberTasks.length === 0) { container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">ຍັງບໍ່ມີລາຍການວິດີໂອ</div>`; return; }
+            if (allCyberTasks.length === 0) { container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">ຍັງບໍ່ມີລາຍການ</div>`; return; }
             container.innerHTML = allCyberTasks.map(task => `
                 <div class="bg-slate-800/85 backdrop-blur border border-emerald-600 bg-emerald-950/25 rounded-2xl p-5 shadow-lg animate-fade-in space-y-3">
                     <div class="flex items-center justify-between">
@@ -1832,12 +1860,7 @@
                         ${userRole === 'admin' && isSuperAdmin() ? `<button onclick="deleteCyberTask('${task.id}')" class="text-xs bg-red-950 px-3 py-1 rounded-lg text-red-300">ລົບ</button>` : ''}
                     </div>
                     <div class="grid grid-cols-1 gap-2 mt-3 pt-3 border-t border-slate-700">
-                        ${(task.mediaUrls || []).map((url, idx) => `
-                            <div class="relative group bg-slate-950 p-3 rounded-xl border border-slate-700 text-center space-y-2">
-                                <span class="text-xs text-emerald-400 font-bold block">📁 ວິດີໂອບົນ Google Drive</span>
-                                <a href="${url}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 ເປີດເບິ່ງວິດີໂອໃນ Google Drive</a>
-                            </div>
-                        `).join('')}
+                        ${(task.mediaUrls || []).map((url) => renderMediaPreview(url)).join('')}
                     </div>
                 </div>
             `).join('');
@@ -1852,17 +1875,17 @@
             const description = document.getElementById('cyber-task-desc').value;
             const files = document.getElementById('cyber-media-files').files;
             if (!title) return alert('ກະລຸນາໃສ່ຫົວຂໍ້');
-            if (files.length === 0) return alert('ກະລຸນາບັນທຶກວິດີໂອຜ່ານກ້ອງ');
+            if (files.length === 0) return alert('ກະລຸນາເລືອກຮູບ ຫລື ວິດີໂອ');
 
             const statusText = document.getElementById('upload-status');
-            statusText.innerText = `⏳ ກຳລັງອັບໂຫລດວິດີໂອຂຶ້ນ Google Drive...`;
+            statusText.innerText = `⏳ ກຳລັງປະມວນຜົນອັບໂຫລດ...`;
             try {
                 let mediaUrls = [];
-                const driveVideoUrl = await uploadVideoToGoogleDrive("Admin_Uploads", files[0]);
+                const driveVideoUrl = await uploadFileToGoogleDrive("Admin_Uploads", files[0]);
                 mediaUrls.push(driveVideoUrl);
 
                 await addDoc(collection(db, "cyber_tasks"), { title, description, mediaUrls, date: new Date().toLocaleString('lo-LA') });
-                alert('ເພີ່ມລາຍການວິດີໂອສຳເລັດ!');
+                alert('ເພີ່ມລາຍການສຳເລັດ!');
                 closeCyberModal(); loadCyberTasks(); switchTab('cyber');
             } catch (e) { alert(e.message); statusText.innerText = '❌ ອັບໂຫລດບໍ່ສຳເລັດ'; }
         };
