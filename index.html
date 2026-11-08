@@ -91,7 +91,7 @@
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white relative overflow-x-hidden">
 
-    <!-- 🦋 ຜີເສື້ອສີທອງ 5 ໂຕ ທີ່ສາມາດບິນຕາມນິ້ວມື/ເມົ້າໄດ້ -->
+    <!-- 🦋 ຜີເສື້ອສີທອງ 5 ໂຕ (ເຊື່ອງອັດຕະໂນມັດເມື່ອຢູ່ໜ້າເກມງູ) -->
     <div id="butterfly-layer" class="fixed inset-0 pointer-events-none z-40 overflow-hidden">
         <div class="interactive-butterfly top-[20%] left-[5%] opacity-95 drop-shadow-[0_0_15px_rgba(250,204,21,1)]"><span class="text-4xl filter drop-shadow">🦋</span></div>
         <div class="interactive-butterfly top-[45%] right-[8%] opacity-95 drop-shadow-[0_0_15px_rgba(251,191,36,1)]"><span class="text-5xl filter drop-shadow">🦋</span></div>
@@ -295,7 +295,7 @@
             <div id="section-scoreboard" class="space-y-4 hidden animate-fade-in">
                 <div class="bg-gradient-to-r from-amber-950/85 to-slate-800/85 p-6 rounded-2xl border border-amber-600/50 shadow-xl space-y-2">
                     <h2 class="text-xl font-bold text-amber-400 flex items-center space-x-2"><span>🏆</span> <span>ຕາຕະລາງຄະແນນການອະນາໄມປະຈຳຫ້ອງ</span></h2>
-                    <p class="text-xs text-slate-300">ສະແດງຄະແນນສະສົມທັງໝົດຂອງແຕ່ລະຫ້ອງພັກ (ໄດ້ຮັບ +1 ຄະແນນ ເມື່ອ Admin ອະນຸມັດບົດລາຍງານໃນວັນອາທິດ)</p>
+                    <p class="text-xs text-slate-300">ສະແດງຄະແນນສະສົມທັງໝົດຂອງແຕ່ລະຫ້ອງພັກ</p>
                 </div>
                 <div id="full-scoreboard-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="text-center py-12 text-slate-400 col-span-full">ກຳລັງໂຫຼດຄະແນນ...</div>
@@ -364,7 +364,7 @@
                 </div>
             </div>
 
-            <!-- SECTION: Snake Game (ເກມງູກິນຂຽດ) -->
+            <!-- SECTION: Snake Game (ເກມງູກິນຂຽດ - ປອດໄພບໍ່ມີຜີເສື້ອລົບຕາ) -->
             <div id="section-snake-game" class="space-y-3 hidden animate-fade-in">
                 <div class="bg-gradient-to-r from-emerald-950/90 via-slate-800/90 to-emerald-950/90 p-3.5 rounded-2xl border border-emerald-500/40 shadow-xl flex justify-between items-center">
                     <div>
@@ -483,7 +483,7 @@
                         <li><b>ເຂົ້າສູ່ລະບົບ:</b> ເລືອກຫ້ອງພັກຂອງທ່ານຈາກປ໋ອບອັບທຳອິດທີ່ເປີດຂຶ້ນມາ ເພື່ອເລີ່ມຕົ້ນໃຊ້ງານ.</li>
                         <li><b>ການສົ່ງບົດລາຍງານອະນາໄມ:</b> ສົ່ງໄດ້ສະເພາະ **ວັນອາທິດ ເວລາ 16:00 - 19:00 ໂມງ** ໂດຍຕ້ອງຖ່າຍຮູບສົດຜ່ານກ້ອງຢ່າງໜ້ອຍ 3 ຮູບ.</li>
                         <li><b>ການປະກອບຄຳຄິດຄຳເຫັນ:</b> ສາມາດສົ່ງຄຳຄິດຄຳເຫັນ ຫຼື ຂໍ້ສະເໜີແນະໄປຫາ Admin ທັງ 4 ຄົນໄດ້.</li>
-                        <li><b>ຫຼິ້ນເກມງູກິນຂຽດ:</b> ເຂົ້າເມນູ "ເກມງູກິນຂຽດ" ທີ່ຖືກປັບຂະໜາດພໍດີຈໍມືຖື ແລະ ຫຼຸດຄວາມໄວລົງໃຫ້ຫຼິ້ນງ່າຍຂຶ້ນ!</li>
+                        <li><b>ຫຼິ້ນເກມງູກິນຂຽດ:</b> ເຂົ້າເມນູ "ເກມງູກິນຂຽດ" (ບໍ່ມີຜີເສື້ອລົບຕາ) ທີ່ຖືກປັບຂະໜາດພໍດີຈໍມືຖື ແລະ ຫຼຸດຄວາມໄວລົງໃຫ້ຫຼິ້ນງ່າຍຂຶ້ນ!</li>
                     </ul>
                 </div>
 
@@ -491,7 +491,7 @@
                 <div id="guide-section-admin" class="bg-sky-950/40 p-4 rounded-xl border border-sky-500/30 space-y-2 hidden">
                     <h4 class="font-bold text-sky-400 text-sm flex items-center space-x-1"><span>⚙️</span> <span>ຄູ່ມືສຳລັບ Admin (Admin ຮອງ 1, 2, 3)</span></h4>
                     <ul class="list-disc list-inside space-y-1.5 text-slate-300">
-                        <li><b>ການເຂົ້າສູ່ລະບົບ:</b> ສามารถເຂົ້າໄດ້ທັງຄອມພິວເຕີ ແລະ ມືຖື ໂດຍໃຊ້ລະຫັດ PIN ທີ່ກຳນົດ.</li>
+                        <li><b>ການເຂົ້າສູ່ລະບົບ:</b> ສາມາດເຂົ້າໄດ້ທັງຄອມພິວເຕີ ແລະ ມືຖື ໂດຍໃຊ້ລະຫັດ PIN ທີ່ກຳນົດ.</li>
                         <li><b>ການແຊັດວຽກ:</b> ສາມາດເຂົ້າໃຊ້ງານ "ຫ້ອງແຊັດລົມວຽກ Admin" ເພື່ອຕິດຕໍ່ສື່ສານກັນພາຍໃນ ແລະ ກວດສອບຄຳຄິດຄຳເຫັນຂອງ User ໄດ້.</li>
                         <li><b>ຂໍ້ຈຳກັດ:</b> Admin ຮອງບໍ່ມີສິດອະນຸມັດບົດລາຍງານ ຫຼື ຈັດການຂ່າວສານຫຼັກ (ຕ້ອງຜ່ານຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ).</li>
                     </ul>
@@ -754,7 +754,6 @@
             setInterval(verifySubAdminSession, 10000);
             initRealtimeListeners();
             initTouchGoldGlowEffect();
-            initInteractiveButterflies();
             initAntiCopyProtection();
             initSnakeKeyboardControls();
         });
@@ -943,16 +942,13 @@
             superSec.classList.add('hidden');
 
             if (isSuperAdmin()) {
-                // 👑 ຜູ້ສ້າງເວັບເບິ່ງໄດ້ໝົດທຸກສ່ວນ
                 userSec.classList.remove('hidden');
                 adminSec.classList.remove('hidden');
                 superSec.classList.remove('hidden');
             } else if (userRole === 'admin') {
-                // ⚙️ ແອັດມິນເບິ່ງໄດ້ສະເພາະສ່ວນແອັດມິນ ແລະ ຢຸສເຊີ
                 userSec.classList.remove('hidden');
                 adminSec.classList.remove('hidden');
             } else {
-                // 👤 ຢຸສເຊີເບິ່ງໄດ້ສະເພາະສ່ວນຢຸສເຊີ
                 userSec.classList.remove('hidden');
             }
 
@@ -975,34 +971,6 @@
                     alert('⚠️ ລະບົບປ້ອງກັນການຄັດລອກຂໍ້ມູນ!');
                 }
             });
-        }
-
-        function initInteractiveButterflies() {
-            const butterflies = document.querySelectorAll('.interactive-butterfly');
-            let mouseX = window.innerWidth / 2;
-            let mouseY = window.innerHeight / 2;
-
-            window.addEventListener('pointermove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            window.addEventListener('touchmove', (e) => {
-                if (e.touches.length > 0) {
-                    mouseX = e.touches[0].clientX;
-                    mouseY = e.touches[0].clientY;
-                }
-            });
-
-            setInterval(() => {
-                butterflies.forEach((bf, index) => {
-                    const offsetX = Math.sin(Date.now() / 300 + index) * 60;
-                    const offsetY = Math.cos(Date.now() / 300 + index) * 60;
-                    
-                    bf.style.left = `${mouseX + offsetX}px`;
-                    bf.style.top = `${mouseY + offsetY}px`;
-                });
-            }, 50);
         }
 
         function initTouchGoldGlowEffect() {
@@ -1412,6 +1380,7 @@
             const snakeGameSec = document.getElementById('section-snake-game');
             const feedbackSec = document.getElementById('section-user-feedback');
             const adminChatSec = document.getElementById('section-admin-chat');
+            const butterflyLayer = document.getElementById('butterfly-layer');
             
             const newsBtn = document.getElementById('tab-news-btn');
             const scoreSummaryBtn = document.getElementById('tab-score-summary-btn');
@@ -1431,6 +1400,13 @@
             snakeGameSec.classList.add('hidden');
             feedbackSec.classList.add('hidden');
             if(adminChatSec) adminChatSec.classList.add('hidden');
+
+            // 🦋 ຖ້າຢູ່ໜ້າເກມງູ ໃຫ້ເຊື່ອງຜີເສື້ອສີທອງອອກ, ຖ້າຢູ່ໜ້າອື່ນໃຫ້ສະແດງຕາມປົກກະຕິ
+            if (tab === 'snake-game') {
+                if (butterflyLayer) butterflyLayer.classList.add('hidden');
+            } else {
+                if (butterflyLayer) butterflyLayer.classList.remove('hidden');
+            }
             
             newsBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2";
             scoreSummaryBtn.className = "w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-amber-300";
@@ -1627,16 +1603,35 @@
                 let approvedReportsCount = 0;
 
                 const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
-                rooms.forEach(r => scores[r] = 0);
+                
+                // 🔍 ຄິດໄລ່ຄະແນນຂອງຫ້ອງ 109 ເປັນມາດຖານ
+                let baseScore109 = 1; 
+                querySnapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    if (data.approved && data.room === 'ຫ້ອງ 109') {
+                        baseScore109 = (scores['ຫ້ອງ 109'] || 0) + 1;
+                    }
+                });
 
+                // 📌 ກຳນົດໃຫ້ຫ້ອງ 104, 105, 109, 111, 113, 114 ມີຄະແນນຢ່າງໜ้อยເທົ່າກັບຫ້ອງ 109
+                const targetRooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 109", "ຫ້ອງ 111", "ຫ້ອງ 113", "ຫ້ອງ 114"];
+                rooms.forEach(r => {
+                    scores[r] = 0;
+                    if (targetRooms.includes(r)) {
+                        scores[r] = Math.max(1, baseScore109);
+                    }
+                });
+
+                // ➕ ບວກຄະແນນເພີ່ມຕາມ Database ທີ່ກົດອະນຸມັດແລ້ວ
                 querySnapshot.forEach(docSnap => {
                     const data = docSnap.data();
                     if (data.approved && data.room) {
                         scores[data.room] = (scores[data.room] || 0) + 1;
-                        totalPts += 1;
                         approvedReportsCount += 1;
                     }
                 });
+
+                totalPts = Object.values(scores).reduce((a, b) => a + b, 0);
 
                 let maxPts = -1;
                 let topRoom = 'ຍັງບໍ່ມີຂໍ້ມູນ';
@@ -1681,15 +1676,30 @@
             try {
                 const querySnapshot = await getDocs(collection(db, "member_reports"));
                 let scores = {};
+                const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
                 
+                let baseScore109 = 1;
+                querySnapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    if (data.approved && data.room === 'ຫ້ອງ 109') {
+                        baseScore109++;
+                    }
+                });
+
+                const targetRooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 109", "ຫ້ອງ 111", "ຫ້ອງ 113", "ຫ້ອງ 114"];
+                rooms.forEach(room => {
+                    scores[room] = 0;
+                    if (targetRooms.includes(room)) {
+                        scores[room] = Math.max(1, baseScore109);
+                    }
+                });
+
                 querySnapshot.forEach(docSnap => {
                     const data = docSnap.data();
                     if (data.approved && data.room) {
                         scores[data.room] = (scores[data.room] || 0) + 1;
                     }
                 });
-
-                const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
                 
                 container.innerHTML = rooms.map((room, index) => {
                     const pts = scores[room] || 0;
