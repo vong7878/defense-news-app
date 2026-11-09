@@ -1,3 +1,6 @@
+
+index (22).html
+100%
 <!DOCTYPE html>
 <html lang="lo" class="scroll-smooth">
 <head>
@@ -304,26 +307,26 @@
                 </div>
             </div>
 
+            <!-- SECTION 2: Score Summary Dashboard (Added Weekly, Monthly, Yearly Tabs) -->
+            <div id="section-score-summary" class="space-y-6 animate-fade-in">
+                <div class="bg-gradient-to-r from-amber-950/90 via-slate-800/90 to-emerald-950/90 p-6 rounded-2xl border border-amber-500/40 shadow-2xl space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                        <div>
+                            <h2 class="text-2xl font-extrabold text-amber-400 flex items-center space-x-2">
+                                <span>📊</span> <span>ໜ້າສະຫຼຸບຄະແນນການອະນາໄມ (Dashboard)</span>
+                            </h2>
+                            <p class="text-xs text-slate-300 mt-1">ເລືອກມຸມມອງການສະຫຼຸບຄະແນນແບບ ປະຈຳອາທິດ, ປະຈຳເດືອນ ຫຼື ປະຈຳປີ</p>
+                        </div>
+                        
+                        <!-- 🎛️ ປຸ່ມປ່ຽນມຸມມອງ (Tabs) -->
+                        <div class="flex bg-slate-900/80 p-1 rounded-xl border border-slate-700 text-xs font-semibold">
+                            <button onclick="switchSummaryPeriod('weekly')" id="btn-period-weekly" class="px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow">📅 ອາທິດນີ້</button>
+                            <button onclick="switchSummaryPeriod('monthly')" id="btn-period-monthly" class="px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white">📆 ເດືອນນີ້</button>
+                            <button onclick="switchSummaryPeriod('yearly')" id="btn-period-yearly" class="px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white">🗓️ ປີນີ້</button>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- SECTION 2: Score Summary Dashboard -->
-<div id="section-score-summary" class="space-y-6 animate-fade-in">
-    <div class="bg-gradient-to-r from-amber-950/90 via-slate-800/90 to-emerald-950/90 p-6 rounded-2xl border border-amber-500/40 shadow-2xl space-y-4">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-            <div>
-                <h2 class="text-2xl font-extrabold text-amber-400 flex items-center space-x-2">
-                    <span>📊</span> <span>ໜ້າສະຫຼຸບຄະແນນການອະນາໄມ (Dashboard)</span>
-                </h2>
-                <p class="text-xs text-slate-300 mt-1">ເລືອກມຸມມອງການສະຫຼຸບຄະແນນແບບ ປະຈຳອາທິດ, ປະຈຳເດືອນ ຫຼື ປະຈຳປີ</p>
-            </div>
-            
-            <!-- 🎛️ ປຸ່ມປ່ຽນມຸມມອງ (Tabs) -->
-            <div class="flex bg-slate-900/80 p-1 rounded-xl border border-slate-700 text-xs font-semibold">
-                <button onclick="switchSummaryPeriod('weekly')" id="btn-period-weekly" class="px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow">📅 ອາທິດນີ້</button>
-                <button onclick="switchSummaryPeriod('monthly')" id="btn-period-monthly" class="px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white">📆 ເດືອນນີ້</button>
-                <button onclick="switchSummaryPeriod('yearly')" id="btn-period-yearly" class="px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white">🗓️ ປີນີ້</button>
-            </div>
-        </div>
-    </div>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div class="bg-slate-800/85 p-5 rounded-2xl border border-amber-500/30 shadow-lg flex items-center space-x-4">
                         <div class="p-3 bg-amber-500/20 text-amber-400 rounded-xl text-2xl font-bold">🥇</div>
@@ -1434,111 +1437,26 @@
         };
 
         // 🎛️ ຟັງຊັນປ່ຽນມຸມມອງເວລາໃນໜ້າສະຫຼຸບ (Weekly, Monthly, Yearly)
-       let currentSummaryPeriod = 'weekly'; // weekly, monthly, yearly
+        window.switchSummaryPeriod = (period) => {
+            currentSummaryPeriod = period;
+            const btnW = document.getElementById('btn-period-weekly');
+            const btnM = document.getElementById('btn-period-monthly');
+            const btnY = document.getElementById('btn-period-yearly');
+            
+            btnW.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white";
+            btnM.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white";
+            btnY.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white";
 
-window.switchSummaryPeriod = (period) => {
-    currentSummaryPeriod = period;
-    const btnW = document.getElementById('btn-period-weekly');
-    const btnM = document.getElementById('btn-period-monthly');
-    const btnY = document.getElementById('btn-period-yearly');
-    
-    btnW.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white";
-    btnM.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white";
-    btnY.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white";
-
-    if (period === 'weekly') btnW.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow";
-    else if (period === 'monthly') btnM.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow";
-    else if (period === 'yearly') btnY.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow";
-
-    loadFullScoreSummary();
-};
-
-async function loadFullScoreSummary() {
-    const container = document.getElementById('summary-bars-container');
-    if (!container) return;
-    
-    const topRoomLabel = document.getElementById('summary-top-room-label');
-    const totalPtsLabel = document.getElementById('summary-total-points-label');
-    const appCountLabel = document.getElementById('summary-approved-count-label');
-    const chartTitle = document.getElementById('summary-chart-title');
-
-    const now = new Date();
-    const currentWeekStr = getWeekNumber(now);
-    const currentMonthNum = now.getMonth();
-    const currentYearNum = now.getFullYear();
-
-    if (currentSummaryPeriod === 'weekly') {
-        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ອາທິດນີ້)";
-        totalPtsLabel.innerText = "ຄະແນນລວມ (ອາທິດນີ້)";
-        appCountLabel.innerText = "ບົດລາຍງານທີ່ອະນຸມັດ (ອາທິດນີ້)";
-        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳອາທິດ (${currentWeekStr})</span>`;
-    } else if (currentSummaryPeriod === 'monthly') {
-        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ເດືອນນີ້)";
-        totalPtsLabel.innerText = "ຄະແນນລວມ (ເດືອນນີ້)";
-        appCountLabel.innerText = "ບົດລາຍງານທີ່ອະນຸມັດ (ເດືອນນີ້)";
-        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳເດືອນ (${currentMonthNum + 1}/${currentYearNum})</span>`;
-    } else if (currentSummaryPeriod === 'yearly') {
-        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ປີນີ້)";
-        totalPtsLabel.innerText = "ຄະແນນລວມ (ປີນີ້)";
-        appCountLabel.innerText = "ບົດລາຍງານທີ່ອະນຸມັດ (ປີນີ້)";
-        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳປີ (${currentYearNum})</span>`;
-    }
-
-    try {
-        const querySnapshot = await getDocs(collection(db, "member_reports"));
-        let scores = {}; let totalPts = 0; let approvedReportsCount = 0;
-        const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
-        rooms.forEach(r => { scores[r] = 0; });
-
-        querySnapshot.forEach(docSnap => {
-            const data = docSnap.data();
-            if (data.approved && data.room) {
-                let reportDate = data.createdAt ? data.createdAt.toDate() : new Date();
-                let matchesPeriod = false;
-
-                if (currentSummaryPeriod === 'weekly') {
-                    if (data.weekTag === currentWeekStr || getWeekNumber(reportDate) === currentWeekStr) matchesPeriod = true;
-                } else if (currentSummaryPeriod === 'monthly') {
-                    if (reportDate.getMonth() === currentMonthNum && reportDate.getFullYear() === currentYearNum) matchesPeriod = true;
-                } else if (currentSummaryPeriod === 'yearly') {
-                    if (reportDate.getFullYear() === currentYearNum) matchesPeriod = true;
-                }
-
-                if (matchesPeriod) {
-                    const ptsToAdd = (data.specialPoints !== undefined) ? data.specialPoints : 1;
-                    scores[data.room] = (scores[data.room] || 0) + ptsToAdd;
-                    if (scores[data.room] < 0) scores[data.room] = 0;
-                    if (ptsToAdd > 0) approvedReportsCount += 1;
-                }
+            if (period === 'weekly') {
+                btnW.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow";
+            } else if (period === 'monthly') {
+                btnM.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow";
+            } else if (period === 'yearly') {
+                btnY.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow";
             }
-        });
 
-        totalPts = Object.values(scores).reduce((a, b) => a + b, 0);
-        let maxPts = -1; let topRoom = 'ຍັງບໍ່ມີຂໍ້ມູນ';
-        rooms.forEach(r => { if (scores[r] > maxPts) { maxPts = scores[r]; topRoom = r; } });
-
-        document.getElementById('summary-top-room').innerText = `${topRoom} (${maxPts} ຄະແນນ)`;
-        document.getElementById('summary-total-points').innerText = `${totalPts} ຄະແນນ`;
-        document.getElementById('summary-approved-count').innerText = `${approvedReportsCount} ບົດລາຍງານ`;
-
-        const highestPoint = Math.max(...Object.values(scores), 1);
-        container.innerHTML = rooms.map(room => {
-            const pts = scores[room] || 0;
-            const percent = highestPoint > 0 ? Math.round((pts / highestPoint) * 100) : 0;
-            return `
-                <div class="space-y-1 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60">
-                    <div class="flex justify-between items-center text-xs font-semibold">
-                        <span class="text-slate-200">🏠 ${room}</span>
-                        <span class="text-amber-400 font-bold">${pts} ຄະແນນ (${percent}%)</span>
-                    </div>
-                    <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden border border-slate-700">
-                        <div class="bg-gradient-to-r from-emerald-500 to-amber-400 h-3 rounded-full transition-all duration-500" style="width: ${percent}%"></div>
-                    </div>
-                </div>
-            `;
-        }).join('');
-    } catch (err) { container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${err.message}</div>`; }
-}
+            loadFullScoreSummary();
+        };
 
         window.submitUserFeedback = async () => {
             if (!currentRoomUser || currentRoomUser.includes('Admin') || currentRoomUser.includes('ຜູ້ສ້າງ')) {
@@ -2224,3 +2142,7 @@ async function loadFullScoreSummary() {
     </script>
 </body>
 </html>
+Đang hiển thị index (22).html.
+encrypted-tbn
+เข้ารหัส-tbn
+"-- Favicon / ໂລໂກ້ເທິງແຖບເວັບໄຊ -->
