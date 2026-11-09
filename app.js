@@ -129,23 +129,27 @@ window.toggleHeaderVis = () => {
 
 window.toggleSidebarMobile = () => { 
     const sidebar = document.getElementById('sidebar-container'); 
-    const header = document.getElementById('main-header'); // ເອີ້ນໃຊ້ Header
-    sidebar.classList.toggle('hidden'); 
-    
-    // ຊອກຫາປຸ່ມ 3 ຂີດ (Hamburger Button)
-    const hamburgerBtn = document.querySelector('button[onclick="toggleSidebarMobile()"]');
+    const header = document.getElementById('main-header'); 
+    const hamburgerBtn = document.querySelector('button[onclick*="toggleSidebarMobile"]');
     let backdrop = document.getElementById('sidebar-backdrop');
 
-    if (!sidebar.classList.contains('hidden')) { 
-        // 📱 ເມື່ອເປີດ Sidebar: ຕັ້ງຄ່າ Sidebar ໃຫ້ແຜ່ເຕັມ/ບັງດ້ານຂ້າງ
+    // ตรวจສອບວ່າຕອນນີ້ Sidebar ซື່ອງຢູ່ ຫຼື ບໍ່
+    const isHidden = sidebar.classList.contains('hidden'); 
+
+    if (isHidden) { 
+        // 📱 ເມື່ອເປີດ Sidebar: ສະແດງ Sidebar ມຸມຊ້າຍ
+        sidebar.classList.remove('hidden');
         sidebar.classList.add('fixed', 'inset-y-0', 'left-0', 'w-4/5', 'max-w-xs', 'z-50', 'bg-slate-900', 'p-4', 'overflow-y-auto', 'shadow-2xl', 'animate-fade-in'); 
 
-        // 🙈 ຊ່ອນ Header ໃຫ້ຫາຍຂຶ້ນໄປດ້ານເທິງ
+        // 🙈 ຊ່ອນ Header ຂຶ້ນເທິງທັນທີ
         if (header) {
-            header.classList.add('-translate-y-full', 'opacity-0');
+            header.style.transform = 'translateY(-100%)';
+            header.style.opacity = '0';
+            header.style.pointerEvents = 'none';
+            header.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
         }
 
-        // 🙈 ເຮັດໃຫ້ປຸ່ມ 3 ຂີດຫາຍໄປ ເມື່ອເປີດເມນູ
+        // 🙈 ເຮັດໃຫ້ປຸ່ມ 3 ຂີດຫາຍໄປ
         if (hamburgerBtn) {
             hamburgerBtn.classList.add('hidden');
         }
@@ -155,19 +159,22 @@ window.toggleSidebarMobile = () => {
             backdrop = document.createElement('div');
             backdrop.id = 'sidebar-backdrop';
             backdrop.className = 'fixed inset-0 bg-black/70 backdrop-blur-sm z-40 animate-fade-in';
-            backdrop.onclick = toggleSidebarMobile; // ກົດຜ້າບັງແລ້ວປິດ Sidebar
+            backdrop.onclick = window.toggleSidebarMobile; // ກົດຜ້າບັງແລ້ວປິດ Sidebar
             document.body.appendChild(backdrop);
         }
     } else { 
-        // 📱 ເມື່ອປິດ Sidebar: ເອົາ Style ອອກ
+        // 📱 ເມື່ອປິດ Sidebar: ซື່ອງ Sidebar ກັບຄືນ
+        sidebar.classList.add('hidden');
         sidebar.classList.remove('fixed', 'inset-y-0', 'left-0', 'w-4/5', 'max-w-xs', 'z-50', 'bg-slate-900', 'p-4', 'overflow-y-auto', 'shadow-2xl', 'animate-fade-in'); 
 
-        // 👀 ເປີດ / ສະແດງ Header ກັບຄືນມາຄືເກົ່າ
+        // 👀 ເປີດ / ສະແດງ Header ກັບຄືນມາປົກກະຕິ
         if (header) {
-            header.classList.remove('-translate-y-full', 'opacity-0');
+            header.style.transform = 'translateY(0)';
+            header.style.opacity = '1';
+            header.style.pointerEvents = 'auto';
         }
 
-        // 👀 ເຮັດໃຫ້ປຸ່ມ 3 ຂີດກັບຄືນມາສະແດງຜົນ
+        // 👀 ເຮັດໃຫ້ປຸ່ມ 3 ຂີດກັບຄືນມາ
         if (hamburgerBtn) {
             hamburgerBtn.classList.remove('hidden');
         }
@@ -178,7 +185,6 @@ window.toggleSidebarMobile = () => {
         }
     } 
 };
-
 
 
 function initFirefliesMovement() { 
