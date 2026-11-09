@@ -6,18 +6,18 @@
     user-select: none;
 }
 
-/* 🌙 ພື້ນຫຼັງສີມືດ ເອົາໄວ້ຂັບໃຫ້ກ່ອງສີຂາວໂດດເດັ່ນ */
+/* 🏢 ໂທນສີພື້ນຫຼັງແບບມືອາຊີບທາງການ (Professional Dark Theme) */
 body { 
     font-family: 'Noto Sans Lao', sans-serif; 
-    background-color: #0f172a; 
-    color: #0f172a; 
+    background-color: #090d16; 
+    color: #e2e8f0; 
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
+    from { opacity: 0; transform: translateY(4px); }
     to { opacity: 1; transform: translateY(0); }
 }
-.animate-fade-in { animation: fadeIn 0.25s ease-out forwards; }
+.animate-fade-in { animation: fadeIn 0.2s ease-out forwards; }
 
 @keyframes ring {
     0% { transform: rotate(0deg); }
@@ -29,41 +29,43 @@ body {
 }
 .animate-bell { animation: ring 0.5s ease-in-out infinite; }
 
-/* 🌟 ເກັບເອັບເຟັກແມງຫິ້ງຫ້ອຍ / ແມງກະເບື້ອໄວ້ຕາມປົກກະຕິ */
+/* 🌟 ເກັບເອັບເຟັກແມງຫິ້ງຫ້ອຍ / ດາວວິບວັບໄວ້ຕາມປົກກະຕິ */
 #firefly-layer {
     pointer-events: none;
 }
 
-/* 📄 ປ່ຽນກ່ອງ Card ທຸກອັນໃຫ້ເປັນ "ສີຂາວສະອາດ" ພ້ອມເງົານຸ່ມໆ */
+/* 📋 ບັງຄັບໃຫ້ Card, ປ່ອງຢ້ຽມ, ແລະ Container ໃນທຸກໜ້າ ມີຮູບແບບດຽວກັນທັງໝົດ */
+div[id^="section-"] > div, 
 .bg-slate-800, .bg-slate-900, .bg-slate-800\/95, .bg-slate-900\/80 {
-    background-color: #ffffff !important;
-    color: #0f172a !important; /* ຕົວໜັງສືສີດຳເຂັ້ມ */
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 1rem !important;
-    box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+    background-color: #111827 !important; /* ສີເທົາເຂັ້ມສະອາດຕາແບບ Official */
+    color: #f8fafc !important; 
+    border: 1px solid #1f2937 !important; /* ຂອບບາງໆສີດຽວກັນທຸກໜ້າ */
+    border-radius: 0.85rem !important; /* မຸມມົນເທົ່າກັນໝົດ */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* 🔠 ປັບສີຕົວໜັງສືທຸກຢ່າງພາຍໃນ Card ໃຫ້ເປັນ "ສີດຳ/ເທົາເຂັ້ມ" ອ່ານງ່າຍຊັດເຈນ */
-.bg-slate-800 *, .bg-slate-900 * {
-    color: #0f172a !important;
+/* 📱 ຈັດ Sidebar ແລະ Header ໃຫ້ເປັນມາດຕະຖານດຽວກັນ */
+#sidebar-container, header {
+    background-color: #0b0f19 !important;
+    border-color: #1f2937 !important;
 }
 
-/* ປັບສີຂໍ້ຄວາມຍ່ອຍ / ວັນທີ / ໝາຍເຫດ ໃຫ້ເປັນສີເທົາເຂັ້ມ */
-.text-slate-200, .text-slate-300, .text-slate-400, .text-slate-500 {
-    color: #475569 !important;
+/* 🔠 ຈັດລະບຽບຕົວໜັງສືຫົວຂໍ້ທຸກໜ້າໃຫ້ຄົມຊັດ ແລະ ເທົ່າກັນ */
+h1, h2, h3, h4, .text-slate-200, .text-slate-300 {
+    color: #f8fafc !important;
 }
 
-/* 🔍 ປັບຊ່ອງຄົ້ນຫາ (Search Box) ໃຫ້ເປັນກ່ອງສີຂາວ ຕົວໜັງສືສີດຳ */
-input[type="text"], input[type="search"] {
-    background-color: #ffffff !important;
-    border: 1px solid #cbd5e1 !important;
-    color: #0f172a !important;
-    border-radius: 0.75rem !important;
-    padding: 0.65rem 1rem !important;
+/* 🔍 ຊ່ອງຄົ້ນຫາ, Input ແລະ Select ທຸກໜ້າໃຫ້ເປັນມາດຕະຖານດຽວກັນ */
+input[type="text"], input[type="search"], input[type="datetime-local"], select, textarea {
+    background-color: #030712 !important;
+    border: 1px solid #374151 !important;
+    color: #f9fafb !important;
+    border-radius: 0.5rem !important;
+    padding: 0.6rem 0.85rem !important;
 }
 
-input[type="text"]::placeholder {
-    color: #94a3b8 !important;
+input::placeholder, textarea::placeholder {
+    color: #6b7280 !important;
 }
 
 /* ປ້ອງກັນການລົ້ນໜ້າຈໍມືຖື */
