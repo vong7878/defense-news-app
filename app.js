@@ -129,13 +129,36 @@ window.toggleHeaderVis = () => {
 
 window.toggleSidebarMobile = () => { 
     const sidebar = document.getElementById('sidebar-container'); 
+    const header = document.getElementById('main-header');
+    const icon = document.getElementById('floating-toggle-icon'); 
+    const text = document.getElementById('floating-toggle-text'); 
+
     sidebar.classList.toggle('hidden'); 
+    
     if (!sidebar.classList.contains('hidden')) { 
+        // 📱 ເມື່ອເປີດ Sidebar: ຕັ້ງຄ່າ Sidebar ໃຫ້ແຜ່ເຕັມໜ້າຈໍ
         sidebar.classList.add('fixed', 'inset-0', 'z-50', 'bg-slate-900/95', 'p-6', 'overflow-y-auto'); 
+
+        // 🙈 ປິດ / ຊ່ອນ Header ອັດຕະໂນມັດ
+        if (header) {
+            header.classList.add('-translate-y-full', 'opacity-0');
+            isHeaderHidden = true;
+            if (icon) icon.innerText = '👁️';
+            if (text) text.innerText = 'ເປີດ Header';
+        }
     } else { 
+        // 📱 ເມື່ອປິດ Sidebar: ເອົາ Style ແຜ່ເຕັມໜ້າຈໍອອກ
         sidebar.classList.remove('fixed', 'inset-0', 'z-50', 'bg-slate-900/95', 'p-6', 'overflow-y-auto'); 
+
+        // 👁️ ເປີດ / ສະແດງ Header ຄືນອັດຕະໂນມັດ
+        if (header) {
+            header.classList.remove('-translate-y-full', 'opacity-0');
+            isHeaderHidden = false;
+            if (icon) icon.innerText = '🙈';
+            if (text) text.innerText = 'ຊ່ອນ Header';
+        }
     } 
-}; 
+};
 
 function initFirefliesMovement() { 
     const fireflies = document.querySelectorAll('.interactive-firefly'); 
