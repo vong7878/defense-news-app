@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html lang="lo" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ລະບົບຂ່າວສານ ແລະ ຕິດຕາມການອະນາໄມ - ຈຸປ້ອງກັນ</title>
+    
+    <!-- Favicon / ໂລໂກ້ເທິງແຖບເວັບໄຊ -->
+    <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYff3WPJ1yzOiXHvS7NZuw-gyAjw25bht1HKPCVR3mSBYEhqInb6tgDUS-&s=10">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font: Noto Sans Lao -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* 🚫 ຫ້າມເລືອກ ແລະ ຫ້າມກັອບປີ້ຕົວໜັງສືທຸກຕົວໃນໜ້າເວັບ */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        body { font-family: 'Noto Sans Lao', sans-serif; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+        
+        @keyframes ring {
+            0% { transform: rotate(0deg); }
+            20% { transform: rotate(15deg); }
+            40% { transform: rotate(-15deg); }
+            60% { transform: rotate(10deg); }
+            80% { transform: rotate(-10deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .animate-bell { animation: ring 0.5s ease-in-out infinite; }
+
+        @keyframes highlightPulse {
+            0% { background-color: rgba(16, 185, 129, 0.4); border-color: #10b981; }
+            100% { background-color: rgba(30, 41, 59, 0.85); border-color: rgba(51, 65, 85, 0.8); }
+        }
+        .highlight-flash {
+            animation: highlightPulse 2s ease-out forwards;
+        }
+
+        /* ✨ ແມງຫິ້ງຫ້ອຍ (Firefly) ສ່ອງແສງ ແລະ ບິນໄປມາ */
+        .interactive-firefly {
+            position: absolute;
+            font-size: 1.2rem;
+            pointer-events: none;
+            transition: transform 0.4s ease-out, left 0.8s ease-out, top 0.8s ease-out;
+            filter: drop-shadow(0 0 10px rgba(250, 204, 21, 1)) drop-shadow(0 0 20px rgba(234, 179, 8, 0.8));
+            animation: floatFirefly 3.5s ease-in-out infinite alternate, blinkFirefly 1.5s ease-in-out infinite;
+        }
+
+        @keyframes floatFirefly {
+            0% { transform: translateY(0px) translateX(0px) scale(0.9); }
+            50% { transform: translateY(-30px) translateX(15px) scale(1.2); }
+            100% { transform: translateY(20px) translateX(-15px) scale(0.95); }
+        }
+
+        @keyframes blinkFirefly {
+            0%, 100% { opacity: 0.4; filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.5)); }
+            50% { opacity: 1; filter: drop-shadow(0 0 15px rgba(254, 240, 138, 1)) drop-shadow(0 0 25px rgba(234, 179, 8, 1)); }
+        }
+
+        @keyframes goldGlowEffect {
+            0% {
+                transform: scale(0.2);
+                opacity: 1;
+                box-shadow: 0 0 10px #fbbf24, 0 0 20px #f59e0b, 0 0 30px #d97706;
+            }
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+                box-shadow: 0 0 30px #fef08a, 0 0 60px #facc15, 0 0 90px #ca8a04;
+            }
+        }
+
+        .touch-gold-glow {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(254,240,138,1) 0%, rgba(250,204,21,0.8) 50%, rgba(202,138,4,0) 100%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            animation: goldGlowEffect 0.6s ease-out forwards;
+            z-index: 9999;
+        }
+
+        body {
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.94)), 
+                        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjLFTe7Tfe561YMDN9iVbQMb4H6gIZUfMFXu8W6TYp77tIrVUh3hmncCyy&s=10');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .navbar-custom-bg {
+            background: linear-gradient(to right, rgba(2, 44, 34, 0.92), rgba(15, 23, 42, 0.92)), 
+                        url('https://tiawellnessresort.com/wp-content/uploads/2026/09/cau-rong-bieu-tuong-kien-truc-tai-da-nang.webp');
+            background-size: cover;
+            background-position: center;
+            transition: all 0.4s ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white relative overflow-x-hidden">
+
+    <!-- ✨ ແມງຫິ້ງຫ້ອຍ (Fireflies) ສ່ອງແສງບິນໄປມາ -->
+    <div id="firefly-layer" class="fixed inset-0 pointer-events-none z-40 overflow-hidden">
+        <div class="interactive-firefly" style="top: 15%; left: 8%;">✨</div>
+        <div class="interactive-firefly" style="top: 35%; right: 15%; animation-delay: 0.8s;">✨</div>
+        <div class="interactive-firefly" style="bottom: 25%; left: 20%; animation-delay: 1.5s;">✨</div>
+        <div class="interactive-firefly" style="top: 65%; right: 30%; animation-delay: 2.1s;">✨</div>
+        <div class="interactive-firefly" style="top: 25%; right: 50%; animation-delay: 1.2s;">✨</div>
+        <div class="interactive-firefly" style="bottom: 10%; left: 45%; animation-delay: 0.5s;">✨</div>
+        <div class="interactive-firefly" style="top: 80%; left: 10%; animation-delay: 2.7s;">✨</div>
+    </div>
+
+    <!-- 👁️ ປຸ່ມລອຍສຳລັບເປີດ/ປິດ Header ເມື່ອຊ່ອນຢູ່ (Floating Toggle Button) -->
+    <button id="floating-header-btn" onclick="toggleHeaderVis()" class="fixed top-3 right-3 bg-slate-900/90 hover:bg-slate-800 text-emerald-400 p-2.5 rounded-2xl border border-emerald-500/50 shadow-2xl z-50 transition transform hover:scale-105 active:scale-95 flex items-center space-x-1 text-xs font-bold">
+        <span id="floating-toggle-icon">🙈</span> <span id="floating-toggle-text">ຊ່ອນ Header</span>
+    </button>
+
+    <!-- Navbar / Header (ສາມາດຊ່ອນ/ສະແດງໄດ້) -->
+    <header id="main-header" class="navbar-custom-bg backdrop-blur border-b border-emerald-800/60 sticky top-0 z-40 shadow-md transform transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="flex items-center justify-between w-full sm:w-auto">
+                <div class="flex items-center space-x-3">
+                    <!-- ປຸ່ມສາມຈໍ້າ (⋮) ສຳລັບເປີດ/ປິດ Sidebar ຢູ່ມືຖື -->
+                    <button onclick="toggleSidebarMobile()" class="bg-slate-900/80 hover:bg-slate-800 p-2 rounded-xl border border-emerald-500/40 text-emerald-400 transition shadow flex items-center justify-center w-9 h-9 lg:hidden text-xl font-bold">
+                        ⋮
+                    </button>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYff3WPJ1yzOiXHvS7NZuw-gyAjw25bht1HKPCVR3mSBYEhqInb6tgDUS-&s=10" alt="Logo" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-emerald-900/50 border border-emerald-500/40">
+                    <div>
+                        <h1 class="font-bold text-lg tracking-wider text-emerald-400">ຈຸປ້ອງກັນຂ່າວສານ</h1>
+                        <p class="text-xs text-emerald-300">Defense Unit News & Hygiene Tracking</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3 w-full sm:w-auto justify-center">
+                <button onclick="openGuideModal()" class="bg-cyan-600/80 hover:bg-cyan-500 text-white text-xs px-3 py-1.5 rounded-xl border border-cyan-400/40 transition shadow flex items-center space-x-1 font-semibold">
+                    <span>📖</span> <span>ວິທີໃຊ້ງານ</span>
+                </button>
+
+                <div class="flex items-center space-x-2 bg-slate-900/80 px-3.5 py-1.5 rounded-xl border border-emerald-500/30 text-xs shadow-inner">
+                    <span class="text-emerald-400 animate-pulse">🕒</span>
+                    <span id="live-clock" class="text-emerald-300 font-bold tracking-wide">ກຳລັງໂຫຼດເວລາ...</span>
+                </div>
+
+                <div class="relative">
+                    <button onclick="toggleNotificationDropdown()" class="relative bg-slate-900/80 hover:bg-slate-800 p-2 rounded-xl border border-amber-500/40 text-amber-400 transition shadow-inner flex items-center justify-center w-9 h-9">
+                        <span id="bell-icon" class="text-lg">🔔</span>
+                        <span id="notification-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-md hidden">0</span>
+                    </button>
+
+                    <div id="notification-dropdown" class="absolute right-0 mt-2 w-80 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl hidden z-50 overflow-hidden animate-fade-in">
+                        <div class="bg-slate-800 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                            <span class="font-bold text-amber-400 text-xs uppercase tracking-wider">🔔 ການແຈ້ງເຕືອນລ້າສຸດ</span>
+                            <button onclick="clearNotifications()" class="text-[10px] text-slate-400 hover:text-white underline">ລ້າງທັງໝົດ</button>
+                        </div>
+                        <div id="notification-list" class="max-h-64 overflow-y-auto divide-y divide-slate-800 text-xs">
+                            <div class="p-4 text-center text-slate-500">ຍັງບໍ່ມີການແຈ້ງເຕືອນ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="auth-nav" class="flex items-center space-x-3 w-full sm:w-auto justify-end pr-28 lg:pr-0"></div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-6 w-full grid grid-cols-1 lg:grid-cols-4 gap-6 relative z-30">
+        
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar-container" class="lg:col-span-1 space-y-6 hidden lg:block">
+            <div class="bg-slate-800/85 backdrop-blur p-4 rounded-2xl border border-slate-700/80 shadow-xl">
+                <div class="flex justify-between items-center border-b border-slate-700 pb-2 mb-3">
+                    <h2 class="font-bold text-emerald-400 text-sm uppercase tracking-wider">ເມນູຫຼັກ</h2>
+                    <button onclick="toggleSidebarMobile()" class="text-slate-400 hover:text-white lg:hidden text-sm font-bold">✕ ປິດ</button>
+                </div>
+                <ul class="space-y-2 text-sm">
+                    <li><button onclick="switchTab('news')" id="tab-news-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>📰</span> <span>ຂ່າວສານ & ແຈ້ງການ</span></button></li>
+                    <li><button onclick="switchTab('score-summary')" id="tab-score-summary-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 text-amber-300 font-bold bg-amber-500/20 border border-amber-500/40"><span>📊</span> <span>ໜ້າສະຫຼຸບຄະແນນ (Summary)</span></button></li>
+                    <li><button onclick="switchTab('scoreboard')" id="tab-scoreboard-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 hover:bg-slate-700/60"><span>🏆</span> <span>ຕາຕະລາງຄະແນນແຕ່ລະຫ້ອງ</span></button></li>
+                    <li><button onclick="switchTab('cyber')" id="tab-cyber-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2"><span>🧹</span> <span>ຕິດຕາມການອະນາໄມ</span></button></li>
+                    <li><button onclick="switchTab('member')" id="tab-member-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-400"><span>👤</span> <span>ລາຍງານອະນາໄມ (ສະມາຊິກ)</span></button></li>
+                    
+                    <li>
+                        <button onclick="switchTab('user-feedback')" id="tab-user-feedback-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-pink-400">
+                            <span>💬</span> <span>ປະກອບຄຳຄິດຄຳເຫັນ</span>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button onclick="switchTab('snake-game')" id="tab-snake-game-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-300 font-bold bg-emerald-600/20 border border-emerald-500/40 shadow-md">
+                            <span>🐍</span> <span>ເກມງູກິນຂຽດ (Snake)</span>
+                        </button>
+                    </li>
+
+                    <li id="tab-admin-chat-li" class="hidden pt-2 border-t border-slate-700">
+                        <button onclick="switchTab('admin-chat')" id="tab-admin-chat-btn" class="w-full text-left px-3.5 py-3 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-300 font-bold bg-sky-600/30 border border-sky-500/60 shadow-lg">
+                            <span>💬</span> <span>ແຊັດລົມວຽກ Admin (4 ຄົນ)</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="news-categories-box" class="bg-slate-800/85 backdrop-blur p-4 rounded-2xl border border-slate-700/80 shadow-xl hidden">
+                <h2 class="font-bold text-emerald-400 mb-3 border-b border-slate-700 pb-2 text-sm uppercase tracking-wider">ໝວດໝູ່ຂ່າວສານ</h2>
+                <ul class="space-y-2 text-sm">
+                    <li><button onclick="filterCategory('all')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-700/60 transition">ທັງໝົດ</button></li>
+                    <li><button onclick="filterCategory('notice')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-700/60 transition text-red-400">📢 ແຈ້ງການດ່ວນ</button></li>
+                    <li><button onclick="filterCategory('activity')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-700/60 transition text-emerald-300">🎖️ ພາວະກິດ/ກິດຈະກຳ</button></li>
+                    <li><button onclick="filterCategory('security')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-700/60 transition text-amber-400">🔒 ຄວາມປອດໄພ</button></li>
+                </ul>
+            </div>
+
+            <div class="bg-slate-800/85 backdrop-blur p-4 rounded-2xl border border-slate-700/80 shadow-xl">
+                <h2 class="font-bold text-emerald-400 mb-3 border-b border-slate-700 pb-2 text-sm uppercase tracking-wider">👥 ສະຖິຕິຜູ້ເຂົ້າຊົມ</h2>
+                <div class="space-y-2 text-xs">
+                    <div class="flex justify-between items-center bg-slate-900/60 px-3 py-2 rounded-xl border border-slate-700/60">
+                        <span class="text-slate-300">💻 ຄອມພິວເຕີ (Desktop):</span>
+                        <span id="visitor-desktop" class="font-bold text-sky-400 text-sm">0</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-slate-900/60 px-3 py-2 rounded-xl border border-slate-700/60">
+                        <span class="text-slate-300">📱 ມືຖື / ແທັບເລັດ (Mobile):</span>
+                        <span id="visitor-mobile" class="font-bold text-emerald-400 text-sm">0</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-slate-900/60 px-3 py-2 rounded-xl border border-slate-700/60">
+                        <span class="text-slate-300">📊 ລວມທັງໝົດ:</span>
+                        <span id="visitor-total" class="font-bold text-amber-400 text-sm">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="admin-panel-box" class="hidden bg-emerald-950/85 backdrop-blur p-4 rounded-2xl border border-emerald-600/50 shadow-xl animate-fade-in">
+                <h2 class="font-bold text-emerald-300 mb-3 border-b border-emerald-800 pb-2 text-sm uppercase tracking-wider">⚙️ ຈັດການລະບົບ (Admin)</h2>
+                <div class="space-y-2.5">
+                    <button onclick="openNewsModal()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-2 px-3.5 rounded-xl transition text-sm flex items-center justify-center space-x-2">
+                        <span>+</span> <span>ເພີ່ມຂ່າວ/ແຈ້ງການ</span>
+                    </button>
+                    <button onclick="openCyberModal()" class="w-full bg-emerald-700 hover:bg-emerald-600 text-white font-medium py-2 px-3.5 rounded-xl transition text-sm flex items-center justify-center space-x-2">
+                        <span>+</span> <span>ເພີ່ມຮູບ/ວິດີໂອອະນາໄມ (Admin)</span>
+                    </button>
+
+                    <!-- ⭐ ຈັດການຄະແນນພິເສດ (ສະເພາະຜູ້ສ້າງເວັບໄຊ) -->
+                    <div id="super-admin-special-points" class="mt-3 pt-3 border-t border-emerald-800 space-y-2 hidden">
+                        <h3 class="font-bold text-amber-400 text-xs uppercase tracking-wider">⭐ ປັບຄະແນນພິເສດ (ບວກ/ລົບ)</h3>
+                        <select id="special-room-select" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-100 font-bold">
+                            <option value="">-- ເລືອກຫ້ອງພັກ --</option>
+                            <option value="ຫ້ອງ 104">ຫ້ອງ 104</option>
+                            <option value="ຫ້ອງ 105">ຫ້ອງ 105</option>
+                            <option value="ຫ້ອງ 108">ຫ້ອງ 108</option>
+                            <option value="ຫ້ອງ 109">ຫ້ອງ 109</option>
+                            <option value="ຫ້ອງ 110">ຫ້ອງ 110</option>
+                            <option value="ຫ້ອງ 111">ຫ້ອງ 111</option>
+                            <option value="ຫ້ອງ 112">ຫ້ອງ 112</option>
+                            <option value="ຫ້ອງ 113">ຫ້ອງ 113</option>
+                            <option value="ຫ້ອງ 114">ຫ້ອງ 114</option>
+                        </select>
+                        <div class="flex gap-2">
+                            <input type="number" id="special-point-value" placeholder="ໃສ່ຄະແນນ (ເຊັ່ນ: 3, 5 ຫຼື -1)" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-100">
+                            <button onclick="submitSpecialPoint()" class="bg-amber-600 hover:bg-amber-500 text-white font-medium px-3 py-2 rounded-xl text-xs transition whitespace-nowrap shadow">
+                                ບັນທຶກ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Content Sections -->
+        <section class="lg:col-span-3 space-y-4">
+            
+            <!-- SECTION 1: News Feed -->
+            <div id="section-news" class="space-y-4 hidden animate-fade-in">
+                <div class="bg-gradient-to-r from-emerald-950/85 to-slate-800/85 p-5 rounded-2xl border border-emerald-800/50 shadow-xl flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-bold text-emerald-400">📊 ບົດສະຫຼຸບຂ່າວສານ ແລະ ແຈ້ງການ</h2>
+                        <p class="text-xs text-slate-300 mt-0.5">ສະຖິຕິຂໍ້ມູນຂ່າວສານທັງໝົດໃນລະບົບ</p>
+                    </div>
+                    <div class="flex space-x-3 text-center">
+                        <div class="bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-700">
+                            <span id="stat-total-news" class="block text-xl font-bold text-emerald-400">0</span>
+                            <span class="text-[10px] text-slate-400 uppercase">ຂ່າວທັງໝົດ</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center bg-slate-800/85 backdrop-blur p-4 rounded-2xl border border-slate-700/80 shadow-xl">
+                    <h3 class="font-semibold text-slate-200">ລາຍການຫຼ້າສຸດ</h3>
+                    <input type="text" id="search-input" oninput="searchNews()" placeholder="ຄົ້ນຫາຫົວຂໍ້ຂ່າວ..." class="bg-slate-900 border border-slate-700 px-3.5 py-2 rounded-xl text-sm focus:outline-none focus:border-emerald-500 w-48 sm:w-64">
+                </div>
+                <div id="news-container" class="grid grid-cols-1 gap-4">
+                    <div class="text-center py-12 text-slate-400">ກຳລັງໂຫຼດຂໍ້ມູນ...</div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: Score Summary Dashboard (Added Weekly, Monthly, Yearly Tabs) -->
+            <div id="section-score-summary" class="space-y-6 animate-fade-in">
+                <div class="bg-gradient-to-r from-amber-950/90 via-slate-800/90 to-emerald-950/90 p-6 rounded-2xl border border-amber-500/40 shadow-2xl space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                        <div>
+                            <h2 class="text-2xl font-extrabold text-amber-400 flex items-center space-x-2">
+                                <span>📊</span> <span>ໜ້າສະຫຼຸບຄະແນນການອະນາໄມ (Dashboard)</span>
+                            </h2>
+                            <p class="text-xs text-slate-300 mt-1">ເລືອກມຸມມອງການສະຫຼຸບຄະແນນແບບ ປະຈຳອາທິດ, ປະຈຳເດືອນ ຫຼື ປະຈຳປີ</p>
+                        </div>
+                        
+                        <!-- 🎛️ ປຸ່ມປ່ຽນມຸມມອງ (Tabs) -->
+                        <div class="flex bg-slate-900/80 p-1 rounded-xl border border-slate-700 text-xs font-semibold">
+                            <button onclick="switchSummaryPeriod('weekly')" id="btn-period-weekly" class="px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow">📅 ອາທິດນີ້</button>
+                            <button onclick="switchSummaryPeriod('monthly')" id="btn-period-monthly" class="px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white">📆 ເດືອນນີ້</button>
+                            <button onclick="switchSummaryPeriod('yearly')" id="btn-period-yearly" class="px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white">🗓️ ປີນີ້</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-slate-800/85 p-5 rounded-2xl border border-amber-500/30 shadow-lg flex items-center space-x-4">
+                        <div class="p-3 bg-amber-500/20 text-amber-400 rounded-xl text-2xl font-bold">🥇</div>
+                        <div>
+                            <span id="summary-top-room-label" class="text-xs text-slate-400 block">ຫ້ອງອັນດັບ 1 (ອາທິດນີ້)</span>
+                            <span id="summary-top-room" class="text-lg font-bold text-amber-400">ກຳລັງປະມວນ...</span>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800/85 p-5 rounded-2xl border border-emerald-500/30 shadow-lg flex items-center space-x-4">
+                        <div class="p-3 bg-emerald-500/20 text-emerald-400 rounded-xl text-2xl font-bold">⭐</div>
+                        <div>
+                            <span id="summary-total-points-label" class="text-xs text-slate-400 block">ຄະແນນລວມ (ອາທິດນີ້)</span>
+                            <span id="summary-total-points" class="text-lg font-bold text-emerald-400">0 ຄະແນນ</span>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800/85 p-5 rounded-2xl border border-sky-500/30 shadow-lg flex items-center space-x-4">
+                        <div class="p-3 bg-sky-500/20 text-sky-400 rounded-xl text-2xl font-bold">📋</div>
+                        <div>
+                            <span id="summary-approved-count-label" class="text-xs text-slate-400 block">ບົດລາຍງານທີ່ອະນຸມັດ (ອາທິດນີ້)</span>
+                            <span id="summary-approved-count" class="text-lg font-bold text-sky-400">0 ບົດລາຍງານ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/85 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
+                    <h3 id="summary-chart-title" class="font-bold text-emerald-400 text-lg border-b border-slate-700 pb-3 flex items-center space-x-2">
+                        <span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳອາທິດ</span>
+                    </h3>
+                    <div id="summary-bars-container" class="space-y-4">
+                        <div class="text-center py-8 text-slate-400">ກຳລັງປະມວນຜົນຄະແນນ...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: Scoreboard Full Grid View -->
+            <div id="section-scoreboard" class="space-y-4 hidden animate-fade-in">
+                <div class="bg-gradient-to-r from-amber-950/85 to-slate-800/85 p-6 rounded-2xl border border-amber-600/50 shadow-xl space-y-2">
+                    <h2 class="text-xl font-bold text-amber-400 flex items-center space-x-2"><span>🏆</span> <span>ຕາຕະລາງຄະແນນການອະນາໄມປະຈຳຫ້ອງ</span></h2>
+                    <p class="text-xs text-slate-300">ສະແດງຄະແນນສະສົມທັງໝົດຂອງແຕ່ລະຫ້ອງພັກ</p>
+                </div>
+                <div id="full-scoreboard-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="text-center py-12 text-slate-400 col-span-full">ກຳລັງໂຫຼດຄະແນນ...</div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: Hygiene Tracking -->
+            <div id="section-cyber" class="space-y-4 hidden animate-fade-in">
+                <div class="bg-gradient-to-r from-emerald-950/85 to-slate-800/85 p-5 rounded-2xl border border-emerald-800/50 shadow-xl flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-bold text-emerald-400">📊 ບົດສະຫຼຸບຄວາມຄືບໜ້າການອະນາໄມ</h2>
+                        <p class="text-xs text-slate-300 mt-0.5">ທຸກໂພສໃນລະບົບຖືກໝາຍວ່າສຳເລັດແລ້ວໂດຍອັດຕະໂນມັດ ພ້ອມຮູບພາບ ແລະ ລິ້ງເບິ່ງວິດີໂອຜ່ານ Drive</p>
+                    </div>
+                    <div class="bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-700 text-center">
+                        <span id="stat-cyber-done" class="block text-xl font-bold text-emerald-400">0 / 0</span>
+                        <span class="text-[10px] text-slate-400 uppercase">ສຳເລັດແລ້ວ</span>
+                    </div>
+                </div>
+                <div id="cyber-container" class="grid grid-cols-1 gap-4">
+                    <div class="text-center py-12 text-slate-400">ກຳລັງໂຫຼດລາຍການ...</div>
+                </div>
+            </div>
+
+            <!-- SECTION 5: Member Report Form -->
+            <div id="section-member" class="space-y-4 hidden animate-fade-in">
+                <div class="bg-slate-800/85 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
+                    <h2 class="text-xl font-bold text-emerald-400">👤 ຟອມສະມາຊິກ: ລາຍງານຜົນການອະນາໄມ & ຢືນຢັນຕົວຕົນ</h2>
+                    <div class="bg-amber-950/50 border border-amber-600/50 p-3 rounded-xl text-xs text-amber-300 space-y-1">
+                        <p>⚠️ <b>ກົດເກນການສົ່ງ:</b> ແຕ່ລະຫ້ອງພັກສົ່ງໄດ້ <b>1 ຄັ້ງ ຕໍ່ 1 ອາທິດ (ສະເພາະມື້ວັນອາທິດ, ເວລາ 16:00 - 19:00 ໂມງ) ເທົ່ານັ້ນ!</b></p>
+                        <p>📹 <b>ກົດເກນວິດີໂອໃໝ່:</b> ຕ້ອງ **ເປີດກ້ອງຖ່າຍສົດ (Live Camera Capture)** ເທົ່ານັ້ນ! **ຫ້າມເລືອກຈາກ Gallery ຫຼື ໄຟລ໌ໃນເຄື່ອງ** ແລະ ຄວາມຍາວວິດີໂອ **ຕ້ອງບໍ່ເກີນ 1 ນາທີ (60 ວິນາທີ)**.</p>
+                    </div>
+                    
+                    <div class="space-y-3 pt-2">
+                        <div>
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">ຊື່-ນາມສະກຸນ ຜູ້ສົ່ງ:</label>
+                            <input type="text" id="member-name" name="fullname" autocomplete="off" placeholder="ຕົວຢ່າງ: Mr.Abc" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">🏠 ຫ້ອງພັກຂອງທ່ານ (ລັອກອິນຢູ່):</label>
+                            <input type="text" id="member-room-display" readonly class="w-full bg-slate-900/80 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm text-emerald-400 font-bold" value="ຍັງບໍ່ໄດ້ເລືອກຫ້ອງ">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">ລາຍລະອຽດການອະນາໄມ:</label>
+                            <textarea id="member-task-desc" rows="3" placeholder="ອະທິບາຍຜົນການປະຕິບັດງານ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">📹 ຖ່າຍວິດີໂອສົດຜ່ານກ້ອງ (ຄວາມຍາວສູງສຸດ 1 ນາທີ):</label>
+                            <input type="file" id="member-media-files" accept="video/*" capture="environment" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
+                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ລະບົບຈະກວດສອບຄວາມຍາວວິດີໂອຕ້ອງບໍ່ເກີນ 60 ວິນາທີ ແລະ ຈະອັບໂຫລດຂຶ້ນ Google Drive ອັດຕະໂນມັດ</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-3">
+                        <button onclick="submitMemberReport()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 px-4 rounded-xl transition text-sm shadow-lg">
+                            🚀 ສົ່ງບົດລາຍງານຮັບຄະແນນ (ວັນອາທິດ 16:00 - 19:00)
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/85 backdrop-blur p-5 rounded-2xl border border-slate-700 shadow-xl space-y-4">
+                    <h3 class="font-bold text-emerald-400 text-base">📋 ບົດລາຍງານທັງໝົດຂອງສະມາຊິກ (ສຳລັບ Admin ອະນຸມັດ)</h3>
+                    <div id="member-reports-container" class="space-y-4">
+                        <div class="text-center py-8 text-slate-400">ກຳລັງໂຫຼດລາຍການ...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: Snake Game -->
+            <div id="section-snake-game" class="space-y-3 hidden animate-fade-in">
+                <div class="bg-gradient-to-r from-emerald-950/90 via-slate-800/90 to-emerald-950/90 p-3.5 rounded-2xl border border-emerald-500/40 shadow-xl flex justify-between items-center">
+                    <div>
+                        <h2 class="text-base font-bold text-emerald-400 flex items-center space-x-1.5"><span>🐍</span> <span>ເກມງູກິນຂຽດ</span></h2>
+                        <p class="text-[11px] text-slate-300">ຄວບຄຸມງູກິນຂຽດ 🐸 ສະສົມຄະແນນ (ຄວາມໄວປັບຊ້າລົງ)</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/90 backdrop-blur p-4 rounded-2xl border border-slate-700 shadow-2xl flex flex-col items-center space-y-3">
+                    <div class="flex justify-between w-full max-w-[260px] bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-700 text-xs">
+                        <span>⭐ ຄະແນນ: <strong id="snake-score" class="text-amber-400">0</strong></span>
+                        <span>🏆 ສູງສຸດ: <strong id="snake-highscore" class="text-emerald-400">0</strong></span>
+                    </div>
+
+                    <div class="relative border-2 border-emerald-600/60 rounded-xl overflow-hidden shadow-2xl bg-slate-950">
+                        <canvas id="snakeCanvas" width="240" height="240" class="block w-[240px] h-[240px]"></canvas>
+                        
+                        <div id="snake-overlay" class="absolute inset-0 bg-black/85 backdrop-blur-sm flex flex-col items-center justify-center p-3 text-center space-y-2">
+                            <h3 id="snake-overlay-title" class="text-base font-bold text-emerald-400">🐍 ເກມງູກິນຂຽດ</h3>
+                            <p id="snake-overlay-desc" class="text-[11px] text-slate-300">ກົດປຸ່ມເລີ່ມຕົ້ນດ້ານລຸ່ມເພື່ອຫຼິ້ນ!</p>
+                            <button onclick="startSnakeGame()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 px-5 rounded-xl text-xs shadow-lg transition">
+                                🎮 ເລີ່ມເກມເລີຍ
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-center space-y-1 w-full max-w-[220px]">
+                        <button onclick="changeSnakeDir('UP')" class="w-14 h-11 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-lg shadow border border-slate-600 flex items-center justify-center">⬆️</button>
+                        <div class="flex space-x-8">
+                            <button onclick="changeSnakeDir('LEFT')" class="w-14 h-11 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-lg shadow border border-slate-600 flex items-center justify-center">⬅️</button>
+                            <button onclick="changeSnakeDir('RIGHT')" class="w-14 h-11 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-lg shadow border border-slate-600 flex items-center justify-center">➡️</button>
+                        </div>
+                        <button onclick="changeSnakeDir('DOWN')" class="w-14 h-11 bg-slate-700 hover:bg-slate-600 active:bg-emerald-600 text-white rounded-xl font-bold text-lg shadow border border-slate-600 flex items-center justify-center">⬇️</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 7: User Feedback / Comment Section -->
+            <div id="section-user-feedback" class="space-y-4 hidden animate-fade-in">
+                <div class="bg-gradient-to-r from-pink-950/90 via-slate-800/90 to-emerald-950/90 p-5 rounded-2xl border border-pink-500/40 shadow-xl flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-bold text-pink-400 flex items-center space-x-2"><span>💬</span> <span>ປະກອບຄຳຄິດຄຳເຫັນຕໍ່ການປະຕິບັດງານຂອງຈຸປ້ອງກັນ</span></h2>
+                        <p class="text-xs text-slate-300 mt-0.5">ຄຳຄິດຄຳເຫັນຂອງທ່ານຈະຖືກສົ່ງຕົງເຖິງຫ້ອງແຊັດ Admin ທັງ 4 ຄົນທັນທີ</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/85 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs text-pink-300 mb-1 font-semibold">🏠 ຫ້ອງພັກຂອງທ່ານ (ຜູ້ສົ່ງ):</label>
+                            <input type="text" id="feedback-room-display" readonly class="w-full bg-slate-900/80 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm text-pink-400 font-bold" value="ຍັງບໍ່ໄດ້ເລືອກຫ້ອງ">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-pink-300 mb-1 font-semibold">ຂໍ້ຄວາມຄຳຄິດຄຳເຫັນ / ຂໍ້ສະເໜີແນະ:</label>
+                            <textarea id="feedback-text-input" rows="4" placeholder="ພິມຄຳຄິດຄຳເຫັນ ຫຼື ຂໍ້ສະເໜີແນະຕໍ່ການປະຕິບັດງານຂອງຈຸປ້ອງກັນ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-pink-500 text-slate-100"></textarea>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <button onclick="submitUserFeedback()" class="w-full bg-pink-600 hover:bg-pink-500 text-white font-medium py-3 px-4 rounded-xl transition text-sm shadow-lg flex items-center justify-center space-x-2">
+                            <span>🚀</span> <span>ສົ່ງຄຳຄິດຄຳເຫັນໃຫ້ Admin ທັງ 4 ຄົນ</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/85 backdrop-blur p-5 rounded-2xl border border-slate-700 shadow-xl space-y-3">
+                    <h3 class="font-bold text-pink-400 text-sm uppercase tracking-wider">📜 ປະຫວັດຄຳຄິດຄຳເຫັນທີ່ເຄີຍສົ່ງ</h3>
+                    <div id="user-feedback-history" class="space-y-3">
+                        <div class="text-center py-6 text-slate-400">ກຳລັງໂຫຼດປະຫວັດ...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 6: Admin Private Chat -->
+            <div id="section-admin-chat" class="space-y-4 hidden animate-fade-in">
+                <div class="bg-gradient-to-r from-sky-950/90 via-slate-800/90 to-emerald-950/90 p-5 rounded-2xl border border-sky-500/40 shadow-xl flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-bold text-sky-400 flex items-center space-x-2"><span>💬</span> <span>ຫ້ອງແຊັດລົມວຽກ Admin (ຜູ້ສ້າງ ແລະ Admin ຮອງ 1, 2, 3)</span></h2>
+                        <p class="text-xs text-slate-300 mt-0.5">ພື້ນທີ່ສຳລັບ Admin ທັງ 4 ຄົນ ປຶກສາ ແລະ ສື່ສານກັນພາຍໃນ (ລວມທັງຄຳຄິດຄຳເຫັນຈາກ User)</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/85 backdrop-blur border border-slate-700 rounded-2xl shadow-xl flex flex-col h-[550px] p-4">
+                    <div id="admin-chat-messages" class="flex-grow overflow-y-auto space-y-3 pr-2 scrollbar-thin">
+                        <div class="text-center py-12 text-slate-500">ກຳລັງໂຫຼດຂໍ້ຄວາມ...</div>
+                    </div>
+
+                    <div class="pt-3 border-t border-slate-700 flex gap-2">
+                        <input type="text" id="admin-chat-input" onkeydown="if(event.key==='Enter') sendAdminMessage()" placeholder="ພິມຂໍ້ຄວາມສົນທະນາວຽກ..." class="flex-grow bg-slate-900 border border-slate-700 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-sky-500 text-slate-100">
+                        <button onclick="sendAdminMessage()" class="bg-sky-600 hover:bg-sky-500 text-white font-medium px-5 py-3 rounded-xl transition text-sm shadow-lg flex items-center space-x-1">
+                            <span>📤</span> <span>ສົ່ງ</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- MODAL: Guide / How to use -->
+    <div id="guide-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-800 border border-cyan-500/50 rounded-2xl max-w-2xl w-full p-6 space-y-5 shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">📖</span>
+                    <h3 class="text-xl font-bold text-cyan-400">ຄູ່ມື ແລະ ວິທີການໃຊ້ງານລະບົບ</h3>
+                </div>
+                <button onclick="closeGuideModal()" class="text-slate-400 hover:text-white text-xl font-bold bg-slate-700 hover:bg-slate-600 w-8 h-8 rounded-full flex items-center justify-center">✕</button>
+            </div>
+
+            <div class="space-y-4 text-xs text-slate-300 leading-relaxed">
+                <!-- 👤 ສຳລັບ User -->
+                <div id="guide-section-user" class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <h4 class="font-bold text-emerald-400 text-sm flex items-center space-x-1"><span>👤</span> <span>ຄູ່ມືສຳລັບ User (ສະມາຊິກຫ້ອງພັກ 104 - 114)</span></h4>
+                    <ul class="list-disc list-inside space-y-2 text-slate-300">
+                        <li><b>ການເຂົ້າສູ່ລະບົບ:</b> ເປີດເວັບໄຊຂຶ້ນມາແລ້ວເລືອກຫ້ອງພັກຂອງທ່ານ (ເຊັ່ນ: ຫ້ອງ 104) ຈາກປ໋ອບອັບລັອກອິນ ເພື່ອເລີ່ມຕົ້ນໃຊ້ງານ.</li>
+                        <li><b>ຂໍ້ຈຳກັດອຸປະກອນ:</b> ລະບົບກຳນົດໃຫ້ User ຕ້ອງເຂົ້າໃຊ້ງານຜ່ານ **ໂທລະສັບມືຖື (Mobile / Tablet)** ແລະ ຕ້ອງຢູ່ໃນເຂດພື້ນທີ່ເມືອງດານັງ, ຫວຽດນາມ ເທົ່ານັ້ນ.</li>
+                        <li><b>ການສົ່ງບົດລາຍງານອະນາໄມ:</b> 
+                            <ul class="list-disc list-inside pl-5 mt-1 space-y-1 text-slate-300">
+                                <li>ເປີດໄປທີ່ເມນູ <b>"ລາຍງານອະນາໄມ (ສະມາຊິກ)"</b>.</li>
+                                <li>ສົ່ງໄດ້ສະເພາະ **ມື້ວັນອາທິດ, ເວລາ 16:00 - 19:00 ໂມງ** ເທົ່ານັ້ນ (1 ອາທິດ / 1 ครั้ง).</li>
+                                <li><b>ກົດເກນວິດີໂອໃໝ່:</b> ຕ້ອງ **ເປີດກ້ອງຖ່າຍສົດ (Live Camera Capture)** ເທົ່ານັ້ນ! **ຫ້າມເລືອກຈາກ Gallery ຫຼື ໄຟລ໌ໃນເຄື່ອງ** ແລະ ຄວາມຍາວວິດີໂອ **ຕ້ອງບໍ່ເກີນ 1 ນາທີ (60 ວິນາທີ)**.</li>
+                            </ul>
+                        </li>
+                        <li><b>ການປະກອບຄຳຄິດຄຳເຫັນ:</b> ສາມາດໄປທີ່ເມນູ <b>"ປະກອບຄຳຄິດຄຳເຫັນ"</b> ເພື່ອສົ່ງຂໍ້ສະເໜີແນະ ຊຶ່ງຈະຖືກສົ່ງຕົງເຖິງຫ້ອງແຊັດ Admin ທັງ 4 ຄົນທັນທີ.</li>
+                    </ul>
+                </div>
+
+                <!-- ⚙️ ສຳລັບ Admin -->
+                <div id="guide-section-admin" class="bg-sky-950/40 p-4 rounded-xl border border-sky-500/30 space-y-3 hidden">
+                    <h4 class="font-bold text-sky-400 text-sm flex items-center space-x-1"><span>⚙️</span> <span>ຄູ່ມືສຳລັບ Admin (Admin ຮອງ 1, 2, 3)</span></h4>
+                    <ul class="list-disc list-inside space-y-2 text-slate-300">
+                        <li><b>ການເຂົ້າສູ່ລະບົບ:</b> ສามารถເຂົ້າໄດ້ທັງຄອມພິວເຕີ ແລະ ມືຖື ໂດຍເລືອກໄອດີ Admin ທີ່ຕ້ອງການ ແລ້ວປ້ອນ **ລະຫັດ PIN 4 ຕົວເລກ** (Admin ຮອງ 1: <code>1234</code>, Admin ຮອງ 2: <code>5678</code>, Admin ຮອງ 3: <code>9999</code>).</li>
+                        <li><b>ການກວດສອບອຸປະກອນ:</b> Admin ຮອງ 1 ສามารถລັອກອິນພ້ອມກັນໄດ້ສູງສຸດ 2 ເຄື່ອງ, ສ່ວນ Admin ຮອງ 2 ແລະ 3 ລັອກອິນໄດ້ 1 ເຄື່ອງຕໍ່ 1 ໄອດີ.</li>
+                        <li><b>ໜ້າທີ່ຫຼັກ:</b> 
+                            <ul class="list-disc list-inside pl-5 mt-1 space-y-1 text-slate-300">
+                                <li>ກວດສອບ ແລະ **ອະນຸມັດບົດລາຍງານ** ທີ່ສະມາຊິກສົ່ງເຂົ້າມາ.</li>
+                                <li>ເຂົ້າໃຊ້ງານ **ຫ້ອງແຊັດລົມວຽກ Admin** ເພື່ອສົນທະນາ ແລະ ຕິດຕາມຄຳຄິດຄຳເຫັນຈາກສະມາຊິກ.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 👑 ສຳລັບ Super Admin (ຜູ້ສ້າງ) -->
+                <div id="guide-section-super" class="bg-amber-950/40 p-4 rounded-xl border border-amber-500/30 space-y-3 hidden">
+                    <h4 class="font-bold text-amber-400 text-sm flex items-center space-x-1"><span>👑</span> <span>ຄູ່ມືສຳລັບ ຜູ້ສ້າງເວັບໄຊ (Super Admin)</span></h4>
+                    <ul class="list-disc list-inside space-y-2 text-slate-300">
+                        <li><b>ການເຂົ້າສູ່ລະບົບ:</b> ເລືອກ <b>"ຜູ້ສ້າງເວັບໄຊ (ເຂົ້າດ້ວຍອີເມວ)"</b> ແລ້ວປ້ອນອີເມວ ແລະ ລະຫັດຜ່ານ Firebase ຂອງທ່ານ.</li>
+                        <li><b>ການຈັດການລະບົບຂັ້ນສູງ:</b>
+                            <ul class="list-disc list-inside pl-5 mt-1 space-y-1 text-slate-300">
+                                <li>ເພີ່ມ, ແກ້ໄຂ ຫຼື ລົບ **ຂ່າວສານ ແລະ ແຈ້ງການ** ໃນລະບົບ.</li>
+                                <li>ເພີ່ມຮູບພາບ ຫຼື ວິດີໂອອະນາໄມລົງໃນໜ້າ **ຕິດຕາມການອະນາໄມ**.</li>
+                                <li><b>ປັບຄະແນນພິເສດ (ບວກ/ລົບ):</b> ສามารถເລືອກຫ້ອງພັກ ແລະ ໃສ່ຄະແນນພິເສດ (ເຊັ່ນ: 3, 5 ຫຼື -1) ເພື່ອປັບຄະແນນໃຫ້ແຕ່ລະຫ້ອງໄດ້ໂດຍກົງ.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-2">
+                <button onclick="closeGuideModal()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-medium py-2.5 rounded-xl transition text-sm shadow-lg">
+                    ✅ ຮັບຊາບ ແລະ ເລີ່ມຕົ້ນໃຊ້ງານ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950/90 backdrop-blur border-t border-slate-800 text-center py-4 text-xs text-slate-500 relative z-30">
+        ລະບົບຂ່າວສານ ແລະ ຕິດຕາມການອະນາໄມ ຈຸປ້ອງກັນ © 2026
+    </footer>
+
+    <!-- MODAL: Room/Admin Login Modal -->
+    <div id="room-login-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl animate-fade-in text-center">
+            <div class="bg-emerald-600 w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-white text-2xl font-bold shadow-lg">🛡️</div>
+            <h3 class="text-xl font-bold text-emerald-400">ເຂົ້າສູ່ລະບົບ</h3>
+            <p class="text-xs text-slate-300">ເລືອກຫ້ອງພັກສຳລັບ User ຫຼື ເລືອກໂໝດ Admin</p>
+            
+            <div class="space-y-3 pt-2">
+                <select id="login-room-select" onchange="handleLoginTypeChange(this.value)" class="w-full bg-slate-900 border border-slate-700 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-slate-100 font-bold text-center">
+                    <option value="">-- ກະລຸນາເລືອກຫ້ອງພັກ ຫຼື Admin --</option>
+                    <option value="ຫ້ອງ 104">ຫ້ອງ 104</option>
+                    <option value="ຫ້ອງ 105">ຫ້ອງ 105</option>
+                    <option value="ຫ້ອງ 108">ຫ້ອງ 108</option>
+                    <option value="ຫ້ອງ 109">ຫ້ອງ 109</option>
+                    <option value="ຫ້ອງ 110">ຫ້ອງ 110</option>
+                    <option value="ຫ້ອງ 111">ຫ້ອງ 111</option>
+                    <option value="ຫ້ອງ 112">ຫ້ອງ 112</option>
+                    <option value="ຫ້ອງ 113">ຫ້ອງ 113</option>
+                    <option value="ຫ້ອງ 114">ຫ້ອງ 114</option>
+                    <option value="SUPER_ADMIN">👑 ຜູ້ສ້າງເວັບໄຊ (ເຂົ້າດ້ວຍອີເມວ)</option>
+                    <option value="SUB_ADMIN_1">⚙️ Admin ຮອງ 1 (ໄອດີພໍ)</option>
+                    <option value="SUB_ADMIN_2">⚙️ Admin ຮອງ 2 (ໄອດີພໍ)</option>
+                    <option value="SUB_ADMIN_3">⚙️ Admin ຮອງ 3 (ໄອດີພໍ)</option>
+                </select>
+
+                <div id="admin-auth-fields" class="hidden space-y-2.5 pt-2 text-left">
+                    <div>
+                        <label class="block text-[11px] text-emerald-300 mb-1">ອີເມວຜູ້ສ້າງ:</label>
+                        <input type="email" id="admin-email-input" placeholder="admin@example.com" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none focus:border-emerald-500 text-slate-200">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-emerald-300 mb-1">ລະຫັດຜ່ານ (Password):</label>
+                        <input type="password" id="admin-password-input" placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none focus:border-emerald-500 text-slate-200">
+                    </div>
+                </div>
+
+                <div id="sub-admin-fields" class="hidden space-y-2.5 pt-2 text-left bg-emerald-950/40 p-3 rounded-xl border border-emerald-500/30">
+                    <label class="block text-[11px] text-emerald-300 mb-1">ປ້ອນລະຫັດຜ່ານ / ໄອດີພໍ (PIN Code) ຂອງ Admin:</label>
+                    <input type="password" id="sub-admin-pin" placeholder="ປ້ອນລະຫັດ 4-6 ຕົວເລກ..." class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-center text-sm font-bold tracking-widest text-amber-400 focus:outline-none focus:border-emerald-500">
+                    <p id="sub-admin-hint" class="text-[10px] text-slate-400 italic text-center mt-1">* Admin ເຂົ້າໄດ້ທັງຄອມ ແລະ ມືຖື</p>
+                </div>
+            </div>
+
+            <div class="pt-2">
+                <button onclick="confirmRoomLogin()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 px-4 rounded-xl transition text-sm shadow-lg">
+                    ✅ ເຂົ້າສູ່ລະບົບ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Blocked Desktop User Modal -->
+    <div id="desktop-blocked-modal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-900 border border-red-500/50 rounded-2xl max-w-md w-full p-8 space-y-5 shadow-2xl text-center animate-fade-in">
+            <div class="w-16 h-16 bg-red-600/20 border border-red-500/40 text-red-400 text-3xl rounded-2xl mx-auto flex items-center justify-center shadow-lg">💻🚫</div>
+            <h3 class="text-xl font-bold text-red-400">ຂໍອະໄພ! ຫ້າມ User ເຂົ້າຜ່ານຄອມພິວເຕີ</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                ລະບົບນີ້ກຳນົດໃຫ້ <b>User</b> ຕ້ອງເຂົ້າໃຊ້ງານຜ່ານໂທລະສັບມືຖືເທົ່ານັ້ນ!
+            </p>
+            <div class="pt-2 space-y-2">
+                <button onclick="openAdminLoginFromBlocked()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 px-4 rounded-xl transition text-sm shadow-lg">
+                    🔑 ເຂົ້າສູ່ລະບົບສຳລັບ Admin
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Blocked Location User Modal -->
+    <div id="location-blocked-modal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-900 border border-amber-500/50 rounded-2xl max-w-md w-full p-8 space-y-5 shadow-2xl text-center animate-fade-in">
+            <div class="w-16 h-16 bg-amber-600/20 border border-amber-500/40 text-amber-400 text-3xl rounded-2xl mx-auto flex items-center justify-center shadow-lg">📍🚫</div>
+            <h3 class="text-xl font-bold text-amber-400">ຂໍອະໄພ! ຢູ່ນອກເຂດພື້ນທີ່</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                ລະບົບກຳນົດໃຫ້ User ຕ້ອງຢູ່ໃນເມືອງດານັງ, ຫວຽດນາມ ເທົ່ານັ້ນ!
+            </p>
+        </div>
+    </div>
+
+    <!-- MODAL: Share Options -->
+    <div id="share-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl animate-fade-in text-center">
+            <h3 class="text-lg font-bold text-emerald-400">🔗 ແຊໄປຍັງແພລັດຟອມຕ່າງໆ</h3>
+            <p id="share-modal-title" class="text-xs text-slate-300 truncate font-medium"></p>
+            <div class="grid grid-cols-2 gap-3 pt-2">
+                <button onclick="shareToPlatform('facebook')" class="bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition"><span>📘</span> <span>Facebook</span></button>
+                <button onclick="shareToPlatform('messenger')" class="bg-sky-600 hover:bg-sky-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition"><span>💬</span> <span>Messenger</span></button>
+                <button onclick="shareToPlatform('telegram')" class="bg-blue-500 hover:bg-blue-400 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition"><span>✈️</span> <span>Telegram</span></button>
+                <button onclick="shareToPlatform('whatsapp')" class="bg-green-600 hover:bg-green-500 text-white font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition"><span>🟢</span> <span>WhatsApp</span></button>
+            </div>
+            <div class="pt-2">
+                <button onclick="shareToPlatform('copy')" class="w-full bg-slate-700 hover:bg-slate-600 text-emerald-300 font-medium py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 transition border border-slate-600"><span>📋</span> <span>ກ໊ອບປີ້ລິ້ງໂພສນີ້ (Copy Link)</span></button>
+            </div>
+            <div class="pt-2">
+                <button onclick="closeShareModal()" class="w-full bg-slate-900 hover:bg-slate-950 text-slate-400 py-2 rounded-xl text-xs">ປິດໜ້າຈໍນີ້</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Add News -->
+    <div id="news-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl animate-fade-in">
+            <h3 class="text-xl font-bold text-emerald-400">ເພີ່ມຂ່າວສານໃໝ່</h3>
+            <div class="space-y-3">
+                <input type="text" id="news-title" placeholder="ຫົວຂໍ້ຂ່າວສານ / ແຈ້ງການ" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
+                <select id="news-category" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-slate-300">
+                    <option value="notice">📢 ແຈ້ງການດ່ວນ</option>
+                    <option value="activity">🎖️ ພາວະກິດ/ກິດຈະກຳ</option>
+                    <option value="security">🔒 ຄວາມປອດໄພ</option>
+                </select>
+                <textarea id="news-content" rows="5" placeholder="ເນື້ອໃນລາຍລະອຽດ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"></textarea>
+            </div>
+            <div class="flex justify-end space-x-3 pt-2">
+                <button onclick="closeNewsModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-xl text-sm">ຍົກເລີກ</button>
+                <button onclick="saveNews()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-medium">ບັນທຶກຂໍ້ມູນ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Edit News -->
+    <div id="edit-news-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl animate-fade-in">
+            <h3 class="text-xl font-bold text-emerald-400">✏️ ແກ້ໄຂຂ່າວສານ</h3>
+            <input type="hidden" id="edit-news-id">
+            <div class="space-y-3">
+                <input type="text" id="edit-news-title" placeholder="ຫົວຂໍ້ຂ່າວສານ" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
+                <select id="edit-news-category" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-slate-300">
+                    <option value="notice">📢 ແຈ້ງການດ່ວນ</option>
+                    <option value="activity">🎖️ ພາວະກິດ/ກິດຈະກຳ</option>
+                    <option value="security">🔒 ຄວາມປອດໄພ</option>
+                </select>
+                <textarea id="edit-news-content" rows="5" placeholder="ເນື້ອໃນລາຍລະອຽດ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"></textarea>
+            </div>
+            <div class="flex justify-end space-x-3 pt-2">
+                <button onclick="closeEditNewsModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-xl text-sm">ຍົກເລີກ</button>
+                <button onclick="updateNews()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-medium">ບັນທຶກການແກ້ໄຂ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Add Hygiene Task Media (Admin) -->
+    <div id="cyber-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto">
+            <h3 class="text-xl font-bold text-emerald-400">ເພີ່ມຮູບ/ວິດີໂອອະນາໄມ (Admin)</h3>
+            <div class="space-y-3">
+                <input type="text" id="cyber-task-title" placeholder="ຫົວຂໍ້ (ເຊັ່ນ: ພາບ/ວິດີໂອອະນາໄມໜ້າຫ້ອງພັກ)" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500">
+                <textarea id="cyber-task-desc" rows="3" placeholder="ຄຳແນະນຳເພີ່ມເຕີມ..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"></textarea>
+                
+                <div>
+                    <label class="block text-xs text-emerald-300 mb-1 font-semibold">📷 ເລືອກຮູບພາບ (ສະແດງໃນເວັບທັນທີ) ຫຼື 📹 ວິດີໂອ (ອັບຂຶ້ນ Drive):</label>
+                    <input type="file" id="cyber-media-files" accept="image/*,video/*" capture="environment" class="w-full bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer">
+                    <p id="upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ ຖ້າເປັນຮູບຈະສະແດງໃນເວັບທັນທີ, ຖ້າເປັນວິດີໂອຈະອັບໂຫລດຂຶ້ນ Google Drive</p>
+                </div>
+            </div>
+            <div class="flex justify-end space-x-3 pt-2">
+                <button onclick="closeCyberModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-xl text-sm">ຍົກເລີກ</button>
+                <button onclick="saveCyberTaskVideo()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-medium">ບັນທຶກຂໍ້ມູນ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK & App Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, setDoc, runTransaction, increment, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCiD4zPW-iNzSM6iMP8A4EmaxHInxB0Z9k",
+            authDomain: "defense-news-app-2143d.firebaseapp.com",
+            projectId: "defense-news-app-2143d",
+            storageBucket: "defense-news-app-2143d.appspot.com",
+            messagingSenderId: "55873751006",
+            appId: "1:55873751006:web:b7e9b971ae94a1f5d93f4f",
+            measurementId: "G-YYM4JLS1L2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // 🔗 URL Google Apps Script ທີ່ເຊື່ອມຕໍ່ກັບ Google Drive ຂອງທ່ານ
+        const DRIVE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzExA_T2J2SpmD1fykUwV4ZK1oPuGSrpbsUMiLifVdROjL9Uocq3MBAtR3TnYjcFOkj/exec";
+
+        setPersistence(auth, browserLocalPersistence).catch((err) => {
+            console.error("Auth persistence error:", err);
+        });
+
+        let currentRoomUser = localStorage.getItem('current_room_user') || null;
+        let userRole = localStorage.getItem('current_user_role') || 'user';
+        let deviceSessionId = localStorage.getItem('device_session_id') || ('dev_' + Math.random().toString(36).substring(2));
+        localStorage.setItem('device_session_id', deviceSessionId);
+
+        let allNews = [];
+        let allCyberTasks = [];
+        let allMemberReports = [];
+        let notifications = JSON.parse(localStorage.getItem('user_notifications') || '[]');
+        let currentShareData = { title: '', text: '', url: '' };
+        let chatUnsubscribe = null;
+        let globalNewsUnsubscribe = null;
+        let globalFeedbackUnsubscribe = null;
+        let isInitialLoad = true;
+        let isHeaderHidden = false;
+        let currentSummaryPeriod = 'weekly'; // weekly, monthly, yearly
+
+        // Snake Game Variables
+        let snakeInterval = null;
+        let snake = [];
+        let frog = {};
+        let score = 0;
+        let highScore = localStorage.getItem('snake_highscore') || 0;
+        let dx = 12;
+        let dy = 0;
+        let nextDx = 12;
+        let nextDy = 0;
+        const gridSize = 12;
+        const canvasSize = 240;
+
+        const subAdminPins = {
+            "SUB_ADMIN_1": "1234",
+            "SUB_ADMIN_2": "5678",
+            "SUB_ADMIN_3": "9999"
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            checkDeviceRestriction();
+            checkLocationRestriction();
+            checkRoomAuthUI();
+            loadFullScoreSummary();
+            updateLiveClock();
+            setInterval(updateLiveClock, 1000);
+            
+            setInterval(verifySubAdminSession, 10000);
+            initRealtimeListeners();
+            initTouchGoldGlowEffect();
+            initAntiCopyProtection();
+            initSnakeKeyboardControls();
+            initFirefliesMovement();
+            
+            setTimeout(checkUrlHashForPost, 800);
+        });
+
+        function checkUrlHashForPost() {
+            const hash = window.location.hash;
+            if (hash && hash.startsWith('#post-')) {
+                switchTab('news');
+                setTimeout(() => {
+                    const postElem = document.querySelector(hash);
+                    if (postElem) {
+                        postElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        postElem.classList.add('highlight-flash');
+                        setTimeout(() => postElem.classList.remove('highlight-flash'), 3000);
+                    }
+                }, 400);
+            }
+        }
+
+        window.toggleHeaderVis = () => {
+            const header = document.getElementById('main-header');
+            const icon = document.getElementById('floating-toggle-icon');
+            const text = document.getElementById('floating-toggle-text');
+            
+            isHeaderHidden = !isHeaderHidden;
+            if (isHeaderHidden) {
+                header.classList.add('-translate-y-full', 'opacity-0');
+                icon.innerText = '👁️';
+                text.innerText = 'ເປີດ Header';
+            } else {
+                header.classList.remove('-translate-y-full', 'opacity-0');
+                icon.innerText = '🙈';
+                text.innerText = 'ຊ່ອນ Header';
+            }
+        };
+
+        window.toggleSidebarMobile = () => {
+            const sidebar = document.getElementById('sidebar-container');
+            sidebar.classList.toggle('hidden');
+            if (!sidebar.classList.contains('hidden')) {
+                sidebar.classList.add('fixed', 'inset-0', 'z-50', 'bg-slate-900/95', 'p-6', 'overflow-y-auto');
+            } else {
+                sidebar.classList.remove('fixed', 'inset-0', 'z-50', 'bg-slate-900/95', 'p-6', 'overflow-y-auto');
+            }
+        };
+
+        function initFirefliesMovement() {
+            const fireflies = document.querySelectorAll('.interactive-firefly');
+            fireflies.forEach((ff, index) => {
+                let posX = Math.random() * window.innerWidth * 0.8;
+                let posY = Math.random() * window.innerHeight * 0.8;
+                let speedX = (Math.random() - 0.5) * 1.2;
+                let speedY = (Math.random() - 0.5) * 1.2;
+
+                ff.style.left = `${posX}px`;
+                ff.style.top = `${posY}px`;
+
+                setInterval(() => {
+                    posX += speedX;
+                    posY += speedY;
+                    if (posX <= 0 || posX >= window.innerWidth - 30) speedX *= -1;
+                    if (posY <= 0 || posY >= window.innerHeight - 30) speedY *= -1;
+                    ff.style.left = `${posX}px`;
+                    ff.style.top = `${posY}px`;
+                }, 60);
+            });
+
+            window.addEventListener('pointermove', (e) => {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                fireflies.forEach((ff, index) => {
+                    const offsetX = (index + 1) * 8;
+                    const offsetY = (index + 1) * 5;
+                    ff.style.left = `${mouseX + offsetX - 20}px`;
+                    ff.style.top = `${mouseY + offsetY - 20}px`;
+                });
+            });
+        }
+
+        function checkDeviceRestriction() {
+            const isDesktop = getDeviceType() === 'desktop';
+            const isCurrentlyAdmin = userRole === 'admin';
+            if (isDesktop && !isCurrentlyAdmin) {
+                document.getElementById('desktop-blocked-modal').classList.remove('hidden');
+                document.getElementById('room-login-modal').classList.add('hidden');
+            }
+        }
+
+        function checkLocationRestriction() {
+            if (userRole === 'admin') return;
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    const danangLat = 16.0544;
+                    const danangLon = 108.2022;
+                    const maxDistanceKm = 40; 
+                    const distance = getDistanceFromLatLonInKm(lat, lon, danangLat, danangLon);
+                    if (distance > maxDistanceKm) {
+                        document.getElementById('location-blocked-modal').classList.remove('hidden');
+                        document.getElementById('room-login-modal').classList.add('hidden');
+                    }
+                }, (error) => { console.warn("Geolocation error:", error); }, { timeout: 10000 });
+            }
+        }
+
+        function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+            const R = 6371; 
+            const dLat = deg2rad(lat2 - lat1);
+            const dLon = deg2rad(lon2 - lon1);
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2); 
+            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        }
+
+        function deg2rad(deg) { return deg * (Math.PI/180); }
+
+        window.openAdminLoginFromBlocked = () => {
+            document.getElementById('desktop-blocked-modal').classList.add('hidden');
+            document.getElementById('location-blocked-modal').classList.add('hidden');
+            document.getElementById('room-login-modal').classList.remove('hidden');
+        };
+
+        window.startSnakeGame = () => {
+            document.getElementById('snake-overlay').classList.add('hidden');
+            snake = [{ x: 120, y: 120 }, { x: 108, y: 120 }, { x: 96, y: 120 }];
+            score = 0;
+            document.getElementById('snake-score').innerText = score;
+            document.getElementById('snake-highscore').innerText = highScore;
+            dx = gridSize; dy = 0; nextDx = gridSize; nextDy = 0;
+            spawnFrog();
+            if (snakeInterval) clearInterval(snakeInterval);
+            snakeInterval = setInterval(gameLoop, 150);
+        };
+
+        function spawnFrog() {
+            const cols = canvasSize / gridSize;
+            frog = { x: Math.floor(Math.random() * cols) * gridSize, y: Math.floor(Math.random() * cols) * gridSize };
+            snake.forEach(part => { if (part.x === frog.x && part.y === frog.y) spawnFrog(); });
+        }
+
+        function gameLoop() {
+            dx = nextDx; dy = nextDy;
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+            if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) { gameOver(); return; }
+            for (let i = 0; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) { gameOver(); return; }
+            }
+            snake.unshift(head);
+            if (head.x === frog.x && head.y === frog.y) {
+                score += 10;
+                document.getElementById('snake-score').innerText = score;
+                if (score > highScore) { highScore = score; localStorage.setItem('snake_highscore', highScore); document.getElementById('snake-highscore').innerText = highScore; }
+                spawnFrog();
+            } else { snake.pop(); }
+            drawSnakeGame();
+        }
+
+        function drawSnakeGame() {
+            const canvas = document.getElementById('snakeCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#020617'; ctx.fillRect(0, 0, canvasSize, canvasSize);
+            ctx.font = '14px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('🐸', frog.x + gridSize / 2, frog.y + gridSize / 2);
+            snake.forEach((part, index) => {
+                ctx.fillStyle = index === 0 ? '#10b981' : '#059669';
+                ctx.beginPath(); ctx.roundRect(part.x + 1, part.y + 1, gridSize - 2, gridSize - 2, 3); ctx.fill();
+            });
+        }
+
+        function gameOver() {
+            clearInterval(snakeInterval); snakeInterval = null;
+            const overlay = document.getElementById('snake-overlay');
+            document.getElementById('snake-overlay-title').innerText = '💀 ເກມຈົບແລ້ວ (Game Over)';
+            document.getElementById('snake-overlay-desc').innerHTML = `ຄະແນນຂອງທ່ານ: <strong class="text-amber-400 text-sm">${score}</strong><br>ກົດປຸ່ມລຸ່ມນີ້ເພື່ອເລີ່ມຫຼິ້ນໃໝ່!`;
+            overlay.classList.remove('hidden');
+        }
+
+        window.changeSnakeDir = (dir) => {
+            if (dir === 'UP' && dy === 0) { nextDx = 0; nextDy = -gridSize; }
+            if (dir === 'DOWN' && dy === 0) { nextDx = 0; nextDy = gridSize; }
+            if (dir === 'LEFT' && dx === 0) { nextDx = -gridSize; nextDy = 0; }
+            if (dir === 'RIGHT' && dx === 0) { nextDx = gridSize; nextDy = 0; }
+        };
+
+        function initSnakeKeyboardControls() {
+            window.addEventListener('keydown', (e) => {
+                if (['ArrowUp', 'KeyW'].includes(e.code)) { window.changeSnakeDir('UP'); e.preventDefault(); }
+                if (['ArrowDown', 'KeyS'].includes(e.code)) { window.changeSnakeDir('DOWN'); e.preventDefault(); }
+                if (['ArrowLeft', 'KeyA'].includes(e.code)) { window.changeSnakeDir('LEFT'); e.preventDefault(); }
+                if (['ArrowRight', 'KeyD'].includes(e.code)) { window.changeSnakeDir('RIGHT'); e.preventDefault(); }
+            });
+        }
+
+        window.openGuideModal = () => {
+            const userSec = document.getElementById('guide-section-user');
+            const adminSec = document.getElementById('guide-section-admin');
+            const superSec = document.getElementById('guide-section-super');
+            userSec.classList.add('hidden'); adminSec.classList.add('hidden'); superSec.classList.add('hidden');
+            if (isSuperAdmin()) { userSec.classList.remove('hidden'); adminSec.classList.remove('hidden'); superSec.classList.remove('hidden'); }
+            else if (userRole === 'admin') { userSec.classList.remove('hidden'); adminSec.classList.remove('hidden'); }
+            else { userSec.classList.remove('hidden'); }
+            document.getElementById('guide-modal').classList.remove('hidden');
+        };
+
+        window.closeGuideModal = () => document.getElementById('guide-modal').classList.add('hidden');
+
+        function initAntiCopyProtection() {
+            document.addEventListener('contextmenu', (e) => e.preventDefault());
+            document.addEventListener('copy', (e) => { e.preventDefault(); alert('⚠️ ຂໍອະໄພ, ລະບົບປ້ອງກັນການຄັດລອກຂໍ້ຄວາມ!'); });
+        }
+
+        function initTouchGoldGlowEffect() {
+            window.addEventListener('pointerdown', (e) => {
+                const glow = document.createElement('div');
+                glow.className = 'touch-gold-glow';
+                glow.style.left = `${e.clientX}px`; glow.style.top = `${e.clientY}px`;
+                document.body.appendChild(glow);
+                setTimeout(() => glow.remove(), 600);
+            });
+        }
+
+        function playLoudAlertSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        if (audioCtx.state === 'suspended') audioCtx.resume();
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sine'; osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+                        gain.gain.setValueAtTime(1.0, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                        osc.connect(gain); gain.connect(audioCtx.destination);
+                        osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+                    }, i * 350);
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function addNotification(title, message, linkId = null) {
+            const newNotif = {
+                id: Date.now(), title, message, linkId,
+                time: new Date().toLocaleTimeString('lo-LA', { hour: '2-digit', minute: '2-digit' }),
+                read: false
+            };
+            notifications.unshift(newNotif);
+            if (notifications.length > 20) notifications.pop();
+            localStorage.setItem('user_notifications', JSON.stringify(notifications));
+            updateNotificationUI();
+            playLoudAlertSound();
+        }
+
+        function updateNotificationUI() {
+            const badge = document.getElementById('notification-badge');
+            const bellIcon = document.getElementById('bell-icon');
+            const list = document.getElementById('notification-list');
+            const unreadCount = notifications.filter(n => !n.read).length;
+
+            if (unreadCount > 0) { badge.innerText = unreadCount; badge.classList.remove('hidden'); bellIcon.classList.add('animate-bell'); }
+            else { badge.classList.add('hidden'); bellIcon.classList.remove('animate-bell'); }
+
+            if (notifications.length === 0) { list.innerHTML = `<div class="p-4 text-center text-slate-500">ຍັງບໍ່ມີການແຈ້ງເຕືອນ</div>`; return; }
+
+            list.innerHTML = notifications.map(n => `
+                <div onclick="clickNotificationItem(${n.linkId ? `'${n.linkId}'` : 'null'})" class="p-3 hover:bg-slate-800 transition cursor-pointer ${n.read ? 'opacity-70' : 'bg-slate-800/60 font-semibold'}">
+                    <div class="flex justify-between items-center text-amber-400 mb-0.5">
+                        <span>${n.title}</span>
+                        <span class="text-[10px] text-slate-400">${n.time}</span>
+                    </div>
+                    <p class="text-slate-200 text-[11px] truncate">${n.message}</p>
+                </div>
+            `).join('');
+        }
+
+        window.clickNotificationItem = (postId) => {
+            document.getElementById('notification-dropdown').classList.add('hidden');
+            if (postId) {
+                switchTab('news');
+                setTimeout(() => {
+                    const postElem = document.getElementById(`post-${postId}`);
+                    if (postElem) {
+                        postElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        postElem.classList.add('highlight-flash');
+                        setTimeout(() => postElem.classList.remove('highlight-flash'), 2000);
+                    }
+                }, 200);
+            }
+        };
+
+        window.toggleNotificationDropdown = () => {
+            const dropdown = document.getElementById('notification-dropdown');
+            dropdown.classList.toggle('hidden');
+            if (!dropdown.classList.contains('hidden')) {
+                notifications.forEach(n => n.read = true);
+                localStorage.setItem('user_notifications', JSON.stringify(notifications));
+                updateNotificationUI();
+            }
+        };
+
+        window.clearNotifications = () => {
+            notifications = [];
+            localStorage.setItem('user_notifications', JSON.stringify(notifications));
+            updateNotificationUI();
+        };
+
+        function initRealtimeListeners() {
+            const newsQuery = query(collection(db, "news"), orderBy("date", "desc"));
+            globalNewsUnsubscribe = onSnapshot(newsQuery, (snapshot) => {
+                allNews = [];
+                snapshot.forEach(docSnap => allNews.push({ id: docSnap.id, ...docSnap.data() }));
+                document.getElementById('stat-total-news').innerText = allNews.length;
+                renderNews(allNews);
+
+                if (!isInitialLoad) {
+                    snapshot.docChanges().forEach((change) => {
+                        if (change.type === "added") {
+                            const newPostData = change.doc.data();
+                            addNotification("📢 ແຈ້ງການ/ຂ່າວສານໃໝ່!", newPostData.title, change.doc.id);
+                        }
+                    });
+                }
+            });
+
+            const reportsQuery = query(collection(db, "member_reports"), orderBy("date", "desc"));
+            onSnapshot(reportsQuery, (snapshot) => {
+                if (!isInitialLoad) {
+                    snapshot.docChanges().forEach((change) => {
+                        const data = change.doc.data();
+                        if (currentRoomUser && data.room === currentRoomUser) {
+                            if (data.approved && change.type === "modified") {
+                                addNotification("🎉 ບົດລາຍງານຖືກອະນຸມັດແລ້ວ!", `ຫ້ອງຂອງທ່ານ (${data.room}) ໄດ້ຮັບການອະນຸມັດແລ້ວ!`);
+                                loadFullScoreSummary(); loadFullScoreboard();
+                            } else if (data.specialPoints !== undefined && change.type === "added") {
+                                const pts = data.specialPoints;
+                                const signText = pts > 0 ? `+${pts}` : `${pts}`;
+                                addNotification("⭐ ມີການປັບຄະແນນພິເສດ!", `ຫ້ອງຂອງທ່ານ (${data.room}) ຖືກປັບຄະແນນ ${signText} ຈາກຜູ້ສ້າງເວັບໄຊ!`);
+                                loadFullScoreSummary(); loadFullScoreboard();
+                            }
+                        }
+                    });
+                }
+            });
+
+            const chatQuery = query(collection(db, "admin_chats"), orderBy("timestamp", "desc"));
+            globalFeedbackUnsubscribe = onSnapshot(chatQuery, (snapshot) => {
+                if (!isInitialLoad) {
+                    snapshot.docChanges().forEach((change) => {
+                        if (change.type === "added") {
+                            const msgData = change.doc.data();
+                            if (msgData.sender !== currentRoomUser) {
+                                addNotification("💬 ຂໍ້ຄວາມກຸ່ມ / ແຈ້ງເຕືອນໃໝ່", `${msgData.sender}: ${msgData.text}`);
+                            }
+                        }
+                    });
+                }
+                isInitialLoad = false;
+            }, () => { isInitialLoad = false; });
+        }
+
+        async function verifySubAdminSession() {
+            if (userRole === 'admin' && currentRoomUser && currentRoomUser.startsWith('Admin ຮອງ')) {
+                try {
+                    const adminKey = currentRoomUser.includes('1') ? 'SUB_ADMIN_1' : currentRoomUser.includes('2') ? 'SUB_ADMIN_2' : 'SUB_ADMIN_3';
+                    const docRef = doc(db, "admin_sessions", adminKey);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        if (adminKey === 'SUB_ADMIN_1') {
+                            let devices = data.devices || [];
+                            if (!devices.includes(deviceSessionId)) {
+                                alert('⚠️ ບັນຊີ Admin ຮອງ 1 ນີ້ ຖືກລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ!');
+                                await logoutSession();
+                            }
+                        } else {
+                            if (data.deviceId !== deviceSessionId) {
+                                alert('⚠️ ບັນຊີນີ້ຖືກລັອກອິນຈາກເຄື່ອງມືຖືເຄື່ອງອື່ນແລ້ວ!');
+                                await logoutSession();
+                            }
+                        }
+                    }
+                } catch (e) { console.error(e); }
+            }
+        }
+
+        function isSuperAdmin() {
+            return currentRoomUser && currentRoomUser.includes('ຜູ້ສ້າງ:');
+        }
+
+        function updateLiveClock() {
+            const clockElement = document.getElementById('live-clock');
+            if (!clockElement) return;
+            const now = new Date();
+            clockElement.innerText = now.toLocaleDateString('lo-LA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+        }
+
+        window.handleLoginTypeChange = (val) => {
+            const adminFields = document.getElementById('admin-auth-fields');
+            const subAdminFields = document.getElementById('sub-admin-fields');
+            const hintElem = document.getElementById('sub-admin-hint');
+            adminFields.classList.add('hidden'); subAdminFields.classList.add('hidden');
+
+            if (val === 'SUPER_ADMIN') {
+                adminFields.classList.remove('hidden');
+            } else if (val.startsWith('SUB_ADMIN')) {
+                subAdminFields.classList.remove('hidden');
+                hintElem.innerText = (val === 'SUB_ADMIN_1') ? '* ໄອດີນີ້ ສາມາດລັອກອິນໄດ້ສູງສຸດ 2 ເຄື່ອງພ້ອມກັນ' : '* 1 ໄອດີ ສາມາດລັອກອິນໄດ້ພຽງ 1 ເຄື່ອງເທົ່ານັ້ນ';
+            }
+        };
+
+        function checkRoomAuthUI() {
+            const authNav = document.getElementById('auth-nav');
+            const adminBox = document.getElementById('admin-panel-box');
+            const roomModal = document.getElementById('room-login-modal');
+            const roomDisplay = document.getElementById('member-room-display');
+            const feedbackRoomDisplay = document.getElementById('feedback-room-display');
+            const adminChatLi = document.getElementById('tab-admin-chat-li');
+            const superAdminSpecialPoints = document.getElementById('super-admin-special-points');
+
+            if (currentRoomUser) {
+                roomModal.classList.add('hidden');
+                if (roomDisplay) roomDisplay.value = currentRoomUser;
+                if (feedbackRoomDisplay) feedbackRoomDisplay.value = currentRoomUser;
+
+                authNav.innerHTML = `
+                    <div class="text-right">
+                        <span class="text-xs block text-emerald-400 font-bold">🏠 ${currentRoomUser}</span>
+                        <span class="text-[10px] bg-slate-700 px-2 py-0.5 rounded text-slate-300 uppercase">${userRole}</span>
+                    </div>
+                    <button onclick="logoutSession()" class="bg-red-600/80 hover:bg-red-600 text-white text-xs px-3 py-1.5 rounded-lg transition shadow">ອອກຈາກລະບົບ</button>
+                `;
+
+                if (userRole === 'admin') {
+                    adminBox.classList.remove('hidden');
+                    if (adminChatLi) adminChatLi.classList.remove('hidden');
+                    if (isSuperAdmin()) { if(superAdminSpecialPoints) superAdminSpecialPoints.classList.remove('hidden'); }
+                    else { if(superAdminSpecialPoints) superAdminSpecialPoints.classList.add('hidden'); }
+                    listenAdminChat();
+                } else {
+                    adminBox.classList.add('hidden');
+                    if (adminChatLi) adminChatLi.classList.add('hidden');
+                    if(superAdminSpecialPoints) superAdminSpecialPoints.classList.add('hidden');
+                    if (chatUnsubscribe) { chatUnsubscribe(); chatUnsubscribe = null; }
+                }
+            } else {
+                if (!(getDeviceType() === 'desktop' && userRole !== 'admin')) { roomModal.classList.remove('hidden'); }
+                authNav.innerHTML = `<span class="text-xs text-amber-400 font-semibold">⚠️ ກະລຸນາເລືອກຫ້ອງກ່ອນ</span>`;
+                adminBox.classList.add('hidden');
+                if (adminChatLi) adminChatLi.classList.add('hidden');
+                if(superAdminSpecialPoints) superAdminSpecialPoints.classList.add('hidden');
+                if (chatUnsubscribe) { chatUnsubscribe(); chatUnsubscribe = null; }
+            }
+
+            loadNews(); loadCyberTasks(); loadMemberReports(); loadFullScoreSummary(); loadUserFeedbacks(); updateNotificationUI();
+        }
+
+        window.confirmRoomLogin = async () => {
+            const select = document.getElementById('login-room-select');
+            const val = select.value;
+            if (!val) { alert('ກະລຸນາເລືອກຫ້ອງພັກ ຫຼື ໂໝດ Admin!'); return; }
+
+            if (val === 'SUPER_ADMIN') {
+                const email = document.getElementById('admin-email-input').value;
+                const password = document.getElementById('admin-password-input').value;
+                if (!email || !password) { alert('ກະລຸນາປ້ອນອີເມວ ແລະ ລະຫັດຜ່ານຜູ້ສ້າງ!'); return; }
+                try {
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                    currentRoomUser = `ຜູ້ສ້າງ: ${userCredential.user.email}`;
+                    userRole = 'admin';
+                    localStorage.setItem('current_room_user', currentRoomUser);
+                    localStorage.setItem('current_user_role', userRole);
+                    document.getElementById('desktop-blocked-modal').classList.add('hidden');
+                    document.getElementById('location-blocked-modal').classList.add('hidden');
+                    checkRoomAuthUI();
+                } catch (err) { alert('ລັອກອິນຜູ້ສ້າງບໍ່ສຳເລັດ: ' + err.message); }
+            } else if (val.startsWith('SUB_ADMIN')) {
+                const pinInput = document.getElementById('sub-admin-pin').value;
+                if (pinInput !== subAdminPins[val]) { alert('❌ ລະຫັດຜ່ານ PIN ບໍ່ຖືກຕ້ອງ!'); return; }
+                const adminName = val === 'SUB_ADMIN_1' ? 'Admin ຮອງ 1' : val === 'SUB_ADMIN_2' ? 'Admin ຮອງ 2' : 'Admin ຮອງ 3';
+                try {
+                    const docRef = doc(db, "admin_sessions", val);
+                    const docSnap = await getDoc(docRef);
+                    if (val === 'SUB_ADMIN_1') {
+                        let devices = docSnap.exists() ? (docSnap.data().devices || []) : [];
+                        if (!devices.includes(deviceSessionId)) {
+                            if (devices.length >= 2) { alert(`⚠️ "${adminName}" ນີ້ ມີການລັອກອິນເຕັມຈຳກັດ 2 ເຄື່ອງແລ້ວ.`); return; }
+                            devices.push(deviceSessionId);
+                        }
+                        await setDoc(docRef, { devices: devices, timestamp: new Date() }, { merge: true });
+                    } else {
+                        if (docSnap.exists()) {
+                            const data = docSnap.data();
+                            if (data.deviceId !== deviceSessionId && (Date.now() - (data.timestamp ? data.timestamp.toMillis() : 0) < 7200000)) {
+                                alert(`⚠️ "${adminName}" ນີ້ ກຳລັງຖືກເປີດໃຊ້ງານຢູ່ເທິງມືຖືເຄື່ອງອື່ນແລ້ວ!`);
+                                return;
+                            }
+                        }
+                        await setDoc(docRef, { deviceId: deviceSessionId, timestamp: new Date() });
+                    }
+                    currentRoomUser = adminName;
+                    userRole = 'admin';
+                    localStorage.setItem('current_room_user', currentRoomUser);
+                    localStorage.setItem('current_user_role', userRole);
+                    document.getElementById('desktop-blocked-modal').classList.add('hidden');
+                    document.getElementById('location-blocked-modal').classList.add('hidden');
+                    checkRoomAuthUI();
+                    alert(`🎉 ເຂົ້າສູ່ລະບົບ ${adminName} ສຳເລັດ!`);
+                } catch (err) { alert('ຜິດພາດ: ' + err.message); }
+            } else {
+                if (getDeviceType() === 'desktop') { alert('⚠️ ຫ້າມ User ເຂົ້າຜ່ານຄອມພິວເຕີ.'); return; }
+                currentRoomUser = val;
+                userRole = 'user';
+                localStorage.setItem('current_room_user', currentRoomUser);
+                localStorage.setItem('current_user_role', userRole);
+                checkRoomAuthUI();
+            }
+        };
+
+        window.logoutSession = async () => {
+            try {
+                if (userRole === 'admin' && currentRoomUser.includes('ຜູ້ສ້າງ')) await signOut(auth);
+                else if (userRole === 'admin' && currentRoomUser.includes('Admin ຮອງ 1')) {
+                    const docRef = doc(db, "admin_sessions", "SUB_ADMIN_1");
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        let devices = (docSnap.data().devices || []).filter(id => id !== deviceSessionId);
+                        await updateDoc(docRef, { devices: devices });
+                    }
+                }
+            } catch (e) { console.error(e); }
+            localStorage.removeItem('current_room_user');
+            localStorage.removeItem('current_user_role');
+            currentRoomUser = null;
+            userRole = 'user';
+            document.getElementById('login-room-select').value = "";
+            checkRoomAuthUI(); checkDeviceRestriction(); checkLocationRestriction();
+        };
+
+        window.submitSpecialPoint = async () => {
+            if (!isSuperAdmin()) { alert('⚠️ ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນທີ່ມີສິດປັບຄະແນນພິເສດ!'); return; }
+            const room = document.getElementById('special-room-select').value;
+            const pointInput = document.getElementById('special-point-value').value;
+            if (!room) { alert('ກະລຸນາເລືອກຫ້ອງພັກ!'); return; }
+            const points = parseInt(pointInput);
+            if (isNaN(points) || points === 0) { alert('ກະລຸນາໃສ່ຈຳນວນຄະແນນທີ່ຖືກຕ້ອງ (ເຊັ່ນ: 3, 5 ຫຼື -1)'); return; }
+
+            try {
+                const dateStr = new Date().toLocaleString('lo-LA');
+                const reasonText = points > 0 ? `➕ ຮັບຄະແນນພິເສດ (+${points} ຄະແນນ) ຈາກຜູ້ສ້າງເວັບໄຊ` : `➖ ຖືກຫັກຄະແນນ (${points} ຄະແນນ) ຈາກຜູ້ສ້າງເວັບໄຊ`;
+                await addDoc(collection(db, "member_reports"), {
+                    room: room, name: "ຜູ້ສ້າງເວັບໄຊ (Super Admin)", description: reasonText, mediaItems: [], date: dateStr, weekTag: "special_adjustment_" + Date.now(), approved: true, specialPoints: points, createdAt: new Date()
+                });
+                alert(`🎉 ບັນທຶກການປັບຄະແນນໃຫ້ [${room}] ສຳເລັດແລ້ວ!`);
+                document.getElementById('special-point-value').value = '';
+                loadMemberReports(); loadFullScoreSummary(); loadFullScoreboard();
+            } catch (err) { alert('ຜິດພາດ: ' + err.message); }
+        };
+
+        window.switchTab = (tab) => {
+            const newsSec = document.getElementById('section-news');
+            const scoreSummarySec = document.getElementById('section-score-summary');
+            const scoreboardSec = document.getElementById('section-scoreboard');
+            const cyberSec = document.getElementById('section-cyber');
+            const memberSec = document.getElementById('section-member');
+            const snakeGameSec = document.getElementById('section-snake-game');
+            const feedbackSec = document.getElementById('section-user-feedback');
+            const adminChatSec = document.getElementById('section-admin-chat');
+            const fireflyLayer = document.getElementById('firefly-layer');
+            
+            newsSec.classList.add('hidden'); scoreSummarySec.classList.add('hidden'); scoreboardSec.classList.add('hidden'); cyberSec.classList.add('hidden'); memberSec.classList.add('hidden'); snakeGameSec.classList.add('hidden'); feedbackSec.classList.add('hidden'); if(adminChatSec) adminChatSec.classList.add('hidden');
+
+            if (tab === 'snake-game') { if (fireflyLayer) fireflyLayer.classList.add('hidden'); }
+            else { if (fireflyLayer) fireflyLayer.classList.remove('hidden'); }
+
+            if (tab === 'news') { newsSec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.remove('hidden'); }
+            else if (tab === 'score-summary') { scoreSummarySec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.add('hidden'); loadFullScoreSummary(); }
+            else if (tab === 'scoreboard') { scoreboardSec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.add('hidden'); loadFullScoreboard(); }
+            else if (tab === 'cyber') { cyberSec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.add('hidden'); loadCyberTasks(); }
+            else if (tab === 'member') { memberSec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.add('hidden'); loadMemberReports(); }
+            else if (tab === 'snake-game') { snakeGameSec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.add('hidden'); }
+            else if (tab === 'user-feedback') { feedbackSec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.add('hidden'); loadUserFeedbacks(); }
+            else if (tab === 'admin-chat') {
+                if (userRole !== 'admin') { alert('⚠️ ສຳລັບ Admin ເທົ່ານັ້ນ!'); return; }
+                adminChatSec.classList.remove('hidden'); document.getElementById('news-categories-box').classList.add('hidden');
+            }
+
+            const sidebar = document.getElementById('sidebar-container');
+            if (window.innerWidth < 1024 && !sidebar.classList.contains('hidden')) {
+                toggleSidebarMobile();
+            }
+        };
+
+        // 🎛️ ຟັງຊັນປ່ຽນມຸມມອງເວລາໃນໜ້າສະຫຼຸບ (Weekly, Monthly, Yearly)
+        window.switchSummaryPeriod = (period) => {
+            currentSummaryPeriod = period;
+            const btnW = document.getElementById('btn-period-weekly');
+            const btnM = document.getElementById('btn-period-monthly');
+            const btnY = document.getElementById('btn-period-yearly');
+            
+            btnW.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white";
+            btnM.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white";
+            btnY.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white";
+
+            if (period === 'weekly') {
+                btnW.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow";
+            } else if (period === 'monthly') {
+                btnM.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow";
+            } else if (period === 'yearly') {
+                btnY.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow";
+            }
+
+            loadFullScoreSummary();
+        };
+
+        window.submitUserFeedback = async () => {
+            if (!currentRoomUser || currentRoomUser.includes('Admin') || currentRoomUser.includes('ຜູ້ສ້າງ')) {
+                alert('ກະລຸນາລັອກອິນດ້ວຍໄອດີຫ້ອງພັກກ່ອນສົ່ງຄຳຄິດຄຳເຫັນ!');
+                document.getElementById('room-login-modal').classList.remove('hidden'); return;
+            }
+            const commentText = document.getElementById('feedback-text-input').value.trim();
+            if (!commentText) { alert('ກະລຸນາປ້ອນຂໍ້ຄວາມຄຳຄິດຄຳເຫັນ!'); return; }
+
+            try {
+                await addDoc(collection(db, "user_feedbacks"), { room: currentRoomUser, comment: commentText, date: new Date().toLocaleString('lo-LA'), timestamp: new Date() });
+                await addDoc(collection(db, "admin_chats"), { sender: `💬 ຄວາມຄິດຄຳເຫັນຈາກ [${currentRoomUser}]`, text: commentText, time: new Date().toLocaleTimeString('lo-LA', { hour: '2-digit', minute: '2-digit' }), timestamp: new Date() });
+                alert('🎉 ສົ່ງຄຳຄິດຄຳເຫັນສຳເລັດ!');
+                document.getElementById('feedback-text-input').value = '';
+                loadUserFeedbacks();
+            } catch (err) { alert('ຜິດພາດ: ' + err.message); }
+        };
+
+        async function loadUserFeedbacks() {
+            const container = document.getElementById('user-feedback-history');
+            if (!container) return;
+            try {
+                const snapshot = await getDocs(query(collection(db, "user_feedbacks"), orderBy("timestamp", "desc")));
+                if (snapshot.empty) { container.innerHTML = `<div class="text-center py-6 text-slate-500">ຍັງບໍ່ມີປະຫວັດຄຳຄິດຄຳເຫັນ.</div>`; return; }
+                let html = '';
+                snapshot.forEach(docSnap => {
+                    const fb = docSnap.data();
+                    if (fb.room === currentRoomUser || userRole === 'admin') {
+                        html += `
+                            <div class="bg-slate-900/60 p-4 rounded-xl border border-pink-500/30 space-y-2 animate-fade-in">
+                                <div class="flex justify-between items-center text-xs text-slate-400 border-b border-slate-800 pb-1.5">
+                                    <span class="font-bold text-pink-400">🏠 ${fb.room}</span>
+                                    <span>${fb.date || ''}</span>
+                                </div>
+                                <p class="text-sm text-slate-200 whitespace-pre-line">${fb.comment}</p>
+                            </div>
+                        `;
+                    }
+                });
+                container.innerHTML = html || `<div class="text-center py-6 text-slate-500">ຍັງບໍ່ມີປະຫວັດສຳລັບຫ້ອງຂອງທ່ານ.</div>`;
+            } catch (err) { container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${err.message}</div>`; }
+        }
+
+        function listenAdminChat() {
+            if (chatUnsubscribe) chatUnsubscribe();
+            chatUnsubscribe = onSnapshot(query(collection(db, "admin_chats"), orderBy("timestamp", "asc")), (snapshot) => {
+                const container = document.getElementById('admin-chat-messages');
+                if (!container) return;
+                if (snapshot.empty) { container.innerHTML = `<div class="text-center py-12 text-slate-500">ຍັງບໍ່ມີຂໍ້ຄວາມສົນທະນາ.</div>`; return; }
+                let html = '';
+                snapshot.forEach((docSnap) => {
+                    const msg = docSnap.data();
+                    const isMe = msg.sender === currentRoomUser;
+                    const isFeedback = msg.sender.includes('ຄວາມຄິດຄຳເຫັນ');
+                    html += `
+                        <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'} animate-fade-in">
+                            <span class="text-[10px] text-slate-400 mb-1 px-1">${msg.sender} (${msg.time || ''})</span>
+                            <div class="max-w-[75%] px-4 py-2.5 rounded-2xl text-sm ${isFeedback ? 'bg-pink-950/80 text-pink-200 border border-pink-500/60 rounded-bl-none shadow-lg' : isMe ? 'bg-sky-600 text-white rounded-br-none shadow-lg' : 'bg-slate-700 text-slate-100 rounded-bl-none border border-slate-600'}">
+                                ${msg.text}
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html; container.scrollTop = container.scrollHeight;
+            });
+        }
+
+        window.sendAdminMessage = async () => {
+            const input = document.getElementById('admin-chat-input');
+            const text = input.value.trim();
+            if (!text || userRole !== 'admin') return;
+            try {
+                input.value = '';
+                await addDoc(collection(db, "admin_chats"), { sender: currentRoomUser, text: text, time: new Date().toLocaleTimeString('lo-LA', { hour: '2-digit', minute: '2-digit' }), timestamp: new Date() });
+            } catch (err) { alert('ຜິດພາດ: ' + err.message); }
+        };
+
+        // 📊 ຟັງຊັນໂຫຼດຄະແນນສະຫຼຸບແບບກັ່ນຕອງຕາມ ອາທິດ, ເດືອນ, ປີ
+        async function loadFullScoreSummary() {
+            const container = document.getElementById('summary-bars-container');
+            if (!container) return;
+            
+            const topRoomLabel = document.getElementById('summary-top-room-label');
+            const totalPtsLabel = document.getElementById('summary-total-points-label');
+            const appCountLabel = document.getElementById('summary-approved-count-label');
+            const chartTitle = document.getElementById('summary-chart-title');
+
+            const now = new Date();
+            const currentWeekStr = getWeekNumber(now);
+            const currentMonthNum = now.getMonth(); // 0-11
+            const currentYearNum = now.getFullYear();
+
+            if (currentSummaryPeriod === 'weekly') {
+                topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ອາທິດນີ້)";
+                totalPtsLabel.innerText = "ຄະແນນລວມ (ອາທິດນີ້)";
+                appCountLabel.innerText = "ບົດລາຍງານທີ່ອະນຸມັດ (ອາທິດນີ້)";
+                chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳອາທິດ (${currentWeekStr})</span>`;
+            } else if (currentSummaryPeriod === 'monthly') {
+                topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ເດືອນນີ້)";
+                totalPtsLabel.innerText = "ຄະແນນລວມ (ເດືອນນີ້)";
+                appCountLabel.innerText = "ບົດລາຍງານທີ່ອະນຸມັດ (ເດືອນນີ້)";
+                chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳເດືອນ (${currentMonthNum + 1}/${currentYearNum})</span>`;
+            } else if (currentSummaryPeriod === 'yearly') {
+                topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ປີນີ້)";
+                totalPtsLabel.innerText = "ຄະແນນລວມ (ປີນີ້)";
+                appCountLabel.innerText = "ບົດລາຍງານທີ່ອະນຸມັດ (ປີນີ້)";
+                chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳປີ (${currentYearNum})</span>`;
+            }
+
+            try {
+                const querySnapshot = await getDocs(collection(db, "member_reports"));
+                let scores = {}; let totalPts = 0; let approvedReportsCount = 0;
+                const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
+                rooms.forEach(r => { scores[r] = 0; });
+
+                querySnapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    if (data.approved && data.room) {
+                        let reportDate = data.createdAt ? data.createdAt.toDate() : (data.date ? parseLaoDate(data.date) : new Date());
+                        
+                        let matchesPeriod = false;
+                        if (currentSummaryPeriod === 'weekly') {
+                            if (data.weekTag === currentWeekStr || getWeekNumber(reportDate) === currentWeekStr) matchesPeriod = true;
+                        } else if (currentSummaryPeriod === 'monthly') {
+                            if (reportDate.getMonth() === currentMonthNum && reportDate.getFullYear() === currentYearNum) matchesPeriod = true;
+                        } else if (currentSummaryPeriod === 'yearly') {
+                            if (reportDate.getFullYear() === currentYearNum) matchesPeriod = true;
+                        }
+
+                        if (matchesPeriod) {
+                            const ptsToAdd = (data.specialPoints !== undefined) ? data.specialPoints : 1;
+                            scores[data.room] = (scores[data.room] || 0) + ptsToAdd;
+                            if (scores[data.room] < 0) scores[data.room] = 0;
+                            if (ptsToAdd > 0) approvedReportsCount += 1;
+                        }
+                    }
+                });
+
+                totalPts = Object.values(scores).reduce((a, b) => a + b, 0);
+                let maxPts = -1; let topRoom = 'ຍັງບໍ່ມີຂໍ້ມູນ';
+                rooms.forEach(r => { if (scores[r] > maxPts) { maxPts = scores[r]; topRoom = r; } });
+
+                document.getElementById('summary-top-room').innerText = `${topRoom} (${maxPts} ຄະແນນ)`;
+                document.getElementById('summary-total-points').innerText = `${totalPts} ຄະແນນ`;
+                document.getElementById('summary-approved-count').innerText = `${approvedReportsCount} ບົດລາຍງານ`;
+
+                const highestPoint = Math.max(...Object.values(scores), 1);
+                container.innerHTML = rooms.map(room => {
+                    const pts = scores[room] || 0;
+                    const percent = highestPoint > 0 ? Math.round((pts / highestPoint) * 100) : 0;
+                    return `
+                        <div class="space-y-1 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60">
+                            <div class="flex justify-between items-center text-xs font-semibold">
+                                <span class="text-slate-200">🏠 ${room}</span>
+                                <span class="text-amber-400 font-bold">${pts} ຄະແນນ (${percent}%)</span>
+                            </div>
+                            <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden border border-slate-700">
+                                <div class="bg-gradient-to-r from-emerald-500 to-amber-400 h-3 rounded-full transition-all duration-500" style="width: ${percent}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) { container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${err.message}</div>`; }
+        }
+
+        function parseLaoDate(dateStr) {
+            try {
+                if (dateStr.includes('/')) {
+                    const parts = dateStr.split(',')[0].split('/');
+                    if (parts.length === 3) {
+                        return new Date(parts[2], parts[1] - 1, parts[0]);
+                    }
+                }
+            } catch (e) { }
+            return new Date();
+        }
+
+        async function loadFullScoreboard() {
+            const container = document.getElementById('full-scoreboard-container');
+            if (!container) return;
+            try {
+                const querySnapshot = await getDocs(collection(db, "member_reports"));
+                let scores = {};
+                const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
+                rooms.forEach(room => { scores[room] = 0; });
+                querySnapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    if (data.approved && data.room) { 
+                        const ptsToAdd = (data.specialPoints !== undefined) ? data.specialPoints : 1;
+                        scores[data.room] = (scores[data.room] || 0) + ptsToAdd; 
+                        if (scores[data.room] < 0) scores[data.room] = 0;
+                    }
+                });
+                
+                container.innerHTML = rooms.map((room, index) => {
+                    const pts = scores[room] || 0;
+                    return `
+                        <div class="bg-slate-800/85 backdrop-blur border border-amber-500/50 bg-amber-950/20 p-5 rounded-2xl shadow-xl flex items-center justify-between animate-fade-in">
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-amber-500/20 text-amber-400 font-bold w-10 h-10 rounded-xl flex items-center justify-center text-base border border-amber-500/40">
+                                    #${index + 1}
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-100 text-base">${room}</h4>
+                                    <p class="text-xs text-slate-400">ສະຖານະ: ພ້ອມປະຕິບັດງານ</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-extrabold text-amber-400">${pts}</span>
+                                <span class="block text-[10px] text-slate-400 uppercase">ຄະແນນສະສົມ</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) { container.innerHTML = `<div class="text-center py-12 text-red-400 col-span-full">ຜິດພາດ: ${err.message}</div>`; }
+        }
+
+        function getDeviceType() {
+            const ua = navigator.userAgent;
+            if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) return "mobile";
+            if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Opera Mini/i.test(ua)) return "mobile";
+            return "desktop";
+        }
+
+        async function trackVisitor() {
+            const today = new Date().toISOString().split('T')[0];
+            const device = getDeviceType(); 
+            if (sessionStorage.getItem(`visited_${today}`)) { loadVisitorStats(); return; }
+
+            try {
+                await runTransaction(db, async (transaction) => {
+                    const todayRef = doc(db, "visitors", today);
+                    const totalRef = doc(db, "visitors", "total_stats");
+                    const todayDoc = await transaction.get(todayRef);
+                    if (!todayDoc.exists()) transaction.set(todayRef, { desktop: device === 'desktop' ? 1 : 0, mobile: device === 'mobile' ? 1 : 0, count: 1 });
+                    else transaction.update(todayRef, { desktop: increment(device === 'desktop' ? 1 : 0), mobile: increment(device === 'mobile' ? 1 : 0), count: increment(1) });
+
+                    const totalDoc = await transaction.get(totalRef);
+                    if (!totalDoc.exists()) transaction.set(totalRef, { desktop: device === 'desktop' ? 1 : 0, mobile: device === 'mobile' ? 1 : 0, count: 1 });
+                    else transaction.update(totalRef, { desktop: increment(device === 'desktop' ? 1 : 0), mobile: increment(device === 'mobile' ? 1 : 0), count: increment(1) });
+                });
+                sessionStorage.setItem(`visited_${today}`, 'true');
+            } catch (e) { console.error(e); }
+            loadVisitorStats();
+        }
+
+        async function loadVisitorStats() {
+            try {
+                const totalDoc = await getDoc(doc(db, "visitors", "total_stats"));
+                if (totalDoc.exists()) {
+                    const data = totalDoc.data();
+                    document.getElementById('visitor-desktop').innerText = (data.desktop || 0).toLocaleString();
+                    document.getElementById('visitor-mobile').innerText = (data.mobile || 0).toLocaleString();
+                    document.getElementById('visitor-total').innerText = (data.count || 0).toLocaleString();
+                }
+            } catch (e) { console.error(e); }
+        }
+        trackVisitor();
+
+        async function loadNews() {
+            try {
+                const q = query(collection(db, "news"), orderBy("date", "desc"));
+                const snapshot = await getDocs(q);
+                allNews = [];
+                snapshot.forEach(docSnap => allNews.push({ id: docSnap.id, ...docSnap.data() }));
+                document.getElementById('stat-total-news').innerText = allNews.length;
+                renderNews(allNews);
+            } catch (e) { console.error(e); }
+        }
+
+        function renderNews(newsList) {
+            const container = document.getElementById('news-container');
+            if (!container) return;
+            if (newsList.length === 0) { container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">ຍັງບໍ່ມີຂ່າວສານ</div>`; return; }
+            container.innerHTML = newsList.map(item => {
+                const likes = item.likes || [];
+                const hasLiked = currentRoomUser && likes.includes(currentRoomUser);
+                return `
+                    <div id="post-${item.id}" class="bg-slate-800/85 backdrop-blur border border-slate-700/80 rounded-2xl p-5 space-y-3 shadow-xl animate-fade-in transition-all">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs px-3 py-1 rounded-full font-medium ${item.category === 'notice' ? 'bg-red-950 text-red-300 border border-red-800' : 'bg-emerald-950 text-emerald-300 border border-emerald-800'}">
+                                ${item.category === 'notice' ? '📢 ແຈ້ງການດ່ວນ' : '🎖️ ພາວະກິດ/ກິດຈະກຳ'}
+                            </span>
+                            <span class="text-xs text-slate-400">${item.date || ''}</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-emerald-300">${item.title}</h3>
+                        <p class="text-sm text-slate-300 whitespace-pre-line leading-relaxed">${item.content}</p>
+                        
+                        <div class="flex flex-wrap justify-between items-center pt-3 border-t border-slate-700/60 gap-2">
+                            <div class="flex items-center space-x-2">
+                                <button onclick="toggleLike('${item.id}')" class="text-xs px-3.5 py-1.5 rounded-xl border transition flex items-center space-x-1.5 ${hasLiked ? 'bg-pink-600/30 text-pink-400 border-pink-500/50' : 'bg-slate-900/60 text-slate-300 border-slate-700'}">
+                                    <span>${hasLiked ? '❤️' : '🤍'}</span> <span>${hasLiked ? 'ຖືກໃຈແລ້ວ' : 'ຖືກໃຈ'} (${likes.length})</span>
+                                </button>
+                                <button onclick="handleShare('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.content.replace(/'/g, "\\'").replace(/\n/g, ' ').substring(0, 100)}...')" class="text-xs bg-emerald-900/60 text-emerald-300 px-3.5 py-1.5 rounded-xl border border-emerald-700/60 transition flex items-center space-x-1"><span>🔗</span> <span>ແຊ</span></button>
+                            </div>
+                            ${userRole === 'admin' && isSuperAdmin() ? `
+                                <div class="flex space-x-2">
+                                    <button onclick="openEditNewsModal('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.category}', '${item.content.replace(/'/g, "\\'").replace(/\n/g, '\\n')}')" class="text-xs bg-amber-600 px-3 py-1.5 rounded-lg text-white">ແກ້ໄຂ</button>
+                                    <button onclick="deleteNewsItem('${item.id}')" class="text-xs bg-red-950 px-3 py-1.5 rounded-lg text-red-300">ລົບ</button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.toggleLike = async (newsId) => {
+            if (!currentRoomUser) { alert('ກະລຸນາເລືອກຫ້ອງພັກກ່ອນ!'); document.getElementById('room-login-modal').classList.remove('hidden'); return; }
+            const newsRef = doc(db, "news", newsId);
+            try {
+                await runTransaction(db, async (transaction) => {
+                    const docSnap = await transaction.get(newsRef);
+                    if (!docSnap.exists()) throw "ບໍ່ພົບຂ່າວສານ!";
+                    let likes = docSnap.data().likes || [];
+                    if (likes.includes(currentRoomUser)) likes = likes.filter(r => r !== currentRoomUser);
+                    else likes.push(currentRoomUser);
+                    transaction.update(newsRef, { likes: likes });
+                });
+                loadNews();
+            } catch (e) { alert('ຜິດພາດ: ' + e); }
+        };
+
+        window.handleShare = (id, title, text) => {
+            const baseUrl = window.location.origin + window.location.pathname;
+            currentShareData = { title, text, url: `${baseUrl}#post-${id}` };
+            document.getElementById('share-modal-title').innerText = title;
+            document.getElementById('share-modal').classList.remove('hidden');
+        };
+        window.closeShareModal = () => document.getElementById('share-modal').classList.add('hidden');
+
+        window.shareToPlatform = (platform) => {
+            const url = encodeURIComponent(currentShareData.url);
+            const text = encodeURIComponent(`${currentShareData.title}\n${currentShareData.text}`);
+            if (platform === 'facebook') window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+            else if (platform === 'messenger') window.open(`https://www.facebook.com/dialog/send?link=${url}&app_id=291494419107518&redirect_uri=${url}`, '_blank', 'width=600,height=400');
+            else if (platform === 'telegram') window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+            else if (platform === 'whatsapp') window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, '_blank', 'width=600,height=400');
+            else if (platform === 'copy') {
+                navigator.clipboard.writeText(`${currentShareData.title}\n${currentShareData.url}`).then(() => { alert('ກ໊ອບປີ້ລິ້ງສຳເລັດ!'); closeShareModal(); });
+            }
+        };
+
+        window.openNewsModal = () => { if (!isSuperAdmin()) { alert('ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ!'); return; } document.getElementById('news-modal').classList.remove('hidden'); };
+        window.closeNewsModal = () => document.getElementById('news-modal').classList.add('hidden');
+        window.openEditNewsModal = (id, title, category, content) => {
+            if (!isSuperAdmin()) { alert('ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ!'); return; }
+            document.getElementById('edit-news-id').value = id;
+            document.getElementById('edit-news-title').value = title;
+            document.getElementById('edit-news-category').value = category;
+            document.getElementById('edit-news-content').value = content;
+            document.getElementById('edit-news-modal').classList.remove('hidden');
+        };
+        window.closeEditNewsModal = () => document.getElementById('edit-news-modal').classList.add('hidden');
+
+        window.saveNews = async () => {
+            if (!isSuperAdmin()) return;
+            const title = document.getElementById('news-title').value;
+            const category = document.getElementById('news-category').value;
+            const content = document.getElementById('news-content').value;
+            if (!title || !content) return alert('ກະລຸນາຕື່ມຂໍ້ມູນໃຫ້ຄົບ');
+            await addDoc(collection(db, "news"), { title, category, content, date: new Date().toLocaleString('lo-LA'), likes: [] });
+            alert('ເພີ່ມຂ່າວສຳເລັດ!'); closeNewsModal(); loadNews();
+        };
+
+        window.updateNews = async () => {
+            if (!isSuperAdmin()) return;
+            const id = document.getElementById('edit-news-id').value;
+            const title = document.getElementById('edit-news-title').value;
+            const category = document.getElementById('edit-news-category').value;
+            const content = document.getElementById('edit-news-content').value;
+            if (!title || !content) return alert('ກະລຸນາຕື່ມຂໍ້ມູນໃຫ້ຄົບ');
+            await updateDoc(doc(db, "news", id), { title, category, content });
+            alert('ແກ້ໄຂຂ່າວສຳເລັດ!'); closeEditNewsModal(); loadNews();
+        };
+
+        window.deleteNewsItem = async (id) => {
+            if (!isSuperAdmin()) return;
+            if (confirm('ລົບຂ່າວນີ້ແທ້ບໍ?')) { await deleteDoc(doc(db, "news", id)); loadNews(); }
+        };
+
+        const uploadMediaSmart = (file) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = async () => {
+                    try {
+                        const base64Data = reader.result;
+                        const response = await fetch(DRIVE_WEB_APP_URL, {
+                            method: "POST",
+                            body: JSON.stringify({
+                                room: currentRoomUser || "Admin",
+                                filename: `video_${Date.now()}.webm`,
+                                filedata: base64Data
+                            })
+                        });
+                        const result = await response.json();
+                        if (result.status === "success") {
+                            resolve({ type: 'video', url: result.webViewUrl });
+                        } else {
+                            reject(new Error(result.message || "ອັບໂຫລດບໍ່ສຳເລັດ"));
+                        }
+                    } catch (err) {
+                        reject(err);
+                    }
+                };
+                reader.onerror = (error) => reject(error);
+            });
+        };
+
+        function getWeekNumber(d) {
+            d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+            d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+            return `${d.getUTCFullYear()}-W${Math.ceil((((d - new Date(Date.UTC(d.getUTCFullYear(),0,1))) / 86400000) + 1)/7)}`;
+        }
+
+        function checkVideoDuration(file) {
+            return new Promise((resolve) => {
+                const video = document.createElement('video');
+                video.preload = 'metadata';
+                video.onloadedmetadata = function() {
+                    window.URL.revokeObjectURL(video.src);
+                    resolve(video.duration);
+                };
+                video.onerror = function() {
+                    resolve(0); 
+                };
+                video.src = URL.createObjectURL(file);
+            });
+        }
+
+        window.submitMemberReport = async () => {
+            if (!currentRoomUser || currentRoomUser.includes('Admin') || currentRoomUser.includes('ຜູ້ສ້າງ')) {
+                alert('ກະລຸນາລັອກອິນດ້ວຍໄອດີຫ້ອງພັກກ່ອນ!');
+                document.getElementById('room-login-modal').classList.remove('hidden'); return;
+            }
+
+            const now = new Date();
+            if (now.getDay() !== 0) { alert('⚠️ ລະບົບອະນຸຍາດໃຫ້ສົ່ງສະເພາະມື້ວັນອາທິດເທົ່ານັ້ນ!'); return; }
+            const totalMinutesNow = now.getHours() * 60 + now.getMinutes();
+            if (totalMinutesNow < 960 || totalMinutesNow > 1140) { alert('⚠️ ເວລາສົ່ງ: 16:00 - 19:00 ໂມງ!'); return; }
+
+            const name = document.getElementById('member-name').value;
+            const description = document.getElementById('member-task-desc').value;
+            const fileInput = document.getElementById('member-media-files');
+            const statusText = document.getElementById('member-upload-status');
+            if (!name || !description) return alert('ກະລຸນາປ້ອນຂໍ້ມູນໃຫ້ຄົບ');
+
+            const files = fileInput.files;
+            if (files.length === 0) return alert('ກະລຸນາເປີດກ້ອງຖ່າຍວິດີໂອສົດກ່ອນສົ່ງ!');
+
+            const videoFile = files[0];
+
+            statusText.innerText = `⏳ ກຳລັງກວດສອບຄວາມຍາວວິດີໂອ...`;
+            const duration = await checkVideoDuration(videoFile);
+            if (duration > 62) {
+                alert(`❌ ວິດີໂະຍາວເກີນໄປ (${Math.round(duration)} ວິນາທີ)! ລະບົບກຳນົດໃຫ້ຖ່າຍວິດີໂອຄວາມຍາວສູງສຸດບໍ່ເກີນ 1 ນາທີ.`);
+                statusText.innerText = '⚠️ ກະລຸນາຖ່າຍວິດີໂອໃໝ່ ຄວາມຍາວບໍ່ເກີນ 1 ນາທີ!';
+                return;
+            }
+
+            const currentWeekStr = getWeekNumber(now);
+            const reportsSnap = await getDocs(collection(db, "member_reports"));
+            let submitted = false;
+            reportsSnap.forEach(docSnap => {
+                if (docSnap.data().room === currentRoomUser && docSnap.data().weekTag === currentWeekStr) submitted = true;
+            });
+            if (submitted) return alert('⚠️ ຫ້ອງຂອງທ່ານສົ່ງບົດລາຍງານສຳລັບອາທິດນີ້ໄປແລ້ວ!');
+
+            statusText.innerText = `⏳ ກຳລັງອັບໂຫລດວິດີໂອສົດຂຶ້ນ Google Drive...`;
+            try {
+                let mediaItems = [];
+                const uploadedMedia = await uploadMediaSmart(videoFile);
+                mediaItems.push(uploadedMedia);
+
+                statusText.innerText = `⏳ ກຳລັງບັນທຶກບົດລາຍງານ...`;
+                await addDoc(collection(db, "member_reports"), {
+                    room: currentRoomUser, name, description, mediaItems, date: new Date().toLocaleString('lo-LA'), weekTag: currentWeekStr, approved: false, createdAt: new Date()
+                });
+                alert('🎉 ສົ່ງບົດລາຍງານວິດີໂອສຳເລັດ!');
+                document.getElementById('member-name').value = '';
+                document.getElementById('member-task-desc').value = '';
+                fileInput.value = '';
+                statusText.innerText = '⚠️ ລະບົບກວດສອບຄວາມຍາວວິດີໂອຕ້ອງບໍ່ເກີນ 60 ວິນາທີ ແລະ ຈະອັບໂຫລດຂຶ້ນ Google Drive ອັດຕະໂນມັດ';
+                loadMemberReports(); loadFullScoreSummary();
+            } catch (e) { alert(e.message); statusText.innerText = '❌ ອັບໂຫລດບໍ່ສຳເລັດ'; }
+        };
+
+        async function loadMemberReports() {
+            const container = document.getElementById('member-reports-container');
+            if (!container) return;
+            try {
+                const snapshot = await getDocs(collection(db, "member_reports"));
+                allMemberReports = [];
+                snapshot.forEach(docSnap => allMemberReports.push({ id: docSnap.id, ...docSnap.data() }));
+                renderMemberReports();
+            } catch (e) { container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${e.message}</div>`; }
+        }
+
+        function isImageItem(item) {
+            if (!item) return false;
+            if (typeof item === 'string') {
+                return item.startsWith('data:image/') || item.match(/\.(jpeg|jpg|png|gif|webp)$/i);
+            }
+            if (item.type === 'image') return true;
+            if (item.url && (item.url.startsWith('data:image/') || item.url.match(/\.(jpeg|jpg|png|gif|webp)$/i))) return true;
+            return false;
+        }
+
+        function renderMemberReports() {
+            const container = document.getElementById('member-reports-container');
+            if (!container) return;
+            if (allMemberReports.length === 0) { container.innerHTML = `<div class="text-center py-8 text-slate-500">ຍັງບໍ່ມີບົດລາຍງານ</div>`; return; }
+            container.innerHTML = allMemberReports.map(rep => {
+                let items = rep.mediaItems || [];
+                if (items.length === 0 && rep.mediaUrls) {
+                    items = rep.mediaUrls.map(u => ({ type: isImageItem(u) ? 'image' : 'video', url: u }));
+                }
+                return `
+                    <div class="bg-slate-900/85 border ${rep.approved ? 'border-emerald-600' : 'border-slate-700'} rounded-xl p-4 space-y-3 shadow-md animate-fade-in">
+                        <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2">
+                            <span class="font-bold text-emerald-400">🏠 ຫ້ອງ: ${rep.room || ''} | 👤 ຜູ້ສົ່ງ: ${rep.name}</span>
+                            <div class="flex items-center space-x-2">
+                                <span class="px-2 py-0.5 rounded text-[10px] ${rep.approved ? 'bg-emerald-950 text-emerald-300' : 'bg-amber-950 text-amber-300'}">
+                                    ${rep.approved ? '✅ ອະນຸມັດແລ້ວ' : '⏳ ລໍຖ້າ Admin ອະນຸມັດ'}
+                                </span>
+                                <span class="text-slate-400">${rep.date || ''}</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-200 whitespace-pre-line">${rep.description}</p>
+                        <div class="grid grid-cols-1 gap-2 pt-2">
+                            ${items.map(item => {
+                                const isImg = isImageItem(item);
+                                const mediaUrl = item.url || item;
+                                if (isImg) {
+                                    return `
+                                        <div class="relative group bg-slate-950 p-2 rounded-xl border border-slate-700 text-center space-y-2">
+                                            <span class="text-xs text-emerald-400 font-bold block">📷 ຮູບພາບການປະຕິບັດງານ</span>
+                                            <img src="${mediaUrl}" alt="Report Image" class="max-h-64 mx-auto rounded-lg object-contain cursor-pointer hover:opacity-95 transition" onclick="window.open('${mediaUrl}')">
+                                        </div>
+                                    `;
+                                } else {
+                                    return `
+                                        <div class="relative group bg-slate-950 p-3 rounded-xl border border-slate-700 text-center space-y-2">
+                                            <span class="text-xs text-emerald-400 font-bold block">📁 ວິດີໂອບົນ Google Drive</span>
+                                            <a href="${mediaUrl}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 ເປີດເບິ່ງວິດີໂອໃນ Google Drive</a>
+                                        </div>
+                                    `;
+                                }
+                            }).join('')}
+                        </div>
+                        <div class="flex justify-end space-x-2 pt-2">
+                            ${userRole === 'admin' ? `
+                                ${!rep.approved ? `<button onclick="approveMemberReport('${rep.id}')" class="text-xs bg-emerald-600 px-3 py-1.5 rounded-lg text-white font-medium">✅ ອະນຸມັດ</button>` : ''}
+                                ${isSuperAdmin() ? `<button onclick="deleteMemberReport('${rep.id}')" class="text-xs bg-red-950 px-3 py-1.5 rounded-lg text-red-300">ລົບລາຍງານ</button>` : ''}
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.approveMemberReport = async (reportId) => {
+            if (userRole !== 'admin') { alert('⚠️ ສະເພາະ Admin ເທົ່ານັ້ນ!'); return; }
+            const report = allMemberReports.find(r => r.id === reportId);
+            if (!report) return;
+
+            try {
+                await updateDoc(doc(db, "member_reports", reportId), { approved: true });
+                await addDoc(collection(db, "cyber_tasks"), {
+                    title: `${report.room || 'ຫ້ອງ'} - ໂດຍ: ${report.name}`,
+                    description: report.description,
+                    mediaItems: report.mediaItems || [],
+                    date: report.date || new Date().toLocaleString('lo-LA')
+                });
+                alert('ອະນຸມັດສຳເລັດ!');
+                loadMemberReports(); loadCyberTasks(); loadFullScoreSummary();
+            } catch (e) { alert('ຜິດພາດ: ' + e.message); }
+        };
+
+        window.deleteMemberReport = async (id) => {
+            if (!isSuperAdmin()) { alert('ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ!'); return; }
+            if (confirm('ລົບລາຍງານນີ້ແທ້ບໍ?')) { await deleteDoc(doc(db, "member_reports", id)); loadMemberReports(); loadFullScoreSummary(); }
+        };
+
+        async function loadCyberTasks() {
+            const container = document.getElementById('cyber-container');
+            if (!container) return;
+            try {
+                const snapshot = await getDocs(collection(db, "cyber_tasks"));
+                allCyberTasks = [];
+                snapshot.forEach(docSnap => allCyberTasks.push({ id: docSnap.id, ...docSnap.data() }));
+                document.getElementById('stat-cyber-done').innerText = `${allCyberTasks.length} / ${allCyberTasks.length}`;
+                renderCyberTasks();
+            } catch (e) { container.innerHTML = `<div class="text-center py-12 text-red-400">ຜິດພາດ: ${e.message}</div>`; }
+        }
+
+        function renderCyberTasks() {
+            const container = document.getElementById('cyber-container');
+            if (!container) return;
+            if (allCyberTasks.length === 0) { container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">ຍັງບໍ່ມີລາຍການ</div>`; return; }
+            container.innerHTML = allCyberTasks.map(task => {
+                let items = task.mediaItems || [];
+                if (items.length === 0 && task.mediaUrls) {
+                    items = task.mediaUrls.map(u => ({ type: isImageItem(u) ? 'image' : 'video', url: u }));
+                }
+                return `
+                    <div class="bg-slate-800/85 backdrop-blur border border-emerald-600 bg-emerald-950/25 rounded-2xl p-5 shadow-lg animate-fade-in space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <input type="checkbox" checked disabled class="w-5 h-5 accent-emerald-500">
+                                <div>
+                                    <h4 class="font-bold text-emerald-300 text-base">${task.title}</h4>
+                                    <p class="text-[11px] text-emerald-400/90 mt-0.5">📅 ວັນເວລາ: ${task.date || ''}</p>
+                                    <p class="text-xs text-slate-300 mt-1">${task.description || ''}</p>
+                                </div>
+                            </div>
+                            ${userRole === 'admin' && isSuperAdmin() ? `<button onclick="deleteCyberTask('${task.id}')" class="text-xs bg-red-950 px-3 py-1 rounded-lg text-red-300">ລົບ</button>` : ''}
+                        </div>
+                        <div class="grid grid-cols-1 gap-2 mt-3 pt-3 border-t border-slate-700">
+                            ${items.map(item => {
+                                const isImg = isImageItem(item);
+                                const mediaUrl = item.url || item;
+                                if (isImg) {
+                                    return `
+                                        <div class="relative group bg-slate-950 p-2 rounded-xl border border-slate-700 text-center space-y-2">
+                                            <span class="text-xs text-emerald-400 font-bold block">📷 ຮູບພາບການປະຕິບັດງານ</span>
+                                            <img src="${mediaUrl}" alt="Task Image" class="max-h-64 mx-auto rounded-lg object-contain cursor-pointer hover:opacity-95 transition" onclick="window.open('${mediaUrl}')">
+                                        </div>
+                                    `;
+                                } else {
+                                    return `
+                                        <div class="relative group bg-slate-950 p-3 rounded-xl border border-slate-700 text-center space-y-2">
+                                            <span class="text-xs text-emerald-400 font-bold block">📁 ວິດີໂອບົນ Google Drive</span>
+                                            <a href="${mediaUrl}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 ເປີດເບິ່ງວິດີໂອໃນ Google Drive</a>
+                                        </div>
+                                    `;
+                                }
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.openCyberModal = () => { if (!isSuperAdmin()) { alert('ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ!'); return; } document.getElementById('cyber-modal').classList.remove('hidden'); };
+        window.closeCyberModal = () => document.getElementById('cyber-modal').classList.add('hidden');
+
+        window.saveCyberTaskVideo = async () => {
+            if (!isSuperAdmin()) return;
+            const title = document.getElementById('cyber-task-title').value;
+            const description = document.getElementById('cyber-task-desc').value;
+            const files = document.getElementById('cyber-media-files').files;
+            if (!title) return alert('ກະລຸນາໃສ່ຫົວຂໍ້');
+            if (files.length === 0) return alert('ກະລຸນາເລືອກຮູບພາບ ຫຼື ວິດີໂອ');
+
+            const statusText = document.getElementById('upload-status');
+            statusText.innerText = `⏳ ກຳລັງປະມວນຜົນໄຟລ໌...`;
+            try {
+                let mediaItems = [];
+                const uploadedMedia = await uploadMediaSmart(files[0]);
+                mediaItems.push(uploadedMedia);
+
+                await addDoc(collection(db, "cyber_tasks"), { title, description, mediaItems, date: new Date().toLocaleString('lo-LA') });
+                alert('ເພີ່ມລາຍການສຳເລັດ!');
+                closeCyberModal(); loadCyberTasks(); switchTab('cyber');
+            } catch (e) { alert(e.message); statusText.innerText = '❌ ອັບໂຫລດບໍ່ສຳເລັດ'; }
+        };
+
+        window.deleteCyberTask = async (id) => {
+            if (!isSuperAdmin()) return;
+            if (confirm('ລົບລາຍການນີ້ແທ້ບໍ?')) { await deleteDoc(doc(db, "cyber_tasks", id)); loadCyberTasks(); }
+        };
+
+        window.filterCategory = (cat) => {
+            if (cat === 'all') renderNews(allNews);
+            else renderNews(allNews.filter(n => n.category === cat));
+        };
+        window.searchNews = () => {
+            const kw = document.getElementById('search-input').value.toLowerCase();
+            renderNews(allNews.filter(n => n.title.toLowerCase().includes(kw) || n.content.toLowerCase().includes(kw)));
+        };
+    </script>
+</body>
+</html>
