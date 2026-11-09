@@ -1499,12 +1499,35 @@ window.updateNews = async () => {
  
 
 window.deleteNewsItem = async (id) => { 
-
     if (!isSuperAdmin()) return; 
+    if (confirm('ລົບຂ່າວນີ້ແທ້ບໍ?')) { 
+        try {
+            // 1. ລົບໂພສออกจาก Firestore Database
+            await deleteDoc(doc(db, "news", id)); 
 
-    if (confirm('ລົບຂ່າວນີ້ແທ້ບໍ?')) { await deleteDoc(doc(db, "news", id)); loadNews(); } 
+            // 2. 🔄 ວົນລູບລົບການແຈ້ງເຕືອນ (Notifications) ທີ່ກ່ຽວຂ້ອງກັບ postId ນີ້ອອກຈາກ Storage ຂອງທຸກຄົນທີ່ເກັບໄວ້
+            // ໂດຍການກວດສອບ Key 'user_notifications_*'
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('user_notifications_')) {
+                    let userNotifs = JSON.parse(localStorage.getItem(key) || '[]');
+                    // กรองเอาเฉพาะอันທີ່ບໍ່ໄດ້ລິ້ງກັບ id ໂພສນີ້
+                    userNotifs = userNotifs.filter(n => n.linkId !== id);
+                    localStorage.setItem(key, JSON.stringify(userNotifs));
+                }
+            }
 
-}; 
+            // 3. ອັບເດດ UI ຂອງການແຈ້ງເຕືອນ ແລະ ໂພສຂ່າວຄືນໃໝ່
+            loadUserNotifications();
+            updateNotificationUI();
+            loadNews(); 
+            
+            alert('ລົບຂ່າວ ແລະ ການແຈ້ງເຕືອນທີ່ກ່ຽວຂ້ອງສຳເລັດ!');
+        } catch (e) {
+            alert('ເກີດຂໍ້ຜິດພາດໃນການລົບ: ' + e.message);
+        }
+    } 
+};
 
  
 
