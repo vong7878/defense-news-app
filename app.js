@@ -743,24 +743,29 @@ async function loadFullScoreSummary() {
             if (data.approved && data.room) {
                 let reportDate = data.createdAt ? data.createdAt.toDate() : (data.date ? parseLaoDate(data.date) : new Date());
                 
-                let matchesPeriod = false;
-                if (currentSummaryPeriod === 'custom') {
-                    // ກວດສອບເດືອນ ແລະ ປີກ່ອນ
-                    let matchMonthYear = (reportDate.getMonth() === targetCustomMonth && reportDate.getFullYear() === targetCustomYear);
-                    
-                    // ⭐ ຖ້າຜູ້ໃຊ້ເລືອກອາທິດເສີມນຳ ໃຫ້ກວດສອບ weekTag ເພີ່ມເຕີມ
-                    if (matchMonthYear) {
-                        if (targetCustomWeek !== "") {
-                            // ຖ້າເລືອກອາທິດ ໃຫ້ກວດວ່າ weekTag ລົງທ້າຍ ຫຼື ົງກັບອາທິດທີ່ເລືອກບໍ (ເຊັ່ນ: 2026-W45)
-                            if (data.weekTag && data.weekTag.includes(targetCustomWeek)) {
-                                matchesPeriod = true;
-                            }
-                        } else {
-                            // ຖ້າບໍ່ເລືອກອາທິດ (ເອົາທັງເດືອນ)
-                            matchesPeriod = true;
-                        }
-                    }
+               let matchesPeriod = false;
+if (currentSummaryPeriod === 'custom') {
+    let matchMonthYear = (reportDate.getMonth() === targetCustomMonth && reportDate.getFullYear() === targetCustomYear);
+    
+    if (matchMonthYear) {
+        if (targetCustomWeek !== "") {
+            // ⭐ ວິທີແກ້ໄຂ: ໃຫ້ຄຳນວນຊ່ວງວັນທີ ຫຼື ຕັດ string ຂອງ weekTag ມາเทียบກັນ
+            // ຖ້າ weekTag ມີຮູບແບບ "2026-W45" ແລະ ຜູ້ໃຊ້ເລືອກ "W45" ໃຫ້ກວດສອບແບບນີ້:
+            if (data.weekTag && (data.weekTag.includes(targetCustomWeek) || data.weekTag === targetCustomWeek)) {
+                matchesPeriod = true;
+            } else {
+                // ທາງເລືອກເສີມ: ກວດສອບຈາກວັນທີຕົວຈິງຂອງ reportDate ວ່າຕົກຢູ່ໃນອາທິດທີ່ເລືອກບໍ
+                const weekNumFromDate = getWeekNumber(reportDate);
+                if (weekNumFromDate.includes(targetCustomWeek)) {
+                    matchesPeriod = true;
                 }
+            }
+        } else {
+            // ຖ້າບໍ່ເລືອກອາທິດ (ເອົາທັງເດືອນ)
+            matchesPeriod = true;
+        }
+    }
+}
                 // ... (ເງື່ອນໄຂ period อื่นໆ ຕາມเดิม)
 
                 if (matchesPeriod) {
