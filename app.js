@@ -527,11 +527,18 @@ function checkRoomAuthUI() {
     loadNews(); loadCyberTasks(); loadMemberReports(); loadFullScoreSummary(); loadUserFeedbacks(); updateNotificationUI();
 }
 
-window.confirmRoomLogin = async () => {
+// ຕົວຢ່າງການປະກາດໃຫ້ຖືກ Scope ຂອງ Module
+window.confirmRoomLogin = async function() {
     const select = document.getElementById('login-room-select');
+    if (!select) {
+        console.error("ไม่พบ element #login-room-select");
+        return;
+    }
     const val = select.value;
     if (!val) { alert('ກະລຸນາເລືອກຫ້ອງພັກ ຫຼື ໂໝດ Admin!'); return; }
 
+    // ... ໂຄດສ່ວນທີ່ເຫຼືໍອຂອງທ່ານ ...
+};
     if (val === 'SUPER_ADMIN') {
         const email = document.getElementById('admin-email-input').value;
         const password = document.getElementById('admin-password-input').value;
