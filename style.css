@@ -6,10 +6,11 @@
     user-select: none;
 }
 
-/* ☀️ ພື້ນຫຼັງໜ້າຈໍທັງໝົດເປັນສີເທົາອ່ອນສະອາດ (Light Theme) */
-body { 
+/* ☀️ ບັງຄັບພື້ນຫຼັງໜ້າຈໍທັງໝົດ (Body) ໃຫ້ເປັນສີຂາວ pure white (#ffffff) 100% */
+html, body { 
     font-family: 'Noto Sans Lao', sans-serif; 
-    background-color: #f3f4f6 !important; 
+    background-color: #ffffff !important; 
+    background: #ffffff !important;
     color: #1f2937 !important; 
 }
 
@@ -34,17 +35,17 @@ body {
     pointer-events: none;
 }
 
-/* ⚪ ບັງຄັບທຸກ Card, ກ່ອງໂພສ, ແລະ Container ໃຫ້ເປັນ "ສີຂາວສະອາດ" ທັງໝົດ 100% */
-div, section, article, 
+/* ⚪ ບັງຄັບທຸກ Card, ກ່ອງໂພສ, ພື້ນຫຼັງ Section, ແລະ Container ໃຫ້ເປັນ "ສີຂາວສະອາດ" ທັງໝົດ */
+div, section, article, main,
 .bg-slate-800, .bg-slate-900, .bg-slate-800\/95, .bg-slate-900\/80, 
-.bg-slate-700, .bg-slate-900\/50, .bg-slate-900\/60 {
+.bg-slate-700, .bg-slate-900\/50, .bg-slate-900\/60, .bg-gray-100, .bg-slate-100 {
     background-color: #ffffff !important; 
     color: #1f2937 !important; 
     border-color: #e5e7eb !important;
 }
 
-/* 📱 Sidebar & Header ເປັນສີຂາວ */
-#sidebar-container, header {
+/* 📱 Sidebar & Header ເປັນສີຂາວສະອາດ */
+#sidebar-container, header, nav {
     background-color: #ffffff !important;
     color: #1f2937 !important;
     border-color: #e5e7eb !important;
@@ -68,9 +69,9 @@ h2:has-text("ພາລະກິດ"), h1:has-text("ພາລະກິດ") {
     color: #dc2626 !important; /* ສີແດງສົດ */
 }
 
-/* 🔍 ຊ່ອງຄົ້ນຫາ ແລະ Input ຕ່າງໆເປັນສີຂາວ/ເທົາອ່ອນ */
+/* 🔍 ຊ່ອງຄົ້ນຫາ ແລະ Input ຕ່າງໆເປັນສີຂາວ ພ້ອມຂອບບາງໆ */
 input[type="text"], input[type="search"], input[type="datetime-local"], select, textarea {
-    background-color: #f9fafb !important;
+    background-color: #ffffff !important;
     border: 1px solid #d1d5db !important;
     color: #1f2937 !important;
     border-radius: 0.75rem !important;
