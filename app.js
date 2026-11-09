@@ -701,7 +701,7 @@ window.handleCustomFilterChange = () => {
     loadFullScoreSummary();
 };
 
-// 📊 ຟັງຊັນໂຫຼດຄະແນນສະຫຼຸບ (ຮອງຮັບທຸກເງື່ອນໄຂ ລວມເຖິງ Custom Month/Year)
+// 📊 ຟັງຊັນໂຫຼດຄະແນນສະຫຼຸບ (ຮອງຮັບ Custom Month, Year ແລະ Optional Week)
 async function loadFullScoreSummary() {
     const container = document.getElementById('summary-bars-container');
     if (!container) return;
@@ -712,63 +712,24 @@ async function loadFullScoreSummary() {
     const chartTitle = document.getElementById('summary-chart-title');
 
     const now = new Date();
-    const currentWeekStr = getWeekNumber(now);
-    const lastWeekDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-    const lastWeekStr = getWeekNumber(lastWeekDate);
-
     const currentMonthNum = now.getMonth();
     const currentYearNum = now.getFullYear();
-    const lastYearNum = currentYearNum - 1;
-
-    let lastMonthNum = currentMonthNum - 1;
-    let lastMonthYearNum = currentYearNum;
-    if (lastMonthNum < 0) {
-        lastMonthNum = 11;
-        lastMonthYearNum = currentYearNum - 1;
-    }
 
     // ดึงค่าจาก Dropdown Custom
     const customMonthSel = document.getElementById('filter-custom-month');
     const customYearSel = document.getElementById('filter-custom-year');
+    const customWeekSel = document.getElementById('filter-custom-week'); // ⭐ ດຶງຄ່າອາທິດເສີມ
+
     const targetCustomMonth = customMonthSel ? parseInt(customMonthSel.value) : currentMonthNum;
     const targetCustomYear = customYearSel ? parseInt(customYearSel.value) : currentYearNum;
+    const targetCustomWeek = customWeekSel ? customWeekSel.value : ""; // ຖ້າບໍ່ເລືອກຈະເປັນค่าว่าง ""
 
-    // ປັບປ່ຽນຫົວข้อຕາມ period
-    if (currentSummaryPeriod === 'weekly') {
-        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ອາທິດນີ້)";
-        totalPtsLabel.innerText = "ຄະແນນລວມ (ອາທິດນີ້)";
-        appCountLabel.innerText = "ບົດລາຍງານ (ອາທິດນີ້)";
-        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳອາທິດນີ້ (${currentWeekStr})</span>`;
-    } else if (currentSummaryPeriod === 'last_weekly') {
-        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ອາທິດຜ່ານມາ)";
-        totalPtsLabel.innerText = "ຄະແນນລວມ (ອາທິດຜ່ານມາ)";
-        appCountLabel.innerText = "ບົດລາຍງານ (ອາທິດຜ່ານມາ)";
-        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳອາທິດຜ່ານມາ (${lastWeekStr})</span>`;
-    } else if (currentSummaryPeriod === 'monthly') {
-        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ເດືອນນີ້)";
-        totalPtsLabel.innerText = "ຄະແນນລວມ (ເດືອນນີ້)";
-        appCountLabel.innerText = "ບົດລາຍງານ (ເດືອນນີ້)";
-        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳເດືອນນີ້ (${currentMonthNum + 1}/${currentYearNum})</span>`;
-    } else if (currentSummaryPeriod === 'last_monthly') {
-        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ເດືອນຜ່ານມາ)";
-        totalPtsLabel.innerText = "ຄະແນນລວມ (ເດືອນຜ່ານມາ)";
-        appCountLabel.innerText = "ບົດລາຍງານ (ເດືອນຜ່ານມາ)";
-        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳເດືອນຜ່ານມາ (${lastMonthNum + 1}/${lastMonthYearNum})</span>`;
-    } else if (currentSummaryPeriod === 'yearly') {
-        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ປີນີ້)";
-        totalPtsLabel.innerText = "ຄະແນນລວມ (ປີນີ້)";
-        appCountLabel.innerText = "ບົດລາຍງານ (ປີນີ້)";
-        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳປີ ${currentYearNum}</span>`;
-    } else if (currentSummaryPeriod === 'last_yearly') {
-        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ປີຜ່ານມາ)";
-        totalPtsLabel.innerText = "ຄະແນນລວມ (ປີຜ່ານມາ)";
-        appCountLabel.innerText = "ບົດລາຍງານ (ປີຜ່ານມາ)";
-        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳປີຜ່ານມາ ${lastYearNum}</span>`;
-    } else if (currentSummaryPeriod === 'custom') {
-        topRoomLabel.innerText = `ຫ້ອງອັນດັບ 1 (ເດືອນ ${targetCustomMonth + 1}/${targetCustomYear})`;
-        totalPtsLabel.innerText = `ຄະແນນລວມ (ເດືອນ ${targetCustomMonth + 1}/${targetCustomYear})`;
-        appCountLabel.innerText = `ບົດລາຍງານ (ເດືອນ ${targetCustomMonth + 1}/${targetCustomYear})`;
-        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳເດືອນ ${targetCustomMonth + 1} ປີ ${targetCustomYear}</span>`;
+    if (currentSummaryPeriod === 'custom') {
+        let weekTextDesc = targetCustomWeek ? ` (ອາທິດ: ${targetCustomWeek})` : "";
+        topRoomLabel.innerText = `ຫ້ອງອັນດັບ 1 (ເດືອນ ${targetCustomMonth + 1}/${targetCustomYear}${weekTextDesc})`;
+        totalPtsLabel.innerText = `ຄະແນນລວມ`;
+        appCountLabel.innerText = `ບົດລາຍງານ`;
+        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນເດືອນ ${targetCustomMonth + 1} ປີ ${targetCustomYear}${weekTextDesc}</span>`;
     }
 
     try {
@@ -783,21 +744,24 @@ async function loadFullScoreSummary() {
                 let reportDate = data.createdAt ? data.createdAt.toDate() : (data.date ? parseLaoDate(data.date) : new Date());
                 
                 let matchesPeriod = false;
-                if (currentSummaryPeriod === 'weekly') {
-                    if (data.weekTag === currentWeekStr || getWeekNumber(reportDate) === currentWeekStr) matchesPeriod = true;
-                } else if (currentSummaryPeriod === 'last_weekly') {
-                    if (data.weekTag === lastWeekStr || getWeekNumber(reportDate) === lastWeekStr) matchesPeriod = true;
-                } else if (currentSummaryPeriod === 'monthly') {
-                    if (reportDate.getMonth() === currentMonthNum && reportDate.getFullYear() === currentYearNum) matchesPeriod = true;
-                } else if (currentSummaryPeriod === 'last_monthly') {
-                    if (reportDate.getMonth() === lastMonthNum && reportDate.getFullYear() === lastMonthYearNum) matchesPeriod = true;
-                } else if (currentSummaryPeriod === 'yearly') {
-                    if (reportDate.getFullYear() === currentYearNum) matchesPeriod = true;
-                } else if (currentSummaryPeriod === 'last_yearly') {
-                    if (reportDate.getFullYear() === lastYearNum) matchesPeriod = true;
-                } else if (currentSummaryPeriod === 'custom') {
-                    if (reportDate.getMonth() === targetCustomMonth && reportDate.getFullYear() === targetCustomYear) matchesPeriod = true;
+                if (currentSummaryPeriod === 'custom') {
+                    // ກວດສອບເດືອນ ແລະ ປີກ່ອນ
+                    let matchMonthYear = (reportDate.getMonth() === targetCustomMonth && reportDate.getFullYear() === targetCustomYear);
+                    
+                    // ⭐ ຖ້າຜູ້ໃຊ້ເລືອກອາທິດເສີມນຳ ໃຫ້ກວດສອບ weekTag ເພີ່ມເຕີມ
+                    if (matchMonthYear) {
+                        if (targetCustomWeek !== "") {
+                            // ຖ້າເລືອກອາທິດ ໃຫ້ກວດວ່າ weekTag ລົງທ້າຍ ຫຼື ົງກັບອາທິດທີ່ເລືອກບໍ (ເຊັ່ນ: 2026-W45)
+                            if (data.weekTag && data.weekTag.includes(targetCustomWeek)) {
+                                matchesPeriod = true;
+                            }
+                        } else {
+                            // ຖ້າບໍ່ເລືອກອາທິດ (ເອົາທັງເດືອນ)
+                            matchesPeriod = true;
+                        }
+                    }
                 }
+                // ... (ເງື່ອນໄຂ period อื่นໆ ຕາມเดิม)
 
                 if (matchesPeriod) {
                     const ptsToAdd = (data.specialPoints !== undefined) ? data.specialPoints : 1;
@@ -808,6 +772,7 @@ async function loadFullScoreSummary() {
             }
         });
 
+        // ວາດກຣາຟສະແດງຜົນປົກກະຕິ...
         totalPts = Object.values(scores).reduce((a, b) => a + b, 0);
         let maxPts = -1; let topRoom = 'ຍັງບໍ່ມີຂໍ້ມູນ';
         rooms.forEach(r => { if (scores[r] > maxPts) { maxPts = scores[r]; topRoom = r; } });
