@@ -6,7 +6,7 @@
     user-select: none;
 }
 
-/* ☀️ ພື້ນຫຼັງເທົາ-ຂາວອ່ອນນຸ່ມໆ ແບບ Gemini UI */
+/* ☀️ ພື້ນຫຼັງໜ້າຈໍທັງໝົດເປັນສີເທົາອ່ອນສະອາດ */
 body { 
     font-family: 'Noto Sans Lao', sans-serif; 
     background-color: #f3f4f6 !important; 
@@ -29,48 +29,39 @@ body {
 }
 .animate-bell { animation: ring 0.5s ease-in-out infinite; }
 
-/* 🌟 ເກັບເອັບເຟັກແມງຫິ້ງຫ້ອຍ / ດາວວິບວັບໄວ້ */
+/* 🌟 ເກັບເອັບເֆັກແມງຫິ້ງຫ້ອຍ / ດາວວິບວັບໄວ້ */
 #firefly-layer {
     pointer-events: none;
 }
 
-/* ⚪ Card ສີຂາວສະອາດ, ມຸມມົນ rounded-2xl, ຂອບບາງໆ ສະໄຕລ໌ Modern UI */
-div[id^="section-"] > div, 
-.bg-slate-800, .bg-slate-900, .bg-slate-800\/95, .bg-slate-900\/80 {
+/* ⚪ ບັງຄັບທຸກ Card, ກ່ອງໂພສ, ແລະ Container ໃຫ້ເປັນ "ສີຂາວສະອາດ" ທັງໝົດ 100% */
+div, section, article, 
+.bg-slate-800, .bg-slate-900, .bg-slate-800\/95, .bg-slate-900\/80, 
+.bg-slate-700, .bg-slate-900\/50, .bg-slate-900\/60 {
     background-color: #ffffff !important; 
     color: #1f2937 !important; 
-    border: 1px solid #e5e7eb !important; 
-    border-radius: 1.25rem !important; 
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04) !important;
+    border-color: #e5e7eb !important;
 }
 
-/* 📱 Sidebar & Header ສີຂາວສະອາດ ເຂົ້າກັນທຸກໜ້າ */
+/* 📱 Sidebar & Header ເປັນສີຂາວ */
 #sidebar-container, header {
     background-color: #ffffff !important;
     color: #1f2937 !important;
     border-color: #e5e7eb !important;
 }
 
-/* 🔠 ບັງຄັບຕົວໜັງສືທຸກຢ່າງໃຫ້ເປັນ "ສີດຳເຂັ້ມ" ຄົມຊັດອ່ານງ່າຍ */
-h1, h2, h3, h4, h5, p, span, label, li, 
+/* 🔠 ບັງຄັບຕົວໜັງສືທຸກໂຕໃນທຸກກ່ອງໃຫ້ເປັນ "ສີດຳເຂັ້ມ" ອ່ານງ່າຍຊັດເຈນ */
+h1, h2, h3, h4, h5, p, span, label, li, a, 
 .text-slate-200, .text-slate-300, .text-slate-400, .text-slate-500 {
     color: #1f2937 !important;
 }
 
-/* 💬 Bubble ຂໍ້ຄວາມ / Card ຍ່ອຍ ແບບ Gemini Chat */
-.bg-slate-700, .bg-slate-900\/50, .bg-slate-900\/60 {
-    background-color: #f3f4f6 !important;
-    color: #1f2937 !important;
-    border: 1px solid #e5e7eb !important;
-    border-radius: 1rem !important;
-}
-
-/* 🔍 ຊ່ອງຄົ້ນຫາ, Input ແລະ Select ໂມເດິນສີເທົາອ່ອນ (Rounded Capsule) */
+/* 🔍 ຊ່ອງຄົ້ນຫາ ແລະ Input ຕ່າງໆເປັນສີຂາວ/ເທົາອ່ອນ */
 input[type="text"], input[type="search"], input[type="datetime-local"], select, textarea {
-    background-color: #f3f4f6 !important;
-    border: 1px solid #e5e7eb !important;
+    background-color: #f9fafb !important;
+    border: 1px solid #d1d5db !important;
     color: #1f2937 !important;
-    border-radius: 1rem !important;
+    border-radius: 0.75rem !important;
     padding: 0.75rem 1rem !important;
 }
 
