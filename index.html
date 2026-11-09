@@ -420,41 +420,60 @@
 
  
 
-            <!-- SECTION 2: Score Summary Dashboard --> 
+         <!-- SECTION 2: Score Summary Dashboard (ມີປຸ່ມເລືອກເດືອນ/ອາທິດຜ່ານມາ) -->
+<div id="section-score-summary" class="space-y-6 animate-fade-in">
+    <div class="bg-gradient-to-r from-amber-950/90 via-slate-800/90 to-emerald-950/90 p-6 rounded-2xl border border-amber-500/40 shadow-2xl space-y-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div>
+                <h2 class="text-2xl font-extrabold text-amber-400 flex items-center space-x-2">
+                    <span>📊</span> <span>ໜ້າສະຫຼຸບຄະແນນການອະນາໄມ (Dashboard)</span>
+                </h2>
+                <p class="text-xs text-slate-300 mt-1">ກວດສອບຄະແນນຍ้อนຫຼັງ ອາທິດນີ້, ອາທິດຜ່ານມາ, ເດືອນນີ້ ແລະ ເດືອນຜ່ານມາ</p>
+            </div>
+            
+            <!-- 🎛️ ປຸ່ມປ່ຽນມຸມມອງ (Tabs) -->
+            <div class="flex flex-wrap bg-slate-900/80 p-1 rounded-xl border border-slate-700 text-xs font-semibold gap-1">
+                <button onclick="switchSummaryPeriod('weekly')" id="btn-period-weekly" class="px-3 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow">📅 ອາທິດນີ້</button>
+                <button onclick="switchSummaryPeriod('last_weekly')" id="btn-period-last-weekly" class="px-3 py-2 rounded-lg transition text-slate-300 hover:text-white">⏪ ອາທິດຜ່ານມາ</button>
+                <button onclick="switchSummaryPeriod('monthly')" id="btn-period-monthly" class="px-3 py-2 rounded-lg transition text-slate-300 hover:text-white">📆 ເດືອນນີ້</button>
+                <button onclick="switchSummaryPeriod('last_monthly')" id="btn-period-last-monthly" class="px-3 py-2 rounded-lg transition text-slate-300 hover:text-white">🗓️ ເດືອນຜ່ານມາ</button>
+            </div>
+        </div>
+    </div>
 
-            <div id="section-score-summary" class="space-y-6 animate-fade-in"> 
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-slate-800/85 p-5 rounded-2xl border border-amber-500/30 shadow-lg flex items-center space-x-4">
+            <div class="p-3 bg-amber-500/20 text-amber-400 rounded-xl text-2xl font-bold">🥇</div>
+            <div>
+                <span id="summary-top-room-label" class="text-xs text-slate-400 block">ຫ້ອງອັນດັບ 1</span>
+                <span id="summary-top-room" class="text-lg font-bold text-amber-400">ກຳລັງປະມວນ...</span>
+            </div>
+        </div>
+        <div class="bg-slate-800/85 p-5 rounded-2xl border border-emerald-500/30 shadow-lg flex items-center space-x-4">
+            <div class="p-3 bg-emerald-500/20 text-emerald-400 rounded-xl text-2xl font-bold">⭐</div>
+            <div>
+                <span id="summary-total-points-label" class="text-xs text-slate-400 block">ຄະແນນລວມ</span>
+                <span id="summary-total-points" class="text-lg font-bold text-emerald-400">0 ຄະແນນ</span>
+            </div>
+        </div>
+        <div class="bg-slate-800/85 p-5 rounded-2xl border border-sky-500/30 shadow-lg flex items-center space-x-4">
+            <div class="p-3 bg-sky-500/20 text-sky-400 rounded-xl text-2xl font-bold">📋</div>
+            <div>
+                <span id="summary-approved-count-label" class="text-xs text-slate-400 block">ບົດລາຍງານທີ່ອະນຸມັດ</span>
+                <span id="summary-approved-count" class="text-lg font-bold text-sky-400">0 ບົດລາຍງານ</span>
+            </div>
+        </div>
+    </div>
 
-                <div class="bg-gradient-to-r from-amber-950/90 via-slate-800/90 to-emerald-950/90 p-6 rounded-2xl border border-amber-500/40 shadow-2xl space-y-4"> 
-
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3"> 
-
-                        <div> 
-
-                            <h2 class="text-2xl font-extrabold text-amber-400 flex items-center space-x-2"> 
-
-                                <span>📊</span> <span>ໜ້າສະຫຼຸບຄະແນນການອະນາໄມ (Dashboard)</span> 
-
-                            </h2> 
-
-                            <p class="text-xs text-slate-300 mt-1">ເລືອກມຸມມອງການສະຫຼຸບຄະແນນແບບ ປະຈຳອາທິດ, ປະຈຳເດືອນ ຫຼື ປະຈຳປີ</p> 
-
-                        </div> 
-
-                         
-
-                        <div class="flex bg-slate-900/80 p-1 rounded-xl border border-slate-700 text-xs font-semibold"> 
-
-                            <button onclick="switchSummaryPeriod('weekly')" id="btn-period-weekly" class="px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow">📅 ອາທິດນີ້</button> 
-
-                            <button onclick="switchSummaryPeriod('monthly')" id="btn-period-monthly" class="px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white">📆 ເດືອນນີ້</button> 
-
-                            <button onclick="switchSummaryPeriod('yearly')" id="btn-period-yearly" class="px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white">🗓️ ປີນີ້</button> 
-
-                        </div> 
-
-                    </div> 
-
-                </div> 
+    <div class="bg-slate-800/85 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
+        <h3 id="summary-chart-title" class="font-bold text-emerald-400 text-lg border-b border-slate-700 pb-3 flex items-center space-x-2">
+            <span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນ</span>
+        </h3>
+        <div id="summary-bars-container" class="space-y-4">
+            <div class="text-center py-8 text-slate-400">ກຳລັງປະມວນຜົນຄະແນນ...</div>
+        </div>
+    </div>
+</div>
 
  
 
