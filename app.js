@@ -664,15 +664,18 @@ window.switchTab = (tab) => {
     }
 };
 
+// 🎛️ ຟັງຊັນປ່ຽນມຸມມອງເວລາ ( Weekly, Last Weekly, Monthly, Last Monthly, Yearly, Last Yearly )
 window.switchSummaryPeriod = (period) => {
     currentSummaryPeriod = period;
     const btnW = document.getElementById('btn-period-weekly');
     const btnLW = document.getElementById('btn-period-last-weekly');
     const btnM = document.getElementById('btn-period-monthly');
     const btnLM = document.getElementById('btn-period-last-monthly');
+    const btnY = document.getElementById('btn-period-yearly');
+    const btnLY = document.getElementById('btn-period-last-yearly');
     
-    // ປ້ອງກັນ Error ຖ້າປຸ່ມໃດຍັງບໍ່ທັນມີໃນ HTML
-    [btnW, btnLW, btnM, btnLM].forEach(btn => {
+    // ປ້ອງກັນ Error ແบบ Null-Safety
+    [btnW, btnLW, btnM, btnLM, btnY, btnLY].forEach(btn => {
         if (btn) btn.className = "px-3 py-2 rounded-lg transition text-slate-300 hover:text-white";
     });
 
@@ -684,6 +687,154 @@ window.switchSummaryPeriod = (period) => {
 
     loadFullScoreSummary();
 };
+
+// 🔍 ຟັງຊັນເມື່ອມີການປ່ຽນຄ່າໃນ Dropdown ເດືອນ/ປີ ທີ່ຜູ້ໃຊ້ເລືອກເອງ
+window.handleCustomFilterChange = () => {
+    // ຖ້າผู้ໃຊ້ເລືອກເດືອນ/ປີເອງ ໃຫ້ປ່ຽນโหมดເປັນ custom
+    currentSummaryPeriod = 'custom';
+    
+    // ຣີເຊັດສໄຕລ໌ປຸ່ມທັງໝົດໃຫ້ເປັນແບບປົກກະຕິ
+    ['btn-period-weekly', 'btn-period-last-weekly', 'btn-period-monthly', 'btn-period-last-monthly', 'btn-period-yearly', 'btn-period-last-yearly'].forEach(id => {
+        const b = document.getElementById(id);
+        if(b) b.className = "px-3 py-2 rounded-lg transition text-slate-300 hover:text-white";
+    });
+
+    loadFullScoreSummary();
+};
+
+// 📊 ຟັງຊັນໂຫຼດຄະແນນສະຫຼຸບ (ຮອງຮັບທຸກເງື່ອນໄຂ ລວມເຖິງ Custom Month/Year)
+async function loadFullScoreSummary() {
+    const container = document.getElementById('summary-bars-container');
+    if (!container) return;
+    
+    const topRoomLabel = document.getElementById('summary-top-room-label');
+    const totalPtsLabel = document.getElementById('summary-total-points-label');
+    const appCountLabel = document.getElementById('summary-approved-count-label');
+    const chartTitle = document.getElementById('summary-chart-title');
+
+    const now = new Date();
+    const currentWeekStr = getWeekNumber(now);
+    const lastWeekDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const lastWeekStr = getWeekNumber(lastWeekDate);
+
+    const currentMonthNum = now.getMonth();
+    const currentYearNum = now.getFullYear();
+    const lastYearNum = currentYearNum - 1;
+
+    let lastMonthNum = currentMonthNum - 1;
+    let lastMonthYearNum = currentYearNum;
+    if (lastMonthNum < 0) {
+        lastMonthNum = 11;
+        lastMonthYearNum = currentYearNum - 1;
+    }
+
+    // ดึงค่าจาก Dropdown Custom
+    const customMonthSel = document.getElementById('filter-custom-month');
+    const customYearSel = document.getElementById('filter-custom-year');
+    const targetCustomMonth = customMonthSel ? parseInt(customMonthSel.value) : currentMonthNum;
+    const targetCustomYear = customYearSel ? parseInt(customYearSel.value) : currentYearNum;
+
+    // ປັບປ່ຽນຫົວข้อຕາມ period
+    if (currentSummaryPeriod === 'weekly') {
+        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ອາທິດນີ້)";
+        totalPtsLabel.innerText = "ຄະແນນລວມ (ອາທິດນີ້)";
+        appCountLabel.innerText = "ບົດລາຍງານ (ອາທິດນີ້)";
+        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳອາທິດນີ້ (${currentWeekStr})</span>`;
+    } else if (currentSummaryPeriod === 'last_weekly') {
+        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ອາທິດຜ່ານມາ)";
+        totalPtsLabel.innerText = "ຄະແນນລວມ (ອາທິດຜ່ານມາ)";
+        appCountLabel.innerText = "ບົດລາຍງານ (ອາທິດຜ່ານມາ)";
+        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳອາທິດຜ່ານມາ (${lastWeekStr})</span>`;
+    } else if (currentSummaryPeriod === 'monthly') {
+        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ເດືອນນີ້)";
+        totalPtsLabel.innerText = "ຄະແນນລວມ (ເດືອນນີ້)";
+        appCountLabel.innerText = "ບົດລາຍງານ (ເດືອນນີ້)";
+        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳເດືອນນີ້ (${currentMonthNum + 1}/${currentYearNum})</span>`;
+    } else if (currentSummaryPeriod === 'last_monthly') {
+        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ເດືອນຜ່ານມາ)";
+        totalPtsLabel.innerText = "ຄະແນນລວມ (ເດືອນຜ່ານມາ)";
+        appCountLabel.innerText = "ບົດລາຍງານ (ເດືອນຜ່ານມາ)";
+        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳເດືອນຜ່ານມາ (${lastMonthNum + 1}/${lastMonthYearNum})</span>`;
+    } else if (currentSummaryPeriod === 'yearly') {
+        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ປີນີ້)";
+        totalPtsLabel.innerText = "ຄະແນນລວມ (ປີນີ້)";
+        appCountLabel.innerText = "ບົດລາຍງານ (ປີນີ້)";
+        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳປີ ${currentYearNum}</span>`;
+    } else if (currentSummaryPeriod === 'last_yearly') {
+        topRoomLabel.innerText = "ຫ້ອງອັນດັບ 1 (ປີຜ່ານມາ)";
+        totalPtsLabel.innerText = "ຄະແນນລວມ (ປີຜ່ານມາ)";
+        appCountLabel.innerText = "ບົດລາຍງານ (ປີຜ່ານມາ)";
+        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳປີຜ່ານມາ ${lastYearNum}</span>`;
+    } else if (currentSummaryPeriod === 'custom') {
+        topRoomLabel.innerText = `ຫ້ອງອັນດັບ 1 (ເດືອນ ${targetCustomMonth + 1}/${targetCustomYear})`;
+        totalPtsLabel.innerText = `ຄະແນນລວມ (ເດືອນ ${targetCustomMonth + 1}/${targetCustomYear})`;
+        appCountLabel.innerText = `ບົດລາຍງານ (ເດືອນ ${targetCustomMonth + 1}/${targetCustomYear})`;
+        chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳເດືອນ ${targetCustomMonth + 1} ປີ ${targetCustomYear}</span>`;
+    }
+
+    try {
+        const querySnapshot = await getDocs(collection(db, "member_reports"));
+        let scores = {}; let totalPts = 0; let approvedReportsCount = 0;
+        const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"];
+        rooms.forEach(r => { scores[r] = 0; });
+
+        querySnapshot.forEach(docSnap => {
+            const data = docSnap.data();
+            if (data.approved && data.room) {
+                let reportDate = data.createdAt ? data.createdAt.toDate() : (data.date ? parseLaoDate(data.date) : new Date());
+                
+                let matchesPeriod = false;
+                if (currentSummaryPeriod === 'weekly') {
+                    if (data.weekTag === currentWeekStr || getWeekNumber(reportDate) === currentWeekStr) matchesPeriod = true;
+                } else if (currentSummaryPeriod === 'last_weekly') {
+                    if (data.weekTag === lastWeekStr || getWeekNumber(reportDate) === lastWeekStr) matchesPeriod = true;
+                } else if (currentSummaryPeriod === 'monthly') {
+                    if (reportDate.getMonth() === currentMonthNum && reportDate.getFullYear() === currentYearNum) matchesPeriod = true;
+                } else if (currentSummaryPeriod === 'last_monthly') {
+                    if (reportDate.getMonth() === lastMonthNum && reportDate.getFullYear() === lastMonthYearNum) matchesPeriod = true;
+                } else if (currentSummaryPeriod === 'yearly') {
+                    if (reportDate.getFullYear() === currentYearNum) matchesPeriod = true;
+                } else if (currentSummaryPeriod === 'last_yearly') {
+                    if (reportDate.getFullYear() === lastYearNum) matchesPeriod = true;
+                } else if (currentSummaryPeriod === 'custom') {
+                    if (reportDate.getMonth() === targetCustomMonth && reportDate.getFullYear() === targetCustomYear) matchesPeriod = true;
+                }
+
+                if (matchesPeriod) {
+                    const ptsToAdd = (data.specialPoints !== undefined) ? data.specialPoints : 1;
+                    scores[data.room] = (scores[data.room] || 0) + ptsToAdd;
+                    if (scores[data.room] < 0) scores[data.room] = 0;
+                    if (ptsToAdd > 0) approvedReportsCount += 1;
+                }
+            }
+        });
+
+        totalPts = Object.values(scores).reduce((a, b) => a + b, 0);
+        let maxPts = -1; let topRoom = 'ຍັງບໍ່ມີຂໍ້ມູນ';
+        rooms.forEach(r => { if (scores[r] > maxPts) { maxPts = scores[r]; topRoom = r; } });
+
+        document.getElementById('summary-top-room').innerText = `${topRoom} (${maxPts} ຄະແນນ)`;
+        document.getElementById('summary-total-points').innerText = `${totalPts} ຄະແນນ`;
+        document.getElementById('summary-approved-count').innerText = `${approvedReportsCount} ບົດລາຍງານ`;
+
+        const highestPoint = Math.max(...Object.values(scores), 1);
+        container.innerHTML = rooms.map(room => {
+            const pts = scores[room] || 0;
+            const percent = highestPoint > 0 ? Math.round((pts / highestPoint) * 100) : 0;
+            return `
+                <div class="space-y-1 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60">
+                    <div class="flex justify-between items-center text-xs font-semibold">
+                        <span class="text-slate-200">🏠 ${room}</span>
+                        <span class="text-amber-400 font-bold">${pts} ຄະແນນ (${percent}%)</span>
+                    </div>
+                    <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden border border-slate-700">
+                        <div class="bg-gradient-to-r from-emerald-500 to-amber-400 h-3 rounded-full transition-all duration-500" style="width: ${percent}%"></div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    } catch (err) { container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${err.message}</div>`; }
+}
 
 window.submitUserFeedback = async () => {
     if (!currentRoomUser || currentRoomUser.includes('Admin') || currentRoomUser.includes('ຜູ້ສ້າງ')) {
