@@ -131,14 +131,43 @@ window.toggleSidebarMobile = () => {
     const sidebar = document.getElementById('sidebar-container'); 
     sidebar.classList.toggle('hidden'); 
     
+    // ຊອກຫາປຸ່ມ 3 ຂີດ (Hamburger Button)
+    const hamburgerBtn = document.querySelector('button[onclick="toggleSidebarMobile()"]');
+    let backdrop = document.getElementById('sidebar-backdrop');
+
     if (!sidebar.classList.contains('hidden')) { 
-        // 📱 ເມື່ອເປີດ Sidebar: ຕັ້ງຄ່າ Sidebar ໃຫ້ແຜ່ເຕັມໜ້າຈໍ
-        sidebar.classList.add('fixed', 'inset-0', 'z-50', 'bg-slate-900/95', 'p-6', 'overflow-y-auto'); 
+        // 📱 ເມື່ອເປີດ Sidebar: ຕັ້ງຄ່າ Sidebar ໃຫ້ແຜ່ເຕັມ/ບັງດ້ານຂ້າງ
+        sidebar.classList.add('fixed', 'inset-y-0', 'left-0', 'w-4/5', 'max-w-xs', 'z-50', 'bg-slate-900', 'p-4', 'overflow-y-auto', 'shadow-2xl', 'animate-fade-in'); 
+
+        // 🙈 ເຮັດໃຫ້ປຸ່ມ 3 ຂີດຫາຍໄປ ເມື່ອເປີດເມນູ
+        if (hamburgerBtn) {
+            hamburgerBtn.classList.add('hidden');
+        }
+
+        // ສ້າງຜ້າບັງ (Backdrop) ສີມືດດ້ານຫຼັງ
+        if (!backdrop) {
+            backdrop = document.createElement('div');
+            backdrop.id = 'sidebar-backdrop';
+            backdrop.className = 'fixed inset-0 bg-black/70 backdrop-blur-sm z-40 animate-fade-in';
+            backdrop.onclick = toggleSidebarMobile; // ກົດຜ້າບັງແລ້ວປິດ Sidebar
+            document.body.appendChild(backdrop);
+        }
     } else { 
-        // 📱 ເມື່ອປິດ Sidebar: ເອົາ Style ແຜ່ເຕັມໜ້າຈໍອອກ
-        sidebar.classList.remove('fixed', 'inset-0', 'z-50', 'bg-slate-900/95', 'p-6', 'overflow-y-auto'); 
+        // 📱 ເມື່ອປິດ Sidebar: ເອົາ Style ອອກ
+        sidebar.classList.remove('fixed', 'inset-y-0', 'left-0', 'w-4/5', 'max-w-xs', 'z-50', 'bg-slate-900', 'p-4', 'overflow-y-auto', 'shadow-2xl', 'animate-fade-in'); 
+
+        // 👀 ເຮັດໃຫ້ປຸ່ມ 3 ຂີດກลับຄືນມາສະແດງຜົນ
+        if (hamburgerBtn) {
+            hamburgerBtn.classList.remove('hidden');
+        }
+
+        // ລຶບ Backdrop ອອກ
+        if (backdrop) {
+            backdrop.remove();
+        }
     } 
 };
+
 
 
 function initFirefliesMovement() { 
