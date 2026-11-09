@@ -16,7 +16,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// 🔗 URL Google Apps Script ທີ່ເຊື່ອມຕໍ່ກັບ Google Drive ຂອງທ່ານ
 const DRIVE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzExA_T2J2SpmD1fykUwV4ZK1oPuGSrpbsUMiLifVdROjL9Uocq3MBAtR3TnYjcFOkj/exec";
 
 setPersistence(auth, browserLocalPersistence).catch((err) => {
@@ -38,7 +37,7 @@ let globalNewsUnsubscribe = null;
 let globalFeedbackUnsubscribe = null;
 let isInitialLoad = true;
 let isHeaderHidden = false;
-let currentSummaryPeriod = 'weekly'; // weekly, monthly, yearly
+let currentSummaryPeriod = 'weekly';
 
 // Snake Game Variables
 let snakeInterval = null;
