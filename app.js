@@ -129,6 +129,7 @@ window.toggleHeaderVis = () => {
 
 window.toggleSidebarMobile = () => { 
     const sidebar = document.getElementById('sidebar-container'); 
+    const header = document.getElementById('main-header'); // ເອີ້ນໃຊ້ Header
     sidebar.classList.toggle('hidden'); 
     
     // ຊອກຫາປຸ່ມ 3 ຂີດ (Hamburger Button)
@@ -138,6 +139,11 @@ window.toggleSidebarMobile = () => {
     if (!sidebar.classList.contains('hidden')) { 
         // 📱 ເມື່ອເປີດ Sidebar: ຕັ້ງຄ່າ Sidebar ໃຫ້ແຜ່ເຕັມ/ບັງດ້ານຂ້າງ
         sidebar.classList.add('fixed', 'inset-y-0', 'left-0', 'w-4/5', 'max-w-xs', 'z-50', 'bg-slate-900', 'p-4', 'overflow-y-auto', 'shadow-2xl', 'animate-fade-in'); 
+
+        // 🙈 ຊ່ອນ Header ໃຫ້ຫາຍຂຶ້ນໄປດ້ານເທິງ
+        if (header) {
+            header.classList.add('-translate-y-full', 'opacity-0');
+        }
 
         // 🙈 ເຮັດໃຫ້ປຸ່ມ 3 ຂີດຫາຍໄປ ເມື່ອເປີດເມນູ
         if (hamburgerBtn) {
@@ -156,7 +162,12 @@ window.toggleSidebarMobile = () => {
         // 📱 ເມື່ອປິດ Sidebar: ເອົາ Style ອອກ
         sidebar.classList.remove('fixed', 'inset-y-0', 'left-0', 'w-4/5', 'max-w-xs', 'z-50', 'bg-slate-900', 'p-4', 'overflow-y-auto', 'shadow-2xl', 'animate-fade-in'); 
 
-        // 👀 ເຮັດໃຫ້ປຸ່ມ 3 ຂີດກลับຄືນມາສະແດງຜົນ
+        // 👀 ເປີດ / ສະແດງ Header ກັບຄືນມາຄືເກົ່າ
+        if (header) {
+            header.classList.remove('-translate-y-full', 'opacity-0');
+        }
+
+        // 👀 ເຮັດໃຫ້ປຸ່ມ 3 ຂີດກັບຄືນມາສະແດງຜົນ
         if (hamburgerBtn) {
             hamburgerBtn.classList.remove('hidden');
         }
