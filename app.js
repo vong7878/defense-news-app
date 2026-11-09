@@ -671,7 +671,7 @@ window.switchSummaryPeriod = (period) => {
     const btnM = document.getElementById('btn-period-monthly');
     const btnLM = document.getElementById('btn-period-last-monthly');
     
-    // ປ້ອງກັນ Error ຖ້າປຸ່ມໃດຍັງບໍ່ທັນມີ
+    // ປ້ອງກັນ Error ຖ້າປຸ່ມໃດຍັງບໍ່ທັນມີໃນ HTML
     [btnW, btnLW, btnM, btnLM].forEach(btn => {
         if (btn) btn.className = "px-3 py-2 rounded-lg transition text-slate-300 hover:text-white";
     });
