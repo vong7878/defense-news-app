@@ -667,19 +667,19 @@ window.switchTab = (tab) => {
 window.switchSummaryPeriod = (period) => {
     currentSummaryPeriod = period;
     const btnW = document.getElementById('btn-period-weekly');
+    const btnLW = document.getElementById('btn-period-last-weekly');
     const btnM = document.getElementById('btn-period-monthly');
-    const btnY = document.getElementById('btn-period-yearly');
+    const btnLM = document.getElementById('btn-period-last-monthly');
     
-    btnW.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white";
-    btnM.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white";
-    btnY.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white";
+    // ປ້ອງກັນ Error ຖ້າປຸ່ມໃດຍັງບໍ່ທັນມີ
+    [btnW, btnLW, btnM, btnLM].forEach(btn => {
+        if (btn) btn.className = "px-3 py-2 rounded-lg transition text-slate-300 hover:text-white";
+    });
 
-    if (period === 'weekly') {
-        btnW.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow";
-    } else if (period === 'monthly') {
-        btnM.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow";
-    } else if (period === 'yearly') {
-        btnY.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow";
+    // กำหนดสีปุ่มที่ถูกเลือก
+    const activeBtn = document.getElementById(`btn-period-${period.replace('_', '-')}`);
+    if (activeBtn) {
+        activeBtn.className = "px-3 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow";
     }
 
     loadFullScoreSummary();
