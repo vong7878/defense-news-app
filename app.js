@@ -695,21 +695,32 @@ window.switchSummaryPeriod = (period) => {
     const btnW = document.getElementById('btn-period-weekly'); 
     const btnM = document.getElementById('btn-period-monthly'); 
     const btnY = document.getElementById('btn-period-yearly'); 
+    
+    const weekPicker = document.getElementById('summary-week-picker');
+    const monthPicker = document.getElementById('summary-month-picker');
+    const yearPicker = document.getElementById('summary-year-picker');
      
     btnW.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white"; 
     btnM.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white"; 
     btnY.className = "px-3.5 py-2 rounded-lg transition text-slate-300 hover:text-white"; 
 
+    if (weekPicker) weekPicker.classList.add('hidden');
+    if (monthPicker) monthPicker.classList.add('hidden');
+    if (yearPicker) yearPicker.classList.add('hidden');
+
     if (period === 'weekly') { 
         btnW.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow"; 
+        if (weekPicker) weekPicker.classList.remove('hidden');
     } else if (period === 'monthly') { 
         btnM.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow"; 
+        if (monthPicker) monthPicker.classList.remove('hidden');
     } else if (period === 'yearly') { 
         btnY.className = "px-3.5 py-2 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow"; 
+        if (yearPicker) yearPicker.classList.remove('hidden');
     } 
 
     loadFullScoreSummary(); 
-}; 
+};
 
 window.submitUserFeedback = async () => { 
     if (!currentRoomUser || currentRoomUser.includes('Admin') || currentRoomUser.includes('ຜູ້ສ້າງ')) { 
@@ -788,6 +799,21 @@ window.sendAdminMessage = async () => {
     } catch (err) { alert('ຜິດພາດ: ' + err.message); } 
 }; 
 
+let selectedWeekHistory = null; // 👈 ຕົວແปรເກັບອາທິດທີ່ຜູ້ໃຊ້ເລືອກເບິ່ງຢ້ອນຫຼັງ
+
+// 🔄 ຟັງຊັນປ່ຽນອາທິດຢ້ອນຫຼັງ
+window.changeHistoryWeek = (weekStr) => {
+    selectedWeekHistory = weekStr;
+    loadFullScoreSummary();
+};
+
+// 📊 ປັບປຸງຟັງຊັນໂຫຼດຄະແນນໃຫ້ຮອງຮັບການເລືອກອາທິດ
+// 🔄 ຟັງຊັນຮອງຮັບການປ່ຽນ ວັນທີ/ເດືອນ/ປີ ຈາກ Input/Select ໃນ UI
+window.filterScoreSummaryByPeriod = () => {
+    loadFullScoreSummary();
+};
+
+// 📊 ປັບປຸງຟັງຊັນໂຫຼດຄະແນນໃຫ້ຮອງຮັບການເລືອກ ອາທິດ, ເດືອນ ແລະ ປີ ຢ້ອນຫຼັງ
 async function loadFullScoreSummary() { 
     const container = document.getElementById('summary-bars-container'); 
     if (!container) return; 
@@ -804,13 +830,14 @@ async function loadFullScoreSummary() {
     const now = new Date(); 
     if (weekPicker && !weekPicker.value) weekPicker.value = getCurrentWeekInputString(now);
     if (monthPicker && !monthPicker.value) monthPicker.value = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-    if (yearPicker && !yearPicker.value) yearPicker.value = now.getFullYear();
+    if (yearPicker && !yearPicker.value) yearPicker.value = String(now.getFullYear());
 
     let selectedFilterText = '';
 
     try { 
         const querySnapshot = await getDocs(collection(db, "member_reports")); 
-        
+        const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"]; 
+
         if (currentSummaryPeriod === 'weekly') { 
             selectedFilterText = weekPicker ? weekPicker.value : getCurrentWeekInputString(now);
             if (topRoomLabel) topRoomLabel.innerText = `ຫ້ອງອັນດັບ 1 (${selectedFilterText})`; 
@@ -818,9 +845,7 @@ async function loadFullScoreSummary() {
             if (appCountLabel) appCountLabel.innerText = `ບົດລາຍງານທີ່ອະນຸມັດ (${selectedFilterText})`; 
             if (chartTitle) chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳອາທິດ (${selectedFilterText})</span>`; 
 
-            // 📊 ໂມດອາທິດ (ສະແດງຜົນແຕ່ລະຫ້ອງຕາມປົກກະຕິ)
             let scores = {}; let totalPts = 0; let approvedReportsCount = 0; 
-            const rooms = ["ຫ້ອງ 104", "ຫ້ອງ 105", "ຫ້ອງ 108", "ຫ້ອງ 109", "ຫ້ອງ 110", "ຫ້ອງ 111", "ຫ້ອງ 112", "ຫ້ອງ 113", "ຫ້ອງ 114"]; 
             rooms.forEach(r => { scores[r] = 0; }); 
 
             querySnapshot.forEach(docSnap => { 
@@ -867,20 +892,17 @@ async function loadFullScoreSummary() {
             }).join(''); 
 
         } else if (currentSummaryPeriod === 'monthly') { 
+            // 📅 ໂໝດເດືອນ (ຄົ້ນຫາເດືອນຢ້ອນຫຼັງໄດ້)
             selectedFilterText = monthPicker ? monthPicker.value : ''; // ຕົວຢ່າງ: 2026-11
             const [selYear, selMonth] = selectedFilterText.split('-').map(Number);
 
-            if (topRoomLabel) topRoomLabel.innerText = `ສະຫຼຸບເດືອນ (${selectedFilterText})`; 
+            if (topRoomLabel) topRoomLabel.innerText = `ຫ້ອງອັນດັບ 1 (ເດືອນ ${selectedFilterText})`; 
             if (totalPtsLabel) totalPtsLabel.innerText = `ຄະແນນລວມທັງເດືອນ`; 
             if (appCountLabel) appCountLabel.innerText = `ບົດລາຍງານທັງໝົດໃນເດືອນ`; 
-            if (chartTitle) chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟແຍກຕາມ 4 ອາທິດ ປະຈຳເດືອນ (${selectedFilterText})</span>`; 
+            if (chartTitle) chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟຄະແນນແຕ່ລະຫ້ອງ ປະຈຳເດືອນ (${selectedFilterText})</span>`; 
 
-            // 📅 ແບ່ງເດືອນອອກເປັນ 4 ອາທິດ (ອາທິດ 1, 2, 3, 4)
-            let weekScores = { "ອາທິດ 1": 0, "ອາທິດ 2": 0, "ອາທິດ 3": 0, "ອາທິດ 4": 0 };
-            let totalMonthPts = 0; 
-            let monthReportsCount = 0;
-            let bestWeek = 'ຍັງບໍ່ມີຂໍ້ມູນ';
-            let maxWeekPts = -1;
+            let scores = {}; let totalMonthPts = 0; let monthReportsCount = 0;
+            rooms.forEach(r => { scores[r] = 0; });
 
             querySnapshot.forEach(docSnap => { 
                 const data = docSnap.data(); 
@@ -890,43 +912,31 @@ async function loadFullScoreSummary() {
                         reportDate = data.createdAt ? data.createdAt.toDate() : (data.date ? parseLaoDate(data.date) : new Date());
                     } catch (e) { reportDate = new Date(); }
 
-                    // ກວດສອບວ່າເປັນເດືອນ ແລະ ປີທີ່ເລືອກບໍ
                     if (reportDate.getFullYear() === selYear && (reportDate.getMonth() + 1) === selMonth) {
-                        const dayOfMonth = reportDate.getDate();
                         const ptsToAdd = (data.specialPoints !== undefined) ? data.specialPoints : 1;
-                        
-                        // ຈັດແບ່ງວັນທີ 1-31 ເປັນ 4 ອາທິດ
-                        let weekKey = "ອາທິດ 4";
-                        if (dayOfMonth <= 7) weekKey = "ອາທິດ 1";
-                        else if (dayOfMonth <= 14) weekKey = "ອາທິດ 2";
-                        else if (dayOfMonth <= 21) weekKey = "ອາທິດ 3";
-
-                        weekScores[weekKey] += ptsToAdd;
+                        scores[data.room] = (scores[data.room] || 0) + ptsToAdd;
+                        if (scores[data.room] < 0) scores[data.room] = 0;
                         totalMonthPts += ptsToAdd;
-                        monthReportsCount += 1;
+                        if (ptsToAdd > 0) monthReportsCount += 1;
                     }
                 } 
             }); 
 
-            Object.keys(weekScores).forEach(w => {
-                if (weekScores[w] > maxWeekPts) {
-                    maxWeekPts = weekScores[w];
-                    bestWeek = w;
-                }
-            });
+            let maxPts = -1; let topRoom = 'ຍັງບໍ່ມີຂໍ້ມູນ';
+            rooms.forEach(r => { if (scores[r] > maxPts) { maxPts = scores[r]; topRoom = r; } });
 
-            if (document.getElementById('summary-top-room')) document.getElementById('summary-top-room').innerText = `${bestWeek} (${maxWeekPts} ຄະແນນ)`; 
+            if (document.getElementById('summary-top-room')) document.getElementById('summary-top-room').innerText = `${topRoom} (${maxPts} ຄະແນນ)`; 
             if (document.getElementById('summary-total-points')) document.getElementById('summary-total-points').innerText = `${totalMonthPts} ຄະແນນ`; 
             if (document.getElementById('summary-approved-count')) document.getElementById('summary-approved-count').innerText = `${monthReportsCount} ບົດລາຍງານ`; 
 
-            const highestWeekPoint = Math.max(...Object.values(weekScores), 1); 
-            container.innerHTML = Object.keys(weekScores).map(weekName => { 
-                const pts = weekScores[weekName] || 0; 
-                const percent = highestWeekPoint > 0 ? Math.round((pts / highestWeekPoint) * 100) : 0; 
+            const highestPoint = Math.max(...Object.values(scores), 1); 
+            container.innerHTML = rooms.map(room => { 
+                const pts = scores[room] || 0; 
+                const percent = highestPoint > 0 ? Math.round((pts / highestPoint) * 100) : 0; 
                 return ` 
                     <div class="space-y-1 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60 animate-fade-in"> 
                         <div class="flex justify-between items-center text-xs font-semibold"> 
-                            <span class="text-amber-300 font-bold">📅 ${weekName} ຂອງເດືອນ</span> 
+                            <span class="text-amber-300 font-bold">🏠 ${room}</span> 
                             <span class="text-emerald-400 font-bold">${pts} ຄະແນນ (${percent}%)</span> 
                         </div> 
                         <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden border border-slate-700"> 
@@ -937,14 +947,59 @@ async function loadFullScoreSummary() {
             }).join(''); 
 
         } else if (currentSummaryPeriod === 'yearly') {
-            // ໂໝດປີ (ສະແດງຜົນຕາມປົກກະຕິ)
-            selectedFilterText = yearPicker ? yearPicker.value : '';
+            // 🗓️ ໂໝດປີ (ຄົ້ນຫາປີຢ້ອນຫຼັງໄດ້)
+            selectedFilterText = yearPicker ? yearPicker.value : String(now.getFullYear());
+            const selYear = Number(selectedFilterText);
+
             if (topRoomLabel) topRoomLabel.innerText = `ຫ້ອງອັນດັບ 1 (ປີ ${selectedFilterText})`; 
-            if (totalPtsLabel) totalPtsLabel.innerText = `ຄະແນນລວມ (ປີ ${selectedFilterText})`; 
-            if (appCountLabel) appCountLabel.innerText = `ບົດລາຍງານທີ່ອະນຸມັດ (ປີ ${selectedFilterText})`; 
-            if (chartTitle) chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟສະຫຼຸບຄະແນນປະຈຳປີ (${selectedFilterText})</span>`; 
+            if (totalPtsLabel) totalPtsLabel.innerText = `ຄະແນນລວມທັງປີ (${selectedFilterText})`; 
+            if (appCountLabel) appCountLabel.innerText = `ບົດລາຍງານທັງໝົດໃນປີ`; 
+            if (chartTitle) chartTitle.innerHTML = `<span>📈</span> <span>ກຣາຟຄະແນນແຕ່ລະຫ້ອງ ປະຈຳປີ (${selectedFilterText})</span>`; 
             
-            // ... (ຄົງໂຄດເດີມສຳລັບປີ)
+            let scores = {}; let totalYearPts = 0; let yearReportsCount = 0;
+            rooms.forEach(r => { scores[r] = 0; });
+
+            querySnapshot.forEach(docSnap => { 
+                const data = docSnap.data(); 
+                if (data.approved && data.room) { 
+                    let reportDate = new Date();
+                    try {
+                        reportDate = data.createdAt ? data.createdAt.toDate() : (data.date ? parseLaoDate(data.date) : new Date());
+                    } catch (e) { reportDate = new Date(); }
+
+                    if (reportDate.getFullYear() === selYear) {
+                        const ptsToAdd = (data.specialPoints !== undefined) ? data.specialPoints : 1;
+                        scores[data.room] = (scores[data.room] || 0) + ptsToAdd;
+                        if (scores[data.room] < 0) scores[data.room] = 0;
+                        totalYearPts += ptsToAdd;
+                        if (ptsToAdd > 0) yearReportsCount += 1;
+                    }
+                } 
+            }); 
+
+            let maxPts = -1; let topRoom = 'ຍັງບໍ່ມີຂໍ້ມູນ';
+            rooms.forEach(r => { if (scores[r] > maxPts) { maxPts = scores[r]; topRoom = r; } });
+
+            if (document.getElementById('summary-top-room')) document.getElementById('summary-top-room').innerText = `${topRoom} (${maxPts} ຄະແນນ)`; 
+            if (document.getElementById('summary-total-points')) document.getElementById('summary-total-points').innerText = `${totalYearPts} ຄະແນນ`; 
+            if (document.getElementById('summary-approved-count')) document.getElementById('summary-approved-count').innerText = `${yearReportsCount} ບົດລາຍງານ`; 
+
+            const highestPoint = Math.max(...Object.values(scores), 1); 
+            container.innerHTML = rooms.map(room => { 
+                const pts = scores[room] || 0; 
+                const percent = highestPoint > 0 ? Math.round((pts / highestPoint) * 100) : 0; 
+                return ` 
+                    <div class="space-y-1 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60 animate-fade-in"> 
+                        <div class="flex justify-between items-center text-xs font-semibold"> 
+                            <span class="text-amber-300 font-bold">🏠 ${room}</span> 
+                            <span class="text-emerald-400 font-bold">${pts} ຄະແນນ (${percent}%)</span> 
+                        </div> 
+                        <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden border border-slate-700"> 
+                            <div class="bg-gradient-to-r from-amber-500 to-emerald-400 h-3 rounded-full transition-all duration-500" style="width: ${percent}%"></div> 
+                        </div> 
+                    </div> 
+                `; 
+            }).join(''); 
         }
 
     } catch (err) { 
@@ -952,6 +1007,15 @@ async function loadFullScoreSummary() {
         container.innerHTML = `<div class="text-center py-6 text-red-400">ເກີດຂໍ້ຜິດພາດ: ${err.message}</div>`; 
     } 
 }
+
+// 辅助 Helper ຟັງຊັນສຳລັບດຶງ String ISO Week
+function getCurrentWeekInputString(d) {
+    const year = d.getFullYear();
+    const week = Math.ceil((((d - new Date(d.getFullYear(), 0, 1)) / 86400000) + new Date(d.getFullYear(), 0, 1).getDay() + 1) / 7);
+    return `${year}-W${String(week).padStart(2, '0')}`;
+}
+
+ 
 
 function parseLaoDate(dateStr) { 
 
