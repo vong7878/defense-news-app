@@ -453,6 +453,7 @@ window.clearNotifications = () => {
 }; 
 
 function initRealtimeListeners() { 
+    // 1. 📢 ແຈ້ງເຕືອນເມື່ອມີ ຂ່າວສານ / ແຈ້ງການ ໃໝ່ລົງຟີດ (ໃຫ້ທຸກຄົນເຫັນ)
     const newsQuery = query(collection(db, "news"), orderBy("date", "desc")); 
     globalNewsUnsubscribe = onSnapshot(newsQuery, (snapshot) => { 
         allNews = []; 
@@ -464,25 +465,31 @@ function initRealtimeListeners() {
             snapshot.docChanges().forEach((change) => { 
                 if (change.type === "added") { 
                     const newPostData = change.doc.data(); 
+                    // ສົ່ງແຈ້ງເຕືອນຂ່າວ/ແຈ້ງການໃໝ່ລົງຟີດ
                     addNotification("📢 ແຈ້ງການ/ຂ່າວສານໃໝ່!", newPostData.title, change.doc.id); 
                 } 
             }); 
         } 
     }); 
 
+    // 2. ✅ ແຈ້ງເຕືອນເມື່ອ ບົດລາຍງານຖືກອະນຸມັດ ຫຼື ⭐ ໄດ້ຮັບ ຄະແນນພິເສດ (ສະເພາະຫ້ອງນັ້ນໆ)
     const reportsQuery = query(collection(db, "member_reports"), orderBy("date", "desc")); 
     onSnapshot(reportsQuery, (snapshot) => { 
         if (!isInitialLoad) { 
             snapshot.docChanges().forEach((change) => { 
                 const data = change.doc.data(); 
+                // ກວດສອບວ່າເປັນຫ້ອງຂອງ User ປັດຈຸບັນບໍ
                 if (currentRoomUser && data.room === currentRoomUser) { 
+                    // ກໍລະນີອະນຸມັດບົດລາຍງານ
                     if (data.approved && change.type === "modified") { 
-                        addNotification("🎉 ບົດລາຍງານຖືກອະນຸມັດແລ້ວ!", `ຫ້ອງຂອງທ່ານ (${data.room}) ໄດ້ຮັບການອະນຸມັດແລ້ວ!`); 
+                        addNotification("🎉 ບົດລາຍງານຖືກອະນຸມັດແລ້ວ!", `ບົດລາຍງານອະນາໄມຫ້ອງຂອງທ່ານ (${data.room}) ໄດ້ຮັບການອະນຸມັດແລ້ວ!`); 
                         loadFullScoreSummary(); loadFullScoreboard(); 
-                    } else if (data.specialPoints !== undefined && change.type === "added") { 
+                    } 
+                    // ກໍລະນີປັບຄະແນນພິເສດ (ບວກ/ລົບ)
+                    else if (data.specialPoints !== undefined && change.type === "added") { 
                         const pts = data.specialPoints; 
                         const signText = pts > 0 ? `+${pts}` : `${pts}`; 
-                        addNotification("⭐ ມີການປັບຄະແນນພິເສດ!", `ຫ້ອງຂອງທ່ານ (${data.room}) ຖືກປັບຄະແນນ ${signText} ຈາກຜູ້ສ້າງເວັບໄຊ!`); 
+                        addNotification("⭐ ມີການປັບຄະແນນພິເສດ!", `ຫ້ອງຂອງທ່ານ (${data.room}) ຖືກປັບຄະແນນ ${signText} ຄະແນນ ຈາກຜູ້ສ້າງເວັບໄຊ!`); 
                         loadFullScoreSummary(); loadFullScoreboard(); 
                     } 
                 } 
@@ -490,21 +497,23 @@ function initRealtimeListeners() {
         } 
     }); 
 
+    // 🔒 3. ຂໍ້ຄວາມແຊັດ Admin / User Feedback (ແຈ້ງເຕືອນສະເພາະ Admin ເທົ່ານັ້ນ, ບໍ່ແຈ້ງຫາ User)
     const chatQuery = query(collection(db, "admin_chats"), orderBy("timestamp", "desc")); 
     globalFeedbackUnsubscribe = onSnapshot(chatQuery, (snapshot) => { 
         if (!isInitialLoad) { 
             snapshot.docChanges().forEach((change) => { 
                 if (change.type === "added") { 
                     const msgData = change.doc.data(); 
+                    // ສະເພາະ Admin ເທົ່ານັ້ນທີ່ຈະເຫັນແຈ້ງເຕືອນແຊັດນີ້
                     if (userRole === 'admin' && msgData.sender !== currentRoomUser) { 
-                        addNotification("💬 ຂໍ້ຄວາມກຸ່ມ / ແຈ້ງເຕືອນໃໝ່", `${msgData.sender}: ${msgData.text}`); 
+                        addNotification("💬 ຂໍ້ຄວາມກຸ່ມ Admin", `${msgData.sender}: ${msgData.text}`); 
                     } 
                 } 
             }); 
         } 
         isInitialLoad = false; 
     }, () => { isInitialLoad = false; }); 
-} 
+}
 
 async function verifySubAdminSession() { 
     if (userRole === 'admin' && currentRoomUser && currentRoomUser.startsWith('Admin ຮອງ')) { 
