@@ -488,10 +488,21 @@
         <option value="2045">2045</option>
     </select>
 
-<!-- 📅 ຕົວກອງເລືອກອາທິດແບບດຶງຂໍ້ມູນຕົວຈິງ -->
-<select id="filter-custom-week" onchange="handleCustomFilterChange()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1">
-    <option value="">-- ທຸກໆອາທິດໃນເດືອນນີ້ (ບໍ່ເລືອກ) --</option>
-</select>
+<div class="flex flex-wrap items-center gap-2 bg-slate-900/80 p-3 rounded-xl border border-slate-700 text-xs">
+    <span class="text-slate-300 font-semibold">🔍 ຕົວກອງເລືອກອາທິດ:</span>
+    
+    <!-- 📅 ຕົວກອງເລືອກອາທິດ -->
+    <select id="filter-custom-week" onchange="handleCustomFilterChange()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1">
+        <option value="">-- ທຸກໆອາທິດ --</option>
+        <option value="W1">ອາທິດ 1 (W1)</option>
+        <option value="W2">ອາທິດ 2 (W2)</option>
+        <option value="W3">ອາທິດ 3 (W3)</option>
+        <option value="W4">ອາທິດ 4 (W4)</option>
+        <option value="W5">ອາທິດ 5 (W5)</option>
+        <option value="W6">ອາທິດ 6 (W6)</option>
+        <!-- ສามารถເພີ່ມ W ຕໍ່ໄປໄດ້ຕາມຕ້ອງການ ຫຼື ໃຊ້ແບບອັດຕະໂນມັດ -->
+    </select>
+</div>
 </div>
 </div>
         </div>
