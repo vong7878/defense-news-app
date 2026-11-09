@@ -528,7 +528,7 @@ function checkRoomAuthUI() {
 }
 
 // ຕົວຢ່າງການປະກາດໃຫ້ຖືກ Scope ຂອງ Module
-window.confirmRoomLogin = async function() {
+window.confirmRoomLogin = async () => {
     const select = document.getElementById('login-room-select');
     if (!select) {
         console.error("ไม่พบ element #login-room-select");
@@ -591,10 +591,9 @@ window.confirmRoomLogin = async function() {
         userRole = 'user';
         localStorage.setItem('current_room_user', currentRoomUser);
         localStorage.setItem('current_user_role', userRole);
-        checkRoomAuthUI();
+    checkRoomAuthUI();
     }
 };
-
 window.logoutSession = async () => {
     try {
         if (userRole === 'admin' && currentRoomUser.includes('ຜູ້ສ້າງ')) await signOut(auth);
