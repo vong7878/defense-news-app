@@ -538,7 +538,6 @@ window.confirmRoomLogin = async function() {
     if (!val) { alert('ກະລຸນາເລືອກຫ້ອງພັກ ຫຼື ໂໝດ Admin!'); return; }
 
     // ... ໂຄດສ່ວນທີ່ເຫຼືໍອຂອງທ່ານ ...
-};
     if (val === 'SUPER_ADMIN') {
         const email = document.getElementById('admin-email-input').value;
         const password = document.getElementById('admin-password-input').value;
