@@ -440,29 +440,31 @@
                 </div>
 
                 <!-- ຕົວເລືອກວັນ/ອາທິດ/ເດືອນ/ປີ ຕາມໂໝດ -->
-                <div id="summary-filter-controls" class="flex items-center space-x-2">
-                    <input type="week" id="summary-week-picker" onchange="filterScoreSummaryByPeriod()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs px-2.5 py-1.5 rounded-xl focus:outline-none focus:border-amber-500 font-bold">
-                    <input type="month" id="summary-month-picker" onchange="filterScoreSummaryByPeriod()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs px-2.5 py-1.5 rounded-xl focus:outline-none focus:border-amber-500 font-bold hidden">
-                    <select id="summary-year-picker" onchange="filterScoreSummaryByPeriod()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs px-2.5 py-1.5 rounded-xl focus:outline-none focus:border-amber-500 font-bold hidden">
-    <option value="2025">ປີ 2025</option>
-    <option value="2026">ປີ 2026</option>
-    <option value="2027">ປີ 2027</option>
-    <option value="2028">ປີ 2028</option>
-    <option value="2029">ປີ 2029</option>
-    <option value="2030">ປີ 2030</option>
-    <option value="2031">ປີ 2031</option>
-    <option value="2032">ປີ 2032</option>
-    <option value="2033">ປີ 2033</option>
-    <option value="2034">ປີ 2034</option>
-    <option value="2035">ປີ 2035</option>
-    <option value="2036">ປີ 2036</option>
-    <option value="2037">ປີ 2037</option>
-    <option value="2038">ປີ 2038</option>
-    <option value="2039">ປີ 2039</option>
-    <option value="2040">ປີ 2040</option>
-</select>
-                </div>
+               <div id="summary-filter-controls" class="flex items-center space-x-2">
+    <!-- ເລືອກອາທິດ -->
+    <input type="week" id="summary-week-picker" onchange="filterScoreSummaryByPeriod()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs px-2.5 py-1.5 rounded-xl focus:outline-none focus:border-amber-500 font-bold">
+    
+    <!-- ເລືອກເດືອນຢ້ອນຫຼັງ -->
+    <input type="month" id="summary-month-picker" onchange="filterScoreSummaryByPeriod()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs px-2.5 py-1.5 rounded-xl focus:outline-none focus:border-amber-500 font-bold hidden">
+    
+    <!-- ເລືອກປີຢ້ອນຫຼັງ -->
+    <select id="summary-year-picker" onchange="filterScoreSummaryByPeriod()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs px-2.5 py-1.5 rounded-xl focus:outline-none focus:border-amber-500 font-bold hidden">
+        <option value="2025">ປີ 2025</option>
+        <option value="2026">ປີ 2026</option>
+        <option value="2027">ປີ 2027</option>
+        <option value="2028">ປີ 2028</option>
+        <option value="2029">ປີ 2029</option>
+        <option value="2030">ປີ 2030</option>
+         <option value="2025">ປີ 2031</option>
+        <option value="2026">ປີ 2032</option>
+        <option value="2027">ປີ 2033</option>
+        <option value="2028">ປີ 2034</option>
+        <option value="2029">ປີ 2035</option>
+        <option value="2030">ປີ 2036</option>
+    </select>
+</div>
             </div>
+
         </div>
     </div>
 
