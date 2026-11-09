@@ -62,7 +62,6 @@ window.addEventListener('DOMContentLoaded', () => {
     checkDeviceRestriction();
     checkLocationRestriction();
     checkRoomAuthUI();
-    ();
     updateLiveClock();
     setInterval(updateLiveClock, 1000);
     
