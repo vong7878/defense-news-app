@@ -443,46 +443,62 @@
     </div>
 
     <!-- 🔍 ຕົວກອງຄົ້ນຫາແບບເລືອກເດືອນ ແລະ ປີສະເພາະເຈາະຈົງ -->
-    <div class="flex items-center gap-1.5 bg-slate-800/90 p-1.5 rounded-lg border border-slate-700">
-        <span class="text-slate-300 font-semibold px-1">🔍 ເລືອກເດືອນ/ປີ:</span>
-        <select id="filter-custom-month" onchange="handleCustomFilterChange()" class="bg-slate-900 text-slate-200 px-2 py-1 rounded border border-slate-700 focus:outline-none focus:border-amber-500">
-            <option value="0">ມັງກອນ (01)</option>
-            <option value="1">ກຸມພາ (02)</option>
-            <option value="2">ມີນາ (03)</option>
-            <option value="3">ເມສາ (04)</option>
-            <option value="4">ພຶດສະພາ (05)</option>
-            <option value="5">ມິຖຸນາ (06)</option>
-            <option value="6">ກໍລະກົດ (07)</option>
-            <option value="7">ສິງຫາ (08)</option>
-            <option value="8">ກັນຍາ (09)</option>
-            <option value="9">ຕຸລາ (10)</option>
-            <option value="10">ພະຈິກ (11)</option>
-            <option value="11">ທັນວາ (12)</option>
-        </select>
-       <select id="filter-custom-year" onchange="handleCustomFilterChange()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1">
-    <option value="2025">2025</option>
-    <option value="2026" selected>2026</option>
-    <option value="2027">2027</option>
-    <option value="2028">2028</option>
-    <option value="2029">2029</option>
-    <option value="2030">2030</option>
-    <option value="2031">2031</option>
-    <option value="2032">2032</option>
-    <option value="2033">2033</option>
-    <option value="2034">2034</option>
-    <option value="2035">2035</option>
-    <option value="2036">2036</option>
-    <option value="2037">2037</option>
-    <option value="2038">2038</option>
-    <option value="2039">2039</option>
-    <option value="2040">2040</option>
-    <option value="2041">2041</option>
-    <option value="2042">2042</option>
-    <option value="2043">2043</option>
-    <option value="2044">2044</option>
-    <option value="2045">2045</option>
-</select>
-    </div>
+<div class="flex flex-wrap items-center gap-2 bg-slate-900/80 p-3 rounded-xl border border-slate-700 text-xs">
+    <span class="text-slate-300 font-semibold">🔍 ຕົວກອງເພີ່ມເຕີມ:</span>
+    
+    <!-- 📅 ເລືອກເດືອນ -->
+    <select id="filter-custom-month" onchange="handleCustomFilterChange()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1">
+        <option value="0">ມັງກອນ (01)</option>
+        <option value="1">ກຸມພາ (02)</option>
+        <option value="2">ມີນາ (03)</option>
+        <option value="3">ເມສາ (04)</option>
+        <option value="4">ພຶດສະພາ (05)</option>
+        <option value="5">ມິຖຸນາ (06)</option>
+        <option value="6">ກໍລະກົດ (07)</option>
+        <option value="7">ສິງຫາ (08)</option>
+        <option value="8">ກັນຍາ (09)</option>
+        <option value="9">ຕຸລາ (10)</option>
+        <option value="10">ພະຈິກ (11)</option>
+        <option value="11">ທັນວາ (12)</option>
+    </select>
+
+    <!-- 📅 ເລືອກປີ (ຮອດ 2045) -->
+    <select id="filter-custom-year" onchange="handleCustomFilterChange()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1">
+        <!-- ສາມາດໃຊ້ລูปແບບທີ່ເຮັດໄວ້ກ່ອນหน้านີ້ຮອດ 2045 -->
+        <option value="2025">2025</option>
+        <option value="2026" selected>2026</option>
+        <option value="2027">2027</option>
+        <option value="2028">2028</option>
+        <option value="2029">2029</option>
+        <option value="2030">2030</option>
+        <option value="2031">2031</option>
+        <option value="2032">2032</option>
+        <option value="2033">2033</option>
+        <option value="2034">2034</option>
+        <option value="2035">2035</option>
+        <option value="2036">2036</option>
+        <option value="2037">2037</option>
+        <option value="2038">2038</option>
+        <option value="2039">2039</option>
+        <option value="2040">2040</option>
+        <option value="2041">2041</option>
+        <option value="2042">2042</option>
+        <option value="2043">2043</option>
+        <option value="2044">2044</option>
+        <option value="2045">2045</option>
+    </select>
+
+    <!-- ⭐ ທາງເລືອກເສີມ: ເລືອກອາທິດ (ຈະເລືອກ ຫຼື ບໍ່ເລືອກກໍได้) -->
+    <select id="filter-custom-week" onchange="handleCustomFilterChange()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1">
+        <option value="">-- ທຸກໆອາທິດໃນເດືອນນີ້ (ບໍ່ເລືອກ) --</option>
+        <!-- ລະບົບສາມາດສสร้าง List ອາທິດ W1 - W52 ຫຼື ດຶງຕາມປີ -->
+        <option value="W1">ອາທິດ 1 (W1)</option>
+        <option value="W2">ອາທິດ 2 (W2)</option>
+        <option value="W3">ອາທິດ 3 (W3)</option>
+        <option value="W4">ອາທິດ 4 (W4)</option>
+        <option value="W5">ອາທິດ 5 (W5)</option>
+    </select>
+</div>
 </div>
         </div>
     </div>
