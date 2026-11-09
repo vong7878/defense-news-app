@@ -6,11 +6,11 @@
     user-select: none;
 }
 
-/* ☀️ ໂທນສີພື້ນຫຼັງສີຂາວ/ເທົາອ່ອນສະອາດຕາແບບທາງການ */
+/* ☀️ ພື້ນຫຼັງເທົາ-ຂາວອ່ອນນຸ່ມໆ ແບບ Gemini UI */
 body { 
     font-family: 'Noto Sans Lao', sans-serif; 
-    background-color: #f1f5f9 !important; 
-    color: #0f172a !important; 
+    background-color: #f3f4f6 !important; 
+    color: #1f2937 !important; 
 }
 
 @keyframes fadeIn {
@@ -29,45 +29,53 @@ body {
 }
 .animate-bell { animation: ring 0.5s ease-in-out infinite; }
 
-/* 🌟 ເກັບເອັບເֆັກແມງຫິ້ງຫ້ອຍ / ດາວວິບວັບໄວ້ຕາມປົກກະຕິ */
+/* 🌟 ເກັບເອັບເຟັກແມງຫິ້ງຫ້ອຍ / ດາວວິບວັບໄວ້ */
 #firefly-layer {
     pointer-events: none;
 }
 
-/* 📋 ບັງຄັບໃຫ້ Card, ປ່ອງຢ້ຽມ, ແລະ Container ທຸກໜ້າເປັນ "ສີຂາວສະອາດ" ພ້ອມຂອບບາງໆ */
+/* ⚪ Card ສີຂາວສະອາດ, ມຸມມົນ rounded-2xl, ຂອບບາງໆ ສະໄຕລ໌ Modern UI */
 div[id^="section-"] > div, 
 .bg-slate-800, .bg-slate-900, .bg-slate-800\/95, .bg-slate-900\/80 {
     background-color: #ffffff !important; 
-    color: #0f172a !important; 
-    border: 1px solid #cbd5e1 !important; 
-    border-radius: 0.85rem !important; 
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+    color: #1f2937 !important; 
+    border: 1px solid #e5e7eb !important; 
+    border-radius: 1.25rem !important; 
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04) !important;
 }
 
-/* 📱 ຈັດ Sidebar, Header ແລະ ປຸ່ມເມນູຕ່າງໆໃຫ້ເປັນໂທນສີຂາວ/ຟ້າທາງການ */
+/* 📱 Sidebar & Header ສີຂາວສະອາດ ເຂົ້າກັນທຸກໜ້າ */
 #sidebar-container, header {
     background-color: #ffffff !important;
-    color: #0f172a !important;
-    border-color: #cbd5e1 !important;
+    color: #1f2937 !important;
+    border-color: #e5e7eb !important;
 }
 
-/* 🔠 ບັງຄັບໃຫ້ຕົວໜັງສືທຸກຢ່າງໃນທຸກໜ້າເປັນ "ສີດຳເຂັ້ມ" ອ່ານງ່າຍຊັດເຈນ */
-h1, h2, h3, h4, p, span, label, 
+/* 🔠 ບັງຄັບຕົວໜັງສືທຸກຢ່າງໃຫ້ເປັນ "ສີດຳເຂັ້ມ" ຄົມຊັດອ່ານງ່າຍ */
+h1, h2, h3, h4, h5, p, span, label, li, 
 .text-slate-200, .text-slate-300, .text-slate-400, .text-slate-500 {
-    color: #0f172a !important;
+    color: #1f2937 !important;
 }
 
-/* 🔍 ຊ່ອງຄົ້ນຫາ, Input, Select ແລະ Textarea ທຸກໜ້າ */
+/* 💬 Bubble ຂໍ້ຄວາມ / Card ຍ່ອຍ ແບບ Gemini Chat */
+.bg-slate-700, .bg-slate-900\/50, .bg-slate-900\/60 {
+    background-color: #f3f4f6 !important;
+    color: #1f2937 !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 1rem !important;
+}
+
+/* 🔍 ຊ່ອງຄົ້ນຫາ, Input ແລະ Select ໂມເດິນສີເທົາອ່ອນ (Rounded Capsule) */
 input[type="text"], input[type="search"], input[type="datetime-local"], select, textarea {
-    background-color: #ffffff !important;
-    border: 1px solid #94a3b8 !important;
-    color: #0f172a !important;
-    border-radius: 0.5rem !important;
-    padding: 0.6rem 0.85rem !important;
+    background-color: #f3f4f6 !important;
+    border: 1px solid #e5e7eb !important;
+    color: #1f2937 !important;
+    border-radius: 1rem !important;
+    padding: 0.75rem 1rem !important;
 }
 
 input::placeholder, textarea::placeholder {
-    color: #64748b !important;
+    color: #9ca3af !important;
 }
 
 /* ປ້ອງກັນການລົ້ນໜ້າຈໍມືຖື */
