@@ -697,7 +697,7 @@ window.handleCustomFilterChange = () => {
         const b = document.getElementById(id);
         if(b) b.className = "px-3 py-2 rounded-lg transition text-slate-300 hover:text-white";
     });
-    // 📅 ຟັງຊັນໂຫຼດລາຍຊື່ "ອາທິດທີ່ມີຢູ່ຈິງ" ມາໃສ່ Dropdown ຕາມເດືອນ/ປີ ທີ່ເລືອກ
+// 📅 ຟັງຊັນໂຫຼດລາຍຊື່ "ອາທິດທີ່ມີຢູ່ຈິງ" ມາໃສ່ Dropdown ຕາມເດືອນ/ປີ ທີ່ເລືອກ
 async function updateAvailableWeeksDropdown() {
     const weekSelect = document.getElementById('filter-custom-week');
     const customMonthSel = document.getElementById('filter-custom-month');
@@ -717,6 +717,7 @@ async function updateAvailableWeeksDropdown() {
             if (data.approved && data.room) {
                 let reportDate = data.createdAt ? data.createdAt.toDate() : (data.date ? parseLaoDate(data.date) : new Date());
                 
+                // กອງສະເພາະອາທິດທີ່ຕົقຢູ່ໃນເດືອນ ແລະ ປີ ທີ່ກຳລັງເລືອກຢູ່
                 if (reportDate.getMonth() === targetMonth && reportDate.getFullYear() === targetYear) {
                     if (data.weekTag) {
                         availableWeeks.add(data.weekTag);
@@ -727,6 +728,7 @@ async function updateAvailableWeeksDropdown() {
             }
         });
 
+        // ສ້າງ Options ໃໝ່ໃນ Dropdown ອາທິດ
         let html = `<option value="">-- ທຸກໆອາທິດໃນເດືອນນີ້ (ບໍ່ເລືອກ) --</option>`;
         const sortedWeeks = Array.from(availableWeeks).sort();
         
@@ -746,16 +748,17 @@ async function updateAvailableWeeksDropdown() {
 window.handleCustomFilterChange = () => {
     currentSummaryPeriod = 'custom';
     
+    // ຣີເຊັດສໄຕລ໌ປຸ່ມຊ່ວງເວລາອື່ນໆ
     ['btn-period-weekly', 'btn-period-last-weekly', 'btn-period-monthly', 'btn-period-last-monthly', 'btn-period-yearly', 'btn-period-last-yearly'].forEach(id => {
         const b = document.getElementById(id);
         if(b) b.className = "px-3 py-2 rounded-lg transition text-slate-300 hover:text-white";
     });
 
+    // ອັບເດດລາຍຊື່ອາທິດກ່ອນ ແລ້ວຈຶ່ງໂຫຼດສະຫຼຸບຄະແນນ
     updateAvailableWeeksDropdown().then(() => {
         loadFullScoreSummary();
     });
 };
-
 
 
 // 📊 ຟັງຊັນໂຫຼດຄະແນນສະຫຼຸບ (ຮອງຮັບ Custom Month, Year ແລະ Optional Week)
