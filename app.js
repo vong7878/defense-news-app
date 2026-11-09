@@ -697,9 +697,66 @@ window.handleCustomFilterChange = () => {
         const b = document.getElementById(id);
         if(b) b.className = "px-3 py-2 rounded-lg transition text-slate-300 hover:text-white";
     });
+    // 📅 ຟັງຊັນໂຫຼດລາຍຊື່ "ອາທິດທີ່ມີຢູ່ຈິງ" ມາໃສ່ Dropdown ຕາມເດືອນ/ປີ ທີ່ເລືອກ
+async function updateAvailableWeeksDropdown() {
+    const weekSelect = document.getElementById('filter-custom-week');
+    const customMonthSel = document.getElementById('filter-custom-month');
+    const customYearSel = document.getElementById('filter-custom-year');
+    if (!weekSelect || !customMonthSel || !customYearSel) return;
 
-    loadFullScoreSummary();
+    const targetMonth = parseInt(customMonthSel.value);
+    const targetYear = parseInt(customYearSel.value);
+    const currentSelectedWeek = weekSelect.value;
+
+    try {
+        const querySnapshot = await getDocs(collection(db, "member_reports"));
+        let availableWeeks = new Set();
+
+        querySnapshot.forEach(docSnap => {
+            const data = docSnap.data();
+            if (data.approved && data.room) {
+                let reportDate = data.createdAt ? data.createdAt.toDate() : (data.date ? parseLaoDate(data.date) : new Date());
+                
+                if (reportDate.getMonth() === targetMonth && reportDate.getFullYear() === targetYear) {
+                    if (data.weekTag) {
+                        availableWeeks.add(data.weekTag);
+                    } else {
+                        availableWeeks.add(getWeekNumber(reportDate));
+                    }
+                }
+            }
+        });
+
+        let html = `<option value="">-- ທຸກໆອາທິດໃນເດືອນນີ້ (ບໍ່ເລືອກ) --</option>`;
+        const sortedWeeks = Array.from(availableWeeks).sort();
+        
+        sortedWeeks.forEach(weekStr => {
+            const weekLabel = weekStr.includes('W') ? weekStr.split('-')[1] || weekStr : weekStr;
+            const isSelected = (weekStr === currentSelectedWeek || weekStr.endsWith(currentSelectedWeek)) ? 'selected' : '';
+            html += `<option value="${weekStr}" ${isSelected}>ອາທິດ ${weekLabel} (${weekStr})</option>`;
+        });
+
+        weekSelect.innerHTML = html;
+    } catch (e) {
+        console.error("Error loading available weeks:", e);
+    }
+}
+
+// 🔍 ຟັງຊັນເມື່ອມີການປ່ຽນຄ່າໃນ Dropdown ເດືອນ/ປີ/ອາທິດ
+window.handleCustomFilterChange = () => {
+    currentSummaryPeriod = 'custom';
+    
+    ['btn-period-weekly', 'btn-period-last-weekly', 'btn-period-monthly', 'btn-period-last-monthly', 'btn-period-yearly', 'btn-period-last-yearly'].forEach(id => {
+        const b = document.getElementById(id);
+        if(b) b.className = "px-3 py-2 rounded-lg transition text-slate-300 hover:text-white";
+    });
+
+    updateAvailableWeeksDropdown().then(() => {
+        loadFullScoreSummary();
+    });
 };
+
+
 
 // 📊 ຟັງຊັນໂຫຼດຄະແນນສະຫຼຸບ (ຮອງຮັບ Custom Month, Year ແລະ Optional Week)
 async function loadFullScoreSummary() {
