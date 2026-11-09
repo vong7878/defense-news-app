@@ -6,11 +6,11 @@
     user-select: none;
 }
 
-/* ☀️ ໂທນສີພື້ນຫຼັງສີຂາວສະອາດ (Official Clean Light Theme) */
+/* 🌙 ໂທນສີພື້ນຫຼັງ Dark Mode ແບບເດີມ (ສີມືດນິລຳເບີດ ໂທນສວຍງາມ) */
 body { 
     font-family: 'Noto Sans Lao', sans-serif; 
-    background-color: #f1f5f9; /* ສີພື້ນຫຼັງເທົາอ่อนໆ ສະອາດຕາ */
-    color: #1e293b; /* ສີຕົວໜັງສືເຂັ້ມ ອ່ານງ່າຍຊັດເຈນ */
+    background-color: #0b0f19; 
+    color: #f1f5f9; 
 }
 
 @keyframes fadeIn {
@@ -29,26 +29,16 @@ body {
 }
 .animate-bell { animation: ring 0.5s ease-in-out infinite; }
 
-/* 🌟 ເກັບເອັບເֆັກແມງຫິ້ງຫ້ອຍໄວ້ຕາມປົກກະຕິ */
+/* 🌟 ເປີດໃຊ້ງານເອັບເֆັກແມງຫິ້ງຫ້ອຍ / ດາວວິບວັບໃຫ້ບິນໄປມາຕາມປົກກະຕິ */
 #firefly-layer {
     pointer-events: none;
 }
 
-/* 📄 ປັບ Card ຕ່າງໆໃຫ້ເປັນສີຂາວສະອາດ ຂອບບາງໆ ບໍ່ມືດທຶບ */
+/* 📄 ປັບ Card ຕ່າງໆໃຫ້ກັບຄືນເປັນໂທນສີມືດ ພ້ອມຂອບ ແລະ ເງົາທີ່ສວຍງາມ */
 .bg-slate-800, .bg-slate-900, .bg-slate-800\/95, .bg-slate-900\/80 {
-    background-color: #ffffff !important;
-    color: #0f172a !important;
-    border-color: #cbd5e1 !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-}
-
-/* ປັບສີຂໍ້ຄວາມພາຍໃນ Card ໃຫ້ເບິ່ງງ່າຍ */
-.text-slate-200, .text-slate-300, .text-slate-400 {
-    color: #475569 !important;
-}
-
-.text-emerald-400, .text-emerald-300 {
-    color: #0284c7 !important; /* ປ່ຽນເປັນໂທນສີຟ້າທາງການ */
+    background-color: rgba(30, 41, 59, 0.85) !important;
+    color: #f1f5f9 !important;
+    border-color: rgba(51, 65, 85, 0.8) !important;
 }
 
 /* ປ້ອງກັນການລົ້ນໜ້າຈໍມືຖື */
