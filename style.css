@@ -6,7 +6,7 @@
     user-select: none;
 }
 
-/* ☀️ ພື້ນຫຼັງໜ້າຈໍທັງໝົດເປັນສີເທົາອ່ອນສະອາດ */
+/* ☀️ ພື້ນຫຼັງໜ້າຈໍທັງໝົດເປັນສີເທົາອ່ອນສະອາດ (Light Theme) */
 body { 
     font-family: 'Noto Sans Lao', sans-serif; 
     background-color: #f3f4f6 !important; 
@@ -29,7 +29,7 @@ body {
 }
 .animate-bell { animation: ring 0.5s ease-in-out infinite; }
 
-/* 🌟 ເກັບເອັບເֆັກແມງຫິ້ງຫ້ອຍ / ດາວວິບວັບໄວ້ */
+/* 🌟 ເກັບເອັບເຟັກແມງຫິ້ງຫ້ອຍ / ດາວວິບວັບໄວ້ */
 #firefly-layer {
     pointer-events: none;
 }
@@ -54,6 +54,18 @@ div, section, article,
 h1, h2, h3, h4, h5, p, span, label, li, a, 
 .text-slate-200, .text-slate-300, .text-slate-400, .text-slate-500 {
     color: #1f2937 !important;
+}
+
+/* 🔵 ຕັ້ງຄ່າສີຫົວຂໍ້ແຈ້ງການໃຫ້ເປັນສີຟ້າ */
+h3:has-text("ແຈ້ງການ"), .news-title-notice, 
+h2:has-text("ແຈ້ງການ"), h1:has-text("ແຈ້ງການ") {
+    color: #2563eb !important; /* ສີຟ້າສົດ */
+}
+
+/* 🔴 ຕັ້ງຄ່າສີຫົວຂໍ້ພາລະກິດໃຫ້ເປັນສີແດງ */
+h3:has-text("ພາລະກິດ"), .news-title-mission, 
+h2:has-text("ພາລະກິດ"), h1:has-text("ພາລະກິດ") {
+    color: #dc2626 !important; /* ສີແດງສົດ */
 }
 
 /* 🔍 ຊ່ອງຄົ້ນຫາ ແລະ Input ຕ່າງໆເປັນສີຂາວ/ເທົາອ່ອນ */
