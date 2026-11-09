@@ -6,11 +6,11 @@
     user-select: none;
 }
 
-/* 🏢 ໂທນສີພື້ນຫຼັງແບບມືອາຊີບທາງການ (Professional Dark Theme) */
+/* ☀️ ໂທນສີພື້ນຫຼັງສີຂາວ/ເທົາອ່ອນສະອາດຕາແບບທາງການ */
 body { 
     font-family: 'Noto Sans Lao', sans-serif; 
-    background-color: #090d16; 
-    color: #e2e8f0; 
+    background-color: #f1f5f9 !important; 
+    color: #0f172a !important; 
 }
 
 @keyframes fadeIn {
@@ -29,43 +29,45 @@ body {
 }
 .animate-bell { animation: ring 0.5s ease-in-out infinite; }
 
-/* 🌟 ເກັບເອັບເຟັກແມງຫິ້ງຫ້ອຍ / ດາວວິບວັບໄວ້ຕາມປົກກະຕິ */
+/* 🌟 ເກັບເອັບເֆັກແມງຫິ້ງຫ້ອຍ / ດາວວິບວັບໄວ້ຕາມປົກກະຕິ */
 #firefly-layer {
     pointer-events: none;
 }
 
-/* 📋 ບັງຄັບໃຫ້ Card, ປ່ອງຢ້ຽມ, ແລະ Container ໃນທຸກໜ້າ ມີຮູບແບບດຽວກັນທັງໝົດ */
+/* 📋 ບັງຄັບໃຫ້ Card, ປ່ອງຢ້ຽມ, ແລະ Container ທຸກໜ້າເປັນ "ສີຂາວສະອາດ" ພ້ອມຂອບບາງໆ */
 div[id^="section-"] > div, 
 .bg-slate-800, .bg-slate-900, .bg-slate-800\/95, .bg-slate-900\/80 {
-    background-color: #111827 !important; /* ສີເທົາເຂັ້ມສະອາດຕາແບບ Official */
-    color: #f8fafc !important; 
-    border: 1px solid #1f2937 !important; /* ຂອບບາງໆສີດຽວກັນທຸກໜ້າ */
-    border-radius: 0.85rem !important; /* မຸມມົນເທົ່າກັນໝົດ */
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2) !important;
+    background-color: #ffffff !important; 
+    color: #0f172a !important; 
+    border: 1px solid #cbd5e1 !important; 
+    border-radius: 0.85rem !important; 
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
 }
 
-/* 📱 ຈັດ Sidebar ແລະ Header ໃຫ້ເປັນມາດຕະຖານດຽວກັນ */
+/* 📱 ຈັດ Sidebar, Header ແລະ ປຸ່ມເມນູຕ່າງໆໃຫ້ເປັນໂທນສີຂາວ/ຟ້າທາງການ */
 #sidebar-container, header {
-    background-color: #0b0f19 !important;
-    border-color: #1f2937 !important;
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
 }
 
-/* 🔠 ຈັດລະບຽບຕົວໜັງສືຫົວຂໍ້ທຸກໜ້າໃຫ້ຄົມຊັດ ແລະ ເທົ່າກັນ */
-h1, h2, h3, h4, .text-slate-200, .text-slate-300 {
-    color: #f8fafc !important;
+/* 🔠 ບັງຄັບໃຫ້ຕົວໜັງສືທຸກຢ່າງໃນທຸກໜ້າເປັນ "ສີດຳເຂັ້ມ" ອ່ານງ່າຍຊັດເຈນ */
+h1, h2, h3, h4, p, span, label, 
+.text-slate-200, .text-slate-300, .text-slate-400, .text-slate-500 {
+    color: #0f172a !important;
 }
 
-/* 🔍 ຊ່ອງຄົ້ນຫາ, Input ແລະ Select ທຸກໜ້າໃຫ້ເປັນມາດຕະຖານດຽວກັນ */
+/* 🔍 ຊ່ອງຄົ້ນຫາ, Input, Select ແລະ Textarea ທຸກໜ້າ */
 input[type="text"], input[type="search"], input[type="datetime-local"], select, textarea {
-    background-color: #030712 !important;
-    border: 1px solid #374151 !important;
-    color: #f9fafb !important;
+    background-color: #ffffff !important;
+    border: 1px solid #94a3b8 !important;
+    color: #0f172a !important;
     border-radius: 0.5rem !important;
     padding: 0.6rem 0.85rem !important;
 }
 
 input::placeholder, textarea::placeholder {
-    color: #6b7280 !important;
+    color: #64748b !important;
 }
 
 /* ປ້ອງກັນການລົ້ນໜ້າຈໍມືຖື */
