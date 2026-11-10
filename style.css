@@ -35,8 +35,9 @@ html, body {
     display: none !important;
 }
 
-/* 🪟 2. COMPONENTS GENERAL: ກ່ອງທົ່ວໄປເປັນສີເທົາອ່ອນ (ບໍ່ມີຂອບ) */
+/* 🪟 2. COMPONENTS, HEADERS, SIDEBARS & SECTIONS: ເປັນສີເທົາອ່ອນ (#f3f4f6) ໂດຍບໍ່ມີຂອບ */
 div, article, main, span, a,
+header, nav, aside, section, .sidebar, .header-bar, .title-bar, .card,
 [class*="bg--"], [class*="from-"], [class*="to-"], [class*="bg-gradient-"] {
     background-color: #f3f4f6 !important; 
     background-image: none !important;
@@ -44,22 +45,19 @@ div, article, main, span, a,
     box-shadow: none !important;
 }
 
-/* 🖤 3. HEADER, SIDEBAR (ເມນູບາ) & SECTIONS: ເປັນສີເທົາເຂັ້ມ (#374151) (ບໍ່ມີຂອບ) */
-header, nav, aside, section, .sidebar, .header-bar {
-    background-color: #374151 !important;
-    background-image: none !important;
-    border: none !important;
-    box-shadow: none !important;
+/* ບັງຄັບພື້ນຫຼັງໜ້າຈໍຫຼັກໃຫ້ເປັນສີຂາວສະເໝີ */
+html, body {
+    background-color: #ffffff !important;
 }
 
-/* ⬛ ບັງຄັບຕົວໜັງສື ແລະ ໄອຄອນພາຍໃນ Header, Sidebar, Sections ໃຫ້ເປັນ "ສີດຳ (#1f2937)" ທັງໝົດ */
-header *, nav *, aside *, section *, .sidebar *, .header-bar * {
+/* ⬛ 3. TYPOGRAPHY IN SECTIONS: ບັງຄັບຕົວໜັງສື ແລະ ໄອຄອນທັງໝົດໃຫ້ເປັນ "ສີດຳ (#1f2937)" */
+header *, nav *, aside *, section *, .sidebar *, .header-bar *, .title-bar *, .card *, div *, span *, a * {
     color: #1f2937 !important;
     fill: #1f2937 !important;
     stroke: #1f2937 !important;
 }
 
-/* 🌸 4. ACTIVE STATE: ເວລາກົດຄລິກ ຫຼື ເລືອກເມນູ/ກ່ອງ ປ່ຽນເປັນ "ສີຊົມພູອ່ອນ (#fce7f3)" ຄ້າງໄວ້ (ບໍ່ມີຂອບ) */
+/* 🌸 4. ACTIVE STATE: ເວລາກົດຄລິກ ຫຼື ເລືອກເມນູ/ກ່ອງ ປ່ຽນເປັນ "ສີຊົມພູອ່ອນ (#fce7f3)" ຄ້າງໄວ້ */
 .active, .selected, [aria-current="page"], 
 [class*="active"], [class*="selected"], [class*="clicked"],
 button:active, a:active, .menu-item:active, div:active,
@@ -77,7 +75,7 @@ button:active, a:active, .menu-item:active, div:active,
     stroke: #1f2937 !important;
 }
 
-/* 🔠 5. GENERAL TYPOGRAPHY: ຕົວໜັງສືທົ່ວໄປ */
+/* 🔠 5. GENERAL TYPOGRAPHY */
 h1, h2, h3, h4, h5, p, label, li, th, td, button * {
     color: #1f2937 !important;
 }
