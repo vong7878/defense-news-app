@@ -180,6 +180,39 @@ function initFirefliesMovement() {
             ff.style.top = `${posY}px`; 
         }, 60); 
     }); 
+    function checkInAppBrowser() {
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    // ตรวจสอบว่าเป็น In-App Browser ของ Facebook, Messenger, Line, Instagram หรือไม่
+    const isFacebook = /FBAN|FBAV|FB_IAB|Messenger/.test(ua);
+    const isLine = /Line/.test(ua);
+    const isInstagram = /Instagram/.test(ua);
+
+    if (isFacebook || isLine || isInstagram) {
+        // สร้างกล่องแจ้งเตือนบังคับให้เปิดในเบราว์เซอร์หลัก
+        const alertDiv = document.createElement('div');
+        alertDiv.id = 'inapp-warning-modal';
+        alertDiv.className = 'fixed inset-0 bg-slate-950/95 z-50 flex flex-col items-center justify-center p-6 text-center animate-fade-in';
+        alertDiv.innerHTML = `
+            <div class="bg-slate-900 border border-amber-500/50 p-6 rounded-2xl max-w-sm w-full space-y-4 shadow-2xl">
+                <div class="text-4xl">🌐</div>
+                <h3 class="text-lg font-bold text-amber-400">ກະລຸນາເປີດຜ່ານ Google Chrome / Safari</h3>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    ທ່ານກຳລັງເປີດຜ່ານ In-App Browser ຂອງແອັບ ເຊິ່ງອາດເຮັດໃຫ້ການຖ່າຍວິດີໂອ ແລະ ອັບໂຫຼດໄຟລ໌ມີບັນຫາ. 
+                </p>
+                <p class="text-[11px] text-slate-400">
+                    💡 <b>ວິທີແກ້ໄຂ:</b> ໃຫ້ກົດປຸ່ມ <b>3 ຈຸດ (...)</b> ທີ່มุมขวาบน ແแล้วเลือก <b>"ເປີດໃນ Browser ຫຼັກ"</b> ຫຼື <b>"Open in Chrome/Safari"</b>
+                </p>
+            </div>
+        `;
+        document.body.appendChild(alertDiv);
+    }
+}
+
+// ເອີ້ນใช้งานຟັງຊັນທັນທີເມື່ອໂຫຼດໜ້າເວັບ
+window.addEventListener('DOMContentLoaded', () => {
+    checkInAppBrowser();
+});
+    
 
     window.addEventListener('pointermove', (e) => { 
         const mouseX = e.clientX; 
