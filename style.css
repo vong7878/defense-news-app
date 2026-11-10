@@ -6,11 +6,11 @@
     user-select: none;
 }
 
-/* 🔘 ບັງຄັບພື້ນຫຼັງໜ້າຈໍທັງໝົດ (Body ແລະ HTML) ໃຫ້ເປັນສີເທົາອ່ອນ (#f3f4f6) 100% */
+/* ☀️ ບັງຄັບພື້ນຫຼັງໜ້າຈໍທັງໝົດ (Body ແລະ HTML) ໃຫ້ເປັນສີຂາວສົດ (#ffffff) 100% */
 html, body { 
     font-family: 'Noto Sans Lao', sans-serif; 
-    background-color: #f3f4f6 !important; 
-    background: #f3f4f6 !important;
+    background-color: #ffffff !important; 
+    background: #ffffff !important;
     color: #1f2937 !important; 
 }
 
