@@ -57,19 +57,7 @@ div *, section *, article *, header *, nav * {
     color: #1f2937 !important;
 }
 
-/* 🔵 ຕັ້ງຄ່າສີຫົວຂໍ້ແຈ້ງການໃຫ້ເປັນສີຟ້າສົດ */
-.news-title-notice, 
-[data-type*="ແຈ້ງການ"], 
-[class*="notice"] {
-    color: #2563eb !important; 
-}
 
-/* 🔴 ຕັ້ງຄ່າສີຫົວຂໍ້ພາລະກິດໃຫ້ເປັນສີແດງສົດ */
-.news-title-mission, 
-[data-type*="ພາລະກິດ"], 
-[class*="mission"] {
-    color: #dc2626 !important; 
-}
 
 /* 🔍 ຊ່ອງຄົ້ນຫາ ແລະ Input ຕ່າງໆເປັນສີຂາວ ພ້ອມຂອບບາງໆ */
 input[type="text"], input[type="search"], input[type="datetime-local"], select, textarea {
