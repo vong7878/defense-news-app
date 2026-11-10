@@ -243,38 +243,17 @@
                     </li> 
 
  
-
-                    <li> 
-
-                        <button onclick="switchTab('snake-game')" id="tab-snake-game-btn" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-700/60 transition duration-200 flex items-center space-x-2 text-emerald-300 font-bold bg-emerald-600/20 border border-emerald-500/40 shadow-md"> 
-
-                            <span>🐍</span> <span>ເກມງູກິນຂຽດ (Snake)</span> 
-
-                        </button> 
-
-                    </li> 
-                    <!-- 🎮 Section ເກມຈັບຄູ່ຄວາມຈຳ (ມຸມບັນເທີງ) -->
-<section class="max-w-md mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl text-center space-y-4 my-6">
-    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <h2 class="text-base font-bold text-amber-400 flex items-center gap-2">
-            <span>🎮</span> ມຸມເກມຜ່ອນຄາຍ (ຈັບຄູ່ຄວາມຈຳ)
-        </h2>
-        <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-full font-medium">Mini Game</span>
+<!-- 🎮 ປຸ່ມທາງລັດເຂົ້າສູ່ມຸມເກມ 15 ດ່ານ -->
+<a href="game.html" class="flex items-center justify-between bg-slate-900 border border-slate-800 hover:border-amber-500/50 p-4 rounded-2xl shadow-lg transition-all group my-4">
+    <div class="flex items-center gap-3">
+        <span class="text-2xl p-2 bg-amber-500/10 rounded-xl group-hover:scale-110 transition-transform">🎮</span>
+        <div class="text-left">
+            <h3 class="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">ມຸມເກມຜ່ອນຄາຍ (15 ດ່ານ)</h3>
+            <p class="text-[11px] text-slate-400">ຫຼິ້ນເກມງູ, ຈັບຄູ່ ແລະ ຕີຕຸ່ນ ຂັ້ນເວລາລະຫວ່າງລໍຖ້າ</p>
+        </div>
     </div>
-
-    <div class="flex justify-between text-xs text-slate-400 px-2">
-        <span>🔄 ຄັ້ງທີ່ກົດ: <span id="moves" class="text-white font-bold">0</span></span>
-        <span>🏆 ຄູ່ທີ່ເຫຼືອ: <span id="pairs-left" class="text-emerald-400 font-bold">6</span></span>
-    </div>
-
-    <!-- ຕາຕະລາງກະດານເກມ (Grid 4x3) -->
-    <div id="game-board" class="grid grid-cols-4 gap-3"></div>
-
-    <button id="btn-reset" class="w-full py-2 bg-amber-500 hover:bg-amber-600 active:scale-95 text-slate-950 font-bold rounded-xl transition-all shadow-lg text-xs">
-        🔄 ເລີ່ມເກມໃໝ່
-    </button>
-</section>
-                    
+    <span class="text-amber-400 font-bold text-xs bg-slate-800 px-3 py-2 rounded-xl group-hover:bg-amber-500 group-hover:text-slate-950 transition-all">ເຂົ້າຫຼິ້ນ ➔</span>
+</a>  
 
  
 
