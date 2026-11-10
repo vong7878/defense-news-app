@@ -182,34 +182,35 @@ function initFirefliesMovement() {
     }); 
     function checkInAppBrowser() {
     const ua = navigator.userAgent || navigator.vendor || window.opera;
-    // ກວດສອບວ່າເປີດຜ່ານ In-App Browser ຂອງ Zalo, Facebook, Messenger, Line ຫຼື Instagram หรือไม่
     const isZalo = /Zalo/.test(ua);
     const isFacebook = /FBAN|FBAV|FB_IAB|Messenger/.test(ua);
     const isLine = /Line/.test(ua);
     const isInstagram = /Instagram/.test(ua);
 
     if (isZalo || isFacebook || isLine || isInstagram) {
-        // ສ້າງກ່ອງແຈ້ງເຕືອນບັງຄັບໃຫ້ເປີດໃນບຣາວເຊີຫຼັກ (Chrome / Safari)
-        const alertDiv = document.createElement('div');
-        alertDiv.id = 'inapp-warning-modal';
-        alertDiv.className = 'fixed inset-0 bg-slate-950/95 z-50 flex flex-col items-center justify-center p-6 text-center animate-fade-in';
-        alertDiv.innerHTML = `
-            <div class="bg-slate-900 border border-amber-500/50 p-6 rounded-2xl max-w-sm w-full space-y-4 shadow-2xl">
-                <div class="text-4xl">🌐</div>
-                <h3 class="text-lg font-bold text-amber-400">ກະລຸນາເປີດຜ່ານ Google Chrome / Safari</h3>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                    ທ່ານກຳລັງເປີດຜ່ານ In-App Browser ຂອງແອັບ (Zalo/Messenger) ເຊິ່ງເຮັດໃຫ້ການຖ່າຍວິດີໂອ ແລະ ອັບໂຫຼດໄຟລ໌ບໍ່ໄດ້. 
-                </p>
-                <p class="text-[11px] text-slate-400">
-                    💡 <b>ວິທີແກ້ໄຂ:</b> ໃຫ້ກົດປຸ່ມ <b>3 ຈຸດ (...)</b> ຫຼື <b>ເມນູເພີ່ມເຕີມ</b> ທີ່มุมຂวาบน ແລ້ວເລືອກ <b>"ເປີດໃນ Browser ຫຼັກ"</b> (Open in external browser / Chrome)
-                </p>
+        // 🛑 ບລັອກການສະແດງຜົນເນື້ອຫາທັງໝົດໃນໜ້າເວັບ
+        document.body.innerHTML = `
+            <div style="position: fixed; inset: 0; background-color: #020617; z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px; font-family: 'Noto Sans Lao', sans-serif;">
+                <div style="background-color: #0f172a; border: 1px solid #f59e0b; padding: 24px; border-radius: 16px; max-width: 360px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+                    <div style="font-size: 40px; margin-bottom: 12px;">🌐</div>
+                    <h3 style="color: #f59e0b; font-size: 18px; font-weight: bold; margin-bottom: 8px;">ກະລຸນາເປີດຜ່ານ Google Chrome / Safari</h3>
+                    <p style="color: #cbd5e1; font-size: 12px; line-height: 1.6; margin-bottom: 16px;">
+                        ລະບົບປ້ອງກັນບໍ່ໃຫ້ໃຊ້ In-App Browser ຂອງແອັບ (Messenger/Zalo/Line) ເພາະຈະເຮັດໃຫ້ຖ່າຍວິດີໂອ ແລະ ອັບໂຫຼດໄຟລ໌ບໍ່ໄດ້!
+                    </p>
+                    <div style="background-color: #1e293b; padding: 12px; border-radius: 10px; border: 1px solid #334155; text-align: left; margin-bottom: 16px;">
+                        <p style="color: #38bdf8; font-size: 11px; font-weight: bold; margin-bottom: 4px;">💡 ວິທີແກ້ໄຂງ່າຍໆ:</p>
+                        <p style="color: #94a3b8; font-size: 11px; line-height: 1.4;">
+                            1. ໃຫ້ກົດປຸ່ມ <b>3 ຈຸດ (...)</b> ທີ່มุมขวาบนຂອງໜ້າຈໍ.<br>
+                            2. เลือก <b>"ເປີດໃນ Browser ຫຼັກ"</b> (Open in external browser / Chrome).
+                        </p>
+                    </div>
+                </div>
             </div>
         `;
-        document.body.appendChild(alertDiv);
     }
 }
 
-// ເອີ້ນໃຊ້ງານຟັງຊັນທັນທີເມື່ອໂຫຼດໜ້າເວັບ
+// ເອີ້ນໃຊ້ງານທັນທີເມື່ອໂຫຼດໜ້າເວັບ
 window.addEventListener('DOMContentLoaded', () => {
     checkInAppBrowser();
 });
