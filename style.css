@@ -6,7 +6,7 @@
     user-select: none;
 }
 
-/* ☀️ ບັງຄັບພື້ນຫຼັງໜ້າຈໍທັງໝົດ (Body) ໃຫ້ເປັນສີຂາວ pure white (#ffffff) 100% */
+/* ☀️ ບັງຄັບພື້ນຫຼັງໜ້າຈໍທັງໝົດ (Body ແລະ HTML) ໃຫ້ເປັນສີຂາວ pure white (#ffffff) 100% */
 html, body { 
     font-family: 'Noto Sans Lao', sans-serif; 
     background-color: #ffffff !important; 
@@ -30,10 +30,7 @@ html, body {
 }
 .animate-bell { animation: ring 0.5s ease-in-out infinite; }
 
-/* 🌟 ເກັບເອັບເຟັກແມງຫິ້ງຫ້ອຍ / ດາວວິບວັບໄວ້ */
-#firefly-layer {
-    pointer-events: none;
-}
+
 
 /* ⚪ ບັງຄັບທຸກ Card, ກ່ອງໂພສ, ພື້ນຫຼັງ Section, ແລະ Container ໃຫ້ເປັນ "ສີຂາວສະອາດ" ທັງໝົດ */
 div, section, article, main,
@@ -44,11 +41,20 @@ div, section, article, main,
     border-color: #e5e7eb !important;
 }
 
-/* 📱 Sidebar & Header ເປັນສີຂາວສະອາດ */
+/* 📱 Sidebar, Header ແລະ Nav ເປັນສີຂາວສະອາດ */
 #sidebar-container, header, nav {
     background-color: #ffffff !important;
     color: #1f2937 !important;
     border-color: #e5e7eb !important;
+}
+
+/* 🏷️ ບັງຄັບປ້າຍ Badge, ປ້າຍຫົວຂໍ້ດ້ານເທິງ ແລະ ປ້າຍຄວາມປອດໄພທຸກແບບໃຫ້ເປັນສີຂາວສະອາດ */
+div[class*="bg-"], span[class*="bg-"], a[class*="bg-"],
+.security-badge, [class*="security"], [class*="safety"], [class*="defense"],
+.inline-flex, .rounded-full, .px-3, .py-1 {
+    background-color: #ffffff !important;
+    color: #1f2937 !important;
+    border: 1px solid #d1d5db !important;
 }
 
 /* 🔠 ບັງຄັບຕົວໜັງສືທຸກໂຕໃນທຸກກ່ອງໃຫ້ເປັນ "ສີດຳເຂັ້ມ" ອ່ານງ່າຍຊັດເຈນ */
@@ -57,18 +63,26 @@ h1, h2, h3, h4, h5, p, span, label, li, a,
     color: #1f2937 !important;
 }
 
-/* 🔵 ຕັ້ງຄ່າສີຫົວຂໍ້ແຈ້ງການໃຫ້ເປັນສີຟ້າ (ຜ່ານ Class ແລະ Attribute) */
+/* ⚪ ຕັ້ງຄ່າສີຫົວຂໍ້ແຈ້ງການໃຫ້ເປັນສີຂາວສົດ */
 .news-title-notice, 
 [data-type*="ແຈ້ງການ"], 
 [class*="notice"] {
-    color: #2563eb !important; /* ສີຟ້າສົດ */
+    color: #ffffff !important; 
 }
 
-/* 🔴 ຕັ້ງຄ່າສີຫົວຂໍ້ພາລະກິດໃຫ້ເປັນສີແດງ (ຜ່ານ Class ແລະ Attribute) */
+/* ⚪ ຕັ້ງຄ່າສີຫົວຂໍ້ພາລະກິດໃຫ້ເປັນສີຂາວສົດ */
 .news-title-mission, 
 [data-type*="ພາລະກິດ"], 
 [class*="mission"] {
-    color: #dc2626 !important; /* ສີແດງສົດ */
+    color: #ffffff !important; 
+}
+
+/* ⚪ ຕັ້ງຄ່າສີຫົວຂໍ້ຄວາມປອດໄພໃຫ້ເປັນສີຂາວສົດ */
+.security-badge, 
+[class*="security"], 
+[class*="safety"],
+[class*="defense"] {
+    color: #ffffff !important; 
 }
 
 /* 🔍 ຊ່ອງຄົ້ນຫາ ແລະ Input ຕ່າງໆເປັນສີຂາວ ພ້ອມຂອບບາງໆ */
