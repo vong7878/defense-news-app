@@ -35,19 +35,22 @@ html, body {
     display: none !important;
 }
 
-/* ⚪ ບັງຄັບທຸກກ່ອງ, Card, ຕາຕະລາງ, ແຖບຫົວຂໍ້, ປຸ່ມ, ພື້ນຫຼັງ Section ແລະ Container ທຸກປະເພດ ໃຫ້ເປັນ "ສີຂາວສົດ" 100% */
-div, section, article, main, aside, header, nav, button, .btn,
-[class*="bg-"], [class*="from-"], [class*="to-"], [class*="bg-gradient-"] {
+/* ⚪ ບັງຄັບທຸກກ່ອງ, Card, ປຸ່ມທຸກຊະນິດ (ລວມທັງປຸ່ມຖືກໃຈ, ແຊ, ແກ້ໄຂ, ລົບ) ແລະ ພື້ນຫຼັງ Section ໃຫ້ເປັນ "ສີຂາວສົດ" 100% */
+div, section, article, main, aside, header, nav, button, .btn, span, a,
+[class*="bg-"], [class*="from-"], [class*="to-"], [class*="bg-gradient-"],
+[class*="red"], [class*="amber"], [class*="yellow"], [class*="green"], [class*="blue"], [class*="rose"], [class*="indigo"],
+[class*="btn-"], [class*="action-"], [class*="like"], [class*="share"], [class*="edit"], [class*="delete"] {
     background-color: #ffffff !important; 
     background-image: none !important;
-    color: #1f2937 !important; 
     border-color: #e5e7eb !important;
 }
 
-/* 🔠 ບັງຄັບຕົວໜັງສືທຸກໂຕໃນທຸກກ່ອງໃຫ້ເປັນ "ສີດຳເຂັ້ມ" ອ່ານງ່າຍຊັດເຈນ */
-h1, h2, h3, h4, h5, p, span, label, li, a, th, td, button *, 
+/* 🔠 ບັງຄັບຕົວໜັງສື ແລະ ໄອຄອນທຸກໂຕໃນທຸກກ່ອງໃຫ້ເປັນ "ສີດຳເຂັ້ມ" ອ່ານງ່າຍຊັດເຈນ */
+h1, h2, h3, h4, h5, p, span, label, li, a, th, td, button *, i, svg,
 div *, section *, article *, header *, nav * {
     color: #1f2937 !important;
+    fill: #1f2937 !important;
+    stroke: #1f2937 !important;
 }
 
 /* 🔍 ຊ່ອງຄົ້ນຫາ ແລະ Input ຕ່າງໆເປັນສີຂາວ ພ້ອມຂອບບາງໆ */
