@@ -182,13 +182,14 @@ function initFirefliesMovement() {
     }); 
     function checkInAppBrowser() {
     const ua = navigator.userAgent || navigator.vendor || window.opera;
-    // ตรวจสอบว่าเป็น In-App Browser ของ Facebook, Messenger, Line, Instagram หรือไม่
+    // ກວດສອບວ່າເປີດຜ່ານ In-App Browser ຂອງ Zalo, Facebook, Messenger, Line ຫຼື Instagram หรือไม่
+    const isZalo = /Zalo/.test(ua);
     const isFacebook = /FBAN|FBAV|FB_IAB|Messenger/.test(ua);
     const isLine = /Line/.test(ua);
     const isInstagram = /Instagram/.test(ua);
 
-    if (isFacebook || isLine || isInstagram) {
-        // สร้างกล่องแจ้งเตือนบังคับให้เปิดในเบราว์เซอร์หลัก
+    if (isZalo || isFacebook || isLine || isInstagram) {
+        // ສ້າງກ່ອງແຈ້ງເຕືອນບັງຄັບໃຫ້ເປີດໃນບຣາວເຊີຫຼັກ (Chrome / Safari)
         const alertDiv = document.createElement('div');
         alertDiv.id = 'inapp-warning-modal';
         alertDiv.className = 'fixed inset-0 bg-slate-950/95 z-50 flex flex-col items-center justify-center p-6 text-center animate-fade-in';
@@ -197,10 +198,10 @@ function initFirefliesMovement() {
                 <div class="text-4xl">🌐</div>
                 <h3 class="text-lg font-bold text-amber-400">ກະລຸນາເປີດຜ່ານ Google Chrome / Safari</h3>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                    ທ່ານກຳລັງເປີດຜ່ານ In-App Browser ຂອງແອັບ ເຊິ່ງອາດເຮັດໃຫ້ການຖ່າຍວິດີໂອ ແລະ ອັບໂຫຼດໄຟລ໌ມີບັນຫາ. 
+                    ທ່ານກຳລັງເປີດຜ່ານ In-App Browser ຂອງແອັບ (Zalo/Messenger) ເຊິ່ງເຮັດໃຫ້ການຖ່າຍວິດີໂອ ແລະ ອັບໂຫຼດໄຟລ໌ບໍ່ໄດ້. 
                 </p>
                 <p class="text-[11px] text-slate-400">
-                    💡 <b>ວິທີແກ້ໄຂ:</b> ໃຫ້ກົດປຸ່ມ <b>3 ຈຸດ (...)</b> ທີ່มุมขวาบน ແแล้วเลือก <b>"ເປີດໃນ Browser ຫຼັກ"</b> ຫຼື <b>"Open in Chrome/Safari"</b>
+                    💡 <b>ວິທີແກ້ໄຂ:</b> ໃຫ້ກົດປຸ່ມ <b>3 ຈຸດ (...)</b> ຫຼື <b>ເມນູເພີ່ມເຕີມ</b> ທີ່มุมຂวาบน ແລ້ວເລືອກ <b>"ເປີດໃນ Browser ຫຼັກ"</b> (Open in external browser / Chrome)
                 </p>
             </div>
         `;
@@ -208,10 +209,11 @@ function initFirefliesMovement() {
     }
 }
 
-// ເອີ້ນใช้งานຟັງຊັນທັນທີເມື່ອໂຫຼດໜ້າເວັບ
+// ເອີ້ນໃຊ້ງານຟັງຊັນທັນທີເມື່ອໂຫຼດໜ້າເວັບ
 window.addEventListener('DOMContentLoaded', () => {
     checkInAppBrowser();
 });
+    
     
 
     window.addEventListener('pointermove', (e) => { 
