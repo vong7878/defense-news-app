@@ -295,6 +295,108 @@ canvas#snakeCanvas {
 }
 
 .mole-hole.whacked::after {
+    /* --- 📱 ປັບຂະໜາດໃຫ້ພໍດີກັບໜ້າຈໍມືຖື (Mobile Responsive) --- */
+body {
+    box-sizing: border-box;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 12px;
+}
+
+.game-container {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 1rem;
+    padding: 0.85rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 340px; /* ບໍ່ໃຫ້ກວ້າງເກີນໄປ ສຳລັບຈໍມືຖືຂະໜາດນ້ອຍ */
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* ປັບ Canvas ຂອງເກມງູໃຫ້ຍືດหยຸ່ນຕາມໜ້າຈໍ */
+canvas#snakeCanvas {
+    background: #020617;
+    border: 2px solid #1e293b;
+    border-radius: 0.75rem;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+}
+
+/* ປຸ່ມຄວບຄຸມເກມງູ */
+.snake-btn {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    color: #f8fafc;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    padding: 0.6rem;
+    font-size: 1rem;
+    transition: all 0.1s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.snake-btn:active {
+    background-color: #f59e0b;
+    color: #020617;
+    transform: scale(0.92);
+}
+
+/* ບັດເກມຈັບຄູ່ໝາກໄມ້ */
+.fruit-card {
+    height: 3.8rem;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease-in-out;
+}
+
+.fruit-card.flipped {
+    background-color: #334155;
+    border-color: #f59e0b;
+}
+
+.fruit-card.matched {
+    background-color: #0f172a;
+    border-color: #10b981;
+    cursor: default;
+    opacity: 0.6;
+}
+
+/* ຂຸມເກມຕີຕຸ່ນ */
+.mole-hole {
+    height: 4rem;
+    background-color: #020617;
+    border: 2px solid #1e293b;
+    border-radius: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mole-hole:active {
+    transform: scale(0.9);
+}
+
+.mole-hole.has-mole::after { content: "🐹"; }
+.mole-hole.has-bomb::after { content: "💣"; }
+.mole-hole.whacked::after { content: "💥"; }
     content: "💥";
 }
     opacity: 0.8;
