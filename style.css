@@ -35,13 +35,13 @@ html, body {
     display: none !important;
 }
 
-/* ⚪ ບັງຄັບທຸກກ່ອງ, Card, ປຸ່ມ ແລະ ພື້ນຫຼັງ Section ທົ່ວໄປ ໃຫ້ເປັນ "ສີຂາວສົດ" 100% */
+/* ⚪ ບັງຄັບທຸກກ່ອງ, Card, ປຸ່ມ, Sidebar ແລະ ພື້ນຫຼັງ Section ທົ່ວໄປ ໃຫ້ເປັນ "ສີຂາວສົດ" ພ້ອມ "ຂອບສີດຳອ່ອນ" */
 div, section, article, main, aside, header, nav, button, .btn, span, a,
 [class*="bg--"], [class*="from-"], [class*="to-"], [class*="bg-gradient-"],
 [class*="red"], [class*="amber"], [class*="yellow"], [class*="green"], [class*="blue"], [class*="rose"], [class*="indigo"] {
     background-color: #ffffff !important; 
     background-image: none !important;
-    border-color: #e5e7eb !important;
+    border: 1px solid #9ca3af !important;
 }
 
 /* 🌸 ກຳນົດໃຫ້ເມນູ ຫຼື ປຸ່ມທີ່ຖືກກົດເຂົ້າໄປແລ້ວ (Active / Selected) ສະແດງເປັນ "ສີຊົມພູອ່ອນ (#fce7f3)" ຄ້າງໄວ້ */
@@ -60,17 +60,17 @@ div *, section *, article *, header *, nav * {
     stroke: #1f2937 !important;
 }
 
-/* 🔍 ຊ່ອງຄົ້ນຫາ ແລະ Input ຕ່າງໆເປັນສີຂາວ ພ້ອມຂອບບາງໆ */
+/* 🔍 ຊ່ອງຄົ້ນຫາ ແລະ Input ຕ່າງໆເປັນສີຂາວ ພ້ອມຂອບສີດຳອ່ອນ */
 input[type="text"], input[type="search"], input[type="datetime-local"], select, textarea {
     background-color: #ffffff !important;
-    border: 1px solid #d1d5db !important;
+    border: 1px solid #9ca3af !important;
     color: #1f2937 !important;
     border-radius: 0.75rem !important;
     padding: 0.75rem 1rem !important;
 }
 
 input::placeholder, textarea::placeholder {
-    color: #9ca3af !important;
+    color: #6b7280 !important;
 }
 
 /* ປ້ອງກັນການລົ້ນໜ້າຈໍມືຖື */
