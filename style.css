@@ -35,11 +35,13 @@ html, body {
     display: none !important;
 }
 
-/* ⚪ ບັງຄັບທຸກກ່ອງຂໍ້ຄວາມ, Card, ແຖບສະຖິຕິ ແລະ ພື້ນຫຼັງຕ່າງໆ ໃຫ້ເປັນ "ສີຂາວສົດ" 100% */
-div, section, article, main, 
+/* ⚪ ບັງຄັບທຸກກ່ອງ, Card, ແຖບສະຖິຕິ, ພື້ນຫຼັງ Section ແລະ Container ທຸກປະເພດ ໃຫ້ເປັນ "ສີຂາວສົດ" 100% */
+div, section, article, main, aside,
 [class*="bg-slate-"], [class*="bg-zinc-"], [class*="bg-gray-"], 
-[class*="bg-red-"], [class*="bg-green-"], [class*="bg-blue-"], [class*="bg-rose-"] {
+[class*="bg-red-"], [class*="bg-green-"], [class*="bg-blue-"], [class*="bg-rose-"],
+[class*="from-slate-"], [class*="to-slate-"], [class*="bg-gradient-"] {
     background-color: #ffffff !important; 
+    background-image: none !important;
     color: #1f2937 !important; 
     border-color: #e5e7eb !important;
 }
@@ -57,7 +59,20 @@ div *, section *, article *, header *, nav * {
     color: #1f2937 !important;
 }
 
+/* ⚪ ຕັ້ງຄ່າສີຫົວຂໍ້ແຈ້ງການ ແລະ ພາລະກິດໃຫ້ເປັນສີຂາວສົດ */
+.news-title-notice, .news-title-mission, 
+[data-type*="ແຈ້ງການ"], [data-type*="ພາລະກິດ"], 
+[class*="notice"], [class*="mission"] {
+    color: #ffffff !important; 
+}
 
+/* ⚪ ຕັ້ງຄ່າສີຫົວຂໍ້ປອດໄພ, ແກ້ໄຂ, ລົບ, ໄລ, ແຊ, ວິທີໃຊ້ ໃຫ້ເປັນສີຂາວສົດ */
+[class*="security"], [class*="safety"], [class*="defense"],
+[class*="edit"], [class*="delete"], [class*="like"], [class*="share"], [class*="guide"],
+[data-action*="edit"], [data-action*="delete"], [data-action*="like"], [data-action*="share"],
+button, a.btn, .btn {
+    color: #ffffff !important;
+}
 
 /* 🔍 ຊ່ອງຄົ້ນຫາ ແລະ Input ຕ່າງໆເປັນສີຂາວ ພ້ອມຂອບບາງໆ */
 input[type="text"], input[type="search"], input[type="datetime-local"], select, textarea {
