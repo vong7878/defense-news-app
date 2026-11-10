@@ -6,7 +6,7 @@
     user-select: none;
 }
 
-/* ☀️ ບັງຄັບພື້ນຫຼັງໜ້າຈໍທັງໝົດ (Body ແລະ HTML) ໃຫ້ເປັນສີຂາວສົດ (#ffffff) 100% */
+/* ☀️ 1. BASE: ພື້ນຫຼັງໜ້າຈໍທັງໝົດ (Body ແລະ HTML) ເປັນສີຂາວສົດ (#ffffff) 100% */
 html, body { 
     font-family: 'Noto Sans Lao', sans-serif; 
     background-color: #ffffff !important; 
@@ -35,27 +35,27 @@ html, body {
     display: none !important;
 }
 
-/* 🪟 ບັງຄັບທຸກກ່ອງ, Card, ປຸ່ມ, Sidebar ແລະ ພື້ນຫຼັງ Section ທົ່ວໄປ ໃຫ້ເປັນ "ສີເທົາອ່ອນ (#f3f4f6)" 100% ໂດຍ "ບໍ່ມີຂອບ" */
+/* 🪟 2. COMPONENTS: ທຸກກ່ອງ, Card, ປຸ່ມ, Sidebar ແລະ ພື້ນຫຼັງ Section ເປັນ "ສີເທົາອ່ອນ (#f3f4f6)" ພ້ອມ "ຂອບອໍໂຕ (Auto Border)" */
 div, section, article, main, aside, header, nav, button, .btn, span, a,
 [class*="bg--"], [class*="from-"], [class*="to-"], [class*="bg-gradient-"],
 [class*="red"], [class*="amber"], [class*="yellow"], [class*="green"], [class*="blue"], [class*="rose"], [class*="indigo"] {
     background-color: #f3f4f6 !important; 
     background-image: none !important;
-    border: none !important;
+    border: 1px solid #e5e7eb !important; /* ຂອບອໍໂຕສີອ່ອນສະອາດ */
     box-shadow: none !important;
 }
 
-/* 🌸 ກຳນົດໃຫ້ເມນູ ຫຼື ກ່ອງທີ່ຖືກຄິກ ຫຼື ເລືອກແລ້ວ (Active, Selected) ສະແດງເປັນ "ສີຊົມພູອ່ອນ (#fce7f3)" ຄ້າງໄວ້ */
+/* 🌸 3. ACTIVE STATE: ເວລາກົດຄລິກ ຫຼື ເລືອກເມນູ/ກ່ອງ ປ່ຽນເປັນ "ສີຊົມພູອ່ອນ (#fce7f3)" ຄ້າງໄວ້ */
 .active, .selected, [aria-current="page"], 
 [class*="active"], [class*="selected"], [class*="clicked"],
 button:active, a:active, .menu-item:active, div:active,
 .sidebar-item.active, nav a.active, button.active {
     background-color: #fce7f3 !important;
-    border: none !important;
+    border: 1px solid #f472b6 !important;
     box-shadow: none !important;
 }
 
-/* 🔠 ບັງຄັບຕົວໜັງສື ແລະ ໄອຄອນທຸກໂຕໃນທຸກກ່ອງໃຫ້ເປັນ "ສີດຳເຂັ້ມ" ອ່ານງ່າຍຊັດເຈນ */
+/* 🔠 4. TYPOGRAPHY: ຕົວໜັງສື ແລະ ໄອຄອນທຸກໂຕເປັນ "ສີດຳເຂັ້ມ" ອ່ານງ່າຍຊັດເຈນ */
 h1, h2, h3, h4, h5, p, span, label, li, a, th, td, button *, i, svg,
 div *, section *, article *, header *, nav * {
     color: #1f2937 !important;
@@ -63,9 +63,9 @@ div *, section *, article *, header *, nav * {
     stroke: #1f2937 !important;
 }
 
-/* 🔍 ຊ່ອງຄົ້ນຫາ ແລະ Input ຕ່າງໆເປັນສີເທົາອ່ອນ ພ້ອມຂອບບາງໆສະອາດ */
+/* 🔍 5. FORMS & INPUTS: ຊ່ອງປ້ອນຂໍ້ມູນຕ່າງໆ */
 input[type="text"], input[type="search"], input[type="datetime-local"], select, textarea {
-    background-color: #e5e7eb !important;
+    background-color: #f3f4f6 !important;
     border: 1px solid #d1d5db !important;
     color: #1f2937 !important;
     border-radius: 0.75rem !important;
