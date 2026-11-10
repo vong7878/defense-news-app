@@ -2258,4 +2258,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+    //ແປພາສາ
+                <!-- 🌐 ວາງ Script Google Translate ໄວ້ໃນສ່ວນ <head> ຫຼື ບ່ອນທີ່ຕ້ອງການໃຫ້ສະແດງປຸ່ມເລືອກພາສາ -->
+<div id="google_translate_element" class="inline-block scale-90 sm:scale-100 my-2"></div>
 
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'lo', 
+            includedLanguages: 'th,lo,vi,en', // ຮອງຮັບ 4 ພາສາ: ໄທ, ລາວ, ຫວຽດນາມ, ອັງກິດ
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
