@@ -2156,4 +2156,106 @@ window.searchNews = () => {
     renderNews(allNews.filter(n => n.title.toLowerCase().includes(kw) || n.content.toLowerCase().includes(kw))); 
 
 };
+// --- 🎮 ລະບົບເກມຈັບຄູ່ຄວາມຈຳ ---
+document.addEventListener('DOMContentLoaded', () => {
+    const board = document.getElementById('game-board');
+    if (!board) return; // ຖ້າບໍ່ມີ Element ນี้ໃນໜ້າຈໍ ໃຫ້ຂ້າມໄປ (ປ້ອງກັນ Error)
+
+    const emojis = ['🍎', '🍌', '🍇', '🍉', '🍓', '🍒'];
+    let cards = [...emojis, ...emojis];
+    let flippedCards = [];
+    let matchedPairs = 0;
+    let moves = 0;
+    let isLocked = false;
+
+    function shuffle(array) {
+        return array.sort(() => Math.random() - 0.5);
+    }
+
+    function initGame() {
+        board.innerHTML = '';
+        cards = shuffle(cards);
+        flippedCards = [];
+        matchedPairs = 0;
+        moves = 0;
+        isLocked = false;
+        
+        const movesEl = document.getElementById('moves');
+        const pairsEl = document.getElementById('pairs-left');
+        if (movesEl) movesEl.innerText = moves;
+        if (pairsEl) pairsEl.innerText = emojis.length;
+
+        cards.forEach((emoji, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.dataset.emoji = emoji;
+            card.dataset.index = index;
+            card.innerText = '❓';
+            card.addEventListener('click', flipCard);
+            board.appendChild(card);
+        });
+    }
+
+    function flipCard() {
+        if (isLocked) return;
+        const clickedCard = this;
+
+        if (clickedCard.classList.contains('matched') || clickedCard.classList.contains('flipped')) return;
+
+        clickedCard.innerText = clickedCard.dataset.emoji;
+        clickedCard.classList.add('flipped');
+
+        flippedCards.push(clickedCard);
+
+        if (flippedCards.length === 2) {
+            moves++;
+            const movesEl = document.getElementById('moves');
+            if (movesEl) movesEl.innerText = moves;
+            checkMatch();
+        }
+    }
+
+    function checkMatch() {
+        const [card1, card2] = flippedCards;
+        const isMatch = card1.dataset.emoji === card2.dataset.emoji;
+
+        if (isMatch) {
+            card1.classList.add('matched');
+            card2.classList.add('matched');
+            card1.classList.remove('flipped');
+            card2.classList.remove('flipped');
+            
+            matchedPairs++;
+            const pairsEl = document.getElementById('pairs-left');
+            if (pairsEl) pairsEl.innerText = emojis.length - matchedPairs;
+            flippedCards = [];
+
+            if (matchedPairs === emojis.length) {
+                setTimeout(() => {
+                    alert(`🎉 ຍິນດີດ້ວຍ! ທ່ານຊະນະແລ້ວ ດ້ວຍການກົດ ${moves} ຄັ້ງ!`);
+                }, 300);
+            }
+        } else {
+            isLocked = true;
+            setTimeout(() => {
+                card1.innerText = '❓';
+                card2.innerText = '❓';
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                flippedCards = [];
+                isLocked = false;
+            }, 800);
+        }
+    }
+
+    // ຣັນເກມຄັ້ງທຳອິດ
+    initGame();
+
+    // ຜູກ Event ປຸ່ມ Reset
+    const resetBtn = document.getElementById('btn-reset');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', initGame);
+    }
+});
+
 
