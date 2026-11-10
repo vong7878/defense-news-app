@@ -266,7 +266,7 @@ canvas#snakeCanvas {
     cursor: default;
     opacity: 0.6;
 }
-/* --- CSS ເກມຕີຕຸ່ນ --- */
+/* --- Style ເກມຕີຕຸ່ນ ( Whack-a-Mole ) --- */
 .mole-hole {
     height: 4.5rem;
     background-color: #020617;
@@ -297,9 +297,5 @@ canvas#snakeCanvas {
 .mole-hole.whacked::after {
     content: "💥";
 }
-
-
-    border-color: #10b981;
-    cursor: default;
     opacity: 0.8;
 }
