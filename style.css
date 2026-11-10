@@ -57,15 +57,17 @@ h1, h2, h3, h4, h5, p, span, label, li, a,
     color: #1f2937 !important;
 }
 
-/* 🔵 ຕັ້ງຄ່າສີຫົວຂໍ້ແຈ້ງການໃຫ້ເປັນສີຟ້າ */
-h3:has-text("ແຈ້ງການ"), .news-title-notice, 
-h2:has-text("ແຈ້ງການ"), h1:has-text("ແຈ້ງການ") {
+/* 🔵 ຕັ້ງຄ່າສີຫົວຂໍ້ແຈ້ງການໃຫ້ເປັນສີຟ້າ (ຜ່ານ Class ແລະ Attribute) */
+.news-title-notice, 
+[data-type*="ແຈ້ງການ"], 
+[class*="notice"] {
     color: #2563eb !important; /* ສີຟ້າສົດ */
 }
 
-/* 🔴 ຕັ້ງຄ່າສີຫົວຂໍ້ພາລະກິດໃຫ້ເປັນສີແດງ */
-h3:has-text("ພາລະກິດ"), .news-title-mission, 
-h2:has-text("ພາລະກິດ"), h1:has-text("ພາລະກິດ") {
+/* 🔴 ຕັ້ງຄ່າສີຫົວຂໍ້ພາລະກິດໃຫ້ເປັນສີແດງ (ຜ່ານ Class ແລະ Attribute) */
+.news-title-mission, 
+[data-type*="ພາລະກິດ"], 
+[class*="mission"] {
     color: #dc2626 !important; /* ສີແດງສົດ */
 }
 
