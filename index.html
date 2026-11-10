@@ -253,6 +253,28 @@
                         </button> 
 
                     </li> 
+                    <!-- 🎮 Section ເກມຈັບຄູ່ຄວາມຈຳ (ມຸມບັນເທີງ) -->
+<section class="max-w-md mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl text-center space-y-4 my-6">
+    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h2 class="text-base font-bold text-amber-400 flex items-center gap-2">
+            <span>🎮</span> ມຸມເກມຜ່ອນຄາຍ (ຈັບຄູ່ຄວາມຈຳ)
+        </h2>
+        <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-full font-medium">Mini Game</span>
+    </div>
+
+    <div class="flex justify-between text-xs text-slate-400 px-2">
+        <span>🔄 ຄັ້ງທີ່ກົດ: <span id="moves" class="text-white font-bold">0</span></span>
+        <span>🏆 ຄູ່ທີ່ເຫຼືອ: <span id="pairs-left" class="text-emerald-400 font-bold">6</span></span>
+    </div>
+
+    <!-- ຕາຕະລາງກະດານເກມ (Grid 4x3) -->
+    <div id="game-board" class="grid grid-cols-4 gap-3"></div>
+
+    <button id="btn-reset" class="w-full py-2 bg-amber-500 hover:bg-amber-600 active:scale-95 text-slate-950 font-bold rounded-xl transition-all shadow-lg text-xs">
+        🔄 ເລີ່ມເກມໃໝ່
+    </button>
+</section>
+                    
 
  
 
