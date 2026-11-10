@@ -33,7 +33,39 @@
     <!-- 🔗 ເຊື່ອມຕໍ່ກັບໄຟລ໌ CSS (style.css) --> 
 
     <link rel="stylesheet" href="style.css"> 
+<script>
+    (function() {
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        const isZalo = /Zalo/.test(ua);
+        const isFacebook = /FBAN|FBAV|FB_IAB|Messenger/.test(ua);
+        const isLine = /Line/.test(ua);
+        const isInstagram = /Instagram/.test(ua);
 
+        if (isZalo || isFacebook || isLine || isInstagram) {
+            document.documentElement.innerHTML = `
+                <head><title>Blocked In-App Browser</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+                <body style="margin: 0; background-color: #020617; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; text-align: center; padding: 20px;">
+                    <div style="background-color: #0f172a; border: 1px solid #f59e0b; padding: 24px; border-radius: 16px; max-width: 360px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
+                        <div style="font-size: 40px; margin-bottom: 12px;">🌐</div>
+                        <h3 style="color: #f59e0b; font-size: 18px; font-weight: bold; margin-bottom: 8px;">ກະລຸນາເປີດຜ່ານ Google Chrome / Safari</h3>
+                        <p style="color: #cbd5e1; font-size: 12px; line-height: 1.6; margin-bottom: 16px;">
+                            ລະບົບປ້ອງກັນບໍ່ให้ໃຊ້ In-App Browser ຂອງແອັບ (Messenger/Zalo/Line) ເພາະຈະເຮັດໃຫ້ຖ່າຍວິດີໂອ ແລະ ອັບໂຫຼດໄຟລ໌ບໍ່ໄດ້!
+                        </p>
+                        <div style="background-color: #1e293b; padding: 12px; border-radius: 10px; border: 1px solid #334155; text-align: left;">
+                            <p style="color: #38bdf8; font-size: 11px; font-weight: bold; margin-bottom: 4px;">💡 ວິທີແກ້ໄຂງ່າຍໆ:</p>
+                            <p style="color: #94a3b8; font-size: 11px; line-height: 1.4;">
+                                1. ກົດປຸ່ມ <b>3 ຈຸດ (...)</b> ທີ່มุมຂวาบน.<br>
+                                2. ເລືອກ <b>"ເປີດໃນ Browser ຫຼັກ"</b> (Open in external browser / Chrome).
+                            </p>
+                        </div>
+                    </div>
+                </body>
+            `;
+            throw new Error('Blocked In-App Browser');
+        }
+    })();
+                </script>
+    
 </head> 
 
 <body class="text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white relative overflow-x-hidden"> 
