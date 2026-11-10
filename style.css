@@ -35,16 +35,17 @@ html, body {
     display: none !important;
 }
 
-/* 🪟 2. HEADER, SECTIONS, MAIN, SIDEBAR & FOOTER: ພື້ນຫຼັງສີເທົາອ່ອນ (#f3f4f6) ພ້ອມຂອບອໍໂຕ (#e5e7eb) */
+/* 🪟 2. HEADER, SECTIONS, MAIN, SIDEBAR, FOOTER & SUB-BOXES: ພື້ນຫຼັງສີເທົາອ່ອນ (#f3f4f6) ພ້ອມຂອບອໍໂຕ (#e5e7eb) */
 header, nav, aside, section, main, footer, 
-.sidebar, .header-bar, .card, div, article {
+.sidebar, .header-bar, .card, div, article, 
+span[class*="badge"], div[class*="tag"], div[class*="label"], .announcement-tag {
     background-color: #f3f4f6 !important; 
     background-image: none !important;
     border: 1px solid #e5e7eb !important;
     box-shadow: none !important;
 }
 
-/* ⬜ 3. TITLE-BAR: ບັງຄັບສະເພາະແຖບຫົວຂໍ້ (.title-bar) ให้ເປັນພື້ນຫຼັງ "ສີຂາວ (#ffffff)" ພ້ອມຂອບອໍໂຕ */
+/* ⬜ 3. TITLE-BAR: ບັງຄັບສະເພາະແຖບຫົວຂໍ້ (.title-bar) ໃຫ້ເປັນພື້ນຫຼັງ "ສີຂາວ (#ffffff)" */
 .title-bar {
     background-color: #ffffff !important;
     border: 1px solid #e5e7eb !important;
@@ -101,4 +102,4 @@ html, body {
 
 *, *:before, *:after {
     box-sizing: inherit;
-}
+    }
