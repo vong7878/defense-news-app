@@ -2121,13 +2121,3 @@ window.searchNews = () => {
 
 };
 
-/* 🔵 ສີສຳລັບຫົວຂໍ້ແຈ້ງການ (ສີຟ້າ) */
-.news-title-notice, h3:has-text("ແຈ້ງການ"), [data-type*="ແຈ້ງການ"] {
-    color: #2563eb !important; /* ສີຟ້າສົດ */
-}
-
-/* 🔴 ສີສຳລັບຫົວຂໍ້ພາລະກິດ (ສີແດງ) */
-.news-title-mission, h3:has-text("ພາລະກິດ"), [data-type*="ພາລະກິດ"] {
-    color: #dc2626 !important; /* ສີແດງສົດ */
-}
-    
