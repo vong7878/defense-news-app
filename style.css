@@ -44,10 +44,11 @@ div, section, article, main, aside, header, nav, button, .btn, span, a,
     border: 1px solid #9ca3af !important;
 }
 
-/* 🌸 ກຳນົດໃຫ້ເມນູ ຫຼື ປຸ່ມທີ່ຖືກກົດເຂົ້າໄປແລ້ວ (Active / Selected) ສະແດງເປັນ "ສີຊົມພູອ່ອນ (#fce7f3)" ຄ້າງໄວ້ */
+/* 🌸 ບັງຄັບໃຫ້ທຸກກ່ອງ, ປຸ່ມ, ແລະ ເມນູ Sidebar ທີ່ຖືກຄິກ ຫຼື ເລືອກແລ້ວ (Active, Selected, Clicked) เปลี่ยนเป็น "ສີຊົມພູອ່ອນ (#fce7f3)" ຄ້າງໄວ້ທັນທີ */
 .active, .selected, [aria-current="page"], 
-[class*="active"], [class*="selected"], 
-button:active, a:active, .menu-item.active {
+[class*="active"], [class*="selected"], [class*="clicked"],
+button:active, a:active, .menu-item:active, div:active,
+.sidebar-item.active, nav a.active, button.active {
     background-color: #fce7f3 !important;
     border-color: #f472b6 !important;
 }
