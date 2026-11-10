@@ -129,6 +129,176 @@ html, body {
 }
 .card.matched {
     background-color: #0f172a;
+    /*---------------------------*/
+/* --- ສໄຕລ໌ເກມງູກິນຂຽດ --- */
+.game-container {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+canvas#snakeCanvas {
+    background: #020617;
+    border: 2px solid #1e293b;
+    border-radius: 0.75rem;
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+
+.snake-btn {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    color: #f8fafc;
+    font-weight: bold;
+    border-radius: 0.50rem;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    transition: all 0.1s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.snake-btn:active {
+    background-color: #f59e0b;
+    color: #020617;
+    transform: scale(0.95);
+}
+/* --- ເກມຈັບຄູ່ໝາກໄມ້ --- */
+.fruit-card {
+    height: 4.2rem;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.fruit-card:hover {
+    border-color: #f59e0b;
+}
+
+.fruit-card:active {
+    transform: scale(0.95);
+}
+
+.fruit-card.flipped {
+    background-color: #334155;
+    border-color: #f59e0b;
+}
+
+.fruit-card.matched {
+    background-color: #0f172a;
+    border-color: #10b981;
+    cursor: default;
+    opacity: 0.8;
+}
+/* --- Style ເກມງູ ແລະ ຈັບຄູ່ (15 ດ່ານ) --- */
+.game-container {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+canvas#snakeCanvas {
+    background: #020617;
+    border: 2px solid #1e293b;
+    border-radius: 0.75rem;
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+
+.snake-btn {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    color: #f8fafc;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    transition: all 0.1s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.snake-btn:active {
+    background-color: #f59e0b;
+    color: #020617;
+    transform: scale(0.95);
+}
+
+.fruit-card {
+    min-height: 3.5rem;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.fruit-card.flipped {
+    background-color: #334155;
+    border-color: #f59e0b;
+}
+
+.fruit-card.matched {
+    background-color: #0f172a;
+    border-color: #10b981;
+    cursor: default;
+    opacity: 0.6;
+}
+/* --- CSS ເກມຕີຕຸ່ນ --- */
+.mole-hole {
+    height: 4.5rem;
+    background-color: #020617;
+    border: 2px solid #1e293b;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mole-hole:active {
+    transform: scale(0.92);
+}
+
+.mole-hole.has-mole::after {
+    content: "🐹";
+}
+
+.mole-hole.has-bomb::after {
+    content: "💣";
+}
+
+.mole-hole.whacked::after {
+    content: "💥";
+}
+
+
     border-color: #10b981;
     cursor: default;
     opacity: 0.8;
