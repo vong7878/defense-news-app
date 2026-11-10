@@ -6,7 +6,7 @@
     user-select: none;
 }
 
-/* ☀️ 1. BASE: ພື້ນຫຼັງໜ້າຈໍຫຼັກ (Body ແລະ HTML) ເປັນສີຂາວສົດ (#ffffff) */
+/* ☀️ 1. BASE / BODY: ພື້ນຫຼັງໜ້າຈໍຫຼັກເປັນສີຂາວສົດ (#ffffff) */
 html, body { 
     font-family: 'Noto Sans Lao', sans-serif; 
     background-color: #ffffff !important; 
@@ -35,23 +35,24 @@ html, body {
     display: none !important;
 }
 
-/* 🪟 2. COMPONENTS, HEADERS, SIDEBARS & SECTIONS: ເປັນສີເທົາອ່ອນ (#f3f4f6) ໂດຍບໍ່ມີຂອບ */
-div, article, main, span, a,
-header, nav, aside, section, .sidebar, .header-bar, .title-bar, .card,
-[class*="bg--"], [class*="from-"], [class*="to-"], [class*="bg-gradient-"] {
+/* 🪟 2. HEADER, SECTIONS, MAIN, SIDEBAR & FOOTER: ແບ່ງຂອບ ແລະ ພື້ນຫຼັງດ້ວຍ "ສີເທົາອ່ອນ (#f3f4f6)" ພ້ອມ "ຂອບອໍໂຕ (#e5e7eb)" */
+header, nav, aside, section, main, footer, 
+.sidebar, .header-bar, .title-bar, .card, div, article {
     background-color: #f3f4f6 !important; 
     background-image: none !important;
-    border: none !important;
+    border: 1px solid #e5e7eb !important;
     box-shadow: none !important;
 }
 
 /* ບັງຄັບພື້ນຫຼັງໜ້າຈໍຫຼັກໃຫ້ເປັນສີຂາວສະເໝີ */
 html, body {
     background-color: #ffffff !important;
+    border: none !important;
 }
 
-/* ⬛ 3. TYPOGRAPHY IN SECTIONS: ບັງຄັບຕົວໜັງສື ແລະ ໄອຄອນທັງໝົດໃຫ້ເປັນ "ສີດຳ (#1f2937)" */
-header *, nav *, aside *, section *, .sidebar *, .header-bar *, .title-bar *, .card *, div *, span *, a * {
+/* ⬛ 3. TYPOGRAPHY: ບັງຄັບຕົວໜັງສື ແລະ ໄອຄອນທຸກໂຕໃຫ້ເປັນ "ສີດຳ (#1f2937)" ທັງໝົດ */
+header *, nav *, aside *, section *, main *, footer *, 
+.sidebar *, .header-bar *, .title-bar *, .card *, div *, span *, a *, p *, h1 *, h2 *, h3 *, h4 *, h5 * {
     color: #1f2937 !important;
     fill: #1f2937 !important;
     stroke: #1f2937 !important;
@@ -63,7 +64,7 @@ header *, nav *, aside *, section *, .sidebar *, .header-bar *, .title-bar *, .c
 button:active, a:active, .menu-item:active, div:active,
 .sidebar-item.active, nav a.active, button.active {
     background-color: #fce7f3 !important;
-    border: none !important;
+    border: 1px solid #f472b6 !important;
     box-shadow: none !important;
 }
 
@@ -75,12 +76,7 @@ button:active, a:active, .menu-item:active, div:active,
     stroke: #1f2937 !important;
 }
 
-/* 🔠 5. GENERAL TYPOGRAPHY */
-h1, h2, h3, h4, h5, p, label, li, th, td, button * {
-    color: #1f2937 !important;
-}
-
-/* 🔍 6. FORMS & INPUTS: ຊ່ອງປ້ອນຂໍ້ມູນຕ່າງໆ */
+/* 🔍 5. FORMS & INPUTS: ຊ່ອງປ້ອນຂໍ້ມູນຕ່າງໆ */
 input[type="text"], input[type="search"], input[type="datetime-local"], select, textarea {
     background-color: #f9fafb !important;
     border: 1px solid #9ca3af !important;
