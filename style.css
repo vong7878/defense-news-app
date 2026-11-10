@@ -52,11 +52,11 @@ header, nav, aside, section, .sidebar, .header-bar {
     box-shadow: none !important;
 }
 
-/* ບັງຄັບຕົວໜັງສື ແລະ ໄອຄອນພາຍໃນ Header, Sidebar, Sections ໃຫ້ເປັນສີຂາວ */
+/* ⬛ ບັງຄັບຕົວໜັງສື ແລະ ໄອຄອນພາຍໃນ Header, Sidebar, Sections ໃຫ້ເປັນ "ສີດຳ (#1f2937)" ທັງໝົດ */
 header *, nav *, aside *, section *, .sidebar *, .header-bar * {
-    color: #f9fafb !important;
-    fill: #f9fafb !important;
-    stroke: #f9fafb !important;
+    color: #1f2937 !important;
+    fill: #1f2937 !important;
+    stroke: #1f2937 !important;
 }
 
 /* 🌸 4. ACTIVE STATE: ເວລາກົດຄລິກ ຫຼື ເລືອກເມນູ/ກ່ອງ ປ່ຽນເປັນ "ສີຊົມພູອ່ອນ (#fce7f3)" ຄ້າງໄວ້ (ບໍ່ມີຂອບ) */
@@ -82,7 +82,7 @@ h1, h2, h3, h4, h5, p, label, li, th, td, button * {
     color: #1f2937 !important;
 }
 
-/* 🔍 6. FORMS & INPUTS: ຊ່ອງປ້ອນຂໍ້ມູນຕ່າງໆ (ຍັງຄົງຂອບບາງໆສະອາດສະເພາະຊ່ອງປ້ອນຂໍ້ມູນ) */
+/* 🔍 6. FORMS & INPUTS: ຊ່ອງປ້ອນຂໍ້ມູນຕ່າງໆ */
 input[type="text"], input[type="search"], input[type="datetime-local"], select, textarea {
     background-color: #f9fafb !important;
     border: 1px solid #9ca3af !important;
