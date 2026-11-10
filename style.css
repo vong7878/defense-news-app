@@ -63,26 +63,18 @@ h1, h2, h3, h4, h5, p, span, label, li, a,
     color: #1f2937 !important;
 }
 
-/* ⚪ ຕັ້ງຄ່າສີຫົວຂໍ້ແຈ້ງການໃຫ້ເປັນສີຂາວສົດ */
-.news-title-notice, 
-[data-type*="ແຈ້ງການ"], 
-[class*="notice"] {
-    color: #ffffff !important; 
+/* ⚪ ບັງຄັບແຖບສະຖິຕິ ແລະ ກ່ອງຂໍ້ມູນທຸກປະເພດທີ່ຍັງເປັນສີມືດ ໃຫ້ເປັນສີຂາວສະອາດ */
+.bg-slate-800, .bg-slate-900, 
+[class*="bg-slate-"], div[class*="rounded-"] {
+    background-color: #ffffff !important;
+    color: #1f2937 !important;
+    border: 1px solid #e5e7eb !important;
 }
 
-/* ⚪ ຕັ້ງຄ່າສີຫົວຂໍ້ພາລະກິດໃຫ້ເປັນສີຂາວສົດ */
-.news-title-mission, 
-[data-type*="ພາລະກິດ"], 
-[class*="mission"] {
-    color: #ffffff !important; 
-}
-
-/* ⚪ ຕັ້ງຄ່າສີຫົວຂໍ້ຄວາມປອດໄພໃຫ້ເປັນສີຂາວສົດ */
-.security-badge, 
-[class*="security"], 
-[class*="safety"],
-[class*="defense"] {
-    color: #ffffff !important; 
+/* 🔠 ບັງຄັບຕົວໜັງສື ແລະ ຂໍ້ຄວາມທຸກຢ່າງພາຍໃນແຖບນั้นໃຫ້ເປັນສີດຳ/ສີເທົາເຂັ້ມ */
+.bg-slate-800 *, .bg-slate-900 *, 
+[class*="bg-slate-"] * {
+    color: #1f2937 !important;
 }
 
 /* 🔍 ຊ່ອງຄົ້ນຫາ ແລະ Input ຕ່າງໆເປັນສີຂາວ ພ້ອມຂອບບາງໆ */
