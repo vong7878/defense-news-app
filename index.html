@@ -116,6 +116,18 @@
                     <button onclick="toggleSidebarMobile()" class="bg-slate-900/80 hover:bg-slate-800 p-2 rounded-xl border border-emerald-500/40 text-emerald-400 transition shadow flex items-center justify-center w-9 h-9 lg:hidden text-xl font-bold"> 
     ☰ 
 </button>
+        <!-- 🌐 ວາງ Script Google Translate ໄວ້ໃນສ່ວນ <head> ຫຼື ບ່ອນທີ່ຕ້ອງການໃຫ້ສະແດງປຸ່ມເລືອກພາສາ -->
+<div id="google_translate_element" class="inline-block scale-90 sm:scale-100 my-2"></div>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'lo', 
+            includedLanguages: 'th,lo,vi,en', // ຮອງຮັບ 4 ພາສາ: ໄທ, ລາວ, ຫວຽດນາມ, ອັງກິດ
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
 
 
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYff3WPJ1yzOiXHvS7NZuw-gyAjw25bht1HKPCVR3mSBYEhqInb6tgDUS-&s=10" alt="Logo" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-emerald-900/50 border border-emerald-500/40"> 
@@ -1346,19 +1358,7 @@
 
     </div> 
 
-                <!-- 🌐 ວາງ Script Google Translate ໄວ້ໃນສ່ວນ <head> ຫຼື ບ່ອນທີ່ຕ້ອງການໃຫ້ສະແດງປຸ່ມເລືອກພາສາ -->
-<div id="google_translate_element" class="inline-block scale-90 sm:scale-100 my-2"></div>
-
-<script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'lo', 
-            includedLanguages: 'th,lo,vi,en', // ຮອງຮັບ 4 ພາສາ: ໄທ, ລາວ, ຫວຽດນາມ, ອັງກິດ
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-            autoDisplay: false
-        }, 'google_translate_element');
-    }
-
+        
 
 
  
