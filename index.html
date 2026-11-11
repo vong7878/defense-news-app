@@ -118,32 +118,512 @@
             </button>
 
             <!-- ພາສາຫວຽດນາມ -->
-            <button onclick="selectLanguage('vi')" class="lang-btn flex items-center p-3 rounded-xl bg-white/5 hover:bg-white/20 border border-white/10 transition-all duration-300 group">
+           <!-- <button onclick="selectLanguage('vi')" class="lang-btn flex items-center p-3 rounded-xl bg-white/5 hover:bg-white/20 border border-white/10 transition-all duration-300 group">
                 <span class="text-2xl mr-4">🇻🇳</span>
                 <span class="font-semibold text-lg flex-1 text-left">Tiếng Việt</span>
                 <span class="text-xs text-gray-400 group-hover:text-white">Vietnamese</span>
-            </button>
+            </button>-->
 
             <!-- ພາສາຈີນ -->
-            <button onclick="selectLanguage('zh')" class="lang-btn flex items-center p-3 rounded-xl bg-white/5 hover:bg-white/20 border border-white/10 transition-all duration-300 group">
+            <!--<button onclick="selectLanguage('zh')" class="lang-btn flex items-center p-3 rounded-xl bg-white/5 hover:bg-white/20 border border-white/10 transition-all duration-300 group">
                 <span class="text-2xl mr-4">🇨🇳</span>
                 <span class="font-semibold text-lg flex-1 text-left">中文</span>
                 <span class="text-xs text-gray-400 group-hover:text-white">Chinese</span>
-            </button>
+            </button>-->
 
-            <!-- ພາສາອັງກິດ -->
-            <button onclick="selectLanguage('en')" class="lang-btn flex items-center p-3 rounded-xl bg-white/5 hover:bg-white/20 border border-white/10 transition-all duration-300 group">
+           <!-- <!-- ພາສາອັງກິດ -->
+          <!--  <button onclick="selectLanguage('en')" class="lang-btn flex items-center p-3 rounded-xl bg-white/5 hover:bg-white/20 border border-white/10 transition-all duration-300 group">
                 <span class="text-2xl mr-4">🇬🇧</span>
                 <span class="font-semibold text-lg flex-1 text-left">English</span>
                 <span class="text-xs text-gray-400 group-hover:text-white">English</span>
-            </button>
+            </button>-->
 
-            <!-- ພາສາເກົາຫລີ -->
-            <button onclick="selectLanguage('ko')" class="lang-btn flex items-center p-3 rounded-xl bg-white/5 hover:bg-white/20 border border-white/10 transition-all duration-300 group">
+         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"; 
+import { getAuth, signInWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"; 
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, setDoc, runTransaction, increment, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"; 
+
+const firebaseConfig = { 
+    apiKey: "AIzaSyCiD4zPW-iNzSM6iMP8A4EmaxHInxB0Z9k", 
+    authDomain: "defense-news-app-2143d.firebaseapp.com", 
+    projectId: "defense-news-app-2143d", 
+    storageBucket: "defense-news-app-2143d.appspot.com", 
+    messagingSenderId: "55873751006", 
+    appId: "1:55873751006:web:b7e9b971ae94a1f5d93f4f", 
+    measurementId: "G-YYM4JLS1L2" 
+}; 
+
+
+const app = initializeApp(firebaseConfig); 
+const auth = getAuth(app); 
+const db = getFirestore(app); 
+
+const DRIVE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzExA_T2J2SpmD1fykUwV4ZK1oPuGSrpbsUMiLifVdROjL9Uocq3MBAtR3TnYjcFOkj/exec"; 
+
+setPersistence(auth, browserLocalPersistence).catch((err) => { 
+    console.error("Auth persistence error:", err); 
+}); 
+
+let currentRoomUser = localStorage.getItem('current_room_user') || null; 
+let userRole = localStorage.getItem('current_user_role') || 'user'; 
+let deviceSessionId = localStorage.getItem('device_session_id') || ('dev_' + Math.random().toString(36).substring(2)); 
+localStorage.setItem('device_session_id', deviceSessionId); 
+
+let allNews = []; 
+let allCyberTasks = []; 
+let allMemberReports = []; 
+let notifications = []; 
+
+// 🔑 ໂຫຼດ Notification ແຍກຕາມ User / Room
+function loadUserNotifications() {
+    const key = currentRoomUser ? `user_notifications_${currentRoomUser}` : 'user_notifications_guest';
+    notifications = JSON.parse(localStorage.getItem(key) || '[]');
+}
+
+function saveUserNotifications() {
+    const key = currentRoomUser ? `user_notifications_${currentRoomUser}` : 'user_notifications_guest';
+    localStorage.setItem(key, JSON.stringify(notifications));
+}
+
+
+
+let currentShareData = { title: '', text: '', url: '' }; 
+let chatUnsubscribe = null; 
+let globalNewsUnsubscribe = null; 
+let globalFeedbackUnsubscribe = null; 
+let isInitialLoad = true; 
+let isHeaderHidden = false; 
+let currentSummaryPeriod = 'weekly'; 
+
+// Snake Game Variables 
+let snakeInterval = null; 
+let snake = []; 
+let frog = {}; 
+let score = 0; 
+let highScore = 0; 
+let dx = 12; 
+let dy = 0; 
+let nextDx = 12; 
+let nextDy = 0; 
+const gridSize = 12; 
+const canvasSize = 240; 
+
+function loadUserHighScore() {
+    const key = currentRoomUser ? `snake_highscore_${currentRoomUser}` : 'snake_highscore_guest';
+    highScore = localStorage.getItem(key) || 0;
+}
+
+const subAdminPins = { 
+    "SUB_ADMIN_1": "1234", 
+    "SUB_ADMIN_2": "5678", 
+    "SUB_ADMIN_3": "9999" 
+}; 
+
+window.addEventListener('DOMContentLoaded', () => { 
+    loadUserNotifications();
+    loadUserHighScore();
+    checkDeviceRestriction(); 
+    checkLocationRestriction(); 
+    checkRoomAuthUI(); 
+    loadFullScoreSummary(); 
+    updateLiveClock(); 
+    setInterval(updateLiveClock, 1000); 
+     
+    setInterval(verifySubAdminSession, 10000); 
+    initRealtimeListeners(); 
+    initTouchGoldGlowEffect(); 
+    initAntiCopyProtection(); 
+    initSnakeKeyboardControls(); 
+    initFirefliesMovement(); 
+     
+    setTimeout(checkUrlHashForPost, 800); 
+}); 
+
+function checkUrlHashForPost() { 
+    const hash = window.location.hash; 
+    if (hash && hash.startsWith('#post-')) { 
+        switchTab('news'); 
+        setTimeout(() => { 
+            const postElem = document.querySelector(hash); 
+            if (postElem) { 
+                postElem.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
+                postElem.classList.add('highlight-flash'); 
+                setTimeout(() => postElem.classList.remove('highlight-flash'), 3000); 
+            } 
+        }, 400); 
+    } 
+} 
+
+window.toggleHeaderVis = () => { 
+    const header = document.getElementById('main-header'); 
+    const icon = document.getElementById('floating-toggle-icon'); 
+    const text = document.getElementById('floating-toggle-text'); 
+     
+    isHeaderHidden = !isHeaderHidden; 
+    if (isHeaderHidden) { 
+        header.classList.add('-translate-y-full', 'opacity-0'); 
+        icon.innerText = '👁️'; 
+        text.innerText = 'ເປີດ Header'; 
+    } else { 
+        header.classList.remove('-translate-y-full', 'opacity-0'); 
+        icon.innerText = '🙈'; 
+        text.innerText = 'ຊ່ອນ Header'; 
+    } 
+}; 
+
+window.toggleSidebarMobile = () => { 
+    const sidebar = document.getElementById('sidebar-container'); 
+    const header = document.getElementById('main-header');
+    const icon = document.getElementById('floating-toggle-icon'); 
+    const text = document.getElementById('floating-toggle-text'); 
+
+    sidebar.classList.toggle('hidden'); 
+    
+    if (!sidebar.classList.contains('hidden')) { 
+        // 📱 ເມື່ອເປີດ Sidebar: ຕັ້ງຄ່າ Sidebar ໃຫ້ແຜ່ເຕັມໜ້າຈໍ
+        sidebar.classList.add('fixed', 'inset-0', 'z-50', 'bg-slate-900/95', 'p-6', 'overflow-y-auto'); 
+
+        // 🙈 ປິດ / ຊ່ອນ Header ອັດຕະໂນມັດ
+        if (header) {
+            header.classList.add('-translate-y-full', 'opacity-0');
+            isHeaderHidden = true;
+            if (icon) icon.innerText = '👁️';
+            if (text) text.innerText = 'ເປີດ Header';
+        }
+    } else { 
+        // 📱 ເມື່ອປິດ Sidebar: ເອົາ Style ແຜ່ເຕັມໜ້າຈໍອອກ
+        sidebar.classList.remove('fixed', 'inset-0', 'z-50', 'bg-slate-900/95', 'p-6', 'overflow-y-auto'); 
+
+        // 👁️ ເປີດ / ສະແດງ Header ຄືນອັດຕະໂນມັດ
+        if (header) {
+            header.classList.remove('-translate-y-full', 'opacity-0');
+            isHeaderHidden = false;
+            if (icon) icon.innerText = '🙈';
+            if (text) text.innerText = 'ຊ່ອນ Header';
+        }
+    } 
+};
+
+function initFirefliesMovement() { 
+    const fireflies = document.querySelectorAll('.interactive-firefly'); 
+    fireflies.forEach((ff, index) => { 
+        let posX = Math.random() * window.innerWidth * 0.8; 
+        let posY = Math.random() * window.innerHeight * 0.8; 
+        let speedX = (Math.random() - 0.5) * 1.2; 
+        let speedY = (Math.random() - 0.5) * 1.2; 
+
+        ff.style.left = `${posX}px`; 
+        ff.style.top = `${posY}px`; 
+
+        setInterval(() => { 
+            posX += speedX; 
+            posY += speedY; 
+            if (posX <= 0 || posX >= window.innerWidth - 30) speedX *= -1; 
+            if (posY <= 0 || posY >= window.innerHeight - 30) speedY *= -1; 
+            ff.style.left = `${posX}px`; 
+            ff.style.top = `${posY}px`; 
+        }, 60); 
+    }); 
+
+    window.addEventListener('pointermove', (e) => { 
+        const mouseX = e.clientX; 
+        const mouseY = e.clientY; 
+        fireflies.forEach((ff, index) => { 
+            const offsetX = (index + 1) * 8; 
+            const offsetY = (index + 1) * 5; 
+            ff.style.left = `${mouseX + offsetX - 20}px`; 
+            ff.style.top = `${mouseY + offsetY - 20}px`; 
+        }); 
+    }); 
+} 
+
+function checkDeviceRestriction() { 
+    const isDesktop = getDeviceType() === 'desktop'; 
+    const isCurrentlyAdmin = userRole === 'admin'; 
+    if (isDesktop && !isCurrentlyAdmin) { 
+        document.getElementById('desktop-blocked-modal').classList.remove('hidden'); 
+        document.getElementById('room-login-modal').classList.add('hidden'); 
+    } 
+} 
+
+function checkLocationRestriction() { 
+    if (userRole === 'admin') return; 
+    if ("geolocation" in navigator) { 
+        navigator.geolocation.getCurrentPosition((position) => { 
+            const lat = position.coords.latitude; 
+            const lon = position.coords.longitude; 
+            const danangLat = 16.0544; 
+            const danangLon = 108.2022; 
+            const maxDistanceKm = 40;  
+            const distance = getDistanceFromLatLonInKm(lat, lon, danangLat, danangLon); 
+            if (distance > maxDistanceKm) { 
+                document.getElementById('location-blocked-modal').classList.remove('hidden'); 
+                document.getElementById('room-login-modal').classList.add('hidden'); 
+            } 
+        }, (error) => { console.warn("Geolocation error:", error); }, { timeout: 10000 }); 
+    } 
+} 
+
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) { 
+    const R = 6371;  
+    const dLat = deg2rad(lat2 - lat1); 
+    const dLon = deg2rad(lon2 - lon1); 
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);  
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));  
+} 
+
+function deg2rad(deg) { return deg * (Math.PI/180); } 
+
+window.openAdminLoginFromBlocked = () => { 
+    document.getElementById('desktop-blocked-modal').classList.add('hidden'); 
+    document.getElementById('location-blocked-modal').classList.add('hidden'); 
+    document.getElementById('room-login-modal').classList.remove('hidden'); 
+}; 
+
+window.startSnakeGame = () => { 
+    document.getElementById('snake-overlay').classList.add('hidden'); 
+    snake = [{ x: 120, y: 120 }, { x: 108, y: 120 }, { x: 96, y: 120 }]; 
+    score = 0; 
+    document.getElementById('snake-score').innerText = score; 
+    document.getElementById('snake-highscore').innerText = highScore; 
+    dx = gridSize; dy = 0; nextDx = gridSize; nextDy = 0; 
+    spawnFrog(); 
+    if (snakeInterval) clearInterval(snakeInterval); 
+    snakeInterval = setInterval(gameLoop, 150); 
+}; 
+
+function spawnFrog() { 
+    const cols = canvasSize / gridSize; 
+    frog = { x: Math.floor(Math.random() * cols) * gridSize, y: Math.floor(Math.random() * cols) * gridSize }; 
+    snake.forEach(part => { if (part.x === frog.x && part.y === frog.y) spawnFrog(); }); 
+} 
+
+function gameLoop() { 
+    dx = nextDx; dy = nextDy; 
+    const head = { x: snake[0].x + dx, y: snake[0].y + dy }; 
+    if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) { gameOver(); return; } 
+    for (let i = 0; i < snake.length; i++) { 
+        if (head.x === snake[i].x && head.y === snake[i].y) { gameOver(); return; } 
+    } 
+    snake.unshift(head); 
+    if (head.x === frog.x && head.y === frog.y) { 
+        score += 10; 
+        document.getElementById('snake-score').innerText = score; 
+        if (score > highScore) { 
+            highScore = score; 
+            const key = currentRoomUser ? `snake_highscore_${currentRoomUser}` : 'snake_highscore_guest';
+            localStorage.setItem(key, highScore); 
+            document.getElementById('snake-highscore').innerText = highScore; 
+        } 
+        spawnFrog(); 
+    } else { snake.pop(); } 
+    drawSnakeGame(); 
+} 
+
+function drawSnakeGame() { 
+    const canvas = document.getElementById('snakeCanvas'); 
+    if (!canvas) return; 
+    const ctx = canvas.getContext('2d'); 
+    ctx.fillStyle = '#020617'; ctx.fillRect(0, 0, canvasSize, canvasSize); 
+    ctx.font = '14px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; 
+    ctx.fillText('🐸', frog.x + gridSize / 2, frog.y + gridSize / 2); 
+    snake.forEach((part, index) => { 
+        ctx.fillStyle = index === 0 ? '#10b981' : '#059669'; 
+        ctx.beginPath(); ctx.roundRect(part.x + 1, part.y + 1, gridSize - 2, gridSize - 2, 3); ctx.fill(); 
+    }); 
+} 
+
+function gameOver() { 
+    clearInterval(snakeInterval); snakeInterval = null; 
+    const overlay = document.getElementById('snake-overlay'); 
+    document.getElementById('snake-overlay-title').innerText = '💀 เกมส์จบแล้ว (Game Over)'; 
+    document.getElementById('snake-overlay-desc').innerHTML = `คะแนนของคุณ: <strong class="text-amber-400 text-sm">${score}</strong><br>กดปุ่มด้านล่างนี้เพื่อเริ่มเล่นใหม่!`; 
+    overlay.classList.remove('hidden'); 
+} 
+
+window.changeSnakeDir = (dir) => { 
+    if (dir === 'UP' && dy === 0) { nextDx = 0; nextDy = -gridSize; } 
+    if (dir === 'DOWN' && dy === 0) { nextDx = 0; nextDy = gridSize; } 
+    if (dir === 'LEFT' && dx === 0) { nextDx = -gridSize; nextDy = 0; } 
+    if (dir === 'RIGHT' && dx === 0) { nextDx = gridSize; nextDy = 0; } 
+}; 
+
+function initSnakeKeyboardControls() { 
+    window.addEventListener('keydown', (e) => { 
+        if (['ArrowUp', 'KeyW'].includes(e.code)) { window.changeSnakeDir('UP'); e.preventDefault(); } 
+        if (['ArrowDown', 'KeyS'].includes(e.code)) { window.changeSnakeDir('DOWN'); e.preventDefault(); } 
+        if (['ArrowLeft', 'KeyA'].includes(e.code)) { window.changeSnakeDir('LEFT'); e.preventDefault(); } 
+        if (['ArrowRight', 'KeyD'].includes(e.code)) { window.changeSnakeDir('RIGHT'); e.preventDefault(); } 
+    }); 
+} 
+
+window.openGuideModal = () => { 
+    const userSec = document.getElementById('guide-section-user'); 
+    const adminSec = document.getElementById('guide-section-admin'); 
+    const superSec = document.getElementById('guide-section-super'); 
+    
+    if (userSec) userSec.classList.add('hidden'); 
+    if (adminSec) adminSec.classList.add('hidden'); 
+    if (superSec) superSec.classList.add('hidden'); 
+
+    if (isSuperAdmin()) { 
+        if (userSec) userSec.classList.remove('hidden'); 
+        if (adminSec) adminSec.classList.remove('hidden'); 
+        if (superSec) superSec.classList.remove('hidden'); 
+    } else if (userRole === 'admin') { 
+        if (userSec) userSec.classList.remove('hidden'); 
+        if (adminSec) adminSec.classList.remove('hidden'); 
+    } else { 
+        if (userSec) userSec.classList.remove('hidden'); 
+    } 
+    
+    const guideModal = document.getElementById('guide-modal');
+    if (guideModal) guideModal.classList.remove('hidden'); 
+};
+
+window.closeGuideModal = () => document.getElementById('guide-modal').classList.add('hidden'); 
+
+function initAntiCopyProtection() { 
+    document.addEventListener('contextmenu', (e) => e.preventDefault()); 
+    document.addEventListener('copy', (e) => { e.preventDefault(); alert('⚠️ ขออภัย ระบบป้องกันการคัดลอกข้อความ!'); }); 
+} 
+
+function initTouchGoldGlowEffect() { 
+    window.addEventListener('pointerdown', (e) => { 
+        const glow = document.createElement('div'); 
+        glow.className = 'touch-gold-glow'; 
+        glow.style.left = `${e.clientX}px`; glow.style.top = `${e.clientY}px`; 
+        document.body.appendChild(glow); 
+        setTimeout(() => glow.remove(), 600); 
+    }); 
+} 
+
+function playLoudAlertSound() { 
+    try { 
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)(); 
+        for (let i = 0; i < 3; i++) { 
+            setTimeout(() => { 
+                if (audioCtx.state === 'suspended') audioCtx.resume(); 
+                const osc = audioCtx.createOscillator(); 
+                const gain = audioCtx.createGain(); 
+                osc.type = 'sine'; osc.frequency.setValueAtTime(880, audioCtx.currentTime); 
+                gain.gain.setValueAtTime(1.0, audioCtx.currentTime); 
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3); 
+                osc.connect(gain); gain.connect(audioCtx.destination); 
+                osc.start(); osc.stop(audioCtx.currentTime + 0.3); 
+            }, i * 350); 
+        } 
+    } catch (e) { console.error(e); } 
+} 
+
+function addNotification(title, message, linkId = null) { 
+    const newNotif = { 
+        id: Date.now(), title, message, linkId, 
+        time: new Date().toLocaleTimeString('lo-LA', { hour: '2-digit', minute: '2-digit' }), 
+        read: false 
+    }; 
+    notifications.unshift(newNotif); 
+    if (notifications.length > 20) notifications.pop(); 
+    saveUserNotifications(); 
+    updateNotificationUI(); 
+    playLoudAlertSound(); 
+} 
+
+function updateNotificationUI() { 
+    const badge = document.getElementById('notification-badge'); 
+    const bellIcon = document.getElementById('bell-icon'); 
+    const list = document.getElementById('notification-list'); 
+    const unreadCount = notifications.filter(n => !n.read).length; 
+
+    if (unreadCount > 0) { badge.innerText = unreadCount; badge.classList.remove('hidden'); bellIcon.classList.add('animate-bell'); } 
+    else { badge.classList.add('hidden'); bellIcon.classList.remove('animate-bell'); } 
+
+    if (notifications.length === 0) { list.innerHTML = `<div class="p-4 text-center text-slate-500">ยังไม่มีการแจ้งเตือนใหม่</div>`; return; } 
+
+    list.innerHTML = notifications.map(n => ` 
+        <div onclick="clickNotificationItem(${n.linkId ? `'${n.linkId}'` : 'null'})" class="p-3 hover:bg-slate-800 transition cursor-pointer ${n.read ? 'opacity-70' : 'bg-slate-800/60 font-semibold'}"> 
+            <div class="flex justify-between items-center text-amber-400 mb-0.5"> 
+                <span>${n.title}</span> 
+                <span class="text-[10px] text-slate-400">${n.time}</span> 
+            </div> 
+            <p class="text-slate-200 text-[11px] truncate">${n.message}</p> 
+        </div> 
+    `).join(''); 
+} 
+
+window.clickNotificationItem = (postId) => { 
+    document.getElementById('notification-dropdown').classList.add('hidden'); 
+    if (postId) { 
+        switchTab('news'); 
+        setTimeout(() => { 
+            const postElem = document.getElementById(`post-${postId}`); 
+            if (postElem) { 
+                postElem.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
+                postElem.classList.add('highlight-flash'); 
+                setTimeout(() => postElem.classList.remove('highlight-flash'), 2000); 
+            } 
+        }, 200); 
+    } 
+}; 
+
+window.toggleNotificationDropdown = () => { 
+    const dropdown = document.getElementById('notification-dropdown'); 
+    dropdown.classList.toggle('hidden'); 
+    if (!dropdown.classList.contains('hidden')) { 
+        notifications.forEach(n => n.read = true); 
+        saveUserNotifications(); 
+        updateNotificationUI(); 
+    } 
+}; 
+
+window.clearNotifications = () => { 
+    notifications = []; 
+    saveUserNotifications(); 
+    updateNotificationUI(); 
+}; 
+
+function initRealtimeListeners() { 
+    // 1. 📢 ແຈ້ງເຕືອນເມື່ອມີ ຂ່າວສານ / ແຈ້ງການ ໃໝ່ລົງຟີດ (ໃຫ້ທຸກຄົນເຫັນ)
+    const newsQuery = query(collection(db, "news"), orderBy("date", "desc")); 
+    globalNewsUnsubscribe = onSnapshot(newsQuery, (snapshot) => { 
+        allNews = []; 
+        snapshot.forEach(docSnap => allNews.push({ id: docSnap.id, ...docSnap.data() })); 
+        document.getElementById('stat-total-news').innerText = allNews.length; 
+        renderNews(allNews); 
+
+        if (!isInitialLoad) { 
+            snapshot.docChanges().forEach((change) => { 
+                if (change.type === "added") { 
+                    const newPostData = change.doc.data(); 
+                    // ສົ່ງແຈ້ງເຕືອນຂ່າວ/ແຈ້ງການໃໝ່ລົງຟີດ
+                    addNotification("📢 ประกาศ/ข่าวสารใหม่!", newPostData.title, change.doc.id); 
+                } 
+            }); 
+        } 
+    }); 
+
+    // 2. ✅ ແຈ້ງເຕືອນເມື່ອ ບົດລາຍງານຖືກອະນຸມັດ ຫຼື ⭐ ໄດ້ຮັບ ຄະແນນພິເສດ (ສະເພາະຫ້ອງນັ້ນໆ)
+    const reportsQuery = query(collection(db, "member_reports"), orderBy("date", "desc")); 
+    onSnapshot(reportsQuery, (snapshot) => { 
+        if (!isInitialLoad) { 
+            snapshot.docChanges().forEach((change) => { 
+                const data = change.doc.data(); 
+                // ກວດສອບວ່າເປັນຫ້ອງຂອງ User ປັດຈຸບັນບໍ
+                if (currentRoomUser && data.room === currentRoomUser) { 
+                    // ກໍລະນີອະນຸມັດບົດລາຍງານ
+                    if (data.approved && change.type === "modified") { 
+                        addNotification("🎉 รายงานได้รับการอนุมัติแล้ว!", `รายงานความสะอาดห้องของคุณ (${data.room})ได้รับการอนุมัติแล้ว!`); 
+                        loadFullScoreSummary(); loadFullScoreboard(); 
+                    } 
+                    // ກໍລະນີປັບຄະແນນພິເສດ (ບວກ/ລົບ)
+                    else if (data.specialPoints !== undefined && change.type === "added") { 
+                        const pts = data.specialPoints; 
+                        const signText = pts > 0 ? `+${pts}` : `${pts}`; 
+                        addNotification("⭐ มีการปรั<!--   <!-- ພາສາເກົາຫລີ -->
+           <!-- <button onclick="selectLanguage('ko')" class="lang-btn flex items-center p-3 rounded-xl bg-white/5 hover:bg-white/20 border border-white/10 transition-all duration-300 group">
                 <span class="text-2xl mr-4">🇰🇷</span>
                 <span class="font-semibold text-lg flex-1 text-left">한국어</span>
                 <span class="text-xs text-gray-400 group-hover:text-white">Korean</span>
-            </button>
+            </button>-->
         </div>
 
         <!-- ປຸ່ມຢືນຢັນໄປໜ້າຕໍ່ໄປ -->
