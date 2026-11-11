@@ -195,9 +195,17 @@
             <div id="auth-nav" class="flex items-center space-x-3 w-full sm:w-auto justify-end pr-28 lg:pr-0"></div> 
 
         </div> 
-        <!-- 🌐 ປຸ່ມເລືອກພາສາ (ໄທ, ລາວ, ຫວຽດນາມ, ອັງກິດ) -->
-<div id="google_translate_element" class="inline-block scale-90 sm:scale-100 my-2"></div>
-        
+      <!-- 🌐 ປຸ່ມເລືອກພາສາ (Dropdown) -->
+<select id="langSwitcher" onchange="changeLanguage(this.value)" class="bg-slate-900 text-white border border-slate-700 px-3 py-1.5 rounded-lg text-xs outline-none cursor-pointer">
+    <option value="lo">🇱🇦 ລາວ</option>
+    <option value="th">🇹🇭 ไทย</option>
+    <option value="vi">🇻🇳 Tiếng Việt</option>
+    <option value="en">🇬🇧 English</option>
+</select>
+
+<!-- ຕົວຢ່າງການເອີ້ນໃຊ້ຂໍ້ຄວາມໃນໜ້າເວັບ -->
+<h1 data-i18n="welcome_title">ຍິນດີຕ້ອນຮັບ</h1>
+<p data-i18n="welcome_desc">ເລືອກຫ້ອງຝຶກສຳລັບ User ຫຼື ເລືອກແອດມິນ</p>
 
     </header> 
 
@@ -1345,18 +1353,7 @@
 
     </div> 
 
-    <script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'lo', 
-            includedLanguages: 'th,vi,en,lo', // 4 ພາສາ: ໄທ, ຫວຽດນາມ, ອັງກິດ, ລາວ
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-            autoDisplay: false
-        }, 'google_translate_element');
-    }
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
- 
+
 
     <!-- 🔗 ເຊື່ອມຕໍ່ກັບໄຟລ໌ JavaScript (app.js) --> 
 
