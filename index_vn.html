@@ -72,7 +72,26 @@
     })();
 </script>
 </head> 
+  function changeLanguage(lang) {
+        // ບັນທຶກພາສາທີ່ເລືອກລົງໃນ LocalStorage ໄວ້ຈື່ຄ່າ
+        localStorage.setItem('selected_lang', lang);
+        // ປ່ຽນເສັ້ນທາງໄປຫາໄຟລ໌ HTML ຂອງພາສານັ້ນໆທັນທີ
+        window.location.href = `index_${lang}.html`;
+    }
 
+    // ຕັ້ງຄ່າ Option ໃຫ້ตรงกับໜ້າປະຈຸບັນອັດຕະໂນມັດ (ຖ້າຕ້ອງການ)
+    window.addEventListener('DOMContentLoaded', () => {
+        const path = window.location.pathname;
+        const select = document.querySelector('select');
+        if (select) {
+            if (path.includes('_lo.html')) select.value = 'lo';
+            else if (path.includes('_th.html')) select.value = 'th';
+            else if (path.includes('_vn.html')) select.value = 'vn';
+            else if (path.includes('_ch.html')) select.value = 'ch';
+            else if (path.includes('_kr.html')) select.value = 'kr';
+            else if (path.includes('_en.html') || path.endsWith('index.html')) select.value = 'en';
+        }
+    });
 <body class="text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white relative overflow-x-hidden"> 
 
     <!-- Header --> 
@@ -133,26 +152,7 @@
 </div>
 
 <script>
-    function changeLanguage(lang) {
-        // ບັນທຶກພາສາທີ່ເລືອກລົງໃນ LocalStorage ໄວ້ຈື່ຄ່າ
-        localStorage.setItem('selected_lang', lang);
-        // ປ່ຽນເສັ້ນທາງໄປຫາໄຟລ໌ HTML ຂອງພາສານັ້ນໆທັນທີ
-        window.location.href = `index_${lang}.html`;
-    }
-
-    // ຕັ້ງຄ່າ Option ໃຫ້ตรงกับໜ້າປະຈຸບັນອັດຕະໂນມັດ (ຖ້າຕ້ອງການ)
-    window.addEventListener('DOMContentLoaded', () => {
-        const path = window.location.pathname;
-        const select = document.querySelector('select');
-        if (select) {
-            if (path.includes('_lo.html')) select.value = 'lo';
-            else if (path.includes('_th.html')) select.value = 'th';
-            else if (path.includes('_vn.html')) select.value = 'vn';
-            else if (path.includes('_ch.html')) select.value = 'ch';
-            else if (path.includes('_kr.html')) select.value = 'kr';
-            else if (path.includes('_en.html') || path.endsWith('index.html')) select.value = 'en';
-        }
-    });
+  
 </script>
     </header> 
 
