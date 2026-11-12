@@ -2147,6 +2147,45 @@ window.filterCategory = (cat) => {
     else renderNews(allNews.filter(n => n.category === cat)); 
 
 }; 
+// ຟັງຊັນສຳລັບໃຫ້ Admin ໃຫ້ຄະແນນສຸກເສີນ / ຄະແນນພິເສດ
+async function adminEmergencyScore() {
+    const roomId = document.getElementById('admin-room-select').value;
+    const pointsToAdd = parseInt(document.getElementById('admin-score-input').value);
+
+    // ตรวจสอบວ່າປ້ອນຕົວເລກຄະແນນຖືກຕ້ອງບໍ
+    if (isNaN(pointsToAdd)) {
+        alert("ກະລຸນາໃສ່ຈຳນວນຄະແນນເປັນຕົວເລກໃຫ້ຖືກຕ້ອງ!");
+        return;
+    }
+
+    try {
+        // อັບເດດຄະແນນລົງໃນ Firebase Firestore (Collection 'rooms')
+        const roomRef = doc(db, "rooms", roomId);
+        await updateDoc(roomRef, {
+            score: increment(pointsToAdd),
+            lastUpdated: new Date().toISOString()
+        });
+        
+        // ຂໍ້ຄວາມແຈ້ງເຕືອນເມື່ອສຳເລັດ
+        const sign = pointsToAdd > 0 ? "+" : "";
+        alert(`ໃຫ້ຄະແນນຫ້ອງ ${roomId} สำເລັດແລ້ວ (${sign}${pointsToAdd} ຄະແນນ)!`);
+        
+        // ລ້າງຊ່ອງປ້ອນຂໍ້ມູນຫຼັງບັນທຶກສຳເລັດ
+        document.getElementById('admin-score-input').value = '';
+        
+    } catch (error) {
+        console.error("Error updating emergency score: ", error);
+        alert("ເກີດຂໍ້ຜິດພາດ: " + error.message);
+    }
+}
+        // ລ້າງຊ່ອງປ້ອນຂໍ້ມູນຫຼັງບັນທຶກສຳເລັດ
+        document.getElementById('admin-score-input').value = '';
+        
+    } catch (error) {
+        console.error("Error updating emergency score: ", error);
+        alert("ເກີດຂໍ້ຜິດພາດ: " + error.message);
+    }
+}
 
 
 
