@@ -2215,5 +2215,28 @@ async function approveScoreRequest(requestId, roomId, points) {
     }
 }
 
+// ໃຫ້ປະກາດຟັງຊັນໄວ້ແບບ Global ດ້ານນອກສຸດໃນໄຟລ໌ JS ຂອງທ່ານ
+window.adminEmergencyScore = async function() {
+    const roomId = document.getElementById('admin-room-select').value;
+    const pointsToAdd = parseInt(document.getElementById('admin-score-input').value);
 
+    if (isNaN(pointsToAdd)) {
+        alert("ກະລຸນາໃສ່ຈຳນວນຄະແນນເປັນຕົວເລກໃຫ້ຖືກຕ້ອງ!");
+        return;
+    }
+
+    try {
+        const roomRef = doc(db, "rooms", roomId);
+        await updateDoc(roomRef, {
+            score: increment(pointsToAdd),
+            lastUpdated: new Date().toISOString()
+        });
+        
+        alert(`ໃຫ້ຄະແນນຫ້ອງ ${roomId} สำເລັດແລ້ວ!`);
+        document.getElementById('admin-score-input').value = '';
+    } catch (error) {
+        console.error("Error updating emergency score: ", error);
+        alert("ເກີດຂໍ້ຜິດພາດ: " + error.message);
+    }
+};
 
