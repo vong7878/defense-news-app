@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dx = 1; dy = 0;
         eatenInLevel = 0;
 
-        document.getElementById('snake-level-badge').innerText = `ດ່ານ ${snakeLevel}/15`;
+document.getElementById('snake-level-badge').innerText = `${t('stage')} ${snakeLevel}/15`;
         document.getElementById('snake-target').innerText = `0/${config.target}`;
         
         let diffText = "ງ່າຍ";
@@ -490,7 +490,7 @@ function initMatchGame() {
     board.className = `grid ${config.gridCols} gap-2 mb-4`;
     board.innerHTML = '';
 
-    document.getElementById('match-level-badge').innerText = `ດ່ານ ${matchLevel}/15`;
+    document.getElementById('match-level-badge').innerText = `${t('stage')} ${matchLevel}/15`;
     
     movesLeft = config.maxMoves;
     document.getElementById('match-moves-left').innerText = movesLeft === 999 ? 'ບໍ່ຈຳກັດ' : movesLeft;
@@ -638,7 +638,7 @@ function initMoleGame() {
     moleTimeLeft = 20;
 
     const config = getMoleConfig(moleLevel);
-    document.getElementById('mole-level-badge').innerText = `ດ່ານ ${moleLevel}/15`;
+ document.getElementById('mole-level-badge').innerText = `${t('stage')} ${moleLevel}/15`;
     document.getElementById('mole-score').innerText = `0/${config.targetScore}`;
     document.getElementById('mole-time').innerText = `${moleTimeLeft}s`;
     
