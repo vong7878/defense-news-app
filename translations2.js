@@ -688,12 +688,16 @@ function updateLiveClock() {
         hour12: false 
     }); 
 }
-// 🏠 ຟັງຊັນແປງຊື່ຫ້ອງຕາມພາສາປັດຈຸບັນ (ຈາກ "ຫ້ອງ 111" -> "Phòng 111" / "Room 111")
-function formatRoomName(rawRoom) {
+function formatRoomName(rawRoom, lang) {
     if (!rawRoom) return "";
-    const roomNum = rawRoom.replace(/[^0-9]/g, '');
+    // ດึงເອົາສະເພາະຕົວເລກຫ້ອງ (ເຊັ່ນ "110" ຈາກ "ຫ້ອງ 110")
+    const match = rawRoom.toString().match(/\d+/);
+    const roomNum = match ? match[0] : rawRoom;
+    
     if (roomNum) {
-        return `${t('room')} ${roomNum}`;
+        // ດຶງคำว่า "Room / Phòng / ຫ້ອງ" ຈາກ dictionary ຕາມພາສາທີ່ສົ່ງເຂົ້າມາ
+        const roomPrefix = (translations[lang] && translations[lang].room) || translations['la'].room || "ຫ້ອງ";
+        return `${roomPrefix} ${roomNum}`;
     }
     return rawRoom;
 }
