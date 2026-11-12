@@ -769,10 +769,15 @@
             </div> 
         </div> 
     </div> 
-<!-- 1. โหลดไฟล์แปลภาษาแบบธรรมดาก่อน -->
+<!-- 1. โหลด Firebase SDKs (Compat versions) ก่อนเสมอ -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<!-- 2. โหลดไฟล์แปลภาษา -->
 <script src="translations2.js"></script>
 
-<!-- 2. โหลดไฟล์หลักทีหลัง (โหลดแค่บรรทัดเดียว ไม่ต้องใส่ type="module" ซ้ำซ้อน) -->
+<!-- 3. ค่อยโหลดไฟล์หลักทีหลังสุด -->
 <script src="app_vn.js"></script>
 </body> 
 </html>
