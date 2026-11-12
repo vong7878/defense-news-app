@@ -121,6 +121,39 @@
 
             <div id="auth-nav" class="flex items-center space-x-3 w-full sm:w-auto justify-end pr-28 lg:pr-0"></div> 
         </div> 
+        <div class="relative inline-block text-left">
+    <select onchange="changeLanguage(this.value)" class="bg-gray-800 text-white text-sm rounded-lg px-3 py-1.5 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="lo">ລາວ (Lao)</option>
+        <option value="th">ไทย (Thai)</option>
+        <option value="vn">Tiếng Việt</option>
+        <option value="ch">中文 (Chinese)</option>
+        <option value="en" selected>English</option>
+        <option value="kr">한국어 (Korean)</option>
+    </select>
+</div>
+
+<script>
+    function changeLanguage(lang) {
+        // ບັນທຶກພາສາທີ່ເລືອກລົງໃນ LocalStorage ໄວ້ຈື່ຄ່າ
+        localStorage.setItem('selected_lang', lang);
+        // ປ່ຽນເສັ້ນທາງໄປຫາໄຟລ໌ HTML ຂອງພາສານັ້ນໆທັນທີ
+        window.location.href = `index_${lang}.html`;
+    }
+
+    // ຕັ້ງຄ່າ Option ໃຫ້ตรงกับໜ້າປະຈຸບັນອັດຕະໂນມັດ (ຖ້າຕ້ອງການ)
+    window.addEventListener('DOMContentLoaded', () => {
+        const path = window.location.pathname;
+        const select = document.querySelector('select');
+        if (select) {
+            if (path.includes('_lo.html')) select.value = 'lo';
+            else if (path.includes('_th.html')) select.value = 'th';
+            else if (path.includes('_vn.html')) select.value = 'vn';
+            else if (path.includes('_ch.html')) select.value = 'ch';
+            else if (path.includes('_kr.html')) select.value = 'kr';
+            else if (path.includes('_en.html') || path.endsWith('index.html')) select.value = 'en';
+        }
+    });
+</script>
     </header> 
 
     <!-- Main Content --> 
