@@ -1655,7 +1655,7 @@ function checkVideoDuration(file) {
 
 window.submitMemberReport = async () => { 
 
-    if (!currentRoomUser || currentRoomUser.includes('Admin') || currentRoomUser.includes('ຜູ້ສ້າງ')) { 
+    if (!currentRoomUser || currentRoomUser.includes('Admin') || currentRoomUser.includes('创作者')) { 
 
         alert('请先使用房间ID登录!'); 
 
@@ -1725,11 +1725,11 @@ window.submitMemberReport = async () => {
 
     }); 
 
-    if (submitted) return alert('⚠️ ຫ້ອງຂອງທ່ານສົ່ງບົດລາຍງານສຳລັບອາທິດນີ້ໄປແລ້ວ!'); 
+    if (submitted) return alert('⚠️ 您的房间本周已提交报告!'); 
 
  
 
-    statusText.innerText = `⏳ ກຳລັງອັບໂຫລດວິດີໂອສົດຂຶ້ນ Google Drive...`; 
+    statusText.innerText = `⏳ 正在上传实时视频 Google Drive...`; 
 
     try { 
 
@@ -1741,7 +1741,7 @@ window.submitMemberReport = async () => {
 
  
 
-        statusText.innerText = `⏳ ກຳລັງບັນທຶກບົດລາຍງານ...`; 
+        statusText.innerText = `⏳ 正在保存报告...`; 
 
         await addDoc(collection(db, "member_reports"), { 
 
@@ -1749,7 +1749,7 @@ window.submitMemberReport = async () => {
 
         }); 
 
-        alert('🎉 ສົ່ງບົດລາຍງານວິດີໂອສຳເລັດ!'); 
+        alert('🎉 视频报告提交成功!'); 
 
         document.getElementById('member-name').value = ''; 
 
@@ -1757,11 +1757,11 @@ window.submitMemberReport = async () => {
 
         fileInput.value = ''; 
 
-        statusText.innerText = '⚠️ ລະບົບກວດສອບຄວາມຍາວວິດີໂອຕ້ອງບໍ່ເກີນ 60 ວິນາທີ ແລະ ຈະອັບໂຫລດຂຶ້ນ Google Drive ອັດຕະໂນມັດ'; 
+        statusText.innerText = '⚠️ 系统要求视频时长不超过 60 秒，并會自动上传至 Google Drive'; 
 
         loadMemberReports(); loadFullScoreSummary(); 
 
-    } catch (e) { alert(e.message); statusText.innerText = '❌ ອັບໂຫລດບໍ່ສຳເລັດ'; } 
+    } catch (e) { alert(e.message); statusText.innerText = '❌ 上传失败'; } 
 
 }; 
 
@@ -1783,7 +1783,7 @@ async function loadMemberReports() {
 
         renderMemberReports(); 
 
-    } catch (e) { container.innerHTML = `<div class="text-center py-6 text-red-400">ຜິດພາດ: ${e.message}</div>`; } 
+    } catch (e) { container.innerHTML = `<div class="text-center py-6 text-red-400">错误: ${e.message}</div>`; } 
 
 } 
 
@@ -1815,7 +1815,7 @@ function renderMemberReports() {
 
     if (!container) return; 
 
-    if (allMemberReports.length === 0) { container.innerHTML = `<div class="text-center py-8 text-slate-500">ຍັງບໍ່ມີບົດລາຍງານ</div>`; return; } 
+    if (allMemberReports.length === 0) { container.innerHTML = `<div class="text-center py-8 text-slate-500">尚无报告</div>`; return; } 
 
     container.innerHTML = allMemberReports.map(rep => { 
 
@@ -1833,13 +1833,13 @@ function renderMemberReports() {
 
                 <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2"> 
 
-                    <span class="font-bold text-emerald-400">🏠 ຫ້ອງ: ${rep.room || ''} | 👤 ຜູ້ສົ່ງ: ${rep.name}</span> 
+                    <span class="font-bold text-emerald-400">🏠 房间: ${rep.room || ''} | 👤 发送者: ${rep.name}</span> 
 
                     <div class="flex items-center space-x-2"> 
 
                         <span class="px-2 py-0.5 rounded text-[10px] ${rep.approved ? 'bg-emerald-950 text-emerald-300' : 'bg-amber-950 text-amber-300'}"> 
 
-                            ${rep.approved ? '✅ ອະນຸມັດແລ້ວ' : '⏳ ລໍຖ້າ Admin ອະນຸມັດ'} 
+                            ${rep.approved ? '✅ 已批准' : '⏳等待管理员批准'} 
 
                         </span> 
 
@@ -1865,7 +1865,7 @@ function renderMemberReports() {
 
                                 <div class="relative group bg-slate-950 p-2 rounded-xl border border-slate-700 text-center space-y-2"> 
 
-                                    <span class="text-xs text-emerald-400 font-bold block">📷 ຮູບພາບການປະຕິບັດງານ</span> 
+                                    <span class="text-xs text-emerald-400 font-bold block">📷 活动照片</span> 
 
                                     <img src="${mediaUrl}" alt="Report Image" class="max-h-64 mx-auto rounded-lg object-contain cursor-pointer hover:opacity-95 transition" onclick="window.open('${mediaUrl}')"> 
 
@@ -1879,9 +1879,9 @@ function renderMemberReports() {
 
                                 <div class="relative group bg-slate-950 p-3 rounded-xl border border-slate-700 text-center space-y-2"> 
 
-                                    <span class="text-xs text-emerald-400 font-bold block">📁 ວິດີໂອບົນ Google Drive</span> 
+                                    <span class="text-xs text-emerald-400 font-bold block">📁 上方视频 Google Drive</span> 
 
-                                    <a href="${mediaUrl}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 ເປີດເບິ່ງວິດີໂອໃນ Google Drive</a> 
+                                    <a href="${mediaUrl}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 查看视频 Google Drive</a> 
 
                                 </div> 
 
@@ -1897,9 +1897,9 @@ function renderMemberReports() {
 
                     ${userRole === 'admin' ? ` 
 
-                        ${!rep.approved ? `<button onclick="approveMemberReport('${rep.id}')" class="text-xs bg-emerald-600 px-3 py-1.5 rounded-lg text-white font-medium">✅ ອະນຸມັດ</button>` : ''} 
+                        ${!rep.approved ? `<button onclick="approveMemberReport('${rep.id}')" class="text-xs bg-emerald-600 px-3 py-1.5 rounded-lg text-white font-medium">✅ 通过</button>` : ''} 
 
-                        ${isSuperAdmin() ? `<button onclick="deleteMemberReport('${rep.id}')" class="text-xs bg-red-950 px-3 py-1.5 rounded-lg text-red-300">ລົບລາຍງານ</button>` : ''} 
+                        ${isSuperAdmin() ? `<button onclick="deleteMemberReport('${rep.id}')" class="text-xs bg-red-950 px-3 py-1.5 rounded-lg text-red-300">删除报告</button>` : ''} 
 
                     ` : ''} 
 
@@ -1917,7 +1917,7 @@ function renderMemberReports() {
 
 window.approveMemberReport = async (reportId) => { 
 
-    if (userRole !== 'admin') { alert('⚠️ ສະເພາະ Admin ເທົ່ານັ້ນ!'); return; } 
+    if (userRole !== 'admin') { alert('⚠️ 仅限管理员!'); return; } 
 
     const report = allMemberReports.find(r => r.id === reportId); 
 
@@ -1931,7 +1931,7 @@ window.approveMemberReport = async (reportId) => {
 
         await addDoc(collection(db, "cyber_tasks"), { 
 
-            title: `${report.room || ''} - ໂດຍ: ${report.name}`, 
+            title: `${report.room || ''} - 通过: ${report.name}`, 
 
             description: report.description, 
 
@@ -1941,11 +1941,11 @@ window.approveMemberReport = async (reportId) => {
 
         }); 
 
-        alert('ອະນຸມັດສຳເລັດ!'); 
+        alert('审核通过!'); 
 
         loadMemberReports(); loadCyberTasks(); loadFullScoreSummary(); 
 
-    } catch (e) { alert('ຜິດພາດ: ' + e.message); } 
+    } catch (e) { alert('错误: ' + e.message); } 
 
 }; 
 
@@ -1953,9 +1953,9 @@ window.approveMemberReport = async (reportId) => {
 
 window.deleteMemberReport = async (id) => { 
 
-    if (!isSuperAdmin()) { alert('ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ!'); return; } 
+    if (!isSuperAdmin()) { alert('仅限网站开发者!'); return; } 
 
-    if (confirm('ລົບລາຍງານນີ້ແທ້ບໍ?')) { await deleteDoc(doc(db, "member_reports", id)); loadMemberReports(); loadFullScoreSummary(); } 
+    if (confirm('确定要删除此报告吗?')) { await deleteDoc(doc(db, "member_reports", id)); loadMemberReports(); loadFullScoreSummary(); } 
 
 }; 
 
@@ -1979,7 +1979,7 @@ async function loadCyberTasks() {
 
         renderCyberTasks(); 
 
-    } catch (e) { container.innerHTML = `<div class="text-center py-12 text-red-400">ຜິດພາດ: ${e.message}</div>`; } 
+    } catch (e) { container.innerHTML = `<div class="text-center py-12 text-red-400">错误: ${e.message}</div>`; } 
 
 } 
 
@@ -1991,7 +1991,7 @@ function renderCyberTasks() {
 
     if (!container) return; 
 
-    if (allCyberTasks.length === 0) { container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">ຍັງບໍ່ມີລາຍການ</div>`; return; } 
+    if (allCyberTasks.length === 0) { container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">暂无记录</div>`; return; } 
 
     container.innerHTML = allCyberTasks.map(task => { 
 
@@ -2017,7 +2017,7 @@ function renderCyberTasks() {
 
                             <h4 class="font-bold text-emerald-300 text-base">${task.title}</h4> 
 
-                            <p class="text-[11px] text-emerald-400/90 mt-0.5">📅 ວັນເວລາ: ${task.date || ''}</p> 
+                            <p class="text-[11px] text-emerald-400/90 mt-0.5">📅 时间: ${task.date || ''}</p> 
 
                             <p class="text-xs text-slate-300 mt-1">${task.description || ''}</p> 
 
@@ -2025,7 +2025,7 @@ function renderCyberTasks() {
 
                     </div> 
 
-                    ${userRole === 'admin' && isSuperAdmin() ? `<button onclick="deleteCyberTask('${task.id}')" class="text-xs bg-red-950 px-3 py-1 rounded-lg text-red-300">ລົບ</button>` : ''} 
+                    ${userRole === 'admin' && isSuperAdmin() ? `<button onclick="deleteCyberTask('${task.id}')" class="text-xs bg-red-950 px-3 py-1 rounded-lg text-red-300">删除</button>` : ''} 
 
                 </div> 
 
@@ -2043,7 +2043,7 @@ function renderCyberTasks() {
 
                                 <div class="relative group bg-slate-950 p-2 rounded-xl border border-slate-700 text-center space-y-2"> 
 
-                                    <span class="text-xs text-emerald-400 font-bold block">📷 ຮູບພາບການປະຕິບັດງານ</span> 
+                                    <span class="text-xs text-emerald-400 font-bold block">📷 操作图片</span> 
 
                                     <img src="${mediaUrl}" alt="Task Image" class="max-h-64 mx-auto rounded-lg object-contain cursor-pointer hover:opacity-95 transition" onclick="window.open('${mediaUrl}')"> 
 
@@ -2057,9 +2057,9 @@ function renderCyberTasks() {
 
                                 <div class="relative group bg-slate-950 p-3 rounded-xl border border-slate-700 text-center space-y-2"> 
 
-                                    <span class="text-xs text-emerald-400 font-bold block">📁 ວິດີໂອບົນ Google Drive</span> 
+                                    <span class="text-xs text-emerald-400 font-bold block">📁 上方视频 Google Drive</span> 
 
-                                    <a href="${mediaUrl}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 ເປີດເບິ່ງວິດີໂອໃນ Google Drive</a> 
+                                    <a href="${mediaUrl}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 查看视频 Google Drive</a> 
 
                                 </div> 
 
@@ -2081,7 +2081,7 @@ function renderCyberTasks() {
 
  
 
-window.openCyberModal = () => { if (!isSuperAdmin()) { alert('ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ!'); return; } document.getElementById('cyber-modal').classList.remove('hidden'); }; 
+window.openCyberModal = () => { if (!isSuperAdmin()) { alert('仅限网站开发者!'); return; } document.getElementById('cyber-modal').classList.remove('hidden'); }; 
 
 window.closeCyberModal = () => document.getElementById('cyber-modal').classList.add('hidden'); 
 
@@ -2097,15 +2097,15 @@ window.saveCyberTaskVideo = async () => {
 
     const files = document.getElementById('cyber-media-files').files; 
 
-    if (!title) return alert('ກະລຸນາໃສ່ຫົວຂໍ້'); 
+    if (!title) return alert('标题'); 
 
-    if (files.length === 0) return alert('ກະລຸນາເລືອກຮູບພາບ ຫຼື ວິດີໂອ'); 
+    if (files.length === 0) return alert('请选择图片或视频'); 
 
  
 
     const statusText = document.getElementById('upload-status'); 
 
-    statusText.innerText = `⏳ ກຳລັງປະມວນຜົນໄຟລ໌...`; 
+    statusText.innerText = `⏳ 正在上传中...`; 
 
     try { 
 
@@ -2119,11 +2119,11 @@ window.saveCyberTaskVideo = async () => {
 
         await addDoc(collection(db, "cyber_tasks"), { title, description, mediaItems, date: new Date().toLocaleString('lo-LA') }); 
 
-        alert('ເພີ່ມລາຍການສຳເລັດ!'); 
+        alert('添加成功!'); 
 
         closeCyberModal(); loadCyberTasks(); switchTab('cyber'); 
 
-    } catch (e) { alert(e.message); statusText.innerText = '❌ ອັບໂຫລດບໍ່ສຳເລັດ'; } 
+    } catch (e) { alert(e.message); statusText.innerText = '❌ 上传失败'; } 
 
 }; 
 
@@ -2133,7 +2133,7 @@ window.deleteCyberTask = async (id) => {
 
     if (!isSuperAdmin()) return; 
 
-    if (confirm('ລົບລາຍການນີ້ແທ້ບໍ?')) { await deleteDoc(doc(db, "cyber_tasks", id)); loadCyberTasks(); } 
+    if (confirm('确定要删除此项目吗?')) { await deleteDoc(doc(db, "cyber_tasks", id)); loadCyberTasks(); } 
 
 }; 
 
