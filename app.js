@@ -2177,7 +2177,7 @@ async function adminEmergencyScore() {
         console.error("Error updating emergency score: ", error);
         alert("ເກີດຂໍ້ຜິດພາດ: " + error.message);
     }
-}
+
 
 // 2. Super Admin: ກົດອະນຸມັດຄຳຂໍ
 async function approveScoreRequest(requestId, roomId, points) {
