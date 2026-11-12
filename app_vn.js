@@ -1,20 +1,20 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getAuth, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-const firebaseConfig = { 
-    apiKey: "AIzaSyCiD4zPW-iNzSM6iMP8A4EmaxHInxB0Z9k", 
-    authDomain: "defense-news-app-2143d.firebaseapp.com", 
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCiD4pW-iNZsM6iMP8A4EmaxHinxB0Z9k",
+    authDomain: "defense-news-app-2143d.firebaseapp.com",
     projectId: "defense-news-app-2143d",
-    storageBucket: "defense-news-app-2143d.appspot.com", 
-    messagingSenderId: "55873751006", 
-    appId: "1:55873751006:web:b7e9b971ae94a1f5d93f4f", 
-    measurementId: "G-YYM4JLS1L2" 
-}; 
+    storageBucket: "defense-news-app-2143d.appspot.com",
+    messagingSenderId: "55873751006",
+    appId: "1:55873751006:web:h7e9b971ae94a1f5d93f4f",
+    measurementId: "G-YYM4JLS1L2"
+};
 
-
-const app = firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 const DRIVE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzExA_T2J2SpmD1fykUwV4ZK1oPuGSrpbsUMiLifVdROjL9Uocq3MBAtR3TnYjcFOkj/exec"; 
 
