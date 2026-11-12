@@ -502,7 +502,7 @@ document.querySelectorAll('.mole-hole').forEach(hole => {
             this.className = 'mole-hole whacked';
             const config = getMoleConfig(moleLevel);
             document.getElementById('mole-score').innerText = `${moleScore}/${config.targetScore}`;
-            alert('💥 ຖືກລະເບີດ! ເສຍ 2 ຄະແນນ');
+            alert(t('msg_hit_bomb'));
         }
     });
 });
