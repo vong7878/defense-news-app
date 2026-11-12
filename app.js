@@ -2232,4 +2232,3 @@ window.adminEmergencyScore = async function() {
         alert("ເກີດຂໍ້ຜິດພາດ: " + error.message);
     }
 };
-
