@@ -285,6 +285,27 @@
     <span class="text-amber-400 font-bold text-xs bg-slate-800 px-3 py-2 rounded-xl group-hover:bg-amber-500 group-hover:text-slate-950 transition-all" data-i18n="play_now">ເຂົ້າຫຼິ້ນ ➔</span>
 </a>
 
+                <div class="bg-slate-800 p-4 rounded-xl mt-4 border border-slate-700">
+    <h3 class="text-white font-semibold mb-2">🚨 ຈັດການຄະແນນສຸກເສີນ/ພິເສດ (Admin)</h3>
+    <div class="space-y-2">
+        <select id="admin-room-select" class="w-full bg-slate-900 text-white p-2 rounded border border-slate-700">
+            <option value="104">ຫ້ອງ 104</option>
+            <option value="105">ຫ້ອງ 105</option>
+            <option value="108">ຫ້ອງ 108</option>
+            <option value="109">ຫ້ອງ 109</option>
+            <option value="110">ຫ້ອງ 110</option>
+            <option value="111">ຫ້ອງ 111</option>
+            <option value="112">ຫ້ອງ 112</option>
+            <option value="113">ຫ້ອງ 113</option>
+            <option value="114">ຫ້ອງ 114</option>
+        </select>
+        <input type="number" id="admin-score-input" placeholder="ໃສ່ຈຳນວນຄະແນນ (+ ຫຼື -)" class="w-full bg-slate-900 text-white p-2 rounded border border-slate-700">
+        <button onclick="adminEmergencyScore()" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded transition">
+            ⚡ ຢືນຢັນໃຫ້ຄະແນນດ່ວນ
+        </button>
+    </div>
+</div>
+
                    <li id="tab-admin-chat-li" class="hidden pt-2 border-t border-slate-700"> 
     <button onclick="switchTab('admin-chat')" id="tab-admin-chat-btn" class="w-full text-left px-3.5 py-3 rounded-xl transition duration-200 flex items-center space-x-2 text-sky-300 font-bold bg-sky-600/30 border border-sky-500/60 shadow-lg"> 
         <span>💬</span> <span data-i18n="admin_chat_btn">ແຊັດລົມວຽກ Admin (4 ຄົນ)</span> 
