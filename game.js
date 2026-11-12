@@ -31,6 +31,28 @@ function detectLanguageFromFileName() {
     
     return 'lo'; // ຖ້າບໍ່ພົບຊື່ ໃຫ້ໃຊ້ພາສາລາວເປັນຄ່າເລີ່ມຕົ້ນ
 }
+// 🔄 ຟັງຊັນອັບເດດ UI ຂອງທຸກໆເກມ (ດ່ານ, ຄວາມຍາກ ຯລຯ)
+function updateAllGameUI() {
+    // 🐍 Snake UI
+    const snakeBadge = document.getElementById('snake-level-badge');
+    if (snakeBadge) snakeBadge.innerText = `${t('stage')} ${snakeLevel}/15`;
+    
+    const snakeSpeed = document.getElementById('snake-speed');
+    if (snakeSpeed) {
+        let diffText = t('easy');
+        if (snakeLevel > 5) diffText = t('medium');
+        if (snakeLevel > 10) diffText = t('hard');
+        snakeSpeed.innerText = diffText;
+    }
+
+    // 🍓 Match UI
+    const matchBadge = document.getElementById('match-level-badge');
+    if (matchBadge) matchBadge.innerText = `${t('stage')} ${matchLevel}/15`;
+
+    // 🐹 Mole UI
+    const moleBadge = document.getElementById('mole-level-badge');
+    if (moleBadge) moleBadge.innerText = `${t('stage')} ${moleLevel}/15`;
+}
 
 // 🌐 2. ຟັງຊັນປ່ຽນພາສາ ແລະ ອັບເດດ UI ທັງໝົດ
 function changeLanguage(lang) {
