@@ -777,12 +777,11 @@
             </div> 
         </div> 
     </div> 
-
- <!-- 1. โหลดไฟล์แปลภาษาก่อน -->
+<!-- 1. โหลดไฟล์แปลภาษาแบบธรรมดาก่อน -->
 <script src="translations2.js"></script>
 
-
-    <!-- 🔗 เชื่อมต่อกับไฟล์ JavaScript (app.js) --> 
+<!-- 2. โหลดไฟล์หลักทีหลัง (โหลดแค่บรรทัดเดียว ไม่ต้องใส่ type="module" ซ้ำซ้อน) -->
+<script src="app_vn.js"></script>
     <script type="module" src="app_th.js"></script> 
 </body> 
 </html>
