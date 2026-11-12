@@ -690,13 +690,25 @@ function updateLiveClock() {
 }
 function formatRoomName(rawRoom, lang) {
     if (!rawRoom) return "";
-    // ດึงເອົາສະເພາະຕົວເລກຫ້ອງ (ເຊັ່ນ "110" ຈາກ "ຫ້ອງ 110")
+    // ດຶງສະເພາະຕົວເລກຫ້ອງອອກມາ (ເຊັ່ນ "110" ຈາກ "ຫ້ອງ 110")
     const match = rawRoom.toString().match(/\d+/);
     const roomNum = match ? match[0] : rawRoom;
     
     if (roomNum) {
-        // ດຶງคำว่า "Room / Phòng / ຫ້ອງ" ຈາກ dictionary ຕາມພາສາທີ່ສົ່ງເຂົ້າມາ
-        const roomPrefix = (translations[lang] && translations[lang].room) || translations['la'].room || "ຫ້ອງ";
+        // ตรวจสอบภาษาปัจจุบัน (ถ้าไม่มีให้ใช้ 'la' เป็นค่าเริ่มต้น)
+        const currentLanguage = lang || (typeof currentLang !== 'undefined' ? currentLang : 'la');
+        
+        // กำหนดคำว่า "ห้อง" ในแต่ละภาษาโดยตรง เพื่อความแม่นยำสูงสุด
+        const roomPrefixes = {
+            la: "ຫ້ອງ",
+            vn: "Phòng",
+            en: "Room",
+            th: "ห้อง",
+            ch: "房间",
+            kr: "방"
+        };
+        
+        const roomPrefix = roomPrefixes[currentLanguage] || roomPrefixes['la'] || "ຫ້ອງ";
         return `${roomPrefix} ${roomNum}`;
     }
     return rawRoom;
