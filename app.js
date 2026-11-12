@@ -2186,7 +2186,34 @@ async function adminEmergencyScore() {
         alert("ເກີດຂໍ້ຜິດພາດ: " + error.message);
     }
 }
+// 2. Super Admin: ກົດອະນຸມັດຄຳຂໍ
+async function approveScoreRequest(requestId, roomId, points) {
+    try {
+        // ກ. ບວກຄະແນນຕົວຈິງໃຫ້ຫ້ອງນັ້ນໆໃນ Collection 'rooms'
+        const roomRef = doc(db, "rooms", roomId);
+        await updateDoc(roomRef, {
+            score: increment(points),
+            lastUpdated: new Date().toISOString()
+        });
 
+        // ຂ. ປ່ຽນສະຖານະຄຳຂໍໃນ 'scoreRequests' ເປັນ 'approved'
+        const reqRef = doc(db, "scoreRequests", requestId);
+        await updateDoc(reqRef, {
+            status: "approved",
+            approvedAt: new Date().toISOString(),
+            approvedBy: auth.currentUser ? auth.currentUser.email : "Super Admin"
+        });
+
+        alert(`ອະນຸມັດ ແລະ ບວກຄະແນນໃຫ້ຫ້ອງ ${roomId} (${points} ຄະແນນ) ສสำเร็จແລ້ວ!`);
+        
+        // ໂຫຼດລາຍການຄຳຂໍໃໝ່
+        loadPendingRequests();
+
+    } catch (error) {
+        console.error("Error approving request: ", error);
+        alert("ເກີດຂໍ້ຜິດພາດ: " + error.message);
+    }
+}
 
 
 
