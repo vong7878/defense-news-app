@@ -428,8 +428,8 @@ function initMatchGame() {
 
     document.getElementById('match-level-badge').innerText = `${t('stage')} ${matchLevel}/15`;
     
-    movesLeft = config.maxMoves;
-   document.getElementById('match-moves-left').innerText = movesleft === 999 ? t('unlimited') : movesleft;
+   movesLeft = config.maxMoves;
+  document.getElementById('match-moves-left').innerText = movesLeft === 999 ? t('unlimited') : movesLeft;
     document.getElementById('match-pairs').innerText = config.pairCount;
 
     const selectedFruits = allFruits.slice(0, config.pairCount);
