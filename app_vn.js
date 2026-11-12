@@ -965,10 +965,7 @@ async function loadFullScoreSummary() {
                 const percent = highestPoint > 0 ? Math.round((pts / highestPoint) * 100) : 0; 
                 return ` 
                     <div class="space-y-1 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60 animate-fade-in"> 
-                        <div class="flex justify-between items-center text-xs font-semibold"> 
-                            <span class="text-slate-200">🏠 ${room}</span> 
-                            <span class="text-amber-400 font-bold">${pts} Điểm (${percent}%)</span> 
-                        </div> 
+                        <span class="text-slate-200">🏠 ${typeof formatRoomName === 'function' ? formatRoomName(room, currentLang) : room}</span>
                         <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden border border-slate-700"> 
                             <div class="bg-gradient-to-r from-emerald-500 to-amber-400 h-3 rounded-full transition-all duration-500" style="width: ${percent}%"></div> 
                         </div> 
