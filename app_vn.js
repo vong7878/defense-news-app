@@ -5,7 +5,7 @@ import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, g
 const firebaseConfig = { 
     apiKey: "AIzaSyCiD4zPW-iNzSM6iMP8A4EmaxHInxB0Z9k", 
     authDomain: "defense-news-app-2143d.firebaseapp.com", 
-    projectId: "defense-news-app-2143d", 
+    projectId: "defense-news-app-2143d",
     storageBucket: "defense-news-app-2143d.appspot.com", 
     messagingSenderId: "55873751006", 
     appId: "1:55873751006:web:b7e9b971ae94a1f5d93f4f", 
@@ -537,7 +537,7 @@ function updateLiveClock() {
     const clockElement = document.getElementById('live-clock'); 
     if (!clockElement) return; 
     const now = new Date(); 
-    clockElement.innerText = now.toLocaleDateString('lo-LA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }); 
+    clockElement.innerText = now.toLocaleDateString('vi-VN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }); 
 } 
 
 
