@@ -500,7 +500,7 @@ document.querySelectorAll('.mole-hole').forEach(hole => {
     hole.innerHTML = '💥';
     hole.classList.remove('has-bomb');
     document.getElementById('mole-score').innerText = `${moleScore}/${config.targetScore}`;
-    alert(t('msg_hit_bomb')); // 👈 ຕ້ອງມີວົງເລັບປິດແບບนี้ ແລະ ບໍ່ມີເຄື່ອງໝາຍ ...
+    alert(t('msg_hit_bomb'));
 }
     });
 });
