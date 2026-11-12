@@ -538,7 +538,7 @@ function updateLiveClock() {
     const clockElement = document.getElementById('live-clock'); 
     if (!clockElement) return; 
     const now = new Date(); 
-    clockElement.innerText = now.toLocaleDateString('lo-LA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }); 
+    clockElement.innerText = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }); 
 } 
 
 
