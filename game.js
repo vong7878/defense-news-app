@@ -495,15 +495,13 @@ document.querySelectorAll('.mole-hole').forEach(hole => {
             this.className = 'mole-hole whacked';
             const config = getMoleConfig(moleLevel);
             document.getElementById('mole-score').innerText = `${moleScore}/${config.targetScore}`;
-      } else if (hole.classList.contains('has-bomb')) {
-    alert(t('msg_hit_bomb')); // 👈 ປ່ຽນ
+    } else if (hole.classList.contains('has-bomb')) {
+    moleScore = Math.max(0, moleScore - 2);
+    hole.innerHTML = '💥';
+    hole.classList.remove('has-bomb');
+    document.getElementById('mole-score').innerText = `${moleScore}/${config.targetScore}`;
+    alert(t('msg_hit_bomb')); // 👈 ຕ້ອງມີວົງເລັບປິດແບບนี้ ແລະ ບໍ່ມີເຄື່ອງໝາຍ ...
 }
-            moleScore = Math.max(0, moleScore - 2);
-            this.className = 'mole-hole whacked';
-            const config = getMoleConfig(moleLevel);
-            document.getElementById('mole-score').innerText = `${moleScore}/${config.targetScore}`;
-            alert(t('msg_hit_bomb'));
-        }
     });
 });
 
