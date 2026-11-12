@@ -688,3 +688,12 @@ function updateLiveClock() {
         hour12: false 
     }); 
 }
+// 🏠 ຟັງຊັນແປງຊື່ຫ້ອງຕາມພາສາປັດຈຸບັນ (ຈາກ "ຫ້ອງ 111" -> "Phòng 111" / "Room 111")
+function formatRoomName(rawRoom) {
+    if (!rawRoom) return "";
+    const roomNum = rawRoom.replace(/[^0-9]/g, '');
+    if (roomNum) {
+        return `${t('room')} ${roomNum}`;
+    }
+    return rawRoom;
+}
