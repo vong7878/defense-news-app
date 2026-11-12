@@ -2178,14 +2178,7 @@ async function adminEmergencyScore() {
         alert("ເກີດຂໍ້ຜິດພາດ: " + error.message);
     }
 }
-        // ລ້າງຊ່ອງປ້ອນຂໍ້ມູນຫຼັງບັນທຶກສຳເລັດ
-        document.getElementById('admin-score-input').value = '';
-        
-    } catch (error) {
-        console.error("Error updating emergency score: ", error);
-        alert("ເກີດຂໍ້ຜິດພາດ: " + error.message);
-    }
-}
+
 // 2. Super Admin: ກົດອະນຸມັດຄຳຂໍ
 async function approveScoreRequest(requestId, roomId, points) {
     try {
