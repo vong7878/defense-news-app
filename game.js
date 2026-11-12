@@ -18,7 +18,66 @@ function switchGame(gameType) {
         initMatchGame();
     }
 }
+// 🌐 1. ຟັງຊັນກວດສອບຊື່ໄຟລ໌ HTML ແລ້ວສົ່ງຄ່າພາສາອອກມາອັດຕະໂນມັດ
+function detectLanguageFromFileName() {
+    const path = window.location.pathname.toLowerCase(); // ດຶງ URL Path ປັດຈຸບັນ
+    
+    if (path.includes('game_th')) return 'th';     // ໄທ
+    if (path.includes('game_vn')) return 'vi';     // ຫວຽດນາມ
+    if (path.includes('game_ch')) return 'zh';     // ຈີນ
+    if (path.includes('game_en')) return 'en';     // ອັງກິດ
+    if (path.includes('game_kr')) return 'ko';     // ເກົາຫຼີ
+    if (path.includes('game_lo')) return 'lo';     // ລາວ (Default)
+    
+    return 'lo'; // ຖ້າບໍ່ພົບຊື່ ໃຫ້ໃຊ້ພາສາລາວເປັນຄ່າເລີ່ມຕົ້ນ
+}
 
+// 🌐 2. ຟັງຊັນປ່ຽນພາສາ ແລະ ອັບເດດ UI ທັງໝົດ
+function changeLanguage(lang) {
+    // ບັນທຶກພາສາລົງ LocalStorage
+    localStorage.setItem('selected_lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+
+    // 1. ແປຂໍ້ຄວາມ HTML ທັງໝົດທີ່ມີ data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const text = t(key);
+        if (text) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = text;
+            } else {
+                el.textContent = text;
+            }
+        }
+    });
+
+    // 2. ⚡ [ອັດຕະໂນມັດ] ຕັ້ງຄ່າ Dropdown (Select) ໃຫ້ເລືອກກົງກັບໄຟລ໌ທີ່ກຳລັງເປີດຢູ່
+    const langSwitcher = document.getElementById('langSwitcher');
+    if (langSwitcher) {
+        langSwitcher.value = lang;
+    }
+
+    // 3. ອັບເດດ UI ພາຍໃນເກມ (ດ່ານ, ປຸ່ມ, ຯລຯ)
+    updateAllGameUI();
+}
+
+// 🚀 3. ຕອນໂຫຼດໜ້າເວັບ (DOMContentLoaded) - ລະບົບເຮັດວຽກອັດຕະໂນມັດທັນທີ!
+document.addEventListener('DOMContentLoaded', () => {
+    // ກວດສອບຊື່ໄຟລ໌ HTML ປັດຈຸບັນ
+    const autoLang = detectLanguageFromFileName();
+    
+    // ບັນທຶກ ແລະ ເອີ້ນໃຊ້ຟັງຊັນປ່ຽນພາສາທັນທີ
+    localStorage.setItem('selected_lang', autoLang);
+    changeLanguage(autoLang);
+
+    // ໂຫຼດຂໍ້ມູນດ່ານທີ່ເຄີຍບັນທຶກໄວ້ (Save Progress)
+    loadGameProgress();
+
+    // ເອີ້ນໂຫຼດເກມເລີ່ມຕົ້ນ
+    if (typeof initSnakeLevel === 'function') {
+        initSnakeLevel();
+    }
+});
 // --------------------------------------------------
 // 🐍 1. LOGIC ເກມງູກິນຂຽດ (15 ດ່ານ)
 // --------------------------------------------------
