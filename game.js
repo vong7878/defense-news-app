@@ -357,14 +357,14 @@ document.getElementById('snake-level-badge').innerText = `${t('stage')} ${snakeL
         const hitSelf = snake.some(p => p.x === head.x && p.y === head.y);
         const hitObs = obstacles.some(o => o.x === head.x && o.y === head.y);
 
-       if (hitWall || hitSelf || hitObs) {
-    clearInterval(gameInterval);
-    isSnakePlaying = false;
-    alert(`${t('msg_game_over')} ${snakeLevel}`); // 👈 ປ່ຽນມາໃຊ້ t('msg_game_over')
-    const startBtn = document.getElementById('snake-start-btn');
-    if (startBtn) startBtn.innerText = t('btn_restart');
-    return;
-}
+      if (hitWall || hitSelf || hitObs) {
+        clearInterval(gameInterval);
+        isPlaying = false; // ✅ ປ່ຽນມາໃຊ້ isPlaying ໃຫ້ຖືກຕ້ອງ
+        alert(`${t('msg_game_over')} ${snakeLevel}`); 
+        const startBtn = document.getElementById('snake-start-btn');
+        if (startBtn) startBtn.innerText = t('btn_restart');
+        return;
+   }
 
         snake.unshift(head);
 
