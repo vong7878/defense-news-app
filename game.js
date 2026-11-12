@@ -377,8 +377,9 @@ document.getElementById('snake-level-badge').innerText = `${t('stage')} ${snakeL
             if (eatenInLevel >= config.target) {
                 clearInterval(gameInterval);
                 isPlaying = false;
+                  alert(`${t('msg_pass_stage')} ${snakeLevel}!`);
              if (snakeLevel < 15) {
-    alert(`${t('msg_pass_stage')} ${snakeLevel}!`); // 👈 ປ່ຽນ
+  
     snakeLevel++;
     saveGameProgress();
     initSnakeLevel();
