@@ -148,13 +148,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const hitSelf = snake.some(p => p.x === head.x && p.y === head.y);
         const hitObs = obstacles.some(o => o.x === head.x && o.y === head.y);
 
-        if (hitWall || hitSelf || hitObs) {
-            clearInterval(gameInterval);
-            isPlaying = false;
-            alert(`😢 ຕົກດ່ານ! ທ່ານເສຍໃນດ່ານ ${snakeLevel}`);
-            document.getElementById('snake-start-btn').innerText = "🎮 ຫຼິ້ນດ່ານນີ້ໃໝ່";
-            return;
-        }
+       if (hitWall || hitSelf || hitObs) {
+    clearInterval(gameInterval);
+    isSnakePlaying = false;
+    alert(`${t('msg_game_over')} ${snakeLevel}`); // 👈 ປ່ຽນມາໃຊ້ t('msg_game_over')
+    const startBtn = document.getElementById('snake-start-btn');
+    if (startBtn) startBtn.innerText = t('btn_restart');
+    return;
+}
 
         snake.unshift(head);
 
@@ -167,16 +168,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (eatenInLevel >= config.target) {
                 clearInterval(gameInterval);
                 isPlaying = false;
-                if (snakeLevel < 15) {
-                    alert(`🎉 ສຸດຍອດ! ທ່ານຜ່ານດ່ານ ${snakeLevel} ແລ້ວ! ໄປດ່ານຕໍ່ໄປ...`);
-                    snakeLevel++;
-                    initSnakeLevel();
-                    document.getElementById('snake-start-btn').innerText = `🚀 ເລີ່ມດ່ານ ${snakeLevel}`;
-                } else {
-                    alert(`🏆 ຍິນດີດ້ວຍ! ທ່ານພິຊິດຄົບທັງ 15 ດ່ານຂອງເກມງູກິນຂຽດແລ້ວ!`);
-                    snakeLevel = 1;
-                    initSnakeLevel();
-                }
+             if (snakeLevel < 15) {
+    alert(`${t('msg_pass_stage')} ${snakeLevel}!`); // 👈 ປ່ຽນ
+    snakeLevel++;
+    saveGameProgress();
+    initSnakeLevel();
+} else {
+    alert(t('msg_win_game')); // 👈 ປ່ຽນ
+    snakeLevel = 1;
+    saveGameProgress();
+    initSnakeLevel();
+}
                 return;
             }
             spawnFrog();
@@ -335,28 +337,30 @@ function checkFruitMatch() {
         flippedCards = [];
 
         // ຜ່ານດ່ານ!
-        if (matchedPairs === config.pairCount) {
-            setTimeout(() => {
-                if (matchLevel < 15) {
-                    alert(`🎉 ສຸດຍອດ! ທ່ານຜ່ານດ່ານ ${matchLevel} ແລ້ວ! ໄປດ່ານຕໍ່ໄປ...`);
-                    matchLevel++;
-                    initMatchGame();
-                } else {
-                    alert(`🏆 ຍິນດີດ້ວຍ! ທ່ານພິຊິດຄົບ 15 ດ່ານ ເກມຈັບຄູ່ໝາກໄມ້ແລ້ວ!`);
-                    matchLevel = 1;
-                    initMatchGame();
-                }
-            }, 300);
+       if (matchedPairs === config.pairCount) {
+    setTimeout(() => {
+        if (matchLevel < 15) {
+            alert(`${t('msg_pass_stage')} ${matchLevel}!`); // 👈 ປ່ຽນ
+            matchLevel++;
+            saveGameProgress();
+            initMatchGame();
+        } else {
+            alert(t('msg_win_game')); // 👈 ປ່ຽນ
+            matchLevel = 1;
+            saveGameProgress();
+            initMatchGame();
         }
+    }, 300);
+}
     } else {
         // ຖ້າກົດຄົບໂຄຕ້າແລ້ວຍັງບໍ່ຜ່ານ = ຕົກດ່ານ
-        if (movesLeft <= 0 && config.maxMoves !== 999) {
-            setTimeout(() => {
-                alert(`😢 ໂຄຕ້າກົດໝົດແລ້ວ! ທ່ານຕົກດ່ານ ${matchLevel}`);
-                initMatchGame();
-            }, 400);
-            return;
-        }
+      if (movesLeft <= 0 && config.maxMoves !== 999) {
+    setTimeout(() => {
+        alert(`${t('msg_out_moves')} ${matchLevel}`); // 👈 ປ່ຽນ
+        initMatchGame();
+    }, 400);
+    return;
+}
 
         isMatchLocked = true;
         setTimeout(() => {
@@ -469,7 +473,10 @@ document.querySelectorAll('.mole-hole').forEach(hole => {
             this.className = 'mole-hole whacked';
             const config = getMoleConfig(moleLevel);
             document.getElementById('mole-score').innerText = `${moleScore}/${config.targetScore}`;
-        } else if (this.classList.contains('has-bomb')) {
+      } else if (hole.classList.contains('has-bomb')) {
+    ...
+    alert(t('msg_hit_bomb')); // 👈 ປ່ຽນ
+}
             moleScore = Math.max(0, moleScore - 2);
             this.className = 'mole-hole whacked';
             const config = getMoleConfig(moleLevel);
@@ -501,20 +508,22 @@ document.getElementById('mole-start-btn')?.addEventListener('click', () => {
             isMolePlaying = false;
             clearHoles();
 
-            if (moleScore >= config.targetScore) {
-                if (moleLevel < 15) {
-                    alert(`🎉 ສຸດຍອດ! ທ່ານຜ່ານດ່ານ ${moleLevel} ແລ້ວ (ໄດ້ ${moleScore} ໂຕ)!`);
-                    moleLevel++;
-                    initMoleGame();
-                } else {
-                    alert(`🏆 ຍິນດີດ້ວຍ! ທ່ານພິຊິດຄົບ 15 ດ່ານ ເກມຕີຕຸ່ນແລ້ວ!`);
-                    moleLevel = 1;
-                    initMoleGame();
-                }
-            } else {
-                alert(`😢 ຕົກດ່ານ ${moleLevel}! ໄດ້ພຽງ ${moleScore}/${config.targetScore} ໂຕ`);
-                initMoleGame();
-            }
+           if (moleScore >= config.targetScore) {
+    if (moleLevel < 15) {
+        alert(`${t('msg_pass_stage')} ${moleLevel}!`); // 👈 ປ່ຽນ
+        moleLevel++;
+        saveGameProgress();
+        initMoleGame();
+    } else {
+        alert(t('msg_win_game')); // 👈 ປ່ຽນ
+        moleLevel = 1;
+        saveGameProgress();
+        initMoleGame();
+    }
+} else {
+    alert(`${t('msg_game_over')} ${moleLevel}`); // 👈 ປ່ຽນ
+    initMoleGame();
+}
         }
     }, 1000);
 });
