@@ -1204,7 +1204,7 @@ async function loadFullScoreboard() {
 
         }).join(''); 
 
-    } catch (err) { container.innerHTML = `<div class="text-center py-12 text-red-400 col-span-full">ຜິດພາດ: ${err.message}</div>`; } 
+    } catch (err) { container.innerHTML = `<div class="text-center py-12 text-red-400 col-span-full">错误: ${err.message}</div>`; } 
 
 } 
 
@@ -1312,7 +1312,7 @@ function renderNews(newsList) {
 
     if (!container) return; 
 
-    if (newsList.length === 0) { container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">ຍັງບໍ່ມີຂ່າວສານ</div>`; return; } 
+    if (newsList.length === 0) { container.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-800/85 rounded-2xl border border-slate-700">暂无消息</div>`; return; } 
 
     container.innerHTML = newsList.map(item => { 
 
@@ -1328,7 +1328,7 @@ function renderNews(newsList) {
 
                     <span class="text-xs px-3 py-1 rounded-full font-medium ${item.category === 'notice' ? 'bg-red-950 text-red-300 border border-red-800' : 'bg-emerald-950 text-emerald-300 border border-emerald-800'}"> 
 
-                        ${item.category === 'notice' ? '📢 ແຈ້ງການດ່ວນ' : '🎖️ ພາວະກິດ/ກິດຈະກຳ'} 
+                        ${item.category === 'notice' ? '📢 紧急公告' : '🎖️ 事务/动态'} 
 
                     </span> 
 
@@ -1348,11 +1348,11 @@ function renderNews(newsList) {
 
                         <button onclick="toggleLike('${item.id}')" class="text-xs px-3.5 py-1.5 rounded-xl border transition flex items-center space-x-1.5 ${hasLiked ? 'bg-pink-600/30 text-pink-400 border-pink-500/50' : 'bg-slate-900/60 text-slate-300 border-slate-700'}"> 
 
-                            <span>${hasLiked ? '❤️' : '🤍'}</span> <span>${hasLiked ? 'ຖືກໃຈແນວ' : 'ຖືກໃຈ'} (${likes.length})</span> 
+                            <span>${hasLiked ? '❤️' : '🤍'}</span> <span>${hasLiked ? '已赞' : '赞'} (${likes.length})</span> 
 
                         </button> 
 
-                        <button onclick="handleShare('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.content.replace(/'/g, "\\'").replace(/\n/g, ' ').substring(0, 100)}...')" class="text-xs bg-emerald-900/60 text-emerald-300 px-3.5 py-1.5 rounded-xl border border-emerald-700/60 transition flex items-center space-x-1"><span>🔗</span> <span>ແຊ</span></button> 
+                        <button onclick="handleShare('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.content.replace(/'/g, "\\'").replace(/\n/g, ' ').substring(0, 100)}...')" class="text-xs bg-emerald-900/60 text-emerald-300 px-3.5 py-1.5 rounded-xl border border-emerald-700/60 transition flex items-center space-x-1"><span>🔗</span> <span>转发</span></button> 
 
                     </div> 
 
@@ -1360,9 +1360,9 @@ function renderNews(newsList) {
 
                         <div class="flex space-x-2"> 
 
-                            <button onclick="openEditNewsModal('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.category}', '${item.content.replace(/'/g, "\\'").replace(/\n/g, '\\n')}')" class="text-xs bg-amber-600 px-3 py-1.5 rounded-lg text-white">ແກ້ໄຂ</button> 
+                            <button onclick="openEditNewsModal('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.category}', '${item.content.replace(/'/g, "\\'").replace(/\n/g, '\\n')}')" class="text-xs bg-amber-600 px-3 py-1.5 rounded-lg text-white">编辑</button> 
 
-                            <button onclick="deleteNewsItem('${item.id}')" class="text-xs bg-red-950 px-3 py-1.5 rounded-lg text-red-300">ລົບ</button> 
+                            <button onclick="deleteNewsItem('${item.id}')" class="text-xs bg-red-950 px-3 py-1.5 rounded-lg text-red-300">删除</button> 
 
                         </div> 
 
@@ -1382,7 +1382,7 @@ function renderNews(newsList) {
 
 window.toggleLike = async (newsId) => { 
 
-    if (!currentRoomUser) { alert('ກະລຸນາເລືອກຫ້ອງພັກກ່ອນ!'); document.getElementById('room-login-modal').classList.remove('hidden'); return; } 
+    if (!currentRoomUser) { alert('请先选择宿舍房间!'); document.getElementById('room-login-modal').classList.remove('hidden'); return; } 
 
     const newsRef = doc(db, "news", newsId); 
 
@@ -1392,7 +1392,7 @@ window.toggleLike = async (newsId) => {
 
             const docSnap = await transaction.get(newsRef); 
 
-            if (!docSnap.exists()) throw "ບໍ່ພົບຂ່າວສານ!"; 
+            if (!docSnap.exists()) throw "未找到公告!"; 
 
             let likes = docSnap.data().likes || []; 
 
@@ -1406,7 +1406,7 @@ window.toggleLike = async (newsId) => {
 
         loadNews(); 
 
-    } catch (e) { alert('ຜິດພາດ: ' + e); } 
+    } catch (e) { alert('错误: ' + e); } 
 
 }; 
 
@@ -1447,7 +1447,7 @@ window.shareToPlatform = (platform) => {
 
     else if (platform === 'copy') { 
 
-        navigator.clipboard.writeText(`${currentShareData.title}\n${currentShareData.url}`).then(() => { alert('ກ໊ອບປີ້ລິ້ງສຳເລັດ!'); closeShareModal(); }); 
+        navigator.clipboard.writeText(`${currentShareData.title}\n${currentShareData.url}`).then(() => { alert('复制链接成功!'); closeShareModal(); }); 
 
     } 
 
@@ -1455,13 +1455,13 @@ window.shareToPlatform = (platform) => {
 
  
 
-window.openNewsModal = () => { if (!isSuperAdmin()) { alert('ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ!'); return; } document.getElementById('news-modal').classList.remove('hidden'); }; 
+window.openNewsModal = () => { if (!isSuperAdmin()) { alert('仅限开发者!'); return; } document.getElementById('news-modal').classList.remove('hidden'); }; 
 
 window.closeNewsModal = () => document.getElementById('news-modal').classList.add('hidden'); 
 
 window.openEditNewsModal = (id, title, category, content) => { 
 
-    if (!isSuperAdmin()) { alert('ສະເພາະຜູ້ສ້າງເວັບໄຊເທົ່ານັ້ນ!'); return; } 
+    if (!isSuperAdmin()) { alert('仅限开发者!'); return; } 
 
     document.getElementById('edit-news-id').value = id; 
 
@@ -1489,11 +1489,11 @@ window.saveNews = async () => {
 
     const content = document.getElementById('news-content').value; 
 
-    if (!title || !content) return alert('ກະລຸນາຕື່ມຂໍ້ມູນໃຫ້ຄົບ'); 
+    if (!title || !content) return alert('请填写完整信息'); 
 
     await addDoc(collection(db, "news"), { title, category, content, date: new Date().toLocaleString('lo-LA'), likes: [] }); 
 
-    alert('ເພີ່ມຂ່າວສຳເລັດ!'); closeNewsModal(); loadNews(); 
+    alert('发布新闻成功!'); closeNewsModal(); loadNews(); 
 
 }; 
 
@@ -1511,11 +1511,11 @@ window.updateNews = async () => {
 
     const content = document.getElementById('edit-news-content').value; 
 
-    if (!title || !content) return alert('ກະລຸນາຕື່ມຂໍ້ມູນໃຫ້ຄົບ'); 
+    if (!title || !content) return alert('请填写完整信息'); 
 
     await updateDoc(doc(db, "news", id), { title, category, content }); 
 
-    alert('ແກ້ໄຂຂ່າວສຳເລັດ!'); closeEditNewsModal(); loadNews(); 
+    alert('修改新闻成功!'); closeEditNewsModal(); loadNews(); 
 
 }; 
 
@@ -1523,7 +1523,7 @@ window.updateNews = async () => {
 
 window.deleteNewsItem = async (id) => { 
     if (!isSuperAdmin()) return; 
-    if (confirm('ລົບຂ່າວນີ້ແທ້ບໍ?')) { 
+    if (confirm('确认删除此消息?')) { 
         try {
             // 1. ລົບໂພສออกจาก Firestore Database
             await deleteDoc(doc(db, "news", id)); 
@@ -1545,9 +1545,9 @@ window.deleteNewsItem = async (id) => {
             updateNotificationUI();
             loadNews(); 
             
-            alert('ລົບຂ່າວ ແລະ ການແຈ້ງເຕືອນທີ່ກ່ຽວຂ້ອງສຳເລັດ!');
+            alert('已成功删除新闻及相关通知!');
         } catch (e) {
-            alert('ເກີດຂໍ້ຜິດພາດໃນການລົບ: ' + e.message);
+            alert('删除时发生错误: ' + e.message);
         }
     } 
 };
@@ -1591,7 +1591,7 @@ const uploadMediaSmart = (file) => {
 
                 } else { 
 
-                    reject(new Error(result.message || "ອັບໂຫລດບໍ່ສຳເລັດ")); 
+                    reject(new Error(result.message || "上传失败")); 
 
                 } 
 
@@ -1657,7 +1657,7 @@ window.submitMemberReport = async () => {
 
     if (!currentRoomUser || currentRoomUser.includes('Admin') || currentRoomUser.includes('ຜູ້ສ້າງ')) { 
 
-        alert('ກະລຸນາລັອກອິນດ້ວຍໄອດີຫ້ອງພັກກ່ອນ!'); 
+        alert('请先使用房间ID登录!'); 
 
         document.getElementById('room-login-modal').classList.remove('hidden'); return; 
 
@@ -1667,11 +1667,11 @@ window.submitMemberReport = async () => {
 
     const now = new Date(); 
 
-    if (now.getDay() !== 0) { alert('⚠️ ລະບົບອະນຸຍາດໃຫ້ສົ່ງສະເພາະມື້ວັນອາທິດເທົ່ານັ້ນ!'); return; } 
+    if (now.getDay() !== 0) { alert('⚠️系统仅允许在周日提交!'); return; } 
 
     const totalMinutesNow = now.getHours() * 60 + now.getMinutes(); 
 
-    if (totalMinutesNow < 960 || totalMinutesNow > 1140) { alert('⚠️ ເວລາສົ່ງ: 16:00 - 19:00 ໂມງ!'); return; } 
+    if (totalMinutesNow < 960 || totalMinutesNow > 1140) { alert('⚠️ 提交时间：16:00 - 19:00!'); return; } 
 
  
 
@@ -1683,13 +1683,13 @@ window.submitMemberReport = async () => {
 
     const statusText = document.getElementById('member-upload-status'); 
 
-    if (!name || !description) return alert('ກະລຸນາປ້ອນຂໍ້ມູນໃຫ້ຄົບ'); 
+    if (!name || !description) return alert('请完整输入信息'); 
 
  
 
     const files = fileInput.files; 
 
-    if (files.length === 0) return alert('ກະລຸນາເປີດກ້ອງຖ່າຍວິດີໂອສົດກ່ອນສົ່ງ!'); 
+    if (files.length === 0) return alert('提交前请先打开相机录制实时视频!'); 
 
  
 
@@ -1697,15 +1697,15 @@ window.submitMemberReport = async () => {
 
  
 
-    statusText.innerText = `⏳ ກຳລັງກວດສອບຄວາມຍາວວິດີໂອ...`; 
+    statusText.innerText = `⏳ 正在检查视频时长...`; 
 
     const duration = await checkVideoDuration(videoFile); 
 
     if (duration > 62) { 
 
-        alert(`❌ ວິດີໂະຍາວເກີນໄປ (${Math.round(duration)} ວິນາທີ)! ລະບົບກຳນົດໃຫ້ຖ່າຍວິດີໂອຄວາມຍາວສູງສຸດບໍ່ເກີນ 1 ນາທີ.`); 
+        alert(`❌ 视频时间过长 (${Math.round(duration)} 秒)! 系统限制视频时长最多不超过1分钟.`); 
 
-        statusText.innerText = '⚠️ ກະລຸນາຖ່າຍວິດີໂອໃໝ່ ຄວາມຍາວບໍ່ເກີນ 1 ນາທີ!'; 
+        statusText.innerText = '⚠️ 请重新录制不超过1分钟的视频!'; 
 
         return; 
 
