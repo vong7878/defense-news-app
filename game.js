@@ -496,7 +496,6 @@ document.querySelectorAll('.mole-hole').forEach(hole => {
             const config = getMoleConfig(moleLevel);
             document.getElementById('mole-score').innerText = `${moleScore}/${config.targetScore}`;
       } else if (hole.classList.contains('has-bomb')) {
-    ...
     alert(t('msg_hit_bomb')); // 👈 ປ່ຽນ
 }
             moleScore = Math.max(0, moleScore - 2);
