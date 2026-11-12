@@ -768,10 +768,10 @@
                 <button onclick="saveCyberTaskVideo()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-medium">保存数据</button> 
             </div> 
         </div> 
- <!-- 1. โหลดไฟล์แปลภาษาแบบธรรมดาก่อน -->
+<!-- โหลดไฟล์แปลภาษาตามปกติ -->
 <script src="translations2.js"></script>
 
-<!-- 2. โหลดไฟล์หลักทีหลัง (โหลดแค่บรรทัดเดียว ไม่ต้องใส่ type="module" ซ้ำซ้อน) -->
-<script src="app_ch.js"></script>
+<!-- โหลด app_vn.js เป็น type="module" เพื่อให้รองรับคำสั่ง initializeApp และ import ภายในตัว -->
+<script type="module" src="app_ch.js"></script>
 </body> 
 </html>
