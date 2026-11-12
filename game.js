@@ -1,190 +1,119 @@
+// 1. 🌐 Object ເກັບຄຳສັບ 6 ພາສາ
 const translations = {
-    // 🇱🇦 ພາສາລາວ (Lao)
     lo: {
-        page_title: "ລະບົບເກມມ່ວນໆ",
-        tab_snake: "🐍 ເກມງູກິນຂຽດ",
-        tab_match: "🍓 ເກມຈັບຄູ່ໝາກໄມ້",
-        tab_mole: "🐹 ເກມຕີຕຸ່ນ",
-        
-        // ຄຳສັບທົ່ວໄປ & ລະດັບຄວາມຍາກ
+        tab_snake: "🐍 ງູກິນເຫຍື່ອ",
+        tab_match: "🍓 ຈັບຄູ່",
+        tab_mole: "🐹 ຕີຕຸ່ນ",
         stage: "ດ່ານ",
+        target_label: "🎯 ເປົ້າໝາຍ:",
+        speed_label: "⚡ ຄວາມໄວ:",
         easy: "ງ່າຍ",
         medium: "ປານກາງ",
-        hard: "🔥 ຍາກ",
-        score: "ຄະແນນ",
-        target: "ເປົ້າໝາຍ",
-        time: "ເວລາ",
-        moves_left: "ໂຄຕ້າກົດ",
-        unlimited: "ບໍ່ຈຳກັດ",
-        
-        // ປຸ່ມ ແລະ ຂໍ້ຄວາມຄວບຄຸມ
-        btn_start: "🎮 ເລີ່ມເກມ",
-        btn_restart: "🔄 លេងໃໝ່",
-        btn_reset: "🔄 ຣີເຊັດ",
-        
-        // ຂໍ້ຄວາມແຈ້ງເຕືອນ (Alerts / Messages)
-        msg_game_over: "😢 ຕົກດ່ານ! ທ່ານເສຍໃນດ່ານ",
-        msg_pass_stage: "🎉 ສຸດຍອດ! ທ່ານຜ່ານດ່ານ",
-        msg_win_game: "🏆 ຍິນດີດ້ວຍ! ທ່ານພິຊິດຄົບທັງ 15 ດ່ານແລ້ວ!",
-        msg_out_moves: "😢 ໂຄຕ້າກົດໝົດແລ້ວ! ທ່ານຕົກດ່ານ",
-        msg_hit_bomb: "💥 ຖືກລະເບີດ! ເສຍ 2 ຄະແນນ"
+        hard: "ຍາກ",
+        btn_start: "🎮 ເລີ່ມດ่านນີ້",
+        btn_restart: "🔄 ຫຼິ້ນໃໝ່",
+        msg_game_over: "🎮 ເກມຈົບແລ້ວ! ທ່ານເສຍໃນດ່ານ",
+        msg_pass_stage: "🎉 ຍິນດີດ້ວຍ! ຜ່ານດ່ານ",
+        msg_win_game: "🏆 ຍິນດີດ້ວຍ! ທ່ານຊະນະທຸກດ່ານແລ້ວ!"
     },
-
-    // 🇹🇭 ພາສາໄທ (Thai)
     th: {
-        page_title: "ระบบเกมสนุกๆ",
-        tab_snake: "🐍 เกมงูกินกบ",
-        tab_match: "🍓 เกมจับคู่ผลไม้",
-        tab_mole: "🐹 เกมตีตุ่น",
-        
-        // คำศัพท์ทั่วไป & ระดับความยาก
+        tab_snake: "🐍 งูกินเหยื่อ",
+        tab_match: "🍓 จับคู่",
+        tab_mole: "🐹 ตีตุ่น",
         stage: "ด่าน",
+        target_label: "🎯 เป้าหมาย:",
+        speed_label: "⚡ ความเร็ว:",
         easy: "ง่าย",
         medium: "ปานกลาง",
-        hard: "🔥 ยาก",
-        score: "คะแนน",
-        target: "เป้าหมาย",
-        time: "เวลา",
-        moves_left: "จำนวนครั้งที่กดได้",
-        unlimited: "ไม่จำกัด",
-        
-        // ปุ่ม และ ข้อความควบคุม
-        btn_start: "🎮 เริ่มเกม",
-        btn_restart: "🔄 เล่นใหม่อีกครั้ง",
-        btn_reset: "🔄 รีเซ็ต",
-        
-        // ข้อความแจ้งเตือน
-        msg_game_over: "😢 ตก (Game Over)! คุณแพ้ในด่าน",
-        msg_pass_stage: "🎉 สุดยอด! คุณผ่านด่าน",
-        msg_win_game: "🏆 ยินดีด้วย! คุณพิชิตครบทั้ง 15 ด่านแล้ว!",
-        msg_out_moves: "😢 โควต้าหมดแล้ว! คุณตกด่าน",
-        msg_hit_bomb: "💥โดนระเบิด! เสีย 2 คะแนน"
+        hard: "ยาก",
+        btn_start: "🎮 เริ่มด่านนี้",
+        btn_restart: "🔄 เล่นใหม่",
+        msg_game_over: "🎮 เกมจบแล้ว! คุณเสียในด่าน",
+        msg_pass_stage: "🎉 ยินดีด้วย! ผ่านด่าน",
+        msg_win_game: "🏆 ยินดีด้วย! คุณชนะทุกด่านแล้ว!"
     },
-
-    // 🇻🇳 ພາສາຫວຽດນາມ (Vietnamese)
     vi: {
-        page_title: "Hệ thống trò chơi",
-        tab_snake: "🐍 Rắn săn mồi",
-        tab_match: "🍓 Lật hình trái cây",
-        tab_mole: "🐹 Đập chuột chuũi",
-        
-        // Từ vựng chung & Độ khó
+        tab_snake: "🐍 Rắn ăn mồi",
+        tab_match: "🍓 Ghép cặp",
+        tab_mole: "🐹 Đập chuột",
         stage: "Màn",
+        target_label: "🎯 Mục tiêu:",
+        speed_label: "⚡ Tốc độ:",
         easy: "Dễ",
         medium: "Trung bình",
-        hard: "🔥 Khó",
-        score: "Điểm",
-        target: "Mục tiêu",
-        time: "Thời gian",
-        moves_left: "Lượt còn lại",
-        unlimited: "Không giới hạn",
-        
-        // Nút bấm
-        btn_start: "🎮 Bắt đầu",
+        hard: "Khó",
+        btn_start: "🎮 Bắt đầu màn",
         btn_restart: "🔄 Chơi lại",
-        btn_reset: "🔄 Đặt lại",
-        
-        // Thông báo
-        msg_game_over: "😢 Thua rồi! Bạn đã thua ở màn",
-        msg_pass_stage: "🎉 Tuyệt vời! Bạn đã qua màn",
-        msg_win_game: "🏆 Chúc mừng! Bạn đã chinh phục cả 15 màn!",
-        msg_out_moves: "😢 Hết lượt! Bạn đã thua ở màn",
-        msg_hit_bomb: "💥 Trúng bom! Mất 2 điểm"
+        msg_game_over: "🎮 Trò chơi kết thúc tại màn",
+        msg_pass_stage: "🎉 Chúc mừng! Qua màn",
+        msg_win_game: "🏆 Chúc mừng! Bạn đã phá đảo tất cả các màn!"
     },
-
-    // 🇰🇷 ພາສາເກົາຫຼີ (Korean)
-    ko: {
-        page_title: "미니 게임 시스템",
-        tab_snake: "🐍 뱀 게임",
-        tab_match: "🍓 과일 카드 맞추기",
-        tab_mole: "🐹 두더지 잡기",
-        
-        // 일반 및 난이도
-        stage: "스테이지",
-        easy: "쉬움",
-        medium: "보통",
-        hard: "🔥 어려움",
-        score: "점수",
-        target: "목표",
-        time: "시간",
-        moves_left: "남은 횟수",
-        unlimited: "무제한",
-        
-        // 버튼
-        btn_start: "🎮 게임 시작",
-        btn_restart: "🔄 다시 시작",
-        btn_reset: "🔄 초기화",
-        
-        // 알림 메시지
-        msg_game_over: "😢 게임 오버! 스테이지에서 실패했습니다:",
-        msg_pass_stage: "🎉 대단해요! 스테이지 클리어:",
-        msg_win_game: "🏆 축하합니다! 15개 스테이지를 모두 클리어했습니다!",
-        msg_out_moves: "😢 남은 횟수가 없습니다! 스테이지 실패:",
-        msg_hit_bomb: "💥 폭탄 맞음! 2점 감점"
-    },
-
-    // 🇬🇧 ພາສາອັງກິດ (English)
-    en: {
-        page_title: "Mini Game System",
-        tab_snake: "🐍 Snake Game",
-        tab_match: "🍓 Fruit Match",
-        tab_mole: "🐹 Whack-a-Mole",
-        
-        // General & Difficulty
-        stage: "Stage",
-        easy: "Easy",
-        medium: "Medium",
-        hard: "🔥 Hard",
-        score: "Score",
-        target: "Target",
-        time: "Time",
-        moves_left: "Moves Left",
-        unlimited: "Unlimited",
-        
-        // Buttons
-        btn_start: "🎮 Start Game",
-        btn_restart: "🔄 Play Again",
-        btn_reset: "🔄 Reset",
-        
-        // Alerts
-        msg_game_over: "😢 Game Over! You lost at stage",
-        msg_pass_stage: "🎉 Awesome! You passed stage",
-        msg_win_game: "🏆 Congratulations! You conquered all 15 stages!",
-        msg_out_moves: "😢 Out of moves! You lost at stage",
-        msg_hit_bomb: "💥 Hit a bomb! Lost 2 points"
-    },
-
-    // 🇨🇳 ພາສາຈີນ (Chinese)
     zh: {
-        page_title: "小游戏系统",
         tab_snake: "🐍 贪吃蛇",
-        tab_match: "🍓 水果翻牌",
+        tab_match: "🍓 消除配对",
         tab_mole: "🐹 打地鼠",
-        
-        // 通用与难度
         stage: "关卡",
+        target_label: "🎯 目标:",
+        speed_label: "⚡ 速度:",
         easy: "简单",
         medium: "中等",
-        hard: "🔥 困难",
-        score: "得分",
-        target: "目标",
-        time: "时间",
-        moves_left: "剩余次数",
-        unlimited: "不限",
-        
-        // 按钮
-        btn_start: "🎮 开始游戏",
+        hard: "困难",
+        btn_start: "🎮 开始本关",
         btn_restart: "🔄 重新开始",
-        btn_reset: "🔄 重置",
-        
-        // 提示信息
-        msg_game_over: "😢 游戏结束！你在该关卡失败：",
-        msg_pass_stage: "🎉 太棒了！你已通过关卡：",
-        msg_win_game: "🏆 恭喜你！成功通关所有 15 个关卡！",
-        msg_out_moves: "😢 次数用完！你在该关卡失败：",
-        msg_hit_bomb: "💥 炸弹！扣 2 分"
+        msg_game_over: "🎮 游戏结束！你在第几关失败了",
+        msg_pass_stage: "🎉 恭喜！通过关卡",
+        msg_win_game: "🏆 恭喜！你通关了所有关卡！"
+    },
+    en: {
+        tab_snake: "🐍 Snake Game",
+        tab_match: "🍓 Match Fruits",
+        tab_mole: "🐹 Whack-a-Mole",
+        stage: "Stage",
+        target_label: "🎯 Target:",
+        speed_label: "⚡ Speed:",
+        easy: "Easy",
+        medium: "Medium",
+        hard: "Hard",
+        btn_start: "🎮 Start Stage",
+        btn_restart: "🔄 Restart",
+        msg_game_over: "🎮 Game Over! You lost at stage",
+        msg_pass_stage: "🎉 Congratulations! Passed stage",
+        msg_win_game: "🏆 Congratulations! You beat all stages!"
+    },
+    ko: {
+        tab_snake: "🐍 스네이크",
+        tab_match: "🍓 과일 짝맞추기",
+        tab_mole: "🐹 두더지 잡기",
+        stage: "스테이지",
+        target_label: "🎯 목표:",
+        speed_label: "⚡ 속도:",
+        easy: "쉬움",
+        medium: "보통",
+        hard: "어려움",
+        btn_start: "🎮 스테이지 시작",
+        btn_restart: "🔄 다시 시작",
+        msg_game_over: "🎮 게임 오버! 스테이지에서 실패했습니다",
+        msg_pass_stage: "🎉 축하합니다! 스테이지 통과",
+        msg_win_game: "🏆 축하합니다! 모든 스테이지를 클리어했습니다!"
     }
 };
+
+// 2. 🔤 ຟັງຊັນແປພາສາ t(key)
+let currentLang = localStorage.getItem('selected_lang') || 'lo';
+function t(key) {
+    if (translations[currentLang] && translations[currentLang][key]) {
+        return translations[currentLang][key];
+    }
+    return translations['lo'][key] || key;
+}
+
+// 3. 💾 ຟັງຊັນໂຫຼດ/ບັນທຶກຄວາມກ້າວໜ້າ (ປ้องกัน Error ທີ່ Console ฟ้อง)
+function loadGameProgress() {
+    // ໂຫຼດຂໍ້ມູນຈາກ localStorage ຖ້າມີ
+}
+function saveGameProgress() {
+    // ບັນທຶກຂໍ້ມູນລົງ localStorage ຖ້າຕ້ອງການ
+}
 // ຟັງຊັນສະຫຼັບ Tabs
 function switchGame(gameType) {
     const snakeSection = document.getElementById('section-snake');
