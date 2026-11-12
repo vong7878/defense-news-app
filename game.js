@@ -579,7 +579,7 @@ function initMoleGame() {
     document.getElementById('mole-time').innerText = `${moleTimeLeft}s`;
     
     const startBtn = document.getElementById('mole-start-btn');
-    if (startBtn) startBtn.innerText = `🎮 ເລີ່ມດ່ານ ${moleLevel}`;
+ if (startBtn) startBtn.innerText = `${t('btn_start')} ${moleLevel}`;
 
     clearHoles();
 }
@@ -634,7 +634,7 @@ document.getElementById('mole-start-btn')?.addEventListener('click', () => {
     initMoleGame();
     isMolePlaying = true;
     const config = getMoleConfig(moleLevel);
-    document.getElementById('mole-start-btn').innerText = "🔨 ຕີເລີຍ!";
+   startBtn.innerText = `${t('btn_start')} ${moleLevel}`;
 
     // ໃຫ້ຕຸ່ນໂຜ່ຕາມຄວາມໄວ
     molePopTimer = setInterval(showRandomMole, config.speed);
