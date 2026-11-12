@@ -5,6 +5,7 @@ const translations = {
         tab_match: "🍓 ຈັບຄູ່",
         tab_mole: "🐹 ຕີຕຸ່ນ",
         stage: "ດ່ານ",
+        unlimited: "ບໍ່ຈຳກັດ",
         target_label: "🎯 ເປົ້າໝາຍ:",
         speed_label: "⚡ ຄວາມໄວ:",
         easy: "ງ່າຍ",
@@ -21,6 +22,7 @@ const translations = {
         tab_match: "🍓 จับคู่",
         tab_mole: "🐹 ตีตุ่น",
         stage: "ด่าน",
+        unlimited: "ไม่จำกัด",
         target_label: "🎯 เป้าหมาย:",
         speed_label: "⚡ ความเร็ว:",
         easy: "ง่าย",
@@ -37,6 +39,7 @@ const translations = {
         tab_match: "🍓 Ghép cặp",
         tab_mole: "🐹 Đập chuột",
         stage: "Màn",
+        unlimited: "Không giới hạn",
         target_label: "🎯 Mục tiêu:",
         speed_label: "⚡ Tốc độ:",
         easy: "Dễ",
@@ -56,6 +59,7 @@ const translations = {
         target_label: "🎯 目标:",
         speed_label: "⚡ 速度:",
         easy: "简单",
+        unlimited: "不限",
         medium: "中等",
         hard: "困难",
         btn_start: "🎮 开始本关",
@@ -69,6 +73,7 @@ const translations = {
         tab_match: "🍓 Match Fruits",
         tab_mole: "🐹 Whack-a-Mole",
         stage: "Stage",
+        unlimited: "Unlimited",
         target_label: "🎯 Target:",
         speed_label: "⚡ Speed:",
         easy: "Easy",
@@ -85,6 +90,7 @@ const translations = {
         tab_match: "🍓 과일 짝맞추기",
         tab_mole: "🐹 두더지 잡기",
         stage: "스테이지",
+        unlimited: "무제한",
         target_label: "🎯 목표:",
         speed_label: "⚡ 속도:",
         easy: "쉬움",
@@ -375,7 +381,7 @@ document.getElementById('snake-level-badge').innerText = `${t('stage')} ${snakeL
     startBtn?.addEventListener('click', () => {
         if (isPlaying) clearInterval(gameInterval);
         isPlaying = true;
-        startBtn.innerText = "🔄 ກຳລັງຫຼິ້ນ...";
+        startBtn.innerText = t('btn_start');
         const config = getLevelConfig(snakeLevel);
         gameInterval = setInterval(gameLoop, config.speed);
     });
@@ -423,7 +429,7 @@ function initMatchGame() {
     document.getElementById('match-level-badge').innerText = `${t('stage')} ${matchLevel}/15`;
     
     movesLeft = config.maxMoves;
-    document.getElementById('match-moves-left').innerText = movesLeft === 999 ? 'ບໍ່ຈຳກັດ' : movesLeft;
+   document.getElementById('match-moves-left').innerText = movesleft === 999 ? t('unlimited') : movesleft;
     document.getElementById('match-pairs').innerText = config.pairCount;
 
     const selectedFruits = allFruits.slice(0, config.pairCount);
