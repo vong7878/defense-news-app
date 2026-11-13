@@ -830,7 +830,7 @@ window.switchSummaryPeriod = (period) => {
 };
 
 window.submitUserFeedback = async () => { 
-    if (!currentRoomUser || currentRoomUser.includes('Admin') || currentRoomUser.includes('ຜູ້ສ້າງ')) { 
+    if (!currentRoomUser || currentRoomUser.includes('Admin') || currentRoomUser.includes('Người tạo')) { 
         alert('ui lòng đăng nhập bằng ID phòng trước khi gửi bình luận!'); 
         document.getElementById('room-login-modal').classList.remove('hidden'); return; 
     } 
@@ -903,7 +903,7 @@ window.sendAdminMessage = async () => {
     try { 
         input.value = ''; 
         await addDoc(collection(db, "admin_chats"), { sender: currentRoomUser, text: text, time: new Date().toLocaleTimeString('lo-LA', { hour: '2-digit', minute: '2-digit' }), timestamp: new Date() }); 
-    } catch (err) { alert('ຜິດພາດ: ' + err.message); } 
+    } catch (err) { alert('lỗi: ' + err.message); } 
 }; 
 
 let selectedWeekHistory = null; // 👈 ຕົວແปรເກັບອາທິດທີ່ຜູ້ໃຊ້ເລືອກເບິ່ງຢ້ອນຫຼັງ
@@ -981,19 +981,19 @@ async function loadFullScoreSummary() {
             if (document.getElementById('summary-total-points')) document.getElementById('summary-total-points').innerText = `${totalPts} Điểm`; 
             if (document.getElementById('summary-approved-count')) document.getElementById('summary-approved-count').innerText = `${approvedReportsCount} Báo cáo`; 
 
-            const highestPoint = Math.max(...Object.values(scores), 1); 
+         const highestPoint = Math.max(...Object.values(scores), 1); 
             container.innerHTML = rooms.map(room => { 
                 const pts = scores[room] || 0; 
                 const percent = highestPoint > 0 ? Math.round((pts / highestPoint) * 100) : 0; 
                 return ` 
                     <div class="space-y-1 bg-slate-900/60 p-3.5 rounded-xl border border-slate-700/60 animate-fade-in"> 
-                        <span class="text-slate-200">🏠 ${typeof formatRoomName === 'function' ?formatRoomName(room, typeof currentLang !== 'undefined' ? currentLang : (document.documentElement.lang || 'vn')): room}</span>
+                        <span class="text-slate-200 font-bold">🏠 ${room}</span> <!-- 👈 ປ່ຽນມາເປັນສະແດງຕົວເລກຫ້ອງໂດຍກົງຢູ່ບ່ອນນີ້ -->
                         <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden border border-slate-700"> 
                             <div class="bg-gradient-to-r from-emerald-500 to-amber-400 h-3 rounded-full transition-all duration-500" style="width: ${percent}%"></div> 
                         </div> 
                     </div> 
                 `; 
-            }).join(''); 
+            }).join('');
 
         } else if (currentSummaryPeriod === 'monthly') { 
             // 📅 ໂໝດເດືອນ (ຄົ້ນຫາເດືອນຢ້ອນຫຼັງໄດ້)
