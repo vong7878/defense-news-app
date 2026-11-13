@@ -5,7 +5,6 @@ import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, g
 
 
 
-
 const firebaseConfig = { 
     apiKey: "AIzaSyCiD4zPW-iNzSM6iMP8A4EmaxHInxB0Z9k", 
     authDomain: "defense-news-app-2143d.firebaseapp.com", 
