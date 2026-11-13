@@ -1815,9 +1815,10 @@ function renderMemberReports() {
 
     // 🌍 ດຶງຄຳແປຕາມພາສາປັດຈຸບັນຈາກໄຟລ໌ສ່ວນກາງ (common.js) ໂດຍອັດຕະໂນມັດ
     const t = typeof getTranslationLabels === 'function' ? getTranslationLabels() : {
-        room: "ห้อง", sender: "ผู้ส่ง", approved: "อนุมัติแล้ว", pending: "รอ Admin อนุมัติ",
-        noReports: "ยังไม่มีรายงาน", imageAction: "รูปภาพการปฏิบัติงาน", videoDrive: "เปิดดูวิดีโอใน Google Drive",
-        openDrive: "ເປີດເບິ່ງວິດີໂອໃນ Google Drive", approveBtn: "ອະນຸມັດ", deleteReportBtn: "ລົບລາຍງານ"
+         specialPoint: "รับคะแนนพิเศษ", fromAdmin: "จากผู้สร้างเว็บไซต์", deductPoint: "ถูกหักคะแนน", 
+        noReports: "ยังไม่มีรายงาน", approved: "อนุมัติแล้ว", pending: "รอ Admin อนุมัติ", 
+        videoDrive: "วิดีโอบน Google Drive", openDrive: "เปิดดูวิดีโอใน Google Drive", 
+        approveBtn: "อนุมัติ", deleteReportBtn: "ลบรายงาน", actionPhotos: "รูปภาพการปฏิบัติงาน", room: "ห้อง", sender: "ผู้ส่ง" 
     };
 
     if (allMemberReports.length === 0) { 
