@@ -1813,9 +1813,9 @@ function renderMemberReports() {
 
     // 🌍 ດຶງຄຳແປຕາມພາສາປັດຈຸບັນຈາກໄຟລ໌ສ່ວນກາງ (common.js) ໂດຍອັດຕະໂນມັດ
     const t = typeof getTranslationLabels === 'function' ? getTranslationLabels() : {
-        room: "Phòng",sender: "Người gửi" , approved: "Đã phê duyệt, pending: "Chờ phê duyệt",
-       noReports: "Chưa có báo cáo", imageAction: "Hình ảnh hoạt động", videoDrive: "Video trên Google Drive,
-       openDrive: "Mở xem video trên Google Drive", approveBtn: "Phê duyệt",deleteReportBtn: "Xóa báo cáo" 
+        room: "Phòng", sender: "Người gửi", approved: "Đã phê duyệt", pending: "Chờ phê duyệt",
+        noReports: "Chưa có báo cáo", imageAction: "Hình ảnh hoạt động", videoDrive: "Video trên Google Drive",
+        openDrive: "Mở xem video trên Google Drive", approveBtn: "Phê duyệt", deleteReportBtn: "Xóa báo cáo" 
     };
 
     if (allMemberReports.length === 0) { 
@@ -1875,7 +1875,6 @@ function renderMemberReports() {
         `; 
     }).join(''); 
 }
-
  
 
 window.approveMemberReport = async (reportId) => { 
