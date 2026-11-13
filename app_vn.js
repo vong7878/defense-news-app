@@ -7,15 +7,14 @@ import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, g
 
 
 
-
-const firebaseConfig = {
-    apiKey: "AIzaSyCiD4pW-iNZsM6iMP8A4EmaxHinxB0Z9k",
-    authDomain: "defense-news-app-2143d.firebaseapp.com",
-    projectId: "defense-news-app-2143d",
-    storageBucket: "defense-news-app-2143d.appspot.com",
-    messagingSenderId: "55873751006",
-    appId: "1:55873751006:web:h7e9b971ae94a1f5d93f4f",
-    measurementId: "G-YYM4JLS1L2"
+const firebaseConfig = { 
+    apiKey: "AIzaSyCiD4zPW-iNzSM6iMP8A4EmaxHInxB0Z9k", 
+    authDomain: "defense-news-app-2143d.firebaseapp.com", 
+    projectId: "defense-news-app-2143d", 
+    storageBucket: "defense-news-app-2143d.appspot.com", 
+    messagingSenderId: "55873751006", 
+    appId: "1:55873751006:web:b7e9b971ae94a1f5d93f4f", 
+    measurementId: "G-YYM4JLS1L2" 
 };
 
 const app = initializeApp(firebaseConfig);
