@@ -134,7 +134,7 @@ window.changeWebsiteLanguage = function(lang) {
     else if (lang === 'en') targetPage = 'index_en.html';
     else if (lang === 'ch') targetPage = 'index_ch.html';
     else if (lang === 'kr') targetPage = 'index_kr.html';
-    else if (lang === 'la') targetPage = 'index.html'; // ຫຼື index_lo.html ຕາມໂຄງສ້າງຂອງທ່ານ
+    else if (lang === 'la') targetPage = 'index_lo.html'; // ຫຼື index_lo.html ຕາມໂຄງສ້າງຂອງທ່ານ
 
     // ໄປຍังໜ້າເວັບຂອງພາສານັ້ນ
     window.location.href = targetPage;
