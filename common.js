@@ -7,37 +7,69 @@ const reportTranslations = {
         specialPoint: "ຮັບຄະແນນພິເສດ", deductPoint: "ຖືກຫັກຄະແນນ", noReports: "ຍັງບໍ່ມີບົດລາຍງານ", 
         fromAdmin: "ຈາກຜູ້ສ້າງເວັບໄຊ", approved: "ອະນຸມັດແລ້ວ", pending: "ລໍຖ້າ Admin ອະນຸມັດ", 
         videoDrive: "ວິດີໂອບົນ Google Drive", openDrive: "ເປີດເບິ່ງວິດີໂອໃນ Google Drive", 
-        approveBtn: "ອະນຸມັດ", deleteReportBtn: "ລົບລາຍງານ", room: "ຫ້ອງ", actionPhotos: "ຮູບພາບການປະຕິບັດງານ", sender: "ຜູ້ສົ່ງ" 
+        approveBtn: "ອະນຸມັດ", deleteReportBtn: "ລົບລາຍງານ", room: "ຫ້ອງ", actionPhotos: "ຮູບພາບການປະຕິບັດງານ", sender: "ຜູ້ສົ່ງ", 
+        selectFile: "ເລືອກໄຟລ໌", noFileChosen: "ຍັງບໍ່ທັນເລືອກໄຟລ໌"
     },
     th: { 
         specialPoint: "รับคะแนนพิเศษ", fromAdmin: "จากผู้สร้างเว็บไซต์", deductPoint: "ถูกหักคะแนน", 
         noReports: "ยังไม่มีรายงาน", approved: "อนุมัติแล้ว", pending: "รอ Admin อนุมัติ", 
         videoDrive: "วิดีโอบน Google Drive", openDrive: "เปิดดูวิดีโอใน Google Drive", 
-        approveBtn: "อนุมัติ", deleteReportBtn: "ลบรายงาน", actionPhotos: "รูปภาพการปฏิบัติงาน", room: "ห้อง", sender: "ผู้ส่ง" 
+        approveBtn: "อนุมัติ", deleteReportBtn: "ลบรายงาน", actionPhotos: "รูปภาพการปฏิบัติงาน", room: "ห้อง", sender: "ผู้ส่ง",
+        selectFile: "เลือกไฟล์", noFileChosen: "ไม่ได้เลือกไฟล์ใด"
     },
     vn: { 
         specialPoint: "Nhận điểm đặc biệt", actionPhotos: "Hình ảnh hoạt động", noReports: "Chưa có báo cáo", 
         deductPoint: "Bị trừ điểm", fromAdmin: "Từ người tạo trang web", approved: "Đã phê duyệt", 
         videoDrive: "Video trên Google Drive", openDrive: "Mở xem video trên Google Drive", 
-        approveBtn: "Phê duyệt", deleteReportBtn: "Xóa báo cáo", pending: "Chờ phê duyệt", room: "Phòng", sender: "Người gửi" 
+        approveBtn: "Phê duyệt", deleteReportBtn: "Xóa báo cáo", pending: "Chờ phê duyệt", room: "Phòng", sender: "Người gửi",
+        selectFile: "Chọn tệp", noFileChosen: "Chưa chọn tệp nào",
     },
     en: { 
         specialPoint: "Received special points", deductPoint: "Deducted points", noReports: "No reports yet", 
         fromAdmin: "From website creator", actionPhotos: "Action Photos", approved: "Approved", 
         videoDrive: "Google Drive Video", openDrive: "Open Video in Google Drive", 
-        approveBtn: "Approve", deleteReportBtn: "Delete Report", pending: "Pending approval", room: "Room", sender: "Sender" 
+        approveBtn: "Approve", deleteReportBtn: "Delete Report", pending: "Pending approval", room: "Room", sender: "Sender" ,
+        selectFile: "Choose File", noFileChosen: "No file chosen"
     },
     ch: { 
         specialPoint: "获得特殊加分", deductPoint: "扣除分数", fromAdmin: "来自网站创作者", 
         noReports: "暂无报告", approved: "已批准", actionPhotos: "行动照片", pending: "等待批准", 
         room: "房间", videoDrive: "谷歌网盘视频", openDrive: "在谷歌网盘中打开视频", 
-        approveBtn: "批准", deleteReportBtn: "删除报告", sender: "发件人" 
+        approveBtn: "批准", deleteReportBtn: "删除报告", sender: "发件人" ,
+        selectFile: "选择文件", noFileChosen: "未选择任何文件"
     },
     kr: { 
         specialPoint: "특별 점수 획득", deductPoint: "점수 차감", noReports: "아직 보고서가 없습니다", 
         fromAdmin: "웹사이트 제작자로부터", actionPhotos: "활동 사진", approved: "승인됨", 
         pending: "승인 대기 중", videoDrive: "구글 드라이브 동영상", openDrive: "구글 드라이브에서 동영상 열기", 
-        approveBtn: "승인", deleteReportBtn: "보고서 삭제", room: "방", sender: "보낸사람" 
+        approveBtn: "승인", deleteReportBtn: "보고서 삭제", room: "방", sender: "보낸사람" ,
+        selectFile: "파일 선택", noFileChosen: "선택된 파일 없음"
+    }
+};
+document.addEventListener('DOMContentLoaded', () => {
+    const t = typeof getTranslationLabels === 'function' ? getTranslationLabels() : {};
+    
+    // Cập nhật text cho nút custom và trạng thái file
+    const btnFileText = document.getElementById('btn-file-text');
+    const fileNameSpan = document.getElementById('file-name-display');
+    
+    if (btnFileText && t.selectFile) {
+        btnFileText.textContent = t.selectFile;
+    }
+    if (fileNameSpan && t.noFileChosen) {
+        fileNameSpan.textContent = t.noFileChosen;
+    }
+});
+window.updateFileNameDisplay = function(input) {
+    const t = typeof getTranslationLabels === 'function' ? getTranslationLabels() : {};
+    const fileNameSpan = document.getElementById('file-name-display');
+    
+    if (!fileNameSpan) return;
+
+    if (input.files && input.files.length > 0) {
+        fileNameSpan.textContent = input.files[0].name; // Hiển thị tên file đã chọn
+    } else {
+        fileNameSpan.textContent = t.noFileChosen || "No file chosen"; // Hiển thị text theo ngôn ngữ
     }
 };
 
