@@ -1814,7 +1814,7 @@ function renderMemberReports() {
     // 🌍 ດຶງຄຳແປຕາມພາສາປັດຈຸບັນຈາກໄຟລ໌ສ່ວນກາງ (common.js) ໂດຍອັດຕະໂນມັດ
     const t = typeof getTranslationLabels === 'function' ? getTranslationLabels() : {
         room: "ຫ້ອງ", sender: "ຜູ້ສົ່ງ", approved: "ອະນຸມັດແລ້ວ", pending: "ລໍຖ້າ Admin ອະນຸມັດ",
-        noReports: "ຍັງບໍ່ມີບົດລາຍງານ", imageAction: "ຮູບພາບການປະຕິບັດງານ", videoDrive: "ວິດີໂອບົນ Google Drive",
+        noReports: "ຍັງບໍ່ມີບົດລາຍງານ", imageAction: "Hình ảnh hoạt động", videoDrive: "ວິດີໂອບົນ Google Drive",
         openDrive: "ເປີດເບິ່ງວິດີໂອໃນ Google Drive", approveBtn: "ອະນຸມັດ", deleteReportBtn: "ລົບລາຍງານ"
     };
 
