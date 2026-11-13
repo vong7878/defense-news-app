@@ -291,7 +291,9 @@
                 </div> 
             </div> 
 
-            <!-- SECTION 2: Score Summary Dashboard -->
+
+
+              <!-- SECTION 2: Score Summary Dashboard -->
             <div id="section-score-summary" class="space-y-6 animate-fade-in">
                 <div class="bg-gradient-to-r from-amber-950/90 via-slate-800/90 to-emerald-950/90 p-6 rounded-2xl border border-amber-500/40 shadow-2xl space-y-4">
                     <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3">
@@ -333,27 +335,124 @@
                     </div>
                 </div>
 
-  <div class="space-y-3 pt-2"> 
+                <!-- Statistics Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-slate-800/85 p-5 rounded-2xl border border-amber-500/30 shadow-lg flex items-center space-x-4">
+                        <div class="p-3 bg-amber-500/20 text-amber-400 rounded-xl text-2xl font-bold">🥇</div>
+                        <div>
+                            <span id="summary-top-room-label" class="text-xs text-slate-400 block">Top Ranked Room</span>
+                            <span id="summary-top-room" class="text-lg font-bold text-amber-400">Processing...</span>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800/85 p-5 rounded-2xl border border-emerald-500/30 shadow-lg flex items-center space-x-4">
+                        <div class="p-3 bg-emerald-500/20 text-emerald-400 rounded-xl text-2xl font-bold">⭐</div>
+                        <div>
+                            <span id="summary-total-points-label" class="text-xs text-slate-400 block">Total Points</span>
+                            <span id="summary-total-points" class="text-lg font-bold text-emerald-400">0 Points</span>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800/85 p-5 rounded-2xl border border-sky-500/30 shadow-lg flex items-center space-x-4">
+                        <div class="p-3 bg-sky-500/20 text-sky-400 rounded-xl text-2xl font-bold">📋</div>
+                        <div>
+                            <span id="summary-approved-count-label" class="text-xs text-slate-400 block">Approved Reports</span>
+                            <span id="summary-approved-count" class="text-lg font-bold text-sky-400">0 Reports</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart / Progress Bars -->
+                <div class="bg-slate-800/85 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
+                    <h3 id="summary-chart-title" class="font-bold text-emerald-400 text-lg border-b border-slate-700 pb-3 flex items-center space-x-2">
+                        <span>📈</span> <span>Score Summary Chart</span>
+                    </h3>
+                    <div id="summary-bars-container" class="space-y-4">
+                        <div class="text-center py-8 text-slate-400">Processing scores...</div>
+                    </div>
+                </div>
+            </div>
+            <!-- SECTION 3: Scoreboard Full Grid View --> 
+            <div id="section-scoreboard" class="space-y-4 hidden animate-fade-in"> 
+                <div class="bg-gradient-to-r from-amber-950/85 to-slate-800/85 p-6 rounded-2xl border border-amber-600/50 shadow-xl space-y-2"> 
+                    <h2 class="text-xl font-bold text-amber-400 flex items-center space-x-2"><span>🏆</span> <span>Room Hygiene Scoreboard</span></h2> 
+                    <p class="text-xs text-slate-300">Displays total accumulated score for each room</p> 
+                </div> 
+                <div id="full-scoreboard-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"> 
+                    <div class="text-center py-12 text-slate-400 col-span-full">Loading scores...</div> 
+                </div> 
+            </div> 
+
+            <!-- SECTION 4: Hygiene Tracking --> 
+            <div id="section-cyber" class="space-y-4 hidden animate-fade-in"> 
+                <div class="bg-gradient-to-r from-emerald-950/85 to-slate-800/85 p-5 rounded-2xl border border-emerald-800/50 shadow-xl flex justify-between items-center"> 
+                    <div> 
+                        <h2 class="text-lg font-bold text-emerald-400">📊 Hygiene Progress Summary</h2> 
+                        <p class="text-xs text-slate-300 mt-0.5">All posts are automatically marked as completed with images and Drive video links</p> 
+                    </div> 
+                    <div class="bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-700 text-center"> 
+                        <span id="stat-cyber-done" class="block text-xl font-bold text-emerald-400">0 / 0</span> 
+                        <span class="text-[10px] text-slate-400 uppercase">Completed</span> 
+                    </div> 
+                </div> 
+                <div id="cyber-container" class="grid grid-cols-1 gap-4"> 
+                    <div class="text-center py-12 text-slate-400">Loading lists...</div> 
+                </div> 
+            </div> 
+
+            <!-- SECTION 5: Member Report Form --> 
+            <div id="section-member" class="space-y-4 hidden animate-fade-in"> 
+                <div class="bg-slate-800/85 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4"> 
+                    <h2 class="text-xl font-bold text-emerald-400">👤 Member Form: Hygiene Report & Identity Verification</h2> 
+                    <div class="bg-amber-950/50 border border-amber-600/50 p-3 rounded-xl text-xs text-amber-300 space-y-1"> 
+                        <p>⚠️ <b>Submission Rule:</b> Each room can submit only <b>1 time per week (Sundays only, from 16:00 - 19:00)!</b></p> 
+                        <p>📹 <b>Video Rule:</b> Must use **Live Camera Capture** only! **Do not select from gallery or local files**, and video length **must not exceed 1 minute (60 seconds)**.</p> 
+                    </div> 
+                     
+                    <div class="space-y-3 pt-2"> 
                         <div> 
-                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">Họ và tên người gửi:</label> 
-                            <input type="text" id="member-name" name="fullname" autocomplete="off" placeholder="Ví dụ: Mr.Abc" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"> 
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">Full Name of Sender:</label> 
+                            <input type="text" id="member-name" name="fullname" autocomplete="off" placeholder="e.g. Mr.Abc" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"> 
                         </div> 
                          
                         <div> 
-                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">🏠 Phòng của bạn (Đã đăng nhập):</label> 
-                            <input type="text" id="member-room-display" readonly class="w-full bg-slate-900/80 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm text-emerald-400 font-bold" value="Chưa chọn phòng"> 
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">🏠 Your Room (Logged in):</label> 
+                            <input type="text" id="member-room-display" readonly class="w-full bg-slate-900/80 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm text-emerald-400 font-bold" value="No room selected"> 
                         </div> 
 
                         <div> 
-                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">Chi tiết vệ sinh:</label> 
-                            <textarea id="member-task-desc" rows="3" placeholder="Mô tả kết quả thực hiện..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"></textarea> 
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">Hygiene Details:</label> 
+                            <textarea id="member-task-desc" rows="3" placeholder="Describe execution results..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"></textarea> 
                         </div> 
                         <div> 
-                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">📹 Quay video trực tiếp qua camera (Tối đa 1 phút):</label> 
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">📹 Record live video via camera (Max length 1 minute):</label> 
                             <input type="file" accept="video/*" capture="environment">
-                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ Hệ thống sẽ kiểm tra thời lượng video không quá 60 giây và tự động tải lên Google Drive</p> 
+                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ The system will verify that the video length does not exceed 60 seconds and will automatically upload it to Google Drive</p> 
                         </div> 
-                    </div>
+                    </div> 
+
+                    <div class="pt-3"> 
+                        <button onclick="submitMemberReport()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 px-4 rounded-xl transition text-sm shadow-lg"> 
+                            🚀 Submit Report to Earn Points (Sunday 16:00 - 19:00) 
+                        </button> 
+                    </div> 
+                </div> 
+
+                <div class="bg-slate-800/85 backdrop-blur p-5 rounded-2xl border border-slate-700 shadow-xl space-y-4"> 
+                    <h3 class="font-bold text-emerald-400 text-base">📋 All Member Reports (For Admin Approval)</h3> 
+                    <div id="member-reports-container" class="space-y-4"> 
+                        <div class="text-center py-8 text-slate-400">Loading lists...</div> 
+                    </div> 
+                </div> 
+            </div> 
+
+            <!-- SECTION: Snake Game --> 
+            <div id="section-snake-game" class="space-y-3 hidden animate-fade-in"> 
+                <div class="bg-gradient-to-r from-emerald-950/90 via-slate-800/90 to-emerald-950/90 p-3.5 rounded-2xl border border-emerald-500/40 shadow-xl flex justify-between items-center"> 
+                    <div> 
+                        <h2 class="text-base font-bold text-emerald-400 flex items-center space-x-1.5"><span>🐍</span> <span>Snake Game</span></h2> 
+                        <p class="text-[11px] text-slate-300">Control the snake to eat frogs 🐸 and score points (slower speed)</p> 
+                    </div> 
+                </div> 
+
                 <div class="bg-slate-800/90 backdrop-blur p-4 rounded-2xl border border-slate-700 shadow-2xl flex flex-col items-center space-y-3"> 
                     <div class="flex justify-between w-full max-w-[260px] bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-700 text-xs"> 
                         <span>⭐ Score: <strong id="snake-score" class="text-amber-400">0</strong></span> 
@@ -382,6 +481,7 @@
                     </div> 
                 </div> 
             </div> 
+
 
             <!-- SECTION 7: User Feedback --> 
             <div id="section-user-feedback" class="space-y-4 hidden animate-fade-in"> 
