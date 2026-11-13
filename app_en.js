@@ -1820,110 +1820,77 @@ function isImageItem(item) {
  
 
 function renderMemberReports() { 
-
     const container = document.getElementById('member-reports-container'); 
-
     if (!container) return; 
 
-    if (allMemberReports.length === 0) { container.innerHTML = `<div class="text-center py-8 text-slate-500">No reports yet, Room</div>`; return; } 
+    // 🌍 ດຶງຄຳແປຕາມພາສາປັດຈຸບັນຈາກໄຟລ໌ສ່ວນກາງ (common.js) ໂດຍອັດຕະໂນມັດ
+    const t = typeof getTranslationLabels === 'function' ? getTranslationLabels() : {
+         specialPoint: "특별 점수 획득", deductPoint: "점수 차감", noReports: "아직 보고서가 없습니다", 
+        fromAdmin: "웹사이트 제작자로부터", actionPhotos: "활동 사진", approved: "승인됨", 
+        pending: "승인 대기 중", videoDrive: "구글 드라이브 동영상", openDrive: "구글 드라이브에서 동영상 열기", 
+        approveBtn: "승인", deleteReportBtn: "보고서 삭제", room: "방", sender: "보낸사람" 
+    };
+
+    if (allMemberReports.length === 0) { 
+        container.innerHTML = `<div class="text-center py-8 text-slate-500">${t.noReports}</div>`; 
+        return; 
+    } 
 
     container.innerHTML = allMemberReports.map(rep => { 
-
         let items = rep.mediaItems || []; 
-
         if (items.length === 0 && rep.mediaUrls) { 
-
             items = rep.mediaUrls.map(u => ({ type: isImageItem(u) ? 'image' : 'video', url: u })); 
-
         } 
 
+        // 🔄 ໃຊ້ຟັງຊັນແປພາສາສ່ວນກາງສຳລັບລາຍລະອຽດ (ເຊັ່ນ: ຂໍ້ຄວາມປັບຄະແນນພິເສດ 6 ພາສາ)
+        const displayDesc = typeof getTranslatedReportDesc === 'function' ? getTranslatedReportDesc(rep.description) : (rep.description || '');
+
         return ` 
-
             <div class="bg-slate-900/85 border ${rep.approved ? 'border-emerald-600' : 'border-slate-700'} rounded-xl p-4 space-y-3 shadow-md animate-fade-in"> 
-
                 <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2"> 
-
-                    <span class="font-bold text-emerald-400">🏠 room: ${rep.room || ''} | 👤 Sender: ${rep.name}</span> 
-
+                    <span class="font-bold text-emerald-400">🏠 ${t.room}: ${rep.room || ''} | 👤 ${t.sender}: ${rep.name}</span> 
                     <div class="flex items-center space-x-2"> 
-
                         <span class="px-2 py-0.5 rounded text-[10px] ${rep.approved ? 'bg-emerald-950 text-emerald-300' : 'bg-amber-950 text-amber-300'}"> 
-
-                            ${rep.approved ? '✅ Approved' : '⏳ Waiting for Admin approval'} 
-
+                            ${rep.approved ? `✅ ${t.approved}` : `⏳ ${t.pending}`} 
                         </span> 
-
                         <span class="text-slate-400">${rep.date || ''}</span> 
-
                     </div> 
-
                 </div> 
-
-                <p class="text-sm text-slate-200 whitespace-pre-line">${rep.description}</p> 
-
+                <p class="text-sm text-slate-200 whitespace-pre-line">${displayDesc}</p> 
                 <div class="grid grid-cols-1 gap-2 pt-2"> 
-
                     ${items.map(item => { 
-
                         const isImg = isImageItem(item); 
-
                         const mediaUrl = item.url || item; 
-
                         if (isImg) { 
-
                             return ` 
-
                                 <div class="relative group bg-slate-950 p-2 rounded-xl border border-slate-700 text-center space-y-2"> 
-
-                                    <span class="text-xs text-emerald-400 font-bold block">📷 Action photos</span> 
-
+                                    <span class="text-xs text-emerald-400 font-bold block">📷 ${t.imageAction}</span> 
                                     <img src="${mediaUrl}" alt="Report Image" class="max-h-64 mx-auto rounded-lg object-contain cursor-pointer hover:opacity-95 transition" onclick="window.open('${mediaUrl}')"> 
-
                                 </div> 
-
                             `; 
-
                         } else { 
-
                             return ` 
-
                                 <div class="relative group bg-slate-950 p-3 rounded-xl border border-slate-700 text-center space-y-2"> 
-
-                                    <span class="text-xs text-emerald-400 font-bold block">📁 Video on Google Drive</span> 
-
-                                    <a href="${mediaUrl}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 Open video in Google Drive</a> 
-
+                                    <span class="text-xs text-emerald-400 font-bold block">📁 ${t.videoDrive}</span> 
+                                    <a href="${mediaUrl}" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl shadow transition font-medium">🔗 ${t.openDrive}</a> 
                                 </div> 
-
                             `; 
-
                         } 
-
                     }).join('')} 
-
                 </div> 
-
                 <div class="flex justify-end space-x-2 pt-2"> 
-
                     ${userRole === 'admin' ? ` 
-
-                        ${!rep.approved ? `<button onclick="approveMemberReport('${rep.id}')" class="text-xs bg-emerald-600 px-3 py-1.5 rounded-lg text-white font-medium">✅  Approve</button>` : ''} 
-
-                        ${isSuperAdmin() ? `<button onclick="deleteMemberReport('${rep.id}')" class="text-xs bg-red-950 px-3 py-1.5 rounded-lg text-red-300">Delete report</button>` : ''} 
-
+                        ${!rep.approved ? `<button onclick="approveMemberReport('${rep.id}')" class="text-xs bg-emerald-600 px-3 py-1.5 rounded-lg text-white font-medium">✅ ${t.approveBtn}</button>` : ''} 
+                        ${isSuperAdmin() ? `<button onclick="deleteMemberReport('${rep.id}')" class="text-xs bg-red-950 px-3 py-1.5 rounded-lg text-red-300">${t.deleteReportBtn}</button>` : ''} 
                     ` : ''} 
-
                 </div> 
-
             </div> 
-
         `; 
-
     }).join(''); 
-
-} 
-
+}
  
+ 
+
 
 window.approveMemberReport = async (reportId) => { 
 
