@@ -859,12 +859,23 @@ function listenAdminChat() {
     chatUnsubscribe = onSnapshot(query(collection(db, "admin_chats"), orderBy("timestamp", "asc")), (snapshot) => { 
         const container = document.getElementById('admin-chat-messages'); 
         if (!container) return; 
-        if (snapshot.empty) { container.innerHTML = `<div class="text-center py-12 text-slate-500">아직 대화 메시지가 없습니다.</div>`; return; } 
+        if (snapshot.empty) { container.innerHTML = `<div class="text-center py-12 text-slate-500">Chưa có tin nhắn trò chuyện.</div>`; return; } 
+        
+        // 🛠️ ຟັງຊັນຊ່ວຍສະກັດເອົາສະເພາະ Email ມາທຽບກັນ (ປ້ອງກັນບັນຫາຄຳນຳໜ້າ/ພາສາຕ່າງກັນ)
+        const getEmail = (str) => {
+            if (!str) return '';
+            const match = str.match(/[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}/);
+            return match ? match[0].toLowerCase() : str.trim().toLowerCase();
+        };
+
         let html = ''; 
         snapshot.forEach((docSnap) => { 
             const msg = docSnap.data(); 
-            const isMe = msg.sender === currentRoomUser; 
-            const isFeedback = msg.sender.includes('댓글'); 
+            
+            // 🔍 ປຽບທຽບຜ່ານ Email ທີ່ສະກັດໄດ້ ເພື່ອໃຫ້ຖືກຕ້ອງແມ່ນຄົນດຽວກັນ
+            const isMe = getEmail(msg.sender) === getEmail(currentRoomUser); 
+            const isFeedback = msg.sender.includes('Bình luận'); 
+            
             html += ` 
                 <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'} animate-fade-in"> 
                     <span class="text-[10px] text-slate-400 mb-1 px-1">${msg.sender} (${msg.time || ''})</span> 
@@ -876,8 +887,7 @@ function listenAdminChat() {
         }); 
         container.innerHTML = html; container.scrollTop = container.scrollHeight; 
     }); 
-} 
-
+}
 window.sendAdminMessage = async () => { 
     const input = document.getElementById('admin-chat-input'); 
     const text = input.value.trim(); 
