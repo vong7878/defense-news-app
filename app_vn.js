@@ -3,26 +3,6 @@ import { getAuth, signInWithEmailAndPassword, signOut, setPersistence, browserLo
 import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, setDoc, runTransaction, increment, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"; 
 
 
-// 📂 ຟັງຊັນສະແດງຊື່ໄຟລ໌ທີ່ຖືກເລືອກ ແລະ ຮອງຮັບ 6 ພາສາ
-window.updateFileNameDisplay = function(input) {
-    // ດຶງຄຳແປຕາມພາສາປັດຈຸບັນ
-    const t = typeof getTranslationLabels === 'function' ? getTranslationLabels() : {};
-    
-    // ຊອກຫາ Element ສຳລັບສະແດງຊື່ໄຟລ໌
-    const fileNameSpan = document.getElementById('file-name-display');
-    
-    if (!fileNameSpan) return;
-
-    // ຖ້າຜູ້ໃຊ້ເລືອກໄຟລ໌ແລ້ວ ໃຫ້ສະແດງຊື່ໄຟລ໌ນັ້ນ
-    if (input.files && input.files.length > 0) {
-        fileNameSpan.textContent = input.files[0].name;
-    } else {
-        // ຖ້າຫາກຍັງບໍ່ໄດ້ເລືອກ ໃຫ້ສະແດງຂໍ້ຄວາມ "ຍັງບໍ່ທັນເລືອກໄຟລ໌" ຕາມພາສາທີ່ກຳລັງເປີດຢູ່
-        fileNameSpan.textContent = t.noFileChosen || "No file chosen";
-    }
-};
-
-
 
 const firebaseConfig = { 
     apiKey: "AIzaSyCiD4zPW-iNzSM6iMP8A4EmaxHInxB0Z9k", 
@@ -878,11 +858,22 @@ function listenAdminChat() {
         const container = document.getElementById('admin-chat-messages'); 
         if (!container) return; 
         if (snapshot.empty) { container.innerHTML = `<div class="text-center py-12 text-slate-500">Chưa có tin nhắn trò chuyện.</div>`; return; } 
+        
+        // 🛠️ ຟັງຊັນຊ່ວຍສະກັດເອົາສະເພາະ Email ມາທຽບກັນ (ປ້ອງກັນບັນຫາຄຳນຳໜ້າ/ພາສາຕ່າງກັນ)
+        const getEmail = (str) => {
+            if (!str) return '';
+            const match = str.match(/[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}/);
+            return match ? match[0].toLowerCase() : str.trim().toLowerCase();
+        };
+
         let html = ''; 
         snapshot.forEach((docSnap) => { 
             const msg = docSnap.data(); 
-            const isMe = msg.sender === currentRoomUser; 
+            
+            // 🔍 ປຽບທຽບຜ່ານ Email ທີ່ສະກັດໄດ້ ເພື່ອໃຫ້ຖືກຕ້ອງແມ່ນຄົນດຽວກັນ
+            const isMe = getEmail(msg.sender) === getEmail(currentRoomUser); 
             const isFeedback = msg.sender.includes('Bình luận'); 
+            
             html += ` 
                 <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'} animate-fade-in"> 
                     <span class="text-[10px] text-slate-400 mb-1 px-1">${msg.sender} (${msg.time || ''})</span> 
@@ -894,7 +885,7 @@ function listenAdminChat() {
         }); 
         container.innerHTML = html; container.scrollTop = container.scrollHeight; 
     }); 
-} 
+}
 
 window.sendAdminMessage = async () => { 
     const input = document.getElementById('admin-chat-input'); 
