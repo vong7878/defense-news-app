@@ -3,7 +3,24 @@ import { getAuth, signInWithEmailAndPassword, signOut, setPersistence, browserLo
 import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, setDoc, runTransaction, increment, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"; 
 
 
+// 📂 ຟັງຊັນສະແດງຊື່ໄຟລ໌ທີ່ຖືກເລືອກ ແລະ ຮອງຮັບ 6 ພາສາ
+window.updateFileNameDisplay = function(input) {
+    // ດຶງຄຳແປຕາມພາສາປັດຈຸບັນ
+    const t = typeof getTranslationLabels === 'function' ? getTranslationLabels() : {};
+    
+    // ຊອກຫາ Element ສຳລັບສະແດງຊື່ໄຟລ໌
+    const fileNameSpan = document.getElementById('file-name-display');
+    
+    if (!fileNameSpan) return;
 
+    // ຖ້າຜູ້ໃຊ້ເລືອກໄຟລ໌ແລ້ວ ໃຫ້ສະແດງຊື່ໄຟລ໌ນັ້ນ
+    if (input.files && input.files.length > 0) {
+        fileNameSpan.textContent = input.files[0].name;
+    } else {
+        // ຖ້າຫາກຍັງບໍ່ໄດ້ເລືອກ ໃຫ້ສະແດງຂໍ້ຄວາມ "ຍັງບໍ່ທັນເລືອກໄຟລ໌" ຕາມພາສາທີ່ກຳລັງເປີດຢູ່
+        fileNameSpan.textContent = t.noFileChosen || "No file chosen";
+    }
+};
 
 
 
