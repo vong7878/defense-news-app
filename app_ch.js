@@ -1815,10 +1815,10 @@ function renderMemberReports() {
 
     // 🌍 ດຶງຄຳແປຕາມພາສາປັດຈຸບັນຈາກໄຟລ໌ສ່ວນກາງ (common.js) ໂດຍອັດຕະໂນມັດ
     const t = typeof getTranslationLabels === 'function' ? getTranslationLabels() : {
-         specialPoint: "Received special points", deductPoint: "Deducted points", noReports: "No reports yet", 
-        fromAdmin: "From website creator", actionPhotos: "Action Photos", approved: "Approved", 
-        videoDrive: "Google Drive Video", openDrive: "Open Video in Google Drive", 
-        approveBtn: "Approve", deleteReportBtn: "Delete Report", pending: "Pending approval", room: "Room", sender: "Sender"
+        specialPoint: "获得特殊加分", deductPoint: "扣除分数", fromAdmin: "来自网站创作者", 
+        noReports: "暂无报告", approved: "已批准", actionPhotos: "行动照片", pending: "等待批准", 
+        room: "房间", videoDrive: "谷歌网盘视频", openDrive: "在谷歌网盘中打开视频", 
+        approveBtn: "批准", deleteReportBtn: "删除报告", sender: "发件人" 
     };
 
     if (allMemberReports.length === 0) { 
