@@ -398,7 +398,7 @@
                 </div> 
             </div> 
 
-            <!-- SECTION 5: Member Report Form --> 
+    <!-- SECTION 5: Member Report Form --> 
             <div id="section-member" class="space-y-4 hidden animate-fade-in"> 
                 <div class="bg-slate-800/85 backdrop-blur p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4"> 
                     <h2 class="text-xl font-bold text-emerald-400">👤 成员表单：卫生报告与身份验证</h2> 
@@ -406,27 +406,35 @@
                         <p>⚠️ <b>提交规则：</b> 每个房间每周仅可提交 <b>1 次（仅限周日 16:00 - 19:00）！</b></p> 
                         <p>📹 <b>新视频规则：</b> 必须使用 **实时相机拍摄（Live Camera Capture）**！**严禁从相册或本地文件中选择**，且视频长度 **不得超过 1 分钟（60秒）**。</p> 
                     </div> 
-   <div class="space-y-3 pt-2"> 
+                     
+                    <div class="space-y-3 pt-2"> 
                         <div> 
-                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">Họ và tên người gửi:</label> 
-                            <input type="text" id="member-name" name="fullname" autocomplete="off" placeholder="Ví dụ: Mr.Abc" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"> 
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">提交人姓名：</label> 
+                            <input type="text" id="member-name" name="fullname" autocomplete="off" placeholder="例如：Mr.Abc" class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"> 
                         </div> 
                          
                         <div> 
-                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">🏠 Phòng của bạn (Đã đăng nhập):</label> 
-                            <input type="text" id="member-room-display" readonly class="w-full bg-slate-900/80 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm text-emerald-400 font-bold" value="Chưa chọn phòng"> 
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">🏠 你的房间（已登录）：</label> 
+                            <input type="text" id="member-room-display" readonly class="w-full bg-slate-900/80 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm text-emerald-400 font-bold" value="未选择房间"> 
                         </div> 
 
                         <div> 
-                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">Chi tiết vệ sinh:</label> 
-                            <textarea id="member-task-desc" rows="3" placeholder="Mô tả kết quả thực hiện..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"></textarea> 
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">卫生详情：</label> 
+                            <textarea id="member-task-desc" rows="3" placeholder="描述清理执行情况..." class="w-full bg-slate-900 border border-slate-700 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500"></textarea> 
                         </div> 
                         <div> 
-                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">📹 Quay video trực tiếp qua camera (Tối đa 1 phút):</label> 
+                            <label class="block text-xs text-emerald-300 mb-1 font-semibold">📹 通过相机录制实时视频（最长 1 分钟）：</label> 
                             <input type="file" accept="video/*" capture="environment">
-                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ Hệ thống sẽ kiểm tra thời lượng video không quá 60 giây và tự động tải lên Google Drive</p> 
+                            <p id="member-upload-status" class="text-[11px] text-amber-400 mt-1">⚠️ 系统将验证视频长度不超过60秒，并自动将其上传至 Google Drive</p> 
                         </div> 
-                    </div>
+                    </div> 
+
+                    <div class="pt-3"> 
+                        <button onclick="submitMemberReport()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 px-4 rounded-xl transition text-sm shadow-lg"> 
+                            🚀 提交报告以赚取积分（周日 16:00 - 19:00） 
+                        </button> 
+                    </div> 
+                </div> 
 
                 <div class="bg-slate-800/85 backdrop-blur p-5 rounded-2xl border border-slate-700 shadow-xl space-y-4"> 
                     <h3 class="font-bold text-emerald-400 text-base">📋 所有成员报告（供管理员审批）</h3> 
