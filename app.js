@@ -2147,3 +2147,70 @@ window.filterCategory = (cat) => {
     else renderNews(allNews.filter(n => n.category === cat)); 
 
 }; 
+
+
+// ==========================================
+// ລະບົບຈັດການຄະແນນສຸກເສີນ ແລະ ຂໍອະນຸມັດ (ຮອງຮັບ 6 ພາສາ: la, th, vn, en, ch, kr)
+// ==========================================
+
+const scoreTranslations = {
+    la: { req: "ສົ່ງຄຳຂໍເພີ່ມຄະແນນໄປຫາ Super Admin ແລ້ວ!", appr: "ອະນຸມັດ ແລະ ບວກຄະແນນສຳເລັດແລ້ວ!", errNum: "ກະລຸນາໃສ່ຈຳນວນຄະແນນເປັນຕົວເລກ!", errGen: "ເກີດຂໍ້ຜິດພາດ: " },
+    th: { req: "ส่งคำขอเพิ่มคะแนนไปหา Super Admin แล้ว!", appr: "อนุมัติและบวกคะแนนเรียบร้อยแล้ว!", errNum: "กรุณาใส่จำนวนคะแนนเป็นตัวเลข!", errGen: "เกิดข้อผิดพลาด: " },
+    vn: { req: "Đã gửi yêu cầu thêm điểm tới Super Admin!", appr: "Đã phê duyệt và cộng điểm thành công!", errNum: "Vui lòng nhập số điểm hợp lệ!", errGen: "Đã xảy ra lỗi: " },
+    en: { req: "Bonus point request sent to Super Admin!", appr: "Approved and points added successfully!", errNum: "Please enter a valid numeric score!", errGen: "Error: " },
+    ch: { req: "加分请求已发送给超级管理员！", appr: "已批准并成功加分！", errNum: "请输入有效的数字分数！", errGen: "发生错误：" },
+    kr: { req: "슈퍼 관리자에게 점수 추가 요청이 전송되었습니다!", appr: "승인되었으며 점수가 추가되었습니다!", errNum: "올바른 숫자 점수를 입력해주세요!", errGen: "오류 발생: " }
+};
+
+window.requestBonusScore = async function() {
+    const lang = window.currentLang || 'la';
+    const t = scoreTranslations[lang] || scoreTranslations['la'];
+    const roomId = document.getElementById('admin-room-select').value;
+    const points = parseInt(document.getElementById('admin-score-input').value);
+
+    if (isNaN(points)) {
+        alert(t.errNum);
+        return;
+    }
+
+    try {
+        await addDoc(collection(db, "scoreRequests"), {
+            roomId: roomId,
+            points: points,
+            requestedBy: auth.currentUser ? auth.currentUser.email : "Sub-Admin",
+            status: "pending",
+            createdAt: new Date().toISOString()
+        });
+        alert(t.req);
+        document.getElementById('admin-score-input').value = '';
+    } catch (error) {
+        console.error("Error: ", error);
+        alert(t.errGen + error.message);
+    }
+};
+
+window.approveScoreRequest = async function(requestId, roomId, points) {
+    const lang = window.currentLang || 'la';
+    const t = scoreTranslations[lang] || scoreTranslations['la'];
+
+    try {
+        const roomRef = doc(db, "rooms", roomId);
+        await updateDoc(roomRef, {
+            score: increment(points),
+            lastUpdated: new Date().toISOString()
+        });
+
+        const reqRef = doc(db, "scoreRequests", requestId);
+        await updateDoc(reqRef, {
+            status: "approved",
+            approvedAt: new Date().toISOString(),
+            approvedBy: auth.currentUser ? auth.currentUser.email : "Super Admin"
+        });
+
+        alert(`${t.appr} (ห้อง ${roomId}: +${points})`);
+        if (typeof loadPendingRequests === 'function') loadPendingRequests();
+    } catch (error) {
+        console.error("Error: ", error);
+        alert(t.errGen + error.message);
+    }
+};
