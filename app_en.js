@@ -1825,10 +1825,10 @@ function renderMemberReports() {
 
     // 🌍 ດຶງຄຳແປຕາມພາສາປັດຈຸບັນຈາກໄຟລ໌ສ່ວນກາງ (common.js) ໂດຍອັດຕະໂນມັດ
     const t = typeof getTranslationLabels === 'function' ? getTranslationLabels() : {
-         specialPoint: "특별 점수 획득", deductPoint: "점수 차감", noReports: "아직 보고서가 없습니다", 
-        fromAdmin: "웹사이트 제작자로부터", actionPhotos: "활동 사진", approved: "승인됨", 
-        pending: "승인 대기 중", videoDrive: "구글 드라이브 동영상", openDrive: "구글 드라이브에서 동영상 열기", 
-        approveBtn: "승인", deleteReportBtn: "보고서 삭제", room: "방", sender: "보낸사람" 
+         specialPoint: "Received special points", deductPoint: "Deducted points", noReports: "No reports yet", 
+        fromAdmin: "From website creator", actionPhotos: "Action Photos", approved: "Approved", 
+        videoDrive: "Google Drive Video", openDrive: "Open Video in Google Drive", 
+        approveBtn: "Approve", deleteReportBtn: "Delete Report", pending: "Pending approval", room: "Room", sender: "Sender"
     };
 
     if (allMemberReports.length === 0) { 
