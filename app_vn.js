@@ -98,7 +98,7 @@ window.addEventListener('DOMContentLoaded', () => {
     initAntiCopyProtection(); 
     initSnakeKeyboardControls(); 
     initFirefliesMovement(); 
-     window.syncAdminUIAcrossPages();
+     
     setTimeout(checkUrlHashForPost, 800); 
 }); 
 
