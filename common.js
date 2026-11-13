@@ -189,3 +189,27 @@ function renderDashboardInfo(weekNum) {
     
     return { weekText, monthText };
 }
+// 📂 ຟັງຊັນອັບເດດຊື່ໄຟລ໌ ແລະ ປ່ຽນຂໍ້ຄວາມຕາມ 6 ພາສາ
+window.updateFileNameDisplay = function(input) {
+    const t = typeof getTranslationLabels === 'function' ? getTranslationLabels() : {};
+    const fileNameSpan = document.getElementById('file-name-display');
+    
+    if (input.files && input.files.length > 0) {
+        // ຖ້າເລືອກໄຟລ໌ແລ້ວ ໃຫ້ສະແດງຊື່ໄຟລ໌ນັ້ນອອກມາ
+        fileNameSpan.textContent = input.files[0].name;
+    } else {
+        // ຖ້າຫາກຍັງບໍ່ໄດ້ເລືອກ ໃຫ້ສະແດງຂໍ້ຄວາມ "ຍັງບໍ່ທັນເລືອກໄຟລ໌" ຕາມພາສາປັດຈຸບັນ
+        fileNameSpan.textContent = t.noFileChosen || "No file chosen";
+    }
+};
+
+// 🔄 ຟັງຊັນອັບເດດຂໍ້ຄວາມປຸ່ມເວລາໂຫຼດໜ້າເວັບ
+document.addEventListener('DOMContentLoaded', () => {
+    const t = typeof getTranslationLabels === 'function' ? getTranslationLabels() : {};
+    
+    const btnFileText = document.getElementById('btn-file-text');
+    const fileNameSpan = document.getElementById('file-name-display');
+    
+    if (btnFileText && t.selectFile) btnFileText.textContent = t.selectFile;
+    if (fileNameSpan && t.noFileChosen) fileNameSpan.textContent = t.noFileChosen;
+});
