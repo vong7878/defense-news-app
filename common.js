@@ -26,8 +26,85 @@ window.getTranslatedReportDesc = function(description) {
     return displayDesc;
 };
 
-// ຟັງຊັນຄຳແປທົ່ວໄປ
+// 🔍 ໃຫ້ກວດຈັບຈາກຊື່ໄຟລ໌ HTML ຕົ้นທາງກ່ອນສະເໝີ (ຮັບປະກັນ 100%)
+window.detectCurrentLanguage = function() {
+    const path = window.location.pathname.toLowerCase();
+    if (path.includes('_vn')) return 'vn';
+    if (path.includes('_th')) return 'th';
+    if (path.includes('_en')) return 'en';
+    if (path.includes('_ch')) return 'ch';
+    if (path.includes('_kr')) return 'kr';
+    if (path.includes('_lo') || path.includes('index.html')) return 'la';
+    
+    return window.currentLang || localStorage.getItem('selected_lang') || 'la';
+};
+
+// 📖 ດຶງຄຳແປທັງໝົດຕາມພາສາປັດຈຸບັນ
 window.getTranslationLabels = function() {
-    const lang = window.currentLang || 'la';
+    const lang = window.detectCurrentLanguage();
     return reportTranslations[lang] || reportTranslations['la'];
 };
+
+// 🔄 ແປຂໍ້ຄວາມລາຍລະອຽດບົດລາຍງານ (ຄະແນນພິເສດ / ຖືກຫັກຄະແນນ) ໃຫ້ກົງກັບພາສາທີ່ເປີດຢູ່
+window.getTranslatedReportDesc = function(description) {
+    const t = window.getTranslationLabels();
+    let displayDesc = description || '';
+
+    const specialKeywords = [
+        "ຄະແນນພິເສດ", "ຖືກຫັກຄະແນນ",
+        "Điểm đặc biệt", "điểm đặc biệt", "Bị trừ điểm",
+        "special points", "Deducted points",
+        "特殊加分", "扣除分数",
+        "특별 점수", "점수 차감",
+        "รับคะแนนพิเศษ", "ถูกหักคะแนน"
+    ];
+
+    const isSpecial = specialKeywords.some(kw => displayDesc.includes(kw));
+    if (isSpecial) {
+        const ptsMatch = displayDesc.match(/([+-]?\d+)/);
+        const ptsNum = ptsMatch ? parseInt(ptsMatch[1], 10) : 0;
+        const isNegative = ptsNum < 0;
+        const signText = ptsNum > 0 ? `+${ptsNum}` : `${ptsNum}`;
+        const label = isNegative ? t.deductPoint : t.specialPoint;
+        const icon = isNegative ? "➖" : "⭐";
+        displayDesc = `${icon} ${label} (${signText}) - ${t.fromAdmin}`;
+    }
+    return displayDesc;
+};
+
+// 🛡️ ກວດສອບສະຖານະ Admin ຂ້າມໜ້າ/ຂ້າມພາສາທັນທີທີ່ໂຫຼດໜ້າເວັບ
+window.syncAdminUIAcrossPages = function() {
+    const currentRoomUser = localStorage.getItem('current_room_user') || null;
+    const userRole = localStorage.getItem('current_user_role') || 'user';
+
+    const adminBox = document.getElementById('admin-panel-box');
+    const adminChatLi = document.getElementById('tab-admin-chat-li');
+    const superAdminSpecialPoints = document.getElementById('super-admin-special-points');
+
+    if (currentRoomUser && userRole === 'admin') {
+        if (adminBox) adminBox.classList.remove('hidden');
+        if (adminChatLi) adminChatLi.classList.remove('hidden');
+
+        const isSuper = currentRoomUser.includes('ຜູ້ສ້າງ:') ||
+                        currentRoomUser.includes('Người tạo:') ||
+                        currentRoomUser.includes('ผู้สร้าง:') ||
+                        currentRoomUser.includes('Creator:') ||
+                        currentRoomUser.includes('Super Admin');
+
+        if (superAdminSpecialPoints) {
+            if (isSuper) {
+                superAdminSpecialPoints.classList.remove('hidden');
+            } else {
+                superAdminSpecialPoints.classList.add('hidden');
+            }
+        }
+    } else {
+        if (adminBox) adminBox.classList.add('hidden');
+        if (adminChatLi) adminChatLi.classList.add('hidden');
+        if (superAdminSpecialPoints) superAdminSpecialPoints.classList.add('hidden');
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    window.syncAdminUIAcrossPages();
+});
