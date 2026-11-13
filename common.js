@@ -150,3 +150,42 @@ document.addEventListener('DOMContentLoaded', () => {
         langSelect.value = currentLang;
     }
 });
+
+
+// 1. ກຳນົດຄຳແປ 6 ພາສາສຳລັບ Dashboard ໂດຍກົງໃນໄຟລ໌ຫຼັກ
+const dashboardTranslations = {
+    la: { week: "ສັບດາທີ", november: "ພະຈິກ" },
+    th: { week: "สัปดาห์ที่", november: "พฤศจิกายน" },
+    vn: { week: "Tuần thứ", november: "Tháng 11" },
+    en: { week: "Week", november: "November" },
+    ch: { week: "第", november: "十一月" },
+    kr: { week: "주차", november: "11월" }
+};
+
+// 2. ຟັງຊັນສຳລັບດຶງຄຳແປຕາມພາສາປັດຈຸບັນທີ່ເປີດຢູ່ (ກວດຈັບຈາກຊື່ໄຟລ໌ HTML)
+function getDashboardLang() {
+    const path = window.location.pathname.toLowerCase();
+    if (path.includes('_vn')) return 'vn';
+    if (path.includes('_th')) return 'th';
+    if (path.includes('_en')) return 'en';
+    if (path.includes('_ch')) return 'ch';
+    if (path.includes('_kr')) return 'kr';
+    if (path.includes('_lo') || path.includes('index.html')) return 'la';
+    return window.currentLang || localStorage.getItem('selected_lang') || 'la';
+}
+
+// 3. ຕົວຢ່າງນຳໄປໃຊ້ເວລາ Render ສະແດງຜົນ Dashboard (ສັບດາ ແລະ ເດືອນ)
+function renderDashboardInfo(weekNum) {
+    const currentLang = getDashboardLang();
+    const t = dashboardTranslations[currentLang] || dashboardTranslations['la'];
+
+    // ຕົວຢ່າງຜົນລัพธ์: ຖ້າເປັນພາສາຈີນ (ch) ຈະສະແດງເປັນ "第 46" 
+    const weekText = `${t.week} ${weekNum}`; 
+    const monthText = t.november;
+
+    // ຕົວຢ່າງເອົາໄປ ѝn ໃສ່ Element ໃນ HTML ຂອງທ່ານ
+    // const weekElement = document.getElementById('week-display');
+    // if (weekElement) weekElement.textContent = weekText;
+    
+    return { weekText, monthText };
+}
