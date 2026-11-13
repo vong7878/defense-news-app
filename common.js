@@ -123,3 +123,30 @@ window.syncAdminUIAcrossPages = function() {
 document.addEventListener('DOMContentLoaded', () => {
     window.syncAdminUIAcrossPages();
 });
+// 🔀 ຟັງຊັນປ່ຽນພາສາ ແລະ พาไปยังໄຟລ໌ HTML ຂອງພາສານັ້ນໆ
+window.changeWebsiteLanguage = function(lang) {
+    localStorage.setItem('selected_lang', lang);
+    
+    // ກຳນົດເສັ້ນທາງໄຟລ໌ HTML ຕາມພາສາທີ່ເລືອກ
+    let targetPage = 'index.html'; // ພາສາລາວ (ຄ່າເລີ່ມຕົ້ນ)
+    if (lang === 'vn') targetPage = 'index_vn.html';
+    else if (lang === 'th') targetPage = 'index_th.html';
+    else if (lang === 'en') targetPage = 'index_en.html';
+    else if (lang === 'ch') targetPage = 'index_ch.html';
+    else if (lang === 'kr') targetPage = 'index_kr.html';
+    else if (lang === 'la') targetPage = 'index.html'; // ຫຼື index_lo.html ຕາມໂຄງສ້າງຂອງທ່ານ
+
+    // ໄປຍังໜ້າເວັບຂອງພາສານັ້ນ
+    window.location.href = targetPage;
+};
+
+// 🎯 ອັບເດດຄ່າໃນ Select Dropdown ให้ກົງກັບພາສາປັດຈຸບັນທັນທີທີ່ໂຫຼດໜ້າເວັບ
+document.addEventListener('DOMContentLoaded', () => {
+    window.syncAdminUIAcrossPages();
+    
+    const currentLang = window.detectCurrentLanguage();
+    const langSelect = document.getElementById('language-selector');
+    if (langSelect) {
+        langSelect.value = currentLang;
+    }
+});
